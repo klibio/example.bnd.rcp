@@ -1,0 +1,9 @@
+.metadata
+cnf/cache/
+
+# Mac OS detritus
+.DS_Store
+
+/.gradle/
+/reports/
+/generated/
