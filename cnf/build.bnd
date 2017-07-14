@@ -34,9 +34,20 @@
 junit: org.apache.servicemix.bundles.junit; version=4.12
 
 cache = ${workspace}/cnf/.cache
-targetEclipsePlatformReleaseVersion=4.7/R-4.7-201706120950
+
+# Eclipse Target repositories 
+targetEclipseVersion=4.7
+targetEclipseName=oxygen
+targetEclipsePlatformReleaseVersion=${targetEclipseVersion}/R-4.7-201706120950
+targetSimultaneousReleaseVersion=${targetEclipseName}/201706281000
 
 -plugin.10.eclipse.platform: aQute.bnd.repository.p2.provider.P2Repository; \
     name  = "Eclipse Platform ${replace;${targetEclipsePlatformReleaseVersion};.*?/(.*?);$1}"; \
     url   = "http://download.eclipse.org/eclipse/updates/${targetEclipsePlatformReleaseVersion}"; \
     cache = ${cache}
+
+-plugin.11.eclipse.simu: aQute.bnd.repository.p2.provider.P2Repository; \
+    name  = "Eclipse Simu Release ${targetEclipseName} ${replace;${targetSimultaneousReleaseVersion};.*?/(.*?);$1}"; \
+    url   = "http://download.eclipse.org/releases/${targetSimultaneousReleaseVersion}"; \
+    cache = ${cache}
+    
