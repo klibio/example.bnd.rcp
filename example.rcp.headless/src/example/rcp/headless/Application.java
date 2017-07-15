@@ -10,7 +10,7 @@ public class Application implements IApplication {
 
 	@Override
 	public Object start(IApplicationContext context) throws Exception {
-		System.out.println("Hello RCP World!");
+		System.out.println("Hello RCP World launched from bndtools!");
 		return IApplication.EXIT_OK;
 	}
 
