@@ -36,30 +36,38 @@ junit: org.apache.servicemix.bundles.junit; version=4.12
 cache = ${workspace}/cnf/cache
 
 # Eclipse Target repositories 
-targetEclipseVersion=4.7
-targetEclipseName=oxygen
-targetEclipsePlatformReleaseVersion=${targetEclipseVersion}/R-4.7-201706120950
-targetSimultaneousReleaseVersion=${targetEclipseName}/201706281000
+eclipse.version=4.7
+eclipse.name=oxygen
+
+eclipse.platform.url="http://download.eclipse.org/eclipse/updates"
+eclipse.platform.version=R-4.7-201706120950
+
+eclipse.simultaneous.url="http://download.eclipse.org/releases"
+eclipse.simultaneous.version=${eclipse.name}/201706281000
+
+# Remote Eclipse repositories
 
 # 1. creation of the indices via this configurations and store inside cnf/fixedIndices
 #-plugin.10.eclipse.platform: aQute.bnd.repository.p2.provider.P2Repository; \
-#    name  = "Eclipse Platform ${replace;${targetEclipsePlatformReleaseVersion};.*?/(.*?);$1}"; \
-#    url   = "http://download.eclipse.org/eclipse/updates/${targetEclipsePlatformReleaseVersion}"; \
+#    name  = "Eclipse Platform ${replace;${eclipse.platform.version};.*?/(.*?);$1}"; \
+#    url   = "${eclipse.platform.url}/${eclipse.platform.version}"; \
 #    cache = ${cache}
 
 #-plugin.11.eclipse.simu: aQute.bnd.repository.p2.provider.P2Repository; \
-#    name  = "Eclipse Simu Release ${targetEclipseName} ${replace;${targetSimultaneousReleaseVersion};.*?/(.*?);$1}"; \
-#    url   = "http://download.eclipse.org/releases/${targetSimultaneousReleaseVersion}"; \
+#    name  = "Eclipse Simu Release ${eclipse.name} ${replace;${eclipse.simultaneous.version};.*?/(.*?);$1}"; \
+#    url   = "${eclipse.simultaneous.url}/${eclipse.simultaneous.version}"; \
 #    cache = ${cache}
+
+# Reference the locally indexed eclipse repositories
 
 # 2. use the fixed indices saves the load time on new workspaces
 -plugin.20.eclipse.platform: aQute.bnd.deployer.repository.FixedIndexedRepo; \
-    name      = "Eclipse Platform ${replace;${targetEclipsePlatformReleaseVersion};.*?/(.*?);$1}"; \
+    name      = "Eclipse Platform ${replace;${eclipse.platform.version};.*?/(.*?);$1}"; \
     locations = file:${workspace}/cnf/fixedIndices/p2-Eclipse-Platform-R-4.7-201706120950/index.xml.gz; \
     cache     = ${cache}
 
 -plugin.21.eclipse.simu: aQute.bnd.deployer.repository.FixedIndexedRepo; \
-    name      = "Eclipse Simu Release ${targetEclipseName} ${replace;${targetSimultaneousReleaseVersion};.*?/(.*?);$1}"; \
+    name      = "Eclipse Simu Release ${eclipse.name} ${replace;${eclipse.simultaneous.version};.*?/(.*?);$1}"; \
     locations = file:${workspace}/cnf/fixedIndices/p2-Eclipse-Simu-Release-oxygen-201706281000/index.xml.gz; \
     cache     = ${cache}
     

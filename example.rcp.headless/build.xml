@@ -10,7 +10,6 @@
     </pathconvert>
 
 	<target name="exportFatJar">
-        <echo message="retrieving bnd lib" />
         <fileset dir="${dir.workspace}/cnf/local/biz.aQute.bnd" id="id.biz.aQute.bnd">
             <include name="biz.aQute.bnd*" />
         </fileset>
@@ -21,6 +20,10 @@
 			<arg line="-o ${dir.script}/_export/example.rcp.headless.jar" />
 			<arg line="${dir.script}/rcp.bndrun" />
 		</java>
+		
+		<echo message="exported fat jar inside folder `/example.rcp.headless/_export`" />
+        <echo message="launch option 1: via Eclipse run configuration `/example.rcp.headless/launch/2_run_exported_example.rcp.headless.launch`" />
+		<echo message="launch option 2: via cmd line `java -jar example.rcp.headless.jar`" />
 	</target>
 
 </project>
