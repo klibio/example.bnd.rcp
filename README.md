@@ -1,5 +1,5 @@
 # Project: example.bnd.eclipse
-[![ghit.me](https://ghit.me/badge.svg?repo=peterkir/example.bnd.eclipse)](https://ghit.me/repo/peterkir/example.bnd.eclipse)
+[![ghit.me](https://ghit.me/badge.svg?repo=peterkir/example.bnd.rcp)](https://ghit.me/repo/peterkir/example.bnd.rcp)
 
 This GitHub repo shows the usage of Eclipse RCP framework with Bndtools.
 Contained is a bndtools configuration referencing Eclipse 4.7 Oxygen release.
