@@ -1,4 +1,6 @@
 # Project: example.bnd.eclipse
+[![ghit.me](https://ghit.me/badge.svg?repo=peterkir/idefix)](https://ghit.me/repo/peterkir/idefix)
+
 This GitHub repo shows the usage of Eclipse RCP framework with Bndtools.
 Contained is a bndtools configuration referencing Eclipse 4.7 Oxygen release.
 
