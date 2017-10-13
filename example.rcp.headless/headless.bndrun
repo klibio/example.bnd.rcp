@@ -1,7 +1,7 @@
-Bundle-Version: 0.1.0.${tstamp;yyyyMMdd-HHmmss}
+#Bundle-Version: 0.1.0.${tstamp;yyyyMMdd-HHmmss}
 
 -runee: JavaSE-1.8
--runfw: org.eclipse.osgi;version='[3.12.0.v20170512-1932,3.12.0.v20170512-1932]'
+-runfw: org.eclipse.osgi;version='[3.12.1.v20170821-1548,3.12.1.v20170821-1548]'
 
 -runproperties: \
     launch.keep=false,\
