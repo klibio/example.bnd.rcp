@@ -1,0 +1,871 @@
+# This file contains include variables for bnd files inside statements '-runrequires'
+
+# Usage example for a dependency on feature org.eclipse.rcp
+#-include: \
+#    __bnd_runrequires_Eclipse_Platform_R-4.7.1-201709061700.bndrun
+#
+# -runrequires: \
+#    ${FEA_org.eclipse.rcp_4.7.0.v20170612-1255}
+#
+#
+# TOC of the contained Eclipse Features
+# every entry name matches an Eclipse Features and contains all included features and plugins
+#
+
+# ${FEA_org.eclipse.core.runtime.feature_1.2.1.v20170821-1548}
+# ${FEA_org.eclipse.cvs.source_1.4.401.v20170906-1700}
+# ${FEA_org.eclipse.cvs_1.4.401.v20170906-1700}
+# ${FEA_org.eclipse.e4.core.tools.feature.source_4.7.0.v20170515-1617}
+# ${FEA_org.eclipse.e4.core.tools.feature_4.7.0.v20170515-1617}
+# ${FEA_org.eclipse.e4.rcp.source_1.6.1.v20170829-0553}
+# ${FEA_org.eclipse.e4.rcp_1.6.1.v20170829-0553}
+# ${FEA_org.eclipse.e4.rcp_1.6.1.v20170829-0553_PLATFORM_linux.gtk.x86}
+# ${FEA_org.eclipse.e4.rcp_1.6.1.v20170829-0553_PLATFORM_linux.gtk.x86_64}
+# ${FEA_org.eclipse.e4.rcp_1.6.1.v20170829-0553_PLATFORM_macosx.cocoa.x86_64}
+# ${FEA_org.eclipse.e4.rcp_1.6.1.v20170829-0553_PLATFORM_win32.win32.x86}
+# ${FEA_org.eclipse.e4.rcp_1.6.1.v20170829-0553_PLATFORM_win32.win32.x86_64}
+# ${FEA_org.eclipse.ecf.core.feature.source_1.4.0.v20170516-2248}
+# ${FEA_org.eclipse.ecf.core.feature_1.4.0.v20170516-2248}
+# ${FEA_org.eclipse.ecf.core.ssl.feature.source_1.1.0.v20170110-1317}
+# ${FEA_org.eclipse.ecf.core.ssl.feature_1.1.0.v20170110-1317}
+# ${FEA_org.eclipse.ecf.filetransfer.feature.source_3.13.7.v20170516-2248}
+# ${FEA_org.eclipse.ecf.filetransfer.feature_3.13.7.v20170516-2248}
+# ${FEA_org.eclipse.ecf.filetransfer.httpclient4.feature.source_3.13.7.v20170516-2248}
+# ${FEA_org.eclipse.ecf.filetransfer.httpclient4.feature_3.13.7.v20170516-2248}
+# ${FEA_org.eclipse.ecf.filetransfer.httpclient4.ssl.feature.source_1.1.0.v20170110-1317}
+# ${FEA_org.eclipse.ecf.filetransfer.httpclient4.ssl.feature_1.1.0.v20170110-1317}
+# ${FEA_org.eclipse.ecf.filetransfer.ssl.feature.source_1.1.0.v20170110-1317}
+# ${FEA_org.eclipse.ecf.filetransfer.ssl.feature_1.1.0.v20170110-1317}
+# ${FEA_org.eclipse.emf.common.source_2.13.0.v20170609-0707}
+# ${FEA_org.eclipse.emf.common_2.13.0.v20170609-0707}
+# ${FEA_org.eclipse.emf.ecore.source_2.13.0.v20170609-0707}
+# ${FEA_org.eclipse.emf.ecore_2.13.0.v20170609-0707}
+# ${FEA_org.eclipse.equinox.compendium.sdk_3.13.1.v20170811-1407}
+# ${FEA_org.eclipse.equinox.core.feature_1.4.1.v20170821-1548}
+# ${FEA_org.eclipse.equinox.core.sdk_3.13.1.v20170821-1548}
+# ${FEA_org.eclipse.equinox.core.sdk_3.13.1.v20170821-1548_PLATFORM_macosx.cocoa.x86_64}
+# ${FEA_org.eclipse.equinox.executable_3.7.1.v20170811-1325}
+# ${FEA_org.eclipse.equinox.p2.core.feature.source_1.4.1.v20170906-1259}
+# ${FEA_org.eclipse.equinox.p2.core.feature_1.4.1.v20170906-1259}
+# ${FEA_org.eclipse.equinox.p2.core.feature_1.4.1.v20170906-1259_PLATFORM_macosx.cocoa.x86_64}
+# ${FEA_org.eclipse.equinox.p2.discovery.feature_1.1.1.v20170906-1259}
+# ${FEA_org.eclipse.equinox.p2.extras.feature.source_1.3.1.v20170906-1259}
+# ${FEA_org.eclipse.equinox.p2.extras.feature_1.3.1.v20170906-1259}
+# ${FEA_org.eclipse.equinox.p2.rcp.feature.source_1.3.1.v20170906-1259}
+# ${FEA_org.eclipse.equinox.p2.rcp.feature_1.3.1.v20170906-1259}
+# ${FEA_org.eclipse.equinox.p2.sdk_3.10.1.v20170906-1259}
+# ${FEA_org.eclipse.equinox.p2.user.ui.source_2.3.1.v20170906-1259}
+# ${FEA_org.eclipse.equinox.p2.user.ui_2.3.1.v20170906-1259}
+# ${FEA_org.eclipse.equinox.sdk_3.13.1.v20170906-1529}
+# ${FEA_org.eclipse.equinox.server.core_1.5.1.v20170821-1548}
+# ${FEA_org.eclipse.equinox.server.jetty_1.4.1.v20170811-1407}
+# ${FEA_org.eclipse.equinox.server.p2_1.3.1.v20170906-1259}
+# ${FEA_org.eclipse.equinox.serverside.sdk_3.13.1.v20170906-1529}
+# ${FEA_org.eclipse.help.source_2.2.101.v20170906-1700}
+# ${FEA_org.eclipse.help_2.2.101.v20170906-1700}
+# ${FEA_org.eclipse.jdt.source_3.13.1.v20170906-1700}
+# ${FEA_org.eclipse.jdt_3.13.1.v20170906-1700}
+# ${FEA_org.eclipse.jdt_3.13.1.v20170906-1700_PLATFORM_macosx.cocoa.x86_64}
+# ${FEA_org.eclipse.osgi.compatibility.plugins.feature_1.1.1.v20170811-1325}
+# ${FEA_org.eclipse.pde.api.tools.ee.feature_1.0.200.v20170515-0910}
+# ${FEA_org.eclipse.pde.source_3.13.1.v20170906-1700}
+# ${FEA_org.eclipse.pde_3.13.1.v20170906-1700}
+# ${FEA_org.eclipse.platform.source_4.7.1.v20170906-1700}
+# ${FEA_org.eclipse.platform_4.7.1.v20170906-1700}
+# ${FEA_org.eclipse.platform_4.7.1.v20170906-1700_PLATFORM_macosx.cocoa.x86_64}
+# ${FEA_org.eclipse.platform_4.7.1.v20170906-1700_PLATFORM_win32.win32.x86}
+# ${FEA_org.eclipse.platform_4.7.1.v20170906-1700_PLATFORM_win32.win32.x86_64}
+# ${FEA_org.eclipse.rcp.configuration_1.1.1.v20170906-1700}
+# ${FEA_org.eclipse.rcp.source_4.7.1.v20170906-1700}
+# ${FEA_org.eclipse.rcp_4.7.1.v20170906-1700}
+# ${FEA_org.eclipse.rcp_4.7.1.v20170906-1700_PLATFORM_macosx.cocoa.x86_64}
+# ${FEA_org.eclipse.releng.tools_3.9.100.v20170516-0717}
+# ${FEA_org.eclipse.sdk.examples.source_3.6.1.v20170906-1700}
+# ${FEA_org.eclipse.sdk.examples_3.6.1.v20170906-1700}
+# ${FEA_org.eclipse.sdk.examples_3.6.1.v20170906-1700_PLATFORM_win32.win32.x86}
+# ${FEA_org.eclipse.sdk.examples_3.6.1.v20170906-1700_PLATFORM_win32.win32.x86_64}
+# ${FEA_org.eclipse.sdk.tests_4.7.1.v20170906-1700}
+# ${FEA_org.eclipse.sdk_4.7.1.v20170906-1700}
+# ${FEA_org.eclipse.swt.tools.feature_3.106.0.v20170503-0851}
+# ${FEA_org.eclipse.test_3.7.200.v20170511-1043}
+# below this you have the concrete inlcude statements 
+
+FEA_org.eclipse.core.runtime.feature_1.2.1.v20170821-1548: \
+    ${FEA_org.eclipse.equinox.core.feature_1.4.1.v20170821-1548},\
+    \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.runtime)(version>=3.13.0.v20170207-1030))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.variables)(version>=3.4.0.v20170113-2056))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.contenttype)(version>=3.6.0.v20170207-1037))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.preferences)(version>=3.7.0.v20170126-2132))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.expressions)(version>=3.6.0.v20170207-1037))'
+
+FEA_org.eclipse.cvs.source_1.4.401.v20170906-1700: \
+    ${FEA_org.eclipse.cvs_1.4.401.v20170906-1700}
+
+FEA_org.eclipse.cvs_1.4.401.v20170906-1700: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.cvs)(version>=1.4.401.v20170906-1700))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.team.cvs.core)(version>=3.4.100.v20170128-0234))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.team.cvs.ssh2)(version>=3.3.0.v20160418-1534))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.team.cvs.ui)(version>=3.4.1.v20161011-1400))'
+
+FEA_org.eclipse.e4.core.tools.feature.source_4.7.0.v20170515-1617: \
+    ${FEA_org.eclipse.e4.core.tools.feature_4.7.0.v20170515-1617}
+
+FEA_org.eclipse.e4.core.tools.feature_4.7.0.v20170515-1617: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.tools.emf.editor3x)(version>=4.7.0.v20170301-2031))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.tools.emf.ui)(version>=4.5.200.v20170515-1617))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.tools.compat)(version>=4.7.0.v20170112-0731))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.tools.services)(version>=4.7.0.v20170105-1247))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.tools)(version>=4.7.0.v20170412-0858))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.tools.jdt.templates)(version>=4.7.0.v20161219-1049))'
+
+FEA_org.eclipse.e4.rcp.source_1.6.1.v20170829-0553: \
+    ${FEA_org.eclipse.e4.rcp_1.6.1.v20170829-0553}
+
+FEA_org.eclipse.e4.rcp_1.6.1.v20170829-0553: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.core.services)(version>=2.1.0.v20170407-0928))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.ui.workbench.swt)(version>=0.14.101.v20170710-1119))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.core.commands)(version>=0.12.100.v20170513-0428))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.ui.bindings)(version>=0.12.1.v20170823-1632))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.ui.model.workbench)(version>=2.0.1.v20170713-1800))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.ui.services)(version>=1.3.0.v20170307-2032))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.ui.workbench.renderers.swt)(version>=0.14.101.v20170713-1343))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.ui.workbench)(version>=1.5.1.v20170815-1446))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.ui.css.core)(version>=0.12.101.v20170712-1547))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.ui.css.swt)(version>=0.13.1.v20170808-1940))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.batik.css)(version>=1.8.0.v20170214-1941))',\
+    osgi.identity;filter:='(&(osgi.identity=org.w3c.css.sac)(version>=1.3.1.v200903091627))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.batik.util)(version>=1.8.0.v20170214-1941))',\
+    osgi.identity;filter:='(&(osgi.identity=org.w3c.dom.svg)(version>=1.1.0.v201011041433))',\
+    osgi.identity;filter:='(&(osgi.identity=org.w3c.dom.smil)(version>=1.0.1.v200903091627))',\
+    osgi.identity;filter:='(&(osgi.identity=org.w3c.dom.events)(version>=3.0.0.draft20060413_v201105210656))',\
+    osgi.identity;filter:='(&(osgi.identity=javax.inject)(version>=1.0.0.v20091030))',\
+    osgi.identity;filter:='(&(osgi.identity=javax.annotation)(version>=1.2.0.v201602091430))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.core.di)(version>=1.6.100.v20170421-1418))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.core.contexts)(version>=1.6.0.v20170322-1144))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.batik.util.gui)(version>=1.8.0.v20170214-1941))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.core.di.extensions)(version>=0.15.0.v20170228-1728))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.ui.css.swt.theme)(version>=0.11.0.v20170312-2302))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.ui.di)(version>=1.2.100.v20170414-1137))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.ui.widgets)(version>=1.2.0.v20160630-0736))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.common)(version>=3.9.0.v20170207-1454))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.felix.scr)(version>=2.0.10.v20170501-2007))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.ds)(version>=1.5.0.v20170307-1429))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.event)(version>=1.4.0.v20170105-1446))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.commands)(version>=3.9.0.v20170530-1048))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.contenttype)(version>=3.6.0.v20170207-1037))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.databinding)(version>=1.6.100.v20170515-1119))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.databinding.beans)(version>=1.4.0.v20170210-0856))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.databinding.observable)(version>=1.6.100.v20170515-1119))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.databinding.property)(version>=1.6.100.v20170515-1119))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.expressions)(version>=3.6.0.v20170207-1037))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.jobs)(version>=3.9.1.v20170714-0547))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.runtime)(version>=3.13.0.v20170207-1030))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.app)(version>=1.3.400.v20150715-1528))',\
+    osgi.identity;filter:='(&(osgi.identity=com.ibm.icu)(version>=58.2.0.v20170418-1837))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.preferences)(version>=3.7.0.v20170126-2132))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.registry)(version>=3.7.0.v20170222-1344))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.simpleconfigurator)(version>=1.2.0.v20170110-1705))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.swt)(version>=3.106.1.v20170829-0553))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.util)(version>=1.0.500.v20130404-1337))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jface)(version>=3.13.1.v20170810-0135))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jface.databinding)(version>=1.8.100.v20170503-1507))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.ui.workbench3)(version>=0.14.0.v20160630-0740))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.command)(version>=0.10.0.v201209301215))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.runtime)(version>=0.10.0.v201209301036))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.shell)(version>=0.10.0.v201212101605))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.console)(version>=1.1.300.v20170512-2111))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.ui.workbench.addons.swt)(version>=1.3.1.v20170319-1442))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.bidi)(version>=1.1.0.v20160728-1031))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.ui.dialogs)(version>=1.1.100.v20170104-1425))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.commons.jxpath)(version>=1.3.0.v200911051830))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.emf.xpath)(version>=0.2.0.v20160630-0728))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.core.di.annotations)(version>=1.6.0.v20170119-2002))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.core.di.extensions.supplier)(version>=0.15.0.v20170407-0928))'
+
+FEA_org.eclipse.e4.rcp_1.6.1.v20170829-0553_PLATFORM_linux.gtk.x86: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.ui.swt.gtk)(version>=1.0.200.v20170513-0428))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.swt.gtk.linux.x86)(version>=3.106.1.v20170829-0553))'
+
+FEA_org.eclipse.e4.rcp_1.6.1.v20170829-0553_PLATFORM_linux.gtk.x86_64: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.ui.swt.gtk)(version>=1.0.200.v20170513-0428))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.swt.gtk.linux.x86_64)(version>=3.106.1.v20170829-0553))'
+
+FEA_org.eclipse.e4.rcp_1.6.1.v20170829-0553_PLATFORM_macosx.cocoa.x86_64: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.ui.workbench.renderers.swt.cocoa)(version>=0.11.300.v20160330-1418))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.swt.cocoa.macosx.x86_64)(version>=3.106.1.v20170829-0553))'
+
+FEA_org.eclipse.e4.rcp_1.6.1.v20170829-0553_PLATFORM_win32.win32.x86: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.swt.win32.win32.x86)(version>=3.106.1.v20170829-0553))'
+
+FEA_org.eclipse.e4.rcp_1.6.1.v20170829-0553_PLATFORM_win32.win32.x86_64: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.swt.win32.win32.x86_64)(version>=3.106.1.v20170829-0553))'
+
+FEA_org.eclipse.ecf.core.feature.source_1.4.0.v20170516-2248: \
+
+
+FEA_org.eclipse.ecf.core.feature_1.4.0.v20170516-2248: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ecf)(version>=3.8.0.v20170104-0657))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ecf.identity)(version>=3.8.0.v20161203-2153))'
+
+FEA_org.eclipse.ecf.core.ssl.feature.source_1.1.0.v20170110-1317: \
+
+
+FEA_org.eclipse.ecf.core.ssl.feature_1.1.0.v20170110-1317: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ecf.ssl)(version>=1.2.0.v20160817-1024))'
+
+FEA_org.eclipse.ecf.filetransfer.feature.source_3.13.7.v20170516-2248: \
+
+
+FEA_org.eclipse.ecf.filetransfer.feature_3.13.7.v20170516-2248: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ecf.filetransfer)(version>=5.0.0.v20160817-1024))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ecf.provider.filetransfer)(version>=3.2.300.v20161203-1840))'
+
+FEA_org.eclipse.ecf.filetransfer.httpclient4.feature.source_3.13.7.v20170516-2248: \
+
+
+FEA_org.eclipse.ecf.filetransfer.httpclient4.feature_3.13.7.v20170516-2248: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ecf.provider.filetransfer.httpclient4)(version>=1.1.200.v20170314-0133))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.commons.codec)(version>=1.9.0.v20170208-1614))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.commons.logging)(version>=1.1.1.v201101211721))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.httpcomponents.httpclient)(version>=4.5.2.v20170210-0925))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.httpcomponents.httpcore)(version>=4.4.6.v20170210-0925))'
+
+FEA_org.eclipse.ecf.filetransfer.httpclient4.ssl.feature.source_1.1.0.v20170110-1317: \
+
+
+FEA_org.eclipse.ecf.filetransfer.httpclient4.ssl.feature_1.1.0.v20170110-1317: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ecf.provider.filetransfer.httpclient4.ssl)(version>=1.1.0.v20160817-1024))'
+
+FEA_org.eclipse.ecf.filetransfer.ssl.feature.source_1.1.0.v20170110-1317: \
+
+
+FEA_org.eclipse.ecf.filetransfer.ssl.feature_1.1.0.v20170110-1317: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ecf.provider.filetransfer.ssl)(version>=1.0.0.v20160817-1024))'
+
+FEA_org.eclipse.emf.common.source_2.13.0.v20170609-0707: \
+
+
+FEA_org.eclipse.emf.common_2.13.0.v20170609-0707: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.emf.common)(version>=2.13.0.v20170609-0707))'
+
+FEA_org.eclipse.emf.ecore.source_2.13.0.v20170609-0707: \
+
+
+FEA_org.eclipse.emf.ecore_2.13.0.v20170609-0707: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.emf.ecore)(version>=2.13.0.v20170609-0707))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.emf.ecore.change)(version>=2.11.0.v20170609-0707))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.emf.ecore.xmi)(version>=2.13.0.v20170609-0707))'
+
+FEA_org.eclipse.equinox.compendium.sdk_3.13.1.v20170811-1407: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.app)(version>=1.3.400.v20150715-1528))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.coordinator)(version>=1.3.300.v20170512-2111))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.cm)(version>=1.2.0.v20170105-1446))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.device)(version>=1.0.400.v20130327-1442))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.ds)(version>=1.5.0.v20170307-1429))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.event)(version>=1.4.0.v20170105-1446))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.io)(version>=1.1.100.v20150430-1834))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.ip)(version>=1.1.400.v20161007-1324))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.metatype)(version>=1.4.300.v20170105-1446))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.preferences)(version>=3.7.0.v20170126-2132))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.useradmin)(version>=1.1.400.v20130327-1442))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.wireadmin)(version>=1.0.600.v20150715-1528))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.util)(version>=1.0.500.v20130404-1337))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.felix.scr)(version>=2.0.10.v20170501-2007))'
+
+FEA_org.eclipse.equinox.core.feature_1.4.1.v20170821-1548: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.common)(version>=3.9.0.v20170207-1454))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.ds)(version>=1.5.0.v20170307-1429))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.util)(version>=1.0.500.v20130404-1337))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.registry)(version>=3.7.0.v20170222-1344))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.simpleconfigurator)(version>=1.2.0.v20170110-1705))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.app)(version>=1.3.400.v20150715-1528))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.console)(version>=1.1.300.v20170512-2111))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.command)(version>=0.10.0.v201209301215))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.runtime)(version>=0.10.0.v201209301036))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.shell)(version>=0.10.0.v201212101605))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.felix.scr)(version>=2.0.10.v20170501-2007))'
+
+FEA_org.eclipse.equinox.core.sdk_3.13.1.v20170821-1548: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.common)(version>=3.9.0.v20170207-1454))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.registry)(version>=3.7.0.v20170222-1344))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.supplement)(version>=1.7.0.v20170329-1416))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.transforms.xslt)(version>=1.0.300.v20130327-1442))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.transforms.hook)(version>=1.2.0.v20170105-1446))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.concurrent)(version>=1.1.0.v20130327-1442))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.simpleconfigurator)(version>=1.2.0.v20170110-1705))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.security)(version>=1.2.300.v20170505-1235))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.security.ui)(version>=1.1.400.v20170505-1235))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.region)(version>=1.4.0.v20170117-1425))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.console)(version>=1.1.300.v20170512-2111))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.console.ssh)(version>=1.0.200.v20170105-1446))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.console.jaas.fragment)(version>=1.0.0.v20130327-1442))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.command)(version>=0.10.0.v201209301215))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.runtime)(version>=0.10.0.v201209301036))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.shell)(version>=0.10.0.v201212101605))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.mina.core)(version>=2.0.7.v201401071602))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.sshd.core)(version>=0.7.0.v201303101611))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.bidi)(version>=1.1.0.v20160728-1031))',\
+    osgi.identity;filter:='(&(osgi.identity=org.slf4j.api)(version>=1.7.2.v20121108-1250))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.weaving.caching)(version>=1.1.0.v20161007-1415))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.weaving.caching.j9)(version>=1.1.0.v20160929-1449))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.weaving.hook)(version>=1.2.0.v20160929-1449))'
+
+FEA_org.eclipse.equinox.core.sdk_3.13.1.v20170821-1548_PLATFORM_macosx.cocoa.x86_64: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.security.macosx)(version>=1.100.200.v20130327-1442))'
+
+FEA_org.eclipse.equinox.executable_3.7.1.v20170811-1325: \
+
+
+FEA_org.eclipse.equinox.p2.core.feature.source_1.4.1.v20170906-1259: \
+    ${FEA_org.eclipse.equinox.p2.core.feature_1.4.1.v20170906-1259}
+
+FEA_org.eclipse.equinox.p2.core.feature_1.4.1.v20170906-1259: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.artifact.repository)(version>=1.1.600.v20170906-1259))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.console)(version>=1.0.600.v20170511-1106))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.core)(version>=2.4.101.v20170906-1259))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.director)(version>=2.3.300.v20160504-1450))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.engine)(version>=2.5.0.v20170319-2002))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.garbagecollector)(version>=1.0.300.v20160504-1450))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.metadata)(version>=2.3.200.v20170511-1106))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.metadata.repository)(version>=1.2.401.v20170906-1259))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.repository)(version>=2.3.301.v20170906-1259))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.touchpoint.eclipse)(version>=2.1.501.v20170906-1259))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.touchpoint.natives)(version>=1.2.200.v20170511-1216))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.simpleconfigurator.manipulator)(version>=2.0.300.v20170515-0721))',\
+    osgi.identity;filter:='(&(osgi.identity=org.sat4j.core)(version>=2.3.5.v201308161310))',\
+    osgi.identity;filter:='(&(osgi.identity=org.sat4j.pb)(version>=2.3.5.v201404071733))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.frameworkadmin)(version>=2.0.300.v20160504-1450))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.frameworkadmin.equinox)(version>=1.0.800.v20170524-1345))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.preferences)(version>=3.7.0.v20170126-2132))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.security)(version>=1.2.300.v20170505-1235))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.jarprocessor)(version>=1.0.500.v20160504-1450))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.transport.ecf)(version>=1.1.300.v20161004-0244))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.operations)(version>=2.4.300.v20170511-1106))',\
+    osgi.identity;filter:='(&(osgi.identity=org.tukaani.xz)(version>=1.5.0.v20170111-1717))'
+
+FEA_org.eclipse.equinox.p2.core.feature_1.4.1.v20170906-1259_PLATFORM_macosx.cocoa.x86_64: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.security.macosx)(version>=1.100.200.v20130327-1442))'
+
+FEA_org.eclipse.equinox.p2.discovery.feature_1.1.1.v20170906-1259: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.discovery)(version>=1.0.400.v20160504-1450))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.discovery.compatibility)(version>=1.0.201.v20170906-1259))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.ui.discovery)(version>=1.0.300.v20170418-0708))'
+
+FEA_org.eclipse.equinox.p2.extras.feature.source_1.3.1.v20170906-1259: \
+    ${FEA_org.eclipse.equinox.p2.core.feature.source_1.4.1.v20170906-1259},\
+    ${FEA_org.eclipse.equinox.p2.extras.feature_1.3.1.v20170906-1259}
+
+FEA_org.eclipse.equinox.p2.extras.feature_1.3.1.v20170906-1259: \
+    ${FEA_org.eclipse.equinox.p2.core.feature_1.4.1.v20170906-1259},\
+    \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.director.app)(version>=1.0.500.v20160419-0834))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.directorywatcher)(version>=1.1.100.v20150423-1455))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.reconciler.dropins)(version>=1.1.400.v20160504-1450))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.publisher)(version>=1.4.200.v20170511-1216))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.extensionlocation)(version>=1.2.300.v20160419-0834))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.repository.tools)(version>=2.1.400.v20170511-1216))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.publisher.eclipse)(version>=1.2.201.v20170906-1259))'
+
+FEA_org.eclipse.equinox.p2.rcp.feature.source_1.3.1.v20170906-1259: \
+    ${FEA_org.eclipse.equinox.p2.core.feature.source_1.4.1.v20170906-1259},\
+    ${FEA_org.eclipse.equinox.p2.rcp.feature_1.3.1.v20170906-1259}
+
+FEA_org.eclipse.equinox.p2.rcp.feature_1.3.1.v20170906-1259: \
+    ${FEA_org.eclipse.equinox.p2.core.feature_1.4.1.v20170906-1259},\
+    \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.ui)(version>=2.5.1.v20170906-1259))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.ui.sdk.scheduler)(version>=1.3.100.v20170418-0708))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.updatechecker)(version>=1.1.400.v20170106-2125))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.security.ui)(version>=1.1.400.v20170505-1235))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.ui.sdk)(version>=1.0.500.v20170511-1216))'
+
+FEA_org.eclipse.equinox.p2.sdk_3.10.1.v20170906-1259: \
+    ${FEA_org.eclipse.equinox.p2.core.feature_1.4.1.v20170906-1259},\
+    ${FEA_org.eclipse.equinox.p2.discovery.feature_1.1.1.v20170906-1259},\
+    \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.artifact.repository)(version>=1.1.600.v20170906-1259))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.console)(version>=1.0.600.v20170511-1106))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.core)(version>=2.4.101.v20170906-1259))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.director)(version>=2.3.300.v20160504-1450))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.director.app)(version>=1.0.500.v20160419-0834))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.directorywatcher)(version>=1.1.100.v20150423-1455))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.engine)(version>=2.5.0.v20170319-2002))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.extensionlocation)(version>=1.2.300.v20160419-0834))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.garbagecollector)(version>=1.0.300.v20160504-1450))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.jarprocessor)(version>=1.0.500.v20160504-1450))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.installer)(version>=1.0.500.v20160419-0100))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.metadata)(version>=2.3.200.v20170511-1106))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.metadata.repository)(version>=1.2.401.v20170906-1259))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.publisher)(version>=1.4.200.v20170511-1216))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.reconciler.dropins)(version>=1.1.400.v20160504-1450))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.repository)(version>=2.3.301.v20170906-1259))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.repository.tools)(version>=2.1.400.v20170511-1216))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.touchpoint.eclipse)(version>=2.1.501.v20170906-1259))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.touchpoint.natives)(version>=1.2.200.v20170511-1216))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.ui.admin.rcp)(version>=1.0.300.v20170511-1216))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.ui.admin)(version>=1.0.300.v20170511-1216))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.ui.importexport)(version>=1.1.301.v20170816-1007))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.ui)(version>=2.5.1.v20170906-1259))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.ui.sdk)(version>=1.0.500.v20170511-1216))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.ui.sdk.scheduler)(version>=1.3.100.v20170418-0708))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.updatechecker)(version>=1.1.400.v20170106-2125))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.updatesite)(version>=1.0.601.v20170906-1259))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.simpleconfigurator)(version>=1.2.0.v20170110-1705))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.simpleconfigurator.manipulator)(version>=2.0.300.v20170515-0721))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.frameworkadmin)(version>=2.0.300.v20160504-1450))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.frameworkadmin.equinox)(version>=1.0.800.v20170524-1345))',\
+    osgi.identity;filter:='(&(osgi.identity=org.sat4j.core)(version>=2.3.5.v201308161310))',\
+    osgi.identity;filter:='(&(osgi.identity=org.sat4j.pb)(version>=2.3.5.v201404071733))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.operations)(version>=2.4.300.v20170511-1106))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.transport.ecf)(version>=1.1.300.v20161004-0244))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.publisher.eclipse)(version>=1.2.201.v20170906-1259))'
+
+FEA_org.eclipse.equinox.p2.user.ui.source_2.3.1.v20170906-1259: \
+    ${FEA_org.eclipse.equinox.p2.core.feature.source_1.4.1.v20170906-1259},\
+    ${FEA_org.eclipse.equinox.p2.extras.feature.source_1.3.1.v20170906-1259},\
+    ${FEA_org.eclipse.equinox.p2.rcp.feature.source_1.3.1.v20170906-1259},\
+    ${FEA_org.eclipse.equinox.p2.user.ui_2.3.1.v20170906-1259}
+
+FEA_org.eclipse.equinox.p2.user.ui_2.3.1.v20170906-1259: \
+    ${FEA_org.eclipse.equinox.p2.core.feature_1.4.1.v20170906-1259},\
+    ${FEA_org.eclipse.equinox.p2.extras.feature_1.3.1.v20170906-1259},\
+    ${FEA_org.eclipse.equinox.p2.rcp.feature_1.3.1.v20170906-1259},\
+    \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.updatesite)(version>=1.0.601.v20170906-1259))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.ui.importexport)(version>=1.1.301.v20170816-1007))'
+
+FEA_org.eclipse.equinox.sdk_3.13.1.v20170906-1529: \
+    ${FEA_org.eclipse.equinox.compendium.sdk_3.13.1.v20170811-1407},\
+    ${FEA_org.eclipse.equinox.core.feature_1.4.1.v20170821-1548},\
+    ${FEA_org.eclipse.equinox.core.sdk_3.13.1.v20170821-1548},\
+    ${FEA_org.eclipse.equinox.executable_3.7.1.v20170811-1325},\
+    ${FEA_org.eclipse.equinox.serverside.sdk_3.13.1.v20170906-1529}
+
+FEA_org.eclipse.equinox.server.core_1.5.1.v20170821-1548: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.common)(version>=3.9.0.v20170207-1454))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.ds)(version>=1.5.0.v20170307-1429))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.util)(version>=1.0.500.v20130404-1337))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.jobs)(version>=3.9.1.v20170714-0547))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.registry)(version>=3.7.0.v20170222-1344))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.http.registry)(version>=1.1.400.v20150715-1528))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.simpleconfigurator)(version>=1.2.0.v20170110-1705))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.felix.scr)(version>=2.0.10.v20170501-2007))'
+
+FEA_org.eclipse.equinox.server.jetty_1.4.1.v20170811-1407: \
+    osgi.identity;filter:='(&(osgi.identity=javax.servlet)(version>=3.1.0.v201410161800))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.http.jetty)(version>=3.4.0.v20170503-2025))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.http.servlet)(version>=1.4.0.v20170524-1452))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jetty.continuation)(version>=9.4.5.v20170502))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jetty.http)(version>=9.4.5.v20170502))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jetty.io)(version>=9.4.5.v20170502))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jetty.security)(version>=9.4.5.v20170502))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jetty.server)(version>=9.4.5.v20170502))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jetty.servlet)(version>=9.4.5.v20170502))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jetty.util)(version>=9.4.5.v20170502))'
+
+FEA_org.eclipse.equinox.server.p2_1.3.1.v20170906-1259: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.artifact.repository)(version>=1.1.600.v20170906-1259))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.console)(version>=1.0.600.v20170511-1106))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.core)(version>=2.4.101.v20170906-1259))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.director)(version>=2.3.300.v20160504-1450))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.engine)(version>=2.5.0.v20170319-2002))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.garbagecollector)(version>=1.0.300.v20160504-1450))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.metadata)(version>=2.3.200.v20170511-1106))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.metadata.repository)(version>=1.2.401.v20170906-1259))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.repository)(version>=2.3.301.v20170906-1259))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.touchpoint.eclipse)(version>=2.1.501.v20170906-1259))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.touchpoint.natives)(version>=1.2.200.v20170511-1216))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.simpleconfigurator.manipulator)(version>=2.0.300.v20170515-0721))',\
+    osgi.identity;filter:='(&(osgi.identity=org.sat4j.core)(version>=2.3.5.v201308161310))',\
+    osgi.identity;filter:='(&(osgi.identity=org.sat4j.pb)(version>=2.3.5.v201404071733))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.frameworkadmin)(version>=2.0.300.v20160504-1450))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.frameworkadmin.equinox)(version>=1.0.800.v20170524-1345))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.preferences)(version>=3.7.0.v20170126-2132))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.security)(version>=1.2.300.v20170505-1235))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.app)(version>=1.3.400.v20150715-1528))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.jarprocessor)(version>=1.0.500.v20160504-1450))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.transport.ecf)(version>=1.1.300.v20161004-0244))'
+
+FEA_org.eclipse.equinox.serverside.sdk_3.13.1.v20170906-1529: \
+    ${FEA_org.eclipse.equinox.server.core_1.5.1.v20170821-1548},\
+    ${FEA_org.eclipse.equinox.server.jetty_1.4.1.v20170811-1407},\
+    ${FEA_org.eclipse.equinox.server.p2_1.3.1.v20170906-1259},\
+    \
+    osgi.identity;filter:='(&(osgi.identity=javax.servlet)(version>=3.1.0.v201410161800))',\
+    osgi.identity;filter:='(&(osgi.identity=javax.servlet.jsp)(version>=2.2.0.v201112011158))',\
+    osgi.identity;filter:='(&(osgi.identity=javax.el)(version>=2.2.0.v201303151357))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.http.jetty)(version>=3.4.0.v20170503-2025))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.http.registry)(version>=1.1.400.v20150715-1528))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.http.servlet)(version>=1.4.0.v20170524-1452))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.http.servletbridge)(version>=1.0.300.v20130327-1442))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.jsp.jasper)(version>=1.0.500.v20150119-1358))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.jasper.glassfish)(version>=2.2.2.v201501141630))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jetty.continuation)(version>=9.4.5.v20170502))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jetty.http)(version>=9.4.5.v20170502))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jetty.io)(version>=9.4.5.v20170502))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jetty.security)(version>=9.4.5.v20170502))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jetty.server)(version>=9.4.5.v20170502))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jetty.servlet)(version>=9.4.5.v20170502))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jetty.util)(version>=9.4.5.v20170502))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.jsp.jasper.registry)(version>=1.0.300.v20130327-1442))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.servletbridge)(version>=1.3.200.v20160128-1435))'
+
+FEA_org.eclipse.help.source_2.2.101.v20170906-1700: \
+    ${FEA_org.eclipse.help_2.2.101.v20170906-1700}
+
+FEA_org.eclipse.help_2.2.101.v20170906-1700: \
+    osgi.identity;filter:='(&(osgi.identity=javax.el)(version>=2.2.0.v201303151357))',\
+    osgi.identity;filter:='(&(osgi.identity=javax.servlet)(version>=3.1.0.v201410161800))',\
+    osgi.identity;filter:='(&(osgi.identity=javax.servlet.jsp)(version>=2.2.0.v201112011158))',\
+    osgi.identity;filter:='(&(osgi.identity=com.sun.el)(version>=2.2.0.v201303151357))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.commons.logging)(version>=1.1.1.v201101211721))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.jasper.glassfish)(version>=2.2.2.v201501141630))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.lucene.analyzers-common)(version>=6.1.0.v20161115-1612))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.lucene.core)(version>=6.1.0.v20161115-1612))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.lucene.analyzers-smartcn)(version>=6.1.0.v20161115-1612))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.lucene.misc)(version>=6.1.0.v20161115-1612))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.http.jetty)(version>=3.4.0.v20170503-2025))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.http.registry)(version>=1.1.400.v20150715-1528))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.http.servlet)(version>=1.4.0.v20170524-1452))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.jsp.jasper)(version>=1.0.500.v20150119-1358))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.jsp.jasper.registry)(version>=1.0.300.v20130327-1442))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.help.base)(version>=4.2.101.v20170906-1700))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.help.ui)(version>=4.1.0.v20170311-0931))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.help.webapp)(version>=3.9.1.v20170816-0843))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jetty.continuation)(version>=9.4.5.v20170502))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jetty.http)(version>=9.4.5.v20170502))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jetty.io)(version>=9.4.5.v20170502))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jetty.security)(version>=9.4.5.v20170502))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jetty.server)(version>=9.4.5.v20170502))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jetty.servlet)(version>=9.4.5.v20170502))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jetty.util)(version>=9.4.5.v20170502))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.net)(version>=1.3.100.v20170516-0820))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.security)(version>=1.2.300.v20170505-1235))'
+
+FEA_org.eclipse.jdt.source_3.13.1.v20170906-1700: \
+    ${FEA_org.eclipse.jdt_3.13.1.v20170906-1700},\
+    \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.doc.isv)(version>=3.13.1.v20170830-1120))'
+
+FEA_org.eclipse.jdt_3.13.1.v20170906-1700: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt)(version>=3.13.1.v20170906-1700))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ant.ui)(version>=3.7.0.v20170412-1054))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.apt.core)(version>=3.5.0.v20170411-0710))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.apt.ui)(version>=3.5.0.v20170505-1107))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.apt.pluggable.core)(version>=1.2.0.v20170322-1054))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.compiler.apt)(version>=1.3.0.v20170502-0408))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.compiler.tool)(version>=1.2.0.v20170502-0408))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.core)(version>=3.13.0.v20170516-1929))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.annotation)(version>=1.1.100.v20160418-1457))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.annotation)(version>=2.1.100.v20170511-1408))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.core.manipulation)(version>=1.9.0.v20161219-2145))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.debug.ui)(version>=3.8.1.v20170826-0709))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.debug)(version>=3.11.0.v20170510-1451))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.junit)(version>=3.10.0.v20170208-1347))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.junit.core)(version>=3.9.0.v20170316-1142))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.junit.runtime)(version>=3.4.600.v20160505-0715))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.junit4.runtime)(version>=1.1.600.v20160505-0715))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.launching)(version>=3.9.0.v20170419-1235))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.ui)(version>=3.13.1.v20170822-1011))',\
+    osgi.identity;filter:='(&(osgi.identity=org.junit)(version>=4.12.0.v201504281640))',\
+    osgi.identity;filter:='(&(osgi.identity=org.hamcrest.core)(version>=1.3.0.v201303031735))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.doc.user)(version>=3.13.0.v20170608-0925))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ant.launching)(version>=1.2.0.v20170509-2157))'
+
+FEA_org.eclipse.jdt_3.13.1.v20170906-1700_PLATFORM_macosx.cocoa.x86_64: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.launching.macosx)(version>=3.4.0.v20160923-0911))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.launching.ui.macosx)(version>=1.2.0.v20160923-0911))'
+
+FEA_org.eclipse.osgi.compatibility.plugins.feature_1.1.1.v20170811-1325: \
+
+
+FEA_org.eclipse.pde.api.tools.ee.feature_1.0.200.v20170515-0910: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.api.tools.ee.cdcfoundation10)(version>=1.1.0.v20170118-0848))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.api.tools.ee.cdcfoundation11)(version>=1.1.0.v20170118-0848))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.api.tools.ee.j2se12)(version>=1.1.0.v20170118-0848))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.api.tools.ee.j2se13)(version>=1.1.0.v20170118-0848))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.api.tools.ee.j2se14)(version>=1.1.0.v20170118-0848))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.api.tools.ee.j2se15)(version>=1.1.0.v20170118-0848))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.api.tools.ee.javase16)(version>=1.1.0.v20170118-0848))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.api.tools.ee.javase17)(version>=1.1.0.v20170118-0848))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.api.tools.ee.jre11)(version>=1.1.0.v20170118-0848))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.api.tools.ee.osgiminimum10)(version>=1.1.0.v20170118-0848))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.api.tools.ee.osgiminimum11)(version>=1.1.0.v20170118-0848))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.api.tools.ee.osgiminimum12)(version>=1.1.0.v20170118-0848))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.api.tools.ee.javase18)(version>=1.1.0.v20170118-0848))'
+
+FEA_org.eclipse.pde.source_3.13.1.v20170906-1700: \
+    ${FEA_org.eclipse.pde_3.13.1.v20170906-1700}
+
+FEA_org.eclipse.pde_3.13.1.v20170906-1700: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde)(version>=3.13.1.v20170906-1700))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.build)(version>=3.9.300.v20170515-0912))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.core)(version>=3.11.100.v20170517-0724))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.junit.runtime)(version>=3.5.0.v20151013-0625))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.runtime)(version>=3.6.0.v20170413-1620))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.ui)(version>=3.10.1.v20170804-0814))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.doc.user)(version>=3.13.1.v20170830-1120))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.ui.templates)(version>=3.6.100.v20170515-0910))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.views.log)(version>=1.2.100.v20170515-1458))',\
+    osgi.identity;filter:='(&(osgi.identity=org.objectweb.asm)(version>=5.0.1.v201404251740))',\
+    osgi.identity;filter:='(&(osgi.identity=org.objectweb.asm.tree)(version>=5.0.1.v201404251740))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.api.tools)(version>=1.1.101.v20170714-0724))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.api.tools.annotations)(version>=1.1.0.v20170118-0848))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.api.tools.ui)(version>=1.1.101.v20170810-1621))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.ds.core)(version>=1.1.100.v20170515-0910))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.ds.ui)(version>=1.1.100.v20170515-0910))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.launching)(version>=3.7.0.v20170322-1119))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.ua.core)(version>=1.1.0.v20170201-2036))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.ua.ui)(version>=1.1.100.v20170515-0910))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.trace)(version>=1.1.0.v20170201-2036))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.ds.annotations)(version>=1.1.0.v20170516-2121))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.genericeditor.extension)(version>=1.0.0.v20170315-0955))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.ds.lib)(version>=1.1.0.v20170303-1624))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.ds1_2.lib)(version>=1.0.0.v20170303-1624))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.tools.layout.spy)(version>=1.0.0.v20170428-1608))'
+
+FEA_org.eclipse.platform.source_4.7.1.v20170906-1700: \
+    ${FEA_org.eclipse.equinox.p2.user.ui.source_2.3.1.v20170906-1259},\
+    ${FEA_org.eclipse.help.source_2.2.101.v20170906-1700},\
+    ${FEA_org.eclipse.platform_4.7.1.v20170906-1700},\
+    ${FEA_org.eclipse.rcp.source_4.7.1.v20170906-1700},\
+    \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.platform.doc.isv)(version>=4.7.1.v20170830-1120))'
+
+FEA_org.eclipse.platform_4.7.1.v20170906-1700: \
+    ${FEA_org.eclipse.equinox.p2.user.ui_2.3.1.v20170906-1259},\
+    ${FEA_org.eclipse.help_2.2.101.v20170906-1700},\
+    ${FEA_org.eclipse.rcp_4.7.1.v20170906-1700},\
+    \
+    osgi.identity;filter:='(&(osgi.identity=org.apache.ant)(version>=1.10.1.v20170504-0840))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ant.core)(version>=3.5.0.v20170509-2149))',\
+    osgi.identity;filter:='(&(osgi.identity=com.jcraft.jsch)(version>=0.1.54.v20170116-1932))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.compare.core)(version>=3.6.100.v20170516-0820))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.compare)(version>=3.7.101.v20170724-1603))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.filebuffers)(version>=3.6.100.v20170203-1130))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.filesystem)(version>=1.7.0.v20170406-1337))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.net)(version>=1.3.100.v20170516-0820))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.resources)(version>=3.12.0.v20170417-1558))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.debug.core)(version>=3.11.0.v20170605-1534))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.debug.ui)(version>=3.12.0.v20170605-1534))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.event)(version>=1.4.0.v20170105-1446))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ltk.core.refactoring)(version>=3.8.0.v20170105-1156))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ltk.ui.refactoring)(version>=3.9.0.v20170412-0825))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.platform)(version>=4.7.1.v20170906-1700))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.platform.doc.user)(version>=4.7.1.v20170630-0820))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.search)(version>=3.11.100.v20170515-1603))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.team.core)(version>=3.8.100.v20170516-0820))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.team.ui)(version>=3.8.1.v20170515-1133))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.text)(version>=3.6.100.v20170203-0814))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jface.text)(version>=3.12.0.v20170523-1043))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jsch.core)(version>=1.3.0.v20160422-1917))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jsch.ui)(version>=1.3.0.v20160323-1650))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.console)(version>=3.7.1.v20170728-0806))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.intro)(version>=3.5.100.v20170418-0710))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.intro.universal)(version>=3.3.100.v20170515-1335))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.cheatsheets)(version>=3.5.100.v20170515-0748))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.browser)(version>=3.6.100.v20170418-1342))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.genericeditor)(version>=1.0.1.v20170822-2211))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.monitoring)(version>=1.1.100.v20170131-1736))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.navigator)(version>=3.7.0.v20170418-1342))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.navigator.resources)(version>=3.6.1.v20170823-1443))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.net)(version>=1.3.100.v20170516-0820))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.workbench.texteditor)(version>=3.10.100.v20170426-2021))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.views)(version>=3.9.0.v20170226-1833))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.editors)(version>=3.11.0.v20170202-1823))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.externaltools)(version>=3.4.0.v20161212-0515))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.ide)(version>=3.13.1.v20170822-1526))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.ide.application)(version>=1.2.0.v20170512-1452))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.variables)(version>=3.4.0.v20170113-2056))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.forms)(version>=3.7.101.v20170815-1446))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.views.properties.tabbed)(version>=3.8.1.v20170713-0803))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.security)(version>=1.2.300.v20170505-1235))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.security.ui)(version>=1.1.400.v20170505-1235))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.externaltools)(version>=1.1.0.v20170113-2056))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.themes)(version>=1.2.1.v20170809-1435))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.runtime)(version>=3.13.0.v20170207-1030))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.intro.quicklinks)(version>=1.0.100.v20170515-0756))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.team.genericeditor.diff.extension)(version>=1.0.1.v20170809-1356))'
+
+FEA_org.eclipse.platform_4.7.1.v20170906-1700_PLATFORM_macosx.cocoa.x86_64: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.filesystem.macosx)(version>=1.3.0.v20140124-1940))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.security.macosx)(version>=1.100.200.v20130327-1442))'
+
+FEA_org.eclipse.platform_4.7.1.v20170906-1700_PLATFORM_win32.win32.x86: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.compare.win32)(version>=1.2.0.v20170517-0839))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.win32)(version>=3.3.0.v20160505-1310))'
+
+FEA_org.eclipse.platform_4.7.1.v20170906-1700_PLATFORM_win32.win32.x86_64: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.compare.win32)(version>=1.2.0.v20170517-0839))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.win32)(version>=3.3.0.v20160505-1310))'
+
+FEA_org.eclipse.rcp.configuration_1.1.1.v20170906-1700: \
+
+
+FEA_org.eclipse.rcp.source_4.7.1.v20170906-1700: \
+    ${FEA_org.eclipse.e4.rcp.source_1.6.1.v20170829-0553},\
+    ${FEA_org.eclipse.rcp_4.7.1.v20170906-1700}
+
+FEA_org.eclipse.rcp_4.7.1.v20170906-1700: \
+    ${FEA_org.eclipse.e4.rcp_1.6.1.v20170829-0553},\
+    \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.help)(version>=3.8.1.v20170815-1448))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui)(version>=3.109.0.v20170411-1742))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.workbench)(version>=3.110.1.v20170704-1208))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.update.configurator)(version>=3.3.400.v20160506-0750))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.rcp)(version>=4.7.1.v20170906-1700))'
+
+FEA_org.eclipse.rcp_4.7.1.v20170906-1700_PLATFORM_macosx.cocoa.x86_64: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.cocoa)(version>=1.1.100.v20151202-1450))'
+
+FEA_org.eclipse.releng.tools_3.9.100.v20170516-0717: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.releng.tools)(version>=3.9.100.v20170505-1020))'
+
+FEA_org.eclipse.sdk.examples.source_3.6.1.v20170906-1700: \
+    ${FEA_org.eclipse.sdk.examples_3.6.1.v20170906-1700}
+
+FEA_org.eclipse.sdk.examples_3.6.1.v20170906-1700: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.compare.examples)(version>=3.2.100.v20170516-0820))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.compare.examples.xml)(version>=3.4.100.v20161029-1807))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.debug.examples.core)(version>=1.4.0.v20160419-1720))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.debug.examples.ui)(version>=1.5.0.v20160419-1720))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jface.examples.databinding)(version>=1.0.400.v20170515-1119))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.swt.examples)(version>=3.106.0.v20170330-1522))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.swt.examples.views)(version>=3.106.0.v20160712-1239))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.swt.examples.browser.demos)(version>=3.106.0.v20160712-1239))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.swt.examples.launcher)(version>=3.106.0.v20160712-1239))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.examples.javaeditor)(version>=3.2.100.v20170515-0927))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.examples.multipageeditor)(version>=3.2.300.v20151104-0051))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.examples.propertysheet)(version>=3.2.400.v20160329-2017))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.examples.readmetool)(version>=3.4.0.v20160329-2017))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.examples.contributions)(version>=3.4.0.v20160401-0528))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.examples.undo)(version>=3.2.400.v20170513-0428))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.examples.views.properties.tabbed.article)(version>=3.2.1.v20160330-1438))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.examples.fieldassist)(version>=1.1.100.v20160330-1439))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.team.examples.filesystem)(version>=3.5.1.v20160824-1211))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.sdk.examples)(version>=3.5.701.v20170906-1700))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.genericeditor.examples)(version>=1.0.0.v20170515-1011))'
+
+FEA_org.eclipse.sdk.examples_3.6.1.v20170906-1700_PLATFORM_win32.win32.x86: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.swt.examples.ole.win32)(version>=3.106.0.v20160712-1239))'
+
+FEA_org.eclipse.sdk.examples_3.6.1.v20170906-1700_PLATFORM_win32.win32.x86_64: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.swt.examples.ole.win32)(version>=3.106.0.v20160712-1239))'
+
+FEA_org.eclipse.sdk.tests_4.7.1.v20170906-1700: \
+    ${FEA_org.eclipse.test_3.7.200.v20170511-1043},\
+    \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.sdk.tests)(version>=4.7.1.v20170906-1700))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ant.tests.core)(version>=3.5.0.v20170428-0920))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ant.tests.ui)(version>=3.9.200.v20170515-1006))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.compare.tests)(version>=3.6.100.v20170515-1347))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.tests.harness)(version>=3.11.100.v20170207-1037))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.tests.runtime)(version>=3.11.100.v20170516-0700))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.tests.resources)(version>=3.10.0.v20170428-1626))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.tests.net)(version>=1.4.100.v20170516-0820))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.core.tests)(version>=1.1.100.v20170522-0917))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.core.commands.tests)(version>=0.11.100.v20170516-0646))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.ui.bindings.tests)(version>=0.10.100.v20170515-1327))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.ui.tests.css.core)(version>=1.300.0.v20170515-1327))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.ui.tests.css.swt)(version>=0.10.101.v20170725-1627))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.e4.ui.tests)(version>=0.11.101.v20170815-0824))',\
+    osgi.identity;filter:='(&(osgi.identity=com.google.code.atinject.tck)(version>=1.1.0.v20160901-1938))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.ds.tests)(version>=1.5.0.v20170523-1359))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.apt.tests)(version>=3.4.100.v20170511-1408))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.compiler.apt.tests)(version>=1.1.200.v20170511-1408))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.apt.pluggable.tests)(version>=3.4.200.v20170511-1408))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.core.tests.builder)(version>=3.10.5.v20170511-1408))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.core.tests.compiler)(version>=3.12.300.v20170422-2057))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.core.tests.model)(version>=3.10.300.v20170516-1814))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.compiler.tool.tests)(version>=1.2.0.v20170123-1057))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.core.tests.performance)(version>=3.10.100.v20170511-1408))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.debug.tests)(version>=3.11.0.v20170522-1239))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.ui.tests)(version>=3.13.0.v20170506-1842))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.ui.tests.refactoring)(version>=3.13.0.v20170509-1400))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.text.tests)(version>=3.13.0.v20170308-1620))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.expressions.tests)(version>=3.5.1.v20170207-0959))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ltk.core.refactoring.tests)(version>=3.8.0.v20161207-1354))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ltk.ui.refactoring.tests)(version>=3.9.0.v20160926-1208))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.text.tests)(version>=3.11.0.v20160503-1849))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jface.text.tests)(version>=3.11.100.v20170308-1727))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jsch.tests)(version>=1.1.0.v20170525-0932))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.filebuffers.tests)(version>=3.11.100.v20160824-0924))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.debug.tests)(version>=3.10.101.v20170710-0633))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.workbench.texteditor.tests)(version>=3.11.100.v20170308-1727))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.editors.tests)(version>=3.11.0.v20170219-1843))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.search.tests)(version>=3.9.0.v20160503-1849))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.swt.tests)(version>=3.106.0.v20170508-1048))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jface.tests.databinding)(version>=1.8.100.v20170503-1507))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jface.tests.databinding.conformance)(version>=1.2.0.v20150813-1848))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jface.examples.databinding)(version>=1.0.400.v20170515-1119))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.tests)(version>=3.13.1.v20170823-1635))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ua.tests)(version>=3.4.0.v20170515-1709))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ua.tests.doc)(version>=1.0.300.v20170516-0632))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.tests.navigator)(version>=3.5.100.v20170322-1528))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.tests.rcp)(version>=3.4.100.v20170513-0428))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.tests.forms)(version>=3.7.100.v20170517-1755))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.genericeditor.tests)(version>=1.0.0.v20170516-1229))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.ui.tests)(version>=3.10.0.v20170517-1237))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.build.tests)(version>=1.1.800.v20170523-1145))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.ds.tests)(version>=1.1.0.v20150911-1533))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.tools.versioning)(version>=1.0.200.v20140518-1929))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.releng.tests)(version>=3.4.0.v20170420-1034))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.team.tests.cvs.core)(version>=3.4.100.v20161208-1654))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.team.tests.core)(version>=3.8.1.v20170104-1723))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.tests.harness)(version>=1.4.100.v20170515-1127))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.tests.performance)(version>=1.3.100.v20170515-1127))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ui.tests.views.properties.tabbed)(version>=3.6.100.v20170513-0428))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.pde.api.tools.tests)(version>=1.1.1.v20170710-0834))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.security.tests)(version>=1.0.200.v20160504-1428))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.http.servlet.tests)(version>=1.4.0.v20170524-1452))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.commons.fileupload)(version>=1.3.2.v20170320-2229))',\
+    osgi.identity;filter:='(&(osgi.identity=org.apache.commons.io)(version>=2.2.0.v201405211200))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.installer)(version>=1.0.500.v20160419-0100))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.tests)(version>=1.6.300.v20170526-1225))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.tests.discovery)(version>=1.1.0.v20141216-2213))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.tests.ui)(version>=1.1.200.v20160504-1450))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.p2.tests.verifier)(version>=1.1.300.v20170523-1344))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.frameworkadmin.test)(version>=1.1.100.v20150430-1836))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.jdt.core.tests.binaries)(version>=1.0.200.v20160420-0732))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.bidi.tests)(version>=1.0.200.v20170523-1359))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.update.core)(version>=3.2.800.v20160413-0713))',\
+    osgi.identity;filter:='(&(osgi.identity=org.hamcrest)(version>=1.1.0.v20090501071000))',\
+    osgi.identity;filter:='(&(osgi.identity=org.hamcrest.core)(version>=1.3.0.v201303031735))',\
+    osgi.identity;filter:='(&(osgi.identity=org.hamcrest.integration)(version>=1.3.0.v201305210900))',\
+    osgi.identity;filter:='(&(osgi.identity=org.hamcrest.library)(version>=1.3.0.v201505072020))',\
+    osgi.identity;filter:='(&(osgi.identity=org.hamcrest.text)(version>=1.1.0.v20090501071000))',\
+    osgi.identity;filter:='(&(osgi.identity=org.mockito)(version>=1.9.5.v201605172210))',\
+    osgi.identity;filter:='(&(osgi.identity=org.objenesis)(version>=1.0.0.v201505121915))'
+
+FEA_org.eclipse.sdk_4.7.1.v20170906-1700: \
+    ${FEA_org.eclipse.cvs_1.4.401.v20170906-1700},\
+    ${FEA_org.eclipse.cvs.source_1.4.401.v20170906-1700},\
+    ${FEA_org.eclipse.help_2.2.101.v20170906-1700},\
+    ${FEA_org.eclipse.help.source_2.2.101.v20170906-1700},\
+    ${FEA_org.eclipse.jdt_3.13.1.v20170906-1700},\
+    ${FEA_org.eclipse.jdt.source_3.13.1.v20170906-1700},\
+    ${FEA_org.eclipse.pde_3.13.1.v20170906-1700},\
+    ${FEA_org.eclipse.pde.source_3.13.1.v20170906-1700},\
+    ${FEA_org.eclipse.platform_4.7.1.v20170906-1700},\
+    ${FEA_org.eclipse.platform.source_4.7.1.v20170906-1700},\
+    \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.sdk)(version>=4.7.1.v20170906-1700))'
+
+FEA_org.eclipse.swt.tools.feature_3.106.0.v20170503-0851: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.swt.tools)(version>=3.106.0.v20170502-1947))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.swt.tools.spies)(version>=3.106.0.v20170503-0851))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.swt.tools.base)(version>=3.106.0.v20160921-0846))'
+
+FEA_org.eclipse.test_3.7.200.v20170511-1043: \
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.ant.optional.junit)(version>=3.3.200.v20160315-2119))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.test)(version>=3.4.0.v20170511-1043))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.test.performance)(version>=3.13.0.v20161020-1821))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.test.performance.win32)(version>=3.1.200.v20140518-1929))',\
+    osgi.identity;filter:='(&(osgi.identity=org.junit)(version>=4.12.0.v201504281640))',\
+    osgi.identity;filter:='(&(osgi.identity=org.easymock)(version>=2.4.0.v20090202-0900))',\
+    osgi.identity;filter:='(&(osgi.identity=org.hamcrest.core)(version>=1.3.0.v201303031735))',\
+    osgi.identity;filter:='(&(osgi.identity=org.mockito)(version>=1.9.5.v201605172210))',\
+    osgi.identity;filter:='(&(osgi.identity=org.eclipse.core.tests.harness)(version>=3.11.100.v20170207-1037))',\
+    osgi.identity;filter:='(&(osgi.identity=org.hamcrest.library)(version>=1.3.0.v201505072020))'
+

@@ -1,7 +1,5 @@
-#Bundle-Version: 0.1.0.${tstamp;yyyyMMdd-HHmmss}
-
 -include: \
-    ${workspace}/io.klib.tools.parser.eclipse.features/result/__bnd_runrequires_Eclipse_Platform_R-4.7.1-201709061700.bndrun
+    ${workspace}/io.klib.tools/result/__bnd_runrequires_Eclipse_Platform_R-4.7.1-201709061700.bndrun
 
 -runee: JavaSE-1.8
 -runfw: org.eclipse.osgi;version>='[3.12.1.v20170821-1548,3.12.1.v20170821-1548]'
@@ -18,8 +16,8 @@
 #    osgi.native.osversion:version>="10.12.6";\
 #    osgi.native.processor:List<String>="x86-64,amd64,em64t,x86_64"
 
--runsystemcapabilities: \
-    ${native_capability}
+-runprovidedcapabilities: ${native_capability}
+-runsystemcapabilities: ${native_capability}
 
 -runvm: "-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts"
 
@@ -27,11 +25,6 @@
 	eclipse.product=example.rcp.app.ui.product,\
 	launch.keep=false,\
 	launch.storage.dir=_rt/cfg
-
-#    eclipse.application=example.rcp.app.ui.application
-
-# why is this found during resolve? who is referencing it?
-#    osgi.identity;filter:='(osgi.identity=org.eclipse.swt.cocoa.macosx.x86_64)',\
 
 -runblacklist.win32.win32.x86-64: \
     osgi.identity;filter:='(osgi.identity=org.eclipse.swt.gtk.aix.ppc)',\
@@ -49,12 +42,11 @@
     osgi.identity;filter:='(osgi.identity=org.eclipse.swt.win32.win32.x86)',\
     osgi.identity;filter:='(osgi.identity=org.eclipse.swt.win32.win32.x86_64)
 
-
 -runrequires: \
 	osgi.identity;filter:='(&(osgi.identity=bndtools.runtime.eclipse.applaunch)(version>=0.1.0))',\
-	osgi.identity;filter:='(&(osgi.identity=example.rcp.app.ui)(version>=0.1.0))',\
 	${FEA_org.eclipse.e4.rcp_1.6.1.v20170829-0553},\
-	${PLATFORM_macosx.cocoa.x86_64}
+	${FEA_org.eclipse.e4.rcp_1.6.1.v20170829-0553_PLATFORM_macosx.cocoa.x86_64},\
+	osgi.identity;filter:='(&(osgi.identity=example.rcp.app.ui)(version>=0.1.0))'
 
 -runbundles: \
 	bndtools.runtime.eclipse.applaunch;version='[0.1.0,0.1.1)',\
@@ -112,36 +104,17 @@
 	org.eclipse.equinox.console;version='[1.1.300,1.1.301)',\
 	org.eclipse.equinox.ds;version='[1.5.0,1.5.1)',\
 	org.eclipse.equinox.event;version='[1.4.0,1.4.1)',\
-	org.eclipse.equinox.launcher;version='[1.4.0,1.4.1)',\
 	org.eclipse.equinox.preferences;version='[3.7.0,3.7.1)',\
 	org.eclipse.equinox.registry;version='[3.7.0,3.7.1)',\
 	org.eclipse.equinox.simpleconfigurator;version='[1.2.0,1.2.1)',\
 	org.eclipse.equinox.util;version='[1.0.500,1.0.501)',\
-	org.eclipse.help;version='[3.8.1,3.8.2)',\
 	org.eclipse.jface;version='[3.13.1,3.13.2)',\
 	org.eclipse.jface.databinding;version='[1.8.100,1.8.101)',\
 	org.eclipse.osgi.services;version='[3.6.0,3.6.1)',\
 	org.eclipse.osgi.util;version='[3.4.0,3.4.1)',\
 	org.eclipse.swt;version='[3.106.1,3.106.2)',\
 	org.eclipse.swt.cocoa.macosx.x86_64;version='[3.106.1,3.106.2)',\
-	org.eclipse.ui;version='[3.109.0,3.109.1)',\
-	org.eclipse.ui.cocoa;version='[1.1.100,1.1.101)',\
-	org.eclipse.ui.workbench;version='[3.110.1,3.110.2)',\
 	org.w3c.css.sac;version='[1.3.1,1.3.2)',\
 	org.w3c.dom.events;version='[3.0.0,3.0.1)',\
 	org.w3c.dom.smil;version='[1.0.1,1.0.2)',\
-	org.w3c.dom.svg;version='[1.1.0,1.1.1)',\
-	org.eclipse.core.filesystem;version='[1.7.0,1.7.1)',\
-	org.eclipse.core.filesystem.macosx;version='[1.3.0,1.3.1)',\
-	org.eclipse.core.resources;version='[3.12.0,3.12.1)',\
-	org.eclipse.core.variables;version='[3.4.0,3.4.1)',\
-	org.eclipse.debug.core;version='[3.11.0,3.11.1)',\
-	org.eclipse.equinox.launcher.cocoa.macosx.x86_64;version='[1.1.500,1.1.501)',\
-	org.eclipse.equinox.security;version='[1.2.300,1.2.301)',\
-	org.eclipse.equinox.security.macosx;version='[1.100.200,1.100.201)',\
-	org.eclipse.jdt.core;version='[3.13.0,3.13.1)',\
-	org.eclipse.jdt.debug;version='[3.11.0,3.11.1)',\
-	org.eclipse.jdt.launching;version='[3.9.0,3.9.1)',\
-	org.eclipse.jdt.launching.macosx;version='[3.4.0,3.4.1)',\
-	org.eclipse.jdt.launching.ui.macosx;version='[1.2.0,1.2.1)',\
-	org.eclipse.text;version='[3.6.100,3.6.101)'
+	org.w3c.dom.svg;version='[1.1.0,1.1.1)'
