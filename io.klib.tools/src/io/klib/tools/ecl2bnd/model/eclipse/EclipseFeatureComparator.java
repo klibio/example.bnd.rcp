@@ -2,8 +2,6 @@ package io.klib.tools.ecl2bnd.model.eclipse;
 
 import java.util.Comparator;
 
-import io.klib.tools.ecl2bnd.model.eclipse.Feature;
-
 public class EclipseFeatureComparator implements Comparator<Feature> {
 
 	@Override

@@ -7,13 +7,12 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Map.Entry;
-
-import io.klib.tools.ecl2bnd.model.eclipse.Feature;
-import io.klib.tools.ecl2bnd.model.eclipse.Plugin;
-
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+
+import io.klib.tools.ecl2bnd.model.eclipse.Feature;
+import io.klib.tools.ecl2bnd.model.eclipse.Plugin;
 
 public class OutputBndRequireFormat extends OutputContextDefault implements OutputStrategy {
 
@@ -138,7 +137,7 @@ public class OutputBndRequireFormat extends OutputContextDefault implements Outp
 					String os = p.getOs();
 					String ws = p.getWs();
 					String arch = p.getArch();
-					String nl = p.getNl();
+//					String nl = p.getNl();
 
 					if (p.isFragment()) {
 						// nothing specific currently

@@ -35,10 +35,10 @@ public class EclipseRepoParser {
 	private final static String resultDir = System.getProperty("user.dir") + SEP + "result";
 
 	private final static String ECL_PLATFORM_VERSION = "R-4.7.1-201709061700";
-	private final static String bndRequireFile = "__bnd_runrequires_Eclipse_Platform_" + ECL_PLATFORM_VERSION
-			+ ".bndrun";
-	private final static String bndBuildPathFile = "__bnd_buildPath_Eclipse_Platform_" + ECL_PLATFORM_VERSION
-			+ ".bndrun";
+//	private final static String bndRequireFile = "__bnd_runrequires_Eclipse_Platform_" + ECL_PLATFORM_VERSION
+//			+ ".bndrun";
+//	private final static String bndBuildPathFile = "__bnd_buildPath_Eclipse_Platform_" + ECL_PLATFORM_VERSION
+//			+ ".bndrun";
 	private final static String featureDir = "/Users/peterkir/www/download.eclipse.org/eclipse/updates/4.7/"
 			+ ECL_PLATFORM_VERSION + "/features";
 

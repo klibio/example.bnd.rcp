@@ -92,9 +92,11 @@ public class OutputBndBuildFormat extends OutputContextDefault implements Output
 			pluginList.stream().forEach(p -> {
 				String bundleID = p.getId();
 				String version = p.getVersion();
+/*				
 				String os = p.getOs();
 				String ws = p.getWs();
 				String arch = p.getArch();
+*/
 				plugins.append(String.format("    %s;version='[%s,%s]',\\\n", bundleID, version, version));
 			});
 			// remove the trailing ",\\n"

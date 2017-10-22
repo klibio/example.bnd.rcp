@@ -2,6 +2,7 @@ package example.rcp.app.ui.parts;
 
 import java.util.Arrays;
 import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
