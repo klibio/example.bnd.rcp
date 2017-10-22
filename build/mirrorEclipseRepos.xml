@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Mirror Eclipse P2 repostitories" default="everything">
+    
+    <target name="everything" description="specify here all targets you want to execute">
+        <antcall target="mirror_4.7.1a_Platform" />
+    </target>
+
+    <target name="mirror_4.7.1_Platform">
+        <p2.mirror source="http://download.eclipse.org/eclipse/updates/4.7/R-4.7.1-201709061700" raw="true">
+            <destination location="file:/${user.home}/www/download.eclipse.org/eclipse/updates/4.7/R-4.7.1-201709061700"
+                         format="jar:file:${user.dir}/p2_packed/p2_repo_packedSiblings.zip!/" />
+        </p2.mirror>
+    </target>
+
+    <target name="mirror_Oxygen_20170927100">
+        <p2.mirror source="http://download.eclipse.org/releases/oxygen/20170927100" raw="true">
+            <destination location="file:/${user.home}/www/download.eclipse.org/releases/oxygen/20170927100"
+                         format="jar:file:${dir.script}/p2_packed/p2_repo_packedSiblings.zip!/" />
+        </p2.mirror>
+    </target>
+
+    <target name="mirror_4.7.1a_Platform">
+        <p2.mirror source="http://download.eclipse.org/eclipse/updates/4.7/R-4.7.1a-201710090410" raw="true"  >
+            <destination location="file:/${user.home}/www/download.eclipse.org/eclipse/updates/4.7/R-4.7.1a-201710090410"
+                         format="jar:file:${dir.script}/p2_packed/p2_repo_packedSiblings.zip!/" />
+        </p2.mirror>
+    </target>
+
+    <dirname property="dir.script.os" file="${ant.file.mirrorEclipseRepos}" />
+    <pathconvert property="dir.script" targetos="unix">
+        <path location="${dir.script.os}" />
+    </pathconvert>    
+</project>
