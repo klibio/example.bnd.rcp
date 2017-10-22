@@ -28,7 +28,7 @@ What are the obstacles for using bndtools as Eclipse dev environment
 - Eclipse uses Singleton Directive - OSGi spec 10.1.15.110
 	singleton installable unit / e.g. ExtensionPoint Provider, singleton IU org.eclipse.swt 
 
-#### Storylinbe
+#### Storyline
 - create bndtools workspace
 - develop bnd bundles
 - create bnd launches for execution and debugging

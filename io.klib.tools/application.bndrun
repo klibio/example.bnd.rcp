@@ -1,0 +1,21 @@
+-runee: JavaSE-1.8
+-runfw: org.eclipse.osgi;version='[3.12.1.v20170821-1548,3.12.1.v20170821-1548]'
+
+-runprovidedcapabilities: ${native_capability}
+
+-resolve.effective: active;skip:="osgi.service"
+-runvm: -Ddebug=false
+
+-runrequires: \
+	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.shell)(version>=0.10.0.v201212101605))',\
+	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.command)(version>=0.10.0.v201209301215))',\
+	osgi.identity;filter:='(&(osgi.identity=io.klib.tools.application)(version>=0.1.0.201710151354))'
+
+-runbundles: \
+	io.klib.tools.application;version=snapshot,\
+	org.apache.felix.gogo.command;version='[0.10.0,0.10.1)',\
+	org.apache.felix.gogo.runtime;version='[0.10.0,0.10.1)',\
+	org.apache.felix.gogo.shell;version='[0.10.0,0.10.1)',\
+	org.apache.felix.scr;version='[2.0.10,2.0.11)',\
+	org.eclipse.osgi.services;version='[3.6.0,3.6.1)',\
+	org.eclipse.osgi.util;version='[3.4.0,3.4.1)'

@@ -1,20 +1,8 @@
 -include: \
-    ${workspace}/io.klib.tools/result/__bnd_runrequires_Eclipse_Platform_R-4.7.1-201709061700.bndrun
+    ${workspace}/cnf/fixedIndices/bnd_runrequires_Eclipse_Platform_R-4.7.1-201709061700.bndrun
 
 -runee: JavaSE-1.8
 -runfw: org.eclipse.osgi;version>='[3.12.1.v20170821-1548,3.12.1.v20170821-1548]'
-
-#-runsystemcapabilities: \
-#    osgi.native;\
-#    osgi.native.osname:List<String>="Windows7,Windows 7,Win32";\
-#    osgi.native.osversion:version>="6.1.0";\
-#    osgi.native.processor:List<String>="x86-64,amd64,em64t,x86_64"
-
-#-runsystemcapabilities: \
-#    osgi.native;\
-#    osgi.native.osname:List<String>="macosx,Mac OS X";\
-#    osgi.native.osversion:version>="10.12.6";\
-#    osgi.native.processor:List<String>="x86-64,amd64,em64t,x86_64"
 
 -runprovidedcapabilities: ${native_capability}
 -runsystemcapabilities: ${native_capability}
@@ -26,7 +14,7 @@
 	launch.keep=false,\
 	launch.storage.dir=_rt/cfg
 
--runblacklist.win32.win32.x86-64: \
+-runblacklist.macosx.cocoa.x86-64: \
     osgi.identity;filter:='(osgi.identity=org.eclipse.swt.gtk.aix.ppc)',\
     osgi.identity;filter:='(osgi.identity=org.eclipse.swt.gtk.aix.ppc64)',\
     osgi.identity;filter:='(osgi.identity=org.eclipse.swt.gtk.hpux.ia64)',\

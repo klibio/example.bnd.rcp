@@ -47,8 +47,8 @@ eclipse.platform.baseurl = "file:/Users/peterkir/www/download.eclipse.org/eclips
 eclipse.platform.name    = "Eclipse Platform ${eclipse.platform.version}"
 eclipse.platform.url     = "${eclipse.platform.baseurl}/${eclipse.version}/${eclipse.platform.version}/"
 
-eclipse.simu.version=201706281000
-#eclipse.simu.version=201709271000
+#eclipse.simu.version=201706281000
+eclipse.simu.version=201709271000
 
 eclipse.simu.baseurl = "http://download.eclipse.org/releases"
 eclipse.simu.name    = "Eclipse Simu Release ${eclipse.version} - ${eclipse.simu.version}"
@@ -75,11 +75,9 @@ eclipse.simu.url     = "${eclipse.simu.baseurl}/${eclipse.name}/${eclipse.simu.v
 #-plugin.20.eclipse.platform: \
 #   aQute.bnd.deployer.repository.FixedIndexedRepo; \
 #       name      = "Eclipse Platform ${eclipse.platform.version}"; \
-#       locations = file:${workspace}/cnf/fixedIndices/p2-Eclipse-Platform-R-4.7-201706120950/index.xml.gz
+#       locations = file:${workspace}/cnf/fixedIndices/p2-Eclipse-Platform-${eclipse.platform.version}/index.xml.gz
 
 #-plugin.21.eclipse.simu: \
 #    aQute.bnd.deployer.repository.FixedIndexedRepo; \
-#        name      = "Eclipse Simu Release ${eclipse.version} - ${eclipse.simu.version}"; \
-#        locations = file:${workspace}/cnf/fixedIndices/p2-${replace;Eclipse Simu Release ${eclipse.version} - ${eclipse.simu.version};" ";"%20"}/index.xml.gz
-
-X=file:${workspace}/cnf/fixedIndices/p2-${replace;Eclipse Simu Release ${eclipse.version} - ${eclipse.simu.version};" ";"%20"}/index.xml.gz
+#        name      = "Eclipse Simu Release - ${eclipse.simu.version}"; \
+#        locations = file:${workspace}/cnf/fixedIndices/p2-Eclipse-Simu-Release-${eclipse.simu.version}/index.xml.gz

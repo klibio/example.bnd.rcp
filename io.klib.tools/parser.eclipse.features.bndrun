@@ -1,0 +1,15 @@
+-runee: JavaSE-1.8
+-runfw: org.eclipse.osgi;version='[3.12.1.v20170821-1548,3.12.1.v20170821-1548]'
+
+-runprovidedcapabilities: ${native_capability}
+-runvm: -Ddebug=false
+
+-resolve.effective: active;skip:="osgi.service"
+
+-runrequires: osgi.identity;filter:='(&(osgi.identity=io.klib.tools.parser.eclipse.features)(version>=0.1.0.201707091312))'
+
+-runbundles: \
+	io.klib.tools.parser.eclipse.features;version=snapshot,\
+	org.apache.felix.scr;version='[2.0.10,2.0.11)',\
+	org.eclipse.osgi.services;version='[3.6.0,3.6.1)',\
+	org.eclipse.osgi.util;version='[3.4.0,3.4.1)'
