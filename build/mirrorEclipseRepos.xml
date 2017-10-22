@@ -1,31 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Mirror Eclipse P2 repostitories" default="everything">
 
-    <target name="everything" description="specify here all targets you want to execute">
-        <antcall target="mirror_4.7_Platform" />
+    <target name="everything" description="specify here all targets you want to execute"
+        depends="
+        mirror_4.7_categories,  
+        mirror_4.7_Platform,
+        mirror_4.7.1_Platform,
+        mirror_4.7.1a_Platform,
+        mirror_Oxygen_eppPackages,
+        mirror_Oxygen_20170927100,
+        mirror_Oxygen_201710111001
+     " />
+
+    <target name="mirror_4.7_categories">
+        <p2.mirror source="${eclURL}/eclipse/updates/4.7/categoriesOxygen" raw="true">
+            <destination location="${localURL}/eclipse/updates/4.7/categoriesOxygen" format="${repoFormat}" />
+        </p2.mirror>
     </target>
 
     <target name="mirror_4.7_Platform">
-        <p2.mirror source="http://download.eclipse.org/eclipse/updates/4.7/R-4.7-201706120950" raw="true">
+        <p2.mirror source="${eclURL}/eclipse/updates/4.7/R-4.7-201706120950" raw="true">
             <destination location="${localURL}/eclipse/updates/4.7/R-4.7-201706120950" format="${repoFormat}" />
         </p2.mirror>
     </target>
 
     <target name="mirror_4.7.1_Platform">
-        <p2.mirror source="http://download.eclipse.org/eclipse/updates/4.7/R-4.7.1-201709061700" raw="true">
+        <p2.mirror source="${eclURL}/eclipse/updates/4.7/R-4.7.1-201709061700" raw="true">
             <destination location="${localURL}/eclipse/updates/4.7/R-4.7.1-201709061700" format="${repoFormat}" />
-        </p2.mirror>
-    </target>
-
-    <target name="mirror_Oxygen_20170927100">
-        <p2.mirror source="http://download.eclipse.org/releases/oxygen/20170927100" raw="true">
-            <destination location="${localURL}/releases/oxygen/20170927100" format="${repoFormat}" />
         </p2.mirror>
     </target>
 
     <target name="mirror_4.7.1a_Platform">
         <p2.mirror source="${eclURL}/eclipse/updates/4.7/R-4.7.1a-201710090410" raw="true">
             <destination location="${localURL}/eclipse/updates/4.7/R-4.7.1a-201710090410" format="${repoFormat}" />
+        </p2.mirror>
+    </target>
+    
+    <target name="mirror_Oxygen_eppPackages">
+        <p2.mirror source="${eclURL}/technology/epp/packages/oxygen/" raw="true">
+            <destination location="${localURL}/technology/epp/packages/oxygen/" format="${repoFormat}" />
+        </p2.mirror>
+    </target>
+
+    <target name="mirror_Oxygen_20170927100">
+        <p2.mirror source="${eclURL}/releases/oxygen/20170927100" raw="true">
+            <destination location="${localURL}/releases/oxygen/20170927100" format="${repoFormat}" />
+        </p2.mirror>
+    </target>
+
+    <target name="mirror_Oxygen_201710111001">
+        <p2.mirror source="${eclURL}/releases/oxygen/201710111001" raw="true">
+            <destination location="${localURL}/releases/oxygen/201710111001" format="${repoFormat}" />
         </p2.mirror>
     </target>
 

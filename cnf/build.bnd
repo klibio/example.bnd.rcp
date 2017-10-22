@@ -42,15 +42,16 @@ eclipse.name=oxygen
 #eclipse.platform.version="R-4.7-201706120950"
 eclipse.platform.version="R-4.7.1-201709061700"
 
-eclipse.platform.baseurl = "http://download.eclipse.org/eclipse/updates"
-eclipse.platform.baseurl = "file:/Users/peterkir/www/download.eclipse.org/eclipse/updates"
+#eclipse.platform.baseurl = "http://download.eclipse.org/eclipse/updates"
+eclipse.platform.baseurl = "file:${user.home}/www/download.eclipse.org/eclipse/updates"
 eclipse.platform.name    = "Eclipse Platform ${eclipse.platform.version}"
 eclipse.platform.url     = "${eclipse.platform.baseurl}/${eclipse.version}/${eclipse.platform.version}/"
 
-#eclipse.simu.version=201706281000
-eclipse.simu.version=201709271000
+#eclipse.simu.version=201709271000
+eclipse.simu.version=201710111001
 
-eclipse.simu.baseurl = "http://download.eclipse.org/releases"
+#eclipse.simu.baseurl = "http://download.eclipse.org/releases"
+eclipse.simu.baseurl = "file:${user.home}/www/download.eclipse.org/releases"
 eclipse.simu.name    = "Eclipse Simu Release ${eclipse.version} - ${eclipse.simu.version}"
 eclipse.simu.url     = "${eclipse.simu.baseurl}/${eclipse.name}/${eclipse.simu.version}/"
 
