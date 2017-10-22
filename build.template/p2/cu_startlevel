@@ -1,0 +1,29 @@
+
+# create a requirement from the host product/feature/bundle containing this p2.inf file to the CU we are creating to change the start level
+requires.@inc@.namespace=org.eclipse.equinox.p2.iu
+requires.@inc@.name=activation.@bundle@
+requires.@inc@.range=[$version$,$version$]
+requires.@inc@.greedy=true
+
+# create the CU fragment named activation.@bundle@
+units.@inc@.id=activation.@bundle@
+units.@inc@.version=$version$
+units.@inc@.provides.1.namespace=org.eclipse.equinox.p2.iu
+units.@inc@.provides.1.name=activation.@bundle@
+units.@inc@.provides.1.version=$version$
+units.@inc@.instructions.install=org.eclipse.equinox.p2.touchpoint.eclipse.installBundle(bundle:${artifact});
+units.@inc@.instructions.uninstall=org.eclipse.equinox.p2.touchpoint.eclipse.uninstallBundle(bundle:${artifact});
+units.@inc@.instructions.configure=org.eclipse.equinox.p2.touchpoint.eclipse.setStartLevel(startLevel:@configure.startlevel@); \
+                               org.eclipse.equinox.p2.touchpoint.eclipse.markStarted(started:@configure.autostart@);
+units.@inc@.instructions.unconfigure=org.eclipse.equinox.p2.touchpoint.eclipse.setStartLevel(startLevel:@unconfigure.startlevel@); \
+                                 org.eclipse.equinox.p2.touchpoint.eclipse.markStarted(started:@unconfigure.autostart@);
+units.@inc@.hostRequirements.1.namespace=osgi.bundle
+units.@inc@.hostRequirements.1.name=@bundle@
+units.@inc@.hostRequirements.1.greedy=false
+units.@inc@.hostRequirements.2.namespace=org.eclipse.equinox.p2.eclipse.type
+units.@inc@.hostRequirements.2.name=bundle
+units.@inc@.hostRequirements.2.greedy=false
+units.@inc@.requires.1.namespace=osgi.bundle
+units.@inc@.requires.1.name=@bundle@
+units.@inc@.requires.1.greedy=false
+

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="@feature.id@"
+      label="@feature.name@"
+      version="@feature.version.qualifier@"
+      @os@
+      @ws@
+      @arch@
+      @nl@
+      provider-name="klib.io">
+
+   <description>
+      @feature.description@
+   </description>
+
+   <copyright>
+      All rights reserved by Kirschners GmbH.
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+@feature.includes@
+@plugin.includes@
+@fragment.includes@
+</feature>   

@@ -1,0 +1,159 @@
+<!-- ======================================================================
+     ant macros for common usage 
+     ====================================================================== -->
+<project name="ant.macros2" default="">
+
+	<macrodef name="gather-features">
+		<attribute name="dir.features" />
+		<attribute name="dir.repo" />
+		<attribute name="context.repo" />
+		<sequential>
+
+			<getPluginVersions repo="@{context.repo}" />
+			<echo>@{context.repo}_PluginVersions: '${@{context.repo}_PluginVersions}'</echo>
+			<!--featureIds=" + featureVersionInfo + "-->
+
+			<for param="buildFeature">
+				<dirset dir="@{dir.features}" defaultexcludes="true">
+					<present targetdir="@{dir.features}">
+						<mapper type="glob" from="*" to="*/feature.xml" />
+					</present>
+				</dirset>
+				<sequential>
+					<eclipse.idReplacer featureFilePath="@{buildFeature}/feature.xml" pluginIds="${@{context.repo}_PluginVersions}" />
+					<echo message="calling eclipse.gatherFeature for directory @{buildFeature}" />
+					<eclipse.gatherFeature repository="file:///@{dir.repo}" baseDirectory="@{buildFeature}" buildResultFolder="@{buildFeature}" />
+				</sequential>
+			</for>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="getPluginVersions">
+		<attribute name="repo" />
+		<sequential>
+			<pathconvert targetos="unix" pathsep="," property="@{repo}_getPluginVersions">
+				<path>
+					<fileset dir="@{repo}/plugins">
+						<include name="*" />
+					</fileset>
+					<dirset dir="@{repo}/plugins">
+						<include name="*" />
+					</dirset>
+				</path>
+			</pathconvert>
+
+			<loadresource property="@{repo}_PluginVersions">
+				<propertyresource name="@{repo}_getPluginVersions" />
+				<filterchain>
+					<tokenfilter>
+						<stringtokenizer delims="," />
+						<replaceregex pattern=".*/(.*?)_(.*?)(\.jar)?" replace="\1:0.0.0,\2" flags="gi" />
+						<replaceregex pattern="(.*)\.jar" replace="\1" flags="gi" />
+					</tokenfilter>
+				</filterchain>
+			</loadresource>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="replace-qualifier-for-feature-build">
+		<attribute name="directory" />
+		<sequential>
+			<echo message="# update features and plugins with &quot;0.0.0.qualifier&quot; to &lt;${version.framework}.${buildId}&gt;" />
+			<replace token="version=&quot;0.0.0.qualifier&quot;" value="version=&quot;${version.framework}.${buildId}&quot;" summary="true">
+				<fileset dir="@{directory}">
+					<include name="**/*.product" />
+					<include name="**/feature.xml" />
+					<include name="**/META-INF/MANIFEST.MF" />
+				</fileset>
+			</replace>
+			<replace token="Bundle-Version: 0.0.0.qualifier" value="Bundle-Version: ${version.framework}.${buildId}" summary="true">
+				<fileset dir="@{directory}">
+					<include name="**/*.product" />
+					<include name="**/feature.xml" />
+					<include name="**/META-INF/MANIFEST.MF" />
+				</fileset>
+			</replace>
+
+			<echo message="# update the plugin qualifier token to the value from lastModifiedVersionQualifier.properties" />
+			<replaceQualifierFromPropertyFile dir2version="@{directory}/features" propertyFile="${BUILD_WORK_DIR}/${filename.versionQualifier}" />
+			<replaceQualifierFromPropertyFile dir2version="@{directory}/plugins" propertyFile="${BUILD_WORK_DIR}/${filename.versionQualifier}" />
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="bundle_version">
+		<attribute name="target-propertyName"/>
+		<attribute name="dir"/>
+		<attribute name="bundle"/>
+		<sequential>
+	        <pathconvert property="product_bundle_file" pathsep="${line.separator}">
+				<fileset dir="@{dir}">
+					<include name="@{bundle}" />
+				</fileset>
+	        </pathconvert>
+			
+			<loadresource property="@{target-propertyName}">
+			  <propertyresource name="product_bundle_file"/>
+			  <filterchain>
+			    <tokenfilter>
+			      <replaceregex pattern=".*_(.*).jar" replace="\1"/>
+			    </tokenfilter>
+			  </filterchain>
+			</loadresource>
+
+		</sequential>
+	</macrodef>
+
+	<macrodef name="dotEclipseProduct">
+		<attribute name="name" />
+		<attribute name="id" />
+		<attribute name="version" />
+		<attribute name="directory" />
+		<sequential>
+			<propertyfile file="@{directory}/.eclipseproduct" comment="Eclipse Product File">
+				<entry key="name" value="@{name}" />
+				<entry key="version" value="@{version}" />
+				<entry key="id" value="@{id}" />
+			</propertyfile>
+			<!--
+see org.eclipse.pde.internal.build.ProductGenerator.createEclipseProductFile(String):
+            File dir = new File(directory);
+            if ((!dir.exists() && !dir.mkdirs()) || dir.isFile())
+                return; //we will fail trying to create the file, TODO log warning/error
+
+            Properties properties = new Properties();
+            if (productFile.getProductName() != null)
+                properties.put("name", productFile.getProductName()); //$NON-NLS-1$
+            if (productFile.getProductId() != null)
+                properties.put(ID, productFile.getProductId());
+
+            if (properties.size() == 0)
+                return;
+
+            String branding = getBrandingPlugin();
+            if (branding != null) {
+                BundleDescription bundle = getSite(false).getRegistry().getResolvedBundle(branding);
+                if (bundle != null)
+                    properties.put(VERSION, bundle.getVersion().toString());
+            }
+            OutputStream stream = null;
+            try {
+                File file = new File(dir, ".eclipseproduct"); //$NON-NLS-1$
+                stream = new BufferedOutputStream(new FileOutputStream(file));
+                properties.store(stream, "Eclipse Product File"); //$NON-NLS-1$
+                stream.flush();
+            } catch (IOException e) {
+                //nothing
+            } finally {
+                if (stream != null) {
+                    try {
+                        stream.close();
+                    } catch (IOException e) {
+                        //nothing
+                    }
+                }
+            }
+        -->
+		</sequential>
+	</macrodef>
+
+</project>

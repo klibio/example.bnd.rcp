@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="buildBnd2EclipseProduct" default="everything">
+
+    <target name="everything" depends="createDynamicFeature" description="">
+
+    </target>
+
+    <target name="prepare">
+        <mkdir dir="${buildDirectory}" />
+
+    </target>
+
+    <target name="clean">
+        <delete failonerror="false" includeemptydirs="true">
+            <fileset dir="dir.bndRepo" includes="**/*" />
+            <fileset dir="dir.temp" includes="**/*" />
+        </delete>
+
+    </target>
+
+    <target name="collectBNDgeneratedBundles" depends="clean">
+        <p2.publish.featuresAndBundles compress="true"
+                                       publishartifacts="true"
+                                       append="true"
+                                       repository="file:${dir.bndRepo}"
+                                       repositoryname="bndRepo">
+            <bundles dir="${dir.workspace}">
+                <include name="**/generated/*.jar" />
+                <exclude name=".*/**" />
+                <exclude name="io.klib*/**" />
+            </bundles>
+        </p2.publish.featuresAndBundles>
+    </target>
+
+    <target name="createDynamicFeature" depends="collectBNDgeneratedBundles" description="description">
+
+        <echo message="# creating feature for including dynamically all bnd generated bundles" />
+        <property name="bundleIncludeSection_bnd2pde" value="${dir.temp}/bundleIncludeSection.txt" />
+        <createFeatureIncludeSectionForBundlesAndFragments dir.bundles="${dir.bndRepo}"
+                                                           file.includesection="${bundleIncludeSection_bnd2pde}" />
+
+        <echo message="" file="${bundleIncludeSection_bnd2pde}" append="true" />
+        <loadfile property="plugin.includes" srcfile="${bundleIncludeSection_bnd2pde}" />
+
+        <property name="featureNameContainer" value="example.bnd2ecl.feature" />
+        <createFeatureXmlFile filename="${dir.temp}/dynamic_feature/features/${featureNameContainer}/feature.xml"
+                              id="${featureNameContainer}"
+                              name="${featureNameContainer}"
+                              version="1.0.0.${NOW}"
+                              includeplugins="${plugin.includes}" />
+        <echo file="${dir.temp}/dynamic_feature/features/${featureNameContainer}/build.properties"
+              message="bin.includes = feature.xml" />
+        <copy todir="${dir.temp}/dynamic_feature/features/${featureNameContainer}"
+              file="${dir.workspace}/build.template/p2/category/p2.inf" />
+
+        <echo message="# publishing the bundles final p2 repository" />
+        <featureAndPluginPublisher dir.source="${dir.temp}/dynamic_feature" dir.repository="${dir.bndRepo}" />
+    </target>
+
+    <dirname property="dir.script.os" file="${ant.file.mirrorEclipseRepos}" />
+    <pathconvert property="dir.script" targetos="unix">
+        <path location="${dir.script.os}" />
+    </pathconvert>
+    <pathconvert property="dir.workspace" targetos="unix">
+        <path location="${dir.script.os}/.." />
+    </pathconvert>
+
+    <property name="dir.bndRepo" value="${dir.script}/_results/bndRepo" />
+    <tempfile property="dir.temp" destDir="${dir.script}/_rt" prefix="dynRepo" />
+    <property name="buildDirectory" value="${dir.temp}/buildDirectory" />
+    <import file="${dir.workspace}/build.ant/common/macros.xml" />
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+        <classpath>
+            <pathelement location="${dir.workspace}/build.ant/lib/ant-contrib-1.0b3.jar" />
+        </classpath>
+    </taskdef>
+
+    <tstamp>
+        <format property="NOW" pattern="yyyyMMdd-HHmmss" />
+    </tstamp>
+</project>

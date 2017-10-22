@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="project" default="">
+    <description>
+            description
+    </description>
+
+    <property name="uncShare" value="\\emea.corpdir.net\EMTC\prj" />
+    <property name="driveLetter" value="I:" />
+
+    <condition property="isWindows">
+        <os family="windows" />
+    </condition>
+
+    <!-- ================================= 
+          target: exampleUsage              
+         ================================= -->
+    <target name="exampleUsage" depends="" description="description">
+        <property name="ENGINE_LIB_DIR" value="I:/A-D/CEC-Build" />
+        <ant antfile="../common/ant_win.xml" target="mountWinDrive">
+            <property name="uncShare" value="${ENGINE_LIB_DIR.win}" />
+            <property name="driveLetter" value="I:" />
+        </ant>
+        <property name="mountingDrivesExecuted" value="true" />
+
+        <echo message="ENGINE_LIB_DIR=${ENGINE_LIB_DIR}" />
+
+    </target>
+
+
+    <!-- ================================= 
+          target: mountWinDrive              
+         ================================= -->
+    <target name="mountWinDrive"
+            description="description"
+            if="isWindows"
+            unless="mountingDrivesExecuted">
+        <echo message="# executing mount of ${uncShare} to driveletter ${driveLetter} " />
+
+        <exec executable="wmic"
+              output="${java.io.tmpdir}/zListOfLogicalDisks.txt"
+              errorproperty="wmicError">
+            <arg value="logicaldisk" />
+            <arg value="get" />
+            <arg value="name,providername" />
+        </exec>
+        <fail unless="wmicError" message="# error occured: ${wmicError}" />
+
+
+        <loadfile property="driveLetterOfUNCpathToUnmount"
+                  srcfile="${java.io.tmpdir}/zListOfLogicalDisks.txt">
+            <filterchain>
+                <linecontains>
+                    <contains value="${uncShare}" />
+                </linecontains>
+                <replaceregex pattern="(.:)\s*.*" replace="\1" flags="gs" byline="false" />
+            </filterchain>
+        </loadfile>
+        <delete file="${java.io.tmpdir}/zListOfLogicalDisks.txt" failonerror="false" />
+
+        <condition property="isUnmountRequired" value="true">
+            <equals arg1="${driveLetterOfUNCpathToUnmount}" arg2="${driveLetter}" />
+        </condition>
+        <echo message="is unmount required: ${isUnmountRequired}" />
+
+        <antcall target="unmountUNCpath">
+            <param name="uncShare" value="${uncShare}" />
+            <param name="driveLetter" value="${driveLetter}" />
+        </antcall>
+        <antcall target="mountDrive">
+            <param name="driveLetter" value="${driveLetter}" />
+            <param name="uncShare" value="${uncShare}" />
+        </antcall>
+
+        <echo message="# windows only mount checks/tasks completed" />
+        <property name="mountingDrivesExecuted" value="true" />
+
+    </target>
+
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: validateIfDriveIsAlreadyMounted                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="unmountUNCpath" if="isUnmountRequired">
+        <echo message="unmounting UNC path usages" />
+        <unmountDrive driveToUnmount="${driveLetterOfUNCpathToUnmount}" />
+        <exec executable="wmic"
+              output="${java.io.tmpdir}/zListOfLogicalDisks.txt"
+              errorproperty="wmicError">
+            <arg value="logicaldisk" />
+            <arg value="get" />
+            <arg value="name,providername" />
+        </exec>
+        <fail unless="wmicError" message="# error occured: ${wmicError}" />
+
+        <loadfile property="driveLetterOfUNCpathToUnmount"
+                  srcfile="${java.io.tmpdir}/zListOfLogicalDisks.txt">
+            <filterchain>
+                <linecontains>
+                    <contains value="${driveLetter}" />
+                </linecontains>
+                <replaceregex pattern="(.:)\s*.*" replace="\1" flags="gs" byline="false" />
+            </filterchain>
+        </loadfile>
+        <delete file="${java.io.tmpdir}/zListOfLogicalDisks.txt" failonerror="false" />
+        <unmountDrive driveToUnmount="${driveLetter}" />
+    </target>
+
+    <!-- = = = = = = = = = = = = = = = = =
+          macrodef: unmountDrive          
+         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="unmountDrive">
+        <attribute name="driveToUnmount" />
+        <sequential>
+            <echo message="net use /delete /yes @{driveToUnmount}" />
+            <exec executable="net" outputproperty="unmountOut" errorproperty="unmountError">
+                <arg value="use" />
+                <arg value="/delete" />
+                <arg value="/yes" />
+                <arg value="@{driveToUnmount}" />
+            </exec>
+            <echo message="${line.separator}unmountOut${line.separator}${unmountOut}" />
+            <echo message="${line.separator}unmountError${line.separator}${unmountError}" />
+            <condition property="isSuccessful">
+                <or>
+                    <contains string="${unmountProperty}"
+                              substring="was deleted successfully" />
+                </or>
+            </condition>
+            <echo message="Drive @{driveToUnmount} was either &quot;not mounted&quot; or &quot;successfully unmounted&quot;!" />
+        </sequential>
+    </macrodef>
+
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: mountDrive                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="mountDrive">
+        <mountDrive driveLetter="${driveLetter}" uncpath="${uncShare}" />
+    </target>
+
+
+    <!-- = = = = = = = = = = = = = = = = =
+          macrodef: mountDrive          
+         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="mountDrive">
+        <attribute name="driveLetter" />
+        <attribute name="uncPath" />
+        <sequential>
+            <echo message="net use @{driveLetter} @{uncPath}" />
+            <exec executable="net" outputproperty="mountOut" errorproperty="mountError">
+                <arg value="use" />
+                <arg value="@{driveLetter}" />
+                <arg value="@{uncPath}" />
+            </exec>
+            <echo message="${line.separator}mountOut${line.separator}${mountOut}" />
+            <echo message="${line.separator}mountError${line.separator}${mountError}" />
+            <condition property="isSuccessful">
+                <or>
+                    <contains string="${mountOut}"
+                              substring="The command completed successfully." />
+                    <contains string="${mountOut}"
+                              substring="Der Befehl wurde erfolgreich ausgef" />
+                </or>
+            </condition>
+            <fail unless="isSuccessful"
+                  message="${mountOut}${line.separator}# error occured: ${mountError}" />
+            <echo message="${line.separator}${line.separator}@{driveletter} mounted successfully @{uncPath}${line.separator}${line.separator}" />
+        </sequential>
+    </macrodef>
+
+</project>

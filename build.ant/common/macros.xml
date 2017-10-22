@@ -1,0 +1,351 @@
+<!-- ======================================================================
+     ant macros for common usage 
+     ====================================================================== -->
+<project name="ant.macros" default="">
+
+    <!-- = = = = = = = = = = = = = = = = =
+          macrodef: generateGUID
+          
+          create property containing a random generated UUID
+             with the name [__guid__]
+             inside a file named [guid.properties]
+             inside the root/project caller script folder or a specified file
+             only if target file is not already existing
+         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="generateGUID">
+        <attribute name="targetFile" default="${__dir.project}/guid.properties" />
+        <sequential>
+
+            <dirname file="${ant.file}" property="__dir.platformProjectDir" />
+            <pathconvert property="__dir.project" targetos="unix">
+                <path location="${__dir.platformProjectDir}" />
+            </pathconvert>
+
+            <condition property="__existing.file.guid.properties__">
+                <available file="@{targetFile}" />
+            </condition>
+
+            <if>
+                <not>
+                    <isset property="__existing.file.guid.properties__" />
+                </not>
+                <then>
+                    <if>
+                        <equals arg1="${java.vm.specification.version}" arg2="1.8" />
+                        <then>
+                            <echo message="import javascript snipper inside JRE ${java.vm.specification.version}" />
+                            <scriptdef name="generateguid" language="javascript">
+                                <attribute name="property" />
+                                <![CDATA[
+						   load("nashorn:mozilla_compat.js");
+                           importClass( java.util.UUID );
+                           project.setProperty( attributes.get( "property" ), UUID.randomUUID() );
+                        ]]>
+                            </scriptdef>
+                        </then>
+                        <else>
+                            <echo message="import javascript snipper inside JRE ${java.vm.specification.version}" />
+                            <scriptdef name="generateguid" language="javascript">
+                                <attribute name="property" />
+                                <![CDATA[
+                           importClass( java.util.UUID );
+                           project.setProperty( attributes.get( "property" ), UUID.randomUUID() );
+                        ]]>
+                            </scriptdef>
+                        </else>
+                    </if>
+
+                    <echo message="# Generate a globally unique identfier for this project inside @{targetFile}" />
+                    <generateguid property="__guid__" />
+                    <echoproperties destfile="@{targetFile}"
+                                    prefix="__guid__"
+                                    description="# This is a globally unique identifier for this workspace" />
+                </then>
+                <else>
+                    <echo message="using existing property file @{targetFile}" />
+                    <property file="@{targetFile}" />
+                    <fail unless="__guid__"
+                          message="property __guid__ is not contained in the file @{targetFile}" />
+                </else>
+            </if>
+
+        </sequential>
+    </macrodef>
+
+    <!-- = = = = = = = = = = = = = = = = =
+	          macrodef: featureAndPluginPublisher
+	          
+	          publishes all bundles found recursively from dir.source to dir.repository
+	          defaults is appending and artifact publishing (if not desired append="" and publish="")          
+	         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="featureAndPluginPublisher">
+        <attribute name="dir.source" />
+        <attribute name="dir.repository" />
+        <attribute name="append" default="-append" />
+        <attribute name="publish" default="-publishArtifacts" />
+        <sequential>
+            <tempfile property="temp.dir"
+                      destDir="${java.io.tmpdir}"
+                      prefix="_antFeatureAndPluginPublisher" />
+
+            <property name="rt" value="${temp.dir}/featuresAndBundlesPublisher" />
+
+            <mkdir dir="${temp.dir}/features" />
+            <copy todir="${temp.dir}/features" failonerror="false">
+                <fileset dir="@{dir.source}">
+                    <include name="**/features/**" />
+                </fileset>
+                <mapper>
+                    <regexpmapper from=".*?features[\\|/](.*)" to="\1" handledirsep="true" />
+                </mapper>
+            </copy>
+
+            <mkdir dir="${temp.dir}/plugins" />
+            <copy todir="${temp.dir}/plugins" failonerror="false">
+                <fileset dir="@{dir.source}">
+                    <include name="**/*.jar" />
+                </fileset>
+            </copy>
+
+            <p2.publish.featuresAndBundles compress="true"
+                                           publishartifacts="true"
+                                           append="true"
+                                           repository="file:/@{dir.repository}"
+                                           repositoryname="xyz"
+                                           source="${temp.dir}" />
+            <delete dir="${temp.dir}" />
+            <var name="temp.dir" unset="true" />
+        </sequential>
+    </macrodef>
+
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: createFeatureIncludeSectionForBundlesAndFragments  
+                    
+          gather the feature include section for bundles from a directory containing the bundle artifacts                    
+         - - - - - - - - - - - - - - - - - -->
+    <macrodef name="createFeatureIncludeSectionForBundlesAndFragments">
+        <attribute name="dir.bundles" />
+        <attribute name="file.includeSection" />
+        <sequential>
+            <echo message="generate feature include section for bundles from @{dir.bundles}" />
+            <fileset dir="@{dir.bundles}/plugins" id="id.bundleArtifacts">
+                <include name="*.jar" />
+            </fileset>
+            <mkdir dir="@{dir.bundles}/plugins" />
+
+            <echo message="creating for the feature a bundle include section for bundles ${toString:id.bundleArtifacts}" />
+            <delete file="@{file.includeSection}" failonerror="false" />
+            <for param="bundleArtifact" list="${toString:id.bundleArtifacts}" delimiter=";">
+                <sequential>
+                    <propertyregex property="bundleName"
+                                   input="@{bundleArtifact}"
+                                   regexp="([a-zA-Z0-9.\-_]+[_64|_32]?)_([0-9]*\.[0-9]*\.[0-9]*[\.a-zA-Z0-9\-_]+)\.jar"
+                                   select="\1"
+                                   override="true"
+                                   casesensitive="false" />
+                    <propertyregex property="bundleVersion"
+                                   input="@{bundleArtifact}"
+                                   regexp="([a-zA-Z0-9.\-_]+[_64|_32]?)_([0-9]*\.[0-9]*\.[0-9]*[\.a-zA-Z0-9\-_]+)\.jar"
+                                   select="\2"
+                                   override="true"
+                                   casesensitive="false" />
+                    <propertyregex property="osgi.os"
+                                   input="@{bundleArtifact}"
+                                   regexp="(.*?)(aix|hpux|linux|macos|macosx|qnx|solaris|win32)(.*)\.jar"
+                                   replace=" os=&quot;\2&quot;"
+                                   defaultValue=""
+                                   global="true"
+                                   override="true"
+                                   casesensitive="false" />
+                    <propertyregex property="osgi.ws"
+                                   input="@{bundleArtifact}"
+                                   regexp="(.*?)(carbon|cocoa|gtk|motif|photon|win32|wpf)(.*)\.jar"
+                                   replace=" ws=&quot;\2&quot;"
+                                   defaultValue=""
+                                   global="true"
+                                   override="true"
+                                   casesensitive="false" />
+                    <propertyregex property="osgi.arch"
+                                   input="@{bundleArtifact}"
+                                   regexp="(.*?)(ia64_32|ia64|PA_RISC|ppc64|ppc|sparc|x86_64|x86|s390x|s390)(.*)\.jar"
+                                   replace=" arch=&quot;\2&quot;"
+                                   defaultValue=""
+                                   global="true"
+                                   override="true"
+                                   casesensitive="false" />
+
+                    <echo file="@{file.includeSection}"
+                          append="true"
+                          message="   &lt;plugin id=&quot;${bundleName}&quot; version=&quot;${bundleVersion}&quot;${osgi.ws}${osgi.os}${osgi.arch} unpack=&quot;false&quot;/&gt;${line.separator}" />
+
+                </sequential>
+            </for>
+        </sequential>
+    </macrodef>
+
+
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: createFeatureIncludeSectionForFeatures  
+                    
+          gather the feature include section for features from a directory containing the features                    
+         - - - - - - - - - - - - - - - - - -->
+    <macrodef name="createFeatureIncludeSectionForFeatures">
+        <attribute name="dir.features" />
+        <attribute name="file.includeSection" />
+        <sequential>
+            <echo message="generate feature include section for features from @{dir.features}"
+                  level="debug" />
+            <fileset dir="@{dir.features}/features" id="id.featureArtifacts">
+                <include name="*.jar" />
+            </fileset>
+            <delete file="@{file.includeSection}" failonerror="false" />
+            <for param="featureArtifact" list="${toString:id.featureArtifacts}" delimiter=";">
+                <sequential>
+                    <propertyregex property="featureName"
+                                   input="@{featureArtifact}"
+                                   regexp="([a-zA-Z0-9.\-_]+[_64|_32]?)_([0-9]*\.[0-9]*\.[0-9]*[\.a-zA-Z0-9\-_]+)\.jar"
+                                   select="\1"
+                                   casesensitive="false" />
+                    <propertyregex property="featureVersion"
+                                   input="@{featureArtifact}"
+                                   regexp="([a-zA-Z0-9.\-_]+[_64|_32]?)_([0-9]*\.[0-9]*\.[0-9]*[\.a-zA-Z0-9\-_]+)\.jar"
+                                   select="\2"
+                                   casesensitive="false" />
+
+                    <echo file="@{file.includeSection}"
+                          append="true"
+                          message="   &lt;includes id=&quot;${featureName}&quot; version=&quot;${featureVersion}&quot;/&gt;${line.separator}" />
+                    <var name="featureName" unset="true" />
+                    <var name="featureVersion" unset="true" />
+                </sequential>
+            </for>
+        </sequential>
+    </macrodef>
+
+    <!-- = = = = = = = = = = = = = = = = =
+          macrodef: createFeatureXmlFile          
+         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="createFeatureXmlFile">
+
+        <attribute name="root" default="../" />
+        <attribute name="filename" />
+        <attribute name="id" />
+        <attribute name="name" />
+        <attribute name="description" default="" />
+        <attribute name="version" default="1.0.0" />
+        <attribute name="os" default="" />
+        <attribute name="ws" default="" />
+        <attribute name="arch" default="" />
+        <attribute name="nl" default="" />
+        <attribute name="feature.provider" default="Kirschners GmbH" />
+        <attribute name="includeFeatures" default="" />
+        <attribute name="includePlugins" default="" />
+        <attribute name="includeFragments" default="" />
+        <sequential>
+            <if>
+                <equals arg1="@{os}" arg2="" />
+                <then>
+                    <var name="feature.os" value="" />
+                </then>
+                <else>
+                    <var name="feature.os" value="os=&quot;@{os}&quot;" />
+                </else>
+            </if>
+            <if>
+                <equals arg1="@{ws}" arg2="" />
+                <then>
+                    <var name="feature.ws" value="" />
+                </then>
+                <else>
+                    <var name="feature.ws" value="ws=&quot;@{ws}&quot;" />
+                </else>
+            </if>
+            <if>
+                <equals arg1="@{arch}" arg2="" />
+                <then>
+                    <var name="feature.arch" value="" />
+                </then>
+
+                <else>
+                    <var name="feature.arch" value="arch=&quot;@{arch}&quot;" />
+                </else>
+            </if>
+            <if>
+                <equals arg1="@{nl}" arg2="" />
+                <then>
+                    <var name="feature.nl" value="" />
+                </then>
+                <else>
+                    <var name="feature.nl" value="nl=&quot;@{nl}&quot;" />
+                </else>
+            </if>
+
+
+            <loadfile property="filecontent.feature"
+                      srcfile="@{root}/build.template/feature/feature.xml">
+                <filterchain>
+                    <replacetokens>
+                        <token key="feature.id" value="@{id}" />
+                        <token key="feature.name" value="@{name}" />
+                        <token key="feature.version.qualifier" value="@{version}" />
+                        <token key="os" value="${feature.os}" />
+                        <token key="ws" value="${feature.ws}" />
+                        <token key="arch" value="${feature.arch}" />
+                        <token key="nl" value="${feature.nl}" />
+                        <token key="feature.provider" value="Kirschners GmbH" />
+                        <token key="feature.description" value="@{description}" />
+                        <token key="feature.includes" value="@{includeFeatures}" />
+                        <token key="plugin.includes" value="@{includePlugins}" />
+                        <token key="fragment.includes" value="@{includeFragments}" />
+                    </replacetokens>
+                </filterchain>
+            </loadfile>
+            <echo message="createFeatureXmlFile${line.separator}${filecontent.feature}"
+                  level="debug" />
+            <echo message="${filecontent.feature}" file="@{filename}" />
+
+            <var name="filecontent.feature" unset="true" />
+        </sequential>
+    </macrodef>
+
+    <!-- = = = = = = = = = = = = = = = = =
+          macrodef: createOBRindex
+          
+          rootFolder - folder which contains the bundles to be indexed
+         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="createOBRindex">
+        <attribute name="rootFolder" />
+        <attribute name="name" default="generated obr repository" />
+        <sequential>
+            <echo message="generating OBR index with name @{name} for folder @{rootFolder}" />
+            <java dir="@{rootFolder}"
+                  jar="${dir.workspace}/build.ant/lib/org.osgi.impl.bundle.repoindex.cli-3.0.0.jar"
+                  fork="true">
+                <arg line="-n @{name}" />
+                <arg line="-d @{rootFolder}/" />
+                <arg line="--pretty" />
+                <arg line="@{rootFolder}/plugins" />
+            </java>
+            <gzip destfile="@{rootFolder}/index.xml.gz" src="@{rootFolder}/index.xml" />
+            <delete file="@{rootFolder}/index.xml" />
+        </sequential>
+    </macrodef>
+
+    <!-- - - - - - - - - - - - - - - - - - 
+          macrodef: bundleTimestampComparison                      
+         - - - - - - - - - - - - - - - - - -->
+    <macrodef name="bundleTimestampComparison">
+        <attribute name="dir.baselinePlugins" />
+        <attribute name="dir.buildPlugins"/>
+        <attribute name="file.output"/>
+        <sequential>
+            <echo message="bundleTimestampComparison - comparing ${line.separator}   @{dir.baselinePlugins}${line.separator}   @{dir.buildPlugins}" />
+            <echo message="on build fails check the log file - @{file.output}" />
+            <java jar="${ENGINE_LIB_DIR}/build/tooling/sink/bundleTimestampComparison.jar" logError="true" timeout="120000" fork="true" failonerror="true" output="@{file.output}">
+                <arg value="@{dir.baselinePlugins}" />
+                <arg value="@{dir.buildPlugins}" />
+            </java>
+        </sequential>
+    </macrodef>
+
+</project>

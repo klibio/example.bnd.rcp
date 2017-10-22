@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="signing" default="default">
+    <target name="default" depends="" description="description">
+        <p2.process.artifacts pack="false" normalize="false" repositorypath="file:@repoToSign@">
+            <sign alias="${sign.alias}" keypass="${sign.keypass}" keystore="${sign.keystore}" storepass="${sign.storepass}" unsign="true" />
+@features@
+@plugins@
+        </p2.process.artifacts>
+    </target>
+</project>

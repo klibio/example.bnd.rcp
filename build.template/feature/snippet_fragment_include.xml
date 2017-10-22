@@ -1,0 +1,1 @@
+<plugin id="@plugin.id@" @osgi.nl@ @osgi.os@ @osgi.ws@ @osgi.arch@ download-size="0" install-size="0" version="@plugin.version.qualifer@" fragment="true" unpack="@plugin.unpack@"/>

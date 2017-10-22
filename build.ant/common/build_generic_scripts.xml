@@ -1,0 +1,1212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ======================================================================
+     generic-scripts
+
+     scripts and macros for generic build support
+
+     Macros inside this script must not define variables
+     ====================================================================== -->
+<project name="generic-scripts" xmlns:jacoco="antlib:org.jacoco.ant">
+    <description>
+            This file contains generic targets and macros for usage inside build scripts
+    </description>
+
+    <dirname property="ant.scriptdir.os" file="${ant.file}" />
+    <pathconvert property="ant.scriptdir" targetos="unix">
+        <path location="${ant.scriptdir.os}" />
+    </pathconvert>
+    <pathconvert property="dir.workspace" targetos="unix">
+        <path location="${ant.scriptdir}/../.." />
+    </pathconvert>
+
+    <path id="ant.lib.path">
+        <fileset dir="${ENGINE_LIB_DIR}/build/tooling/ant/lib" includes="*.jar" />
+    </path>
+
+    <taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="ant.lib.path" />
+    <taskdef uri="antlib:org.jacoco.ant"
+             resource="org/jacoco/ant/antlib.xml"
+             classpathref="ant.lib.path" />
+
+    <taskdef resource="taskdef.properties">
+        <classpath path="${ENGINE_LIB_DIR}/build/tooling/ant/lib/org.osgi.impl.bundle.repoindex.ant.jar" />
+    </taskdef>
+
+
+    <!-- - - - - - - - - - - - - - - - - -
+          target: initBuild
+         - - - - - - - - - - - - - - - - - -->
+    <target name="initBuild" depends="initOnce">
+        <logActivity activityId="buildScriptActivity"
+                     label="### starting buildscript ... ${BUILD_SCRIPT_FILE}"
+                     autocomplete="false" />
+        <echoproperties destfile="${BUILD_WORK_DIR}/initial_AntProperties_${BUILD_SCRIPT_FILE}.txt"
+                        format="text" />
+        <logFile file="${BUILD_WORK_DIR}/initial_AntProperties_${BUILD_SCRIPT_FILE}.txt"
+                 comment="initial_AntProperties_${BUILD_SCRIPT_FILE}"
+                 sorted="true" />
+    </target>
+
+    <!-- = = = = = = = = = = = = = = = = =
+          target: exitBuild
+         = = = = = = = = = = = = = = = = = -->
+    <target name="exitBuild">
+        <sequential>
+            <logActivity activityId="endBuildScriptActivity"
+                         label="### end of buildscript .... ${BUILD_SCRIPT_FILE} is reached" />
+            <logActivityEnd activityId="${buildScriptActivity}" />
+        </sequential>
+    </target>
+
+
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: configure-os-specifics-variables
+         - - - - - - - - - - - - - - - - - -->
+    <target name="identifyOs">
+    	
+        <property environment="env" />
+
+        <!-- support for Windows -->
+        <condition property="cores.count" value="${env.NUMBER_OF_PROCESSORS}">
+            <os family="windows" />
+        </condition>
+        <condition property="isWindows">
+            <os family="windows" />
+        </condition>
+
+        <!-- support for Linux and Solaris (package SUNWgnu-coreutils is required) -->
+        <condition property="isLinux">
+            <os family="unix" />
+        </condition>
+        <exec executable="nproc" outputproperty="cores.count" os="Linux,SunOS,Solaris">
+            <arg value="--all" />
+        </exec>
+
+        <!-- support for Mac OS X -->
+        <condition property="isMac">
+            <os family="mac" />
+        </condition>
+        <exec executable="sysctl" outputproperty="cores.count" os="Mac OS X">
+            <arg value="-n" />
+            <arg value="hw.ncpu" />
+        </exec>
+
+    </target>
+
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: unixSpecific                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="setUnixProperties" if="isLinux">
+        <property name="os.family" value="linux" />
+        <property name="os.linecontinuation" value="\\" />
+    </target>
+
+
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: windowsSpecific                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="setWindowsProperties" if="isWindows">
+        <property name="os.family" value="windows" />
+        <property name="os.linecontinuation" value="^" />
+    </target>
+
+
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: jazzBuildInit                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="jazzBuildInit" if="isJazzAvailable">
+        <echo># --&gt; This build ... runs on OS family "${os.family}" started from "JazzBuildEngine"</echo>
+        <echo message="loading properties from jazz - jazz_build.properties" />
+        <available file="jazz_build.properties" type="file" property="existingJazzProps" />
+
+        <tstamp>
+            <format property="buildId" pattern="yyyyMMdd-HHmmss" timezone="UTC" />
+        </tstamp>
+
+        <!-- change Jazz buildLabel to the current used buildId -->
+        <loadproperties srcfile="jazz_build.properties">
+            <filterchain>
+                <replaceregex pattern="(buildLabel=.).*" replace="\1${buildId}" flags="gi" />
+            </filterchain>
+        </loadproperties>
+
+        <!-- update the build result's label -->
+        <buildResultPublisher label="${buildLabel}"
+                              buildResultUUID="${buildResultUUID}"
+                              repositoryAddress="${repositoryAddress}"
+                              userId="${userid}"
+                              passwordFile="${pwfile}"
+                              verbose="true" />
+
+        <property name="PUBLISH_URL"
+                  value="${PUBLISH_URL_ROOT}/${buildDefinitionId}/${buildLabel}" />
+    </target>
+
+
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: localBuildInit                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="localBuildInit" unless="isJazzAvailable">
+        <echo># --&gt; This build ... runs on OS family "${os.family}" started from "cmd line" or "run configuration"</echo>
+        <echo message="dir.workspace=${dir.workspace}" />
+
+        <if>
+            <available file="${dir.workspace}/build.cfg/general.local.properties"
+                       type="file" />
+            <then>
+                <loadproperties srcfile="${dir.workspace}/build.cfg/general.local.properties">
+                    <filterchain>
+                        <replaceregex pattern="\\\\" replace="/" flags="gi" />
+                    </filterchain>
+                </loadproperties>
+
+                <propertyregex property="buildLabelPrefix"
+                               input="${buildLabel}"
+                               regexp="(.).*"
+                               select="\1" />
+            </then>
+        </if>
+
+        <tstamp>
+            <format property="buildId" pattern="yyyyMMdd-HHmmss" timezone="UTC" />
+        </tstamp>
+    </target>
+
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: jazzBuildQualifiers                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="jazzBuildQualifiers"
+            if="isJazzAvailable"
+            unless="jazzBuildQualifiersIsExecuted">
+        <teamLastModified repositoryAddress="${repositoryAddress}"
+                          userId="${userid}"
+                          passwordFile="${pwfile}"
+                          workspaceUUID="${team.scm.workspaceUUID}"
+                          outputPropertiesFile="${BUILD_WORK_DIR}/${filename.versionQualifier}"
+                          sourceDirectory="${dir.workspace}"
+                          verbose="true"
+                          timestampformat="yyyyMMdd-HHmmss" />
+        <!-- avoid subsequent executions-->
+        <property name="jazzBuildQualifiersIsExecuted" value="true" />
+    </target>
+	
+	<target name="gitBuildQualifiers" unless="isJazzAvailable" if="isGit">
+		<pathconvert property="gitDirList" pathsep=",">
+	        <dirset dir="${dir.workspace}">
+	            <include name="*" />
+	            <exclude name=".*/**" />
+	            <depth max="1" />
+	        </dirset>
+			<flattenmapper />
+		</pathconvert>
+		<for param="gitDir" list="${gitDirList}" parallel="true">
+			<sequential>
+				<echo file="${BUILD_WORK_DIR}/gitlog/@{gitDir}.txt" message="@{gitDir}=" append="false" />
+				<exec executable="${gitCommand}" dir="${dir.workspace}">
+					<arg line="log -1 --format=%ai -- @{gitDir}" />
+					<redirector output="${BUILD_WORK_DIR}/gitlog/@{gitDir}.txt" append="true">
+						<outputfilterchain>
+							<tokenfilter>
+								<filetokenizer />
+								<replaceregex flags="gs" pattern="^(\d\d\d\d)-(\d\d)-(\d\d) (\d\d):(\d\d):(\d\d)(.*)$" replace="\1\2\3-\4\5\6" />
+							</tokenfilter>
+						</outputfilterchain>
+
+					</redirector>
+				</exec>
+				<!-- git log above and the included filter chain do not write new lines - do that here -->
+				<replaceregexp byline="true" flags="s">
+					<regexp pattern="^(.*)$" />
+					<substitution expression="\1${line.separator}" />
+					<fileset file="${BUILD_WORK_DIR}/gitlog/@{gitDir}.txt" />
+				</replaceregexp>
+			</sequential>
+		</for>
+
+		<concat destfile="${BUILD_WORK_DIR}/${filename.versionQualifier}">
+			<fileset dir="${BUILD_WORK_DIR}/gitlog" />
+		</concat>
+	</target>
+
+
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: localBuildQualifiers                      
+		          sets the qualifier of all bundles to the build id
+         - - - - - - - - - - - - - - - - - -->
+    <target name="localBuildQualifiers" unless="isJazzAvailable">
+        <property name="filename.versionQualifier"
+                  value="lastModifiedVersionQualifiers.properties" />
+        <delete file="${BUILD_WORK_DIR}/${filename.versionQualifier}" failonerror="false" />
+
+        <dirset dir="${dir.workspace}" id="projectDirectories">
+            <include name="*" />
+            <exclude name=".*/**" />
+            <depth max="1" />
+        </dirset>
+        <pathconvert property="dir.projectPaths" refid="projectDirectories" targetos="unix">
+            <map from="${dir.workspace}/" to="" />
+        </pathconvert>
+        <for param="dirnameProject" list="${dir.projectPaths}" delimiter=":">
+            <sequential>
+                <echo file="${BUILD_WORK_DIR}/${filename.versionQualifier}"
+                      append="true"
+                      message="@{dirnameProject}=${buildId}${line.separator}" />
+            </sequential>
+        </for>
+        <var name="projectDirectories" unset="true" />
+        <var name="dir.projectPaths" unset="true" />
+    </target>
+
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: checkForJazzBuild                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="checkForJazzBuild">
+        <available file="jazz_build.properties" property="isJazzAvailable" />
+    </target>
+
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: commonInit                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="commonInit">
+
+        <property file="${dir.workspace}/build.cfg/general.local.properties" />
+        <property file="${dir.workspace}/build.cfg/general.properties" />
+        <property file="${dir.workspace}/credentials/sign.properties" />
+        <property file="${dir.workspace}/build.cfg/names.properties" />
+
+        <echo message="create the build working directory ${BUILD_WORK_DIR}" />
+        <mkdir dir="${BUILD_WORK_DIR}" />
+
+        <echo message="creating the publishDestination=${publishDestination}" />
+        <mkdir dir="${publishDestination}" />
+        <available file="${publishDestination}"
+                   type="dir"
+                   property="createdPublishDestination" />
+        <fail unless="createdPublishDestination"
+              message="couldn't create publishDestination ${publishDestination}" />
+
+        <propertyregex property="version.ecTarget"
+                       input="${repo_dir_ECTARGET}"
+                       regexp=".*/.(.*)/ECTARGET"
+                       select="\1" />
+        <property name="dir.local.ecTarget"
+                  value="${ENGINE_WORK_DIR}/${buildDefinitionId}/cache/ecTarget_${version.ecTarget}" />
+        <property name="dir.local.ecTarget.repo2runnable"
+                  value="${ENGINE_WORK_DIR}/${buildDefinitionId}/cache/ecTarget_${version.ecTarget}_repo2runnable" />
+    </target>
+
+
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: initOnce
+         - - - - - - - - - - - - - - - - - -->
+    <target name="initOnce"
+            depends="identifyOs,
+		             setUnixProperties,
+		             setWindowsProperties,
+		             checkForJazzBuild,
+		             jazzBuildInit,
+		             localBuildInit,
+                     commonInit,
+		             jazzBuildQualifiers,
+    			     localBuildQualifiers,
+		             gitBuildQualifiers"
+            unless="initOnceIsExecuted">
+
+        <!-- validate mandatory properties for the build are set -->
+        <fail unless="BUILD_WORK_DIR"
+              message="You need to specify parameter: BUILD_WORK_DIR" />
+        <fail unless="ENGINE_LIB_DIR"
+              message="You need to specify parameter: ENGINE_LIB_DIR" />
+        <fail unless="dir.workspace"
+              message="You need to specify parameter: dir.workspace" />
+
+        <echo message="updating the qualifier from ${BUILD_WORK_DIR}/${filename.versionQualifier}" />
+        <property name="qualifierPrefix" value="qualifier" />
+        <property name="location.versionQualifier"
+                  value="${BUILD_WORK_DIR}/${filename.versionQualifier}" />
+        <property file="${location.versionQualifier}" prefix="${qualifierPrefix}" />
+
+        <echo message="log the used version qualifier file" />
+        <logFile file="${location.versionQualifier}"
+                 comment="Versions and qualifiers"
+                 sorted="true" />
+
+        <property name="localEclipseMirrorLocation"
+                  value="${ENGINE_LIB_DIR}/repo/download.eclipse.org" />
+
+        <property name="dir.repo" value="${BUILD_WORK_DIR}/release/repos" />
+
+        <echo message="adding some defaultexcludes for filesets in ant" />
+        <defaultexcludes add="**/.metadata" />
+        <defaultexcludes add="**/.metadata/**" />
+        <defaultexcludes add="**/.jazz*" />
+        <defaultexcludes add="**/.jazz*/**" />
+        <defaultexcludes add="**/.jazzignore" />
+        <defaultexcludes add="**/bin/**" />
+        <defaultexcludes remove="**/.settings" />
+        <defaultexcludes remove="**/.settings/**" />
+        <defaultexcludes echo="true" />
+
+        <property name="eclipse.pdebuild.scripts"
+                  value="${ECLIPSE_BIN_DIR}/plugins/org.eclipse.pde.build_${ECLIPSE_PDEBUILD_VERSION}/scripts" />
+
+        <if>
+            <equals arg1="${isJazzAvailable}" arg2="true" />
+            <then>
+                <!-- TODO build: generalize this - publish and create link inside the jazz build result -->
+                <linkPublisher buildResultUUID="${buildResultUUID}"
+                               repositoryAddress="${repositoryAddress}"
+                               userId="${userid}"
+                               passwordFile="${pwfile}"
+                               verbose="true"
+                               label="Build result - web access"
+                               url="${PUBLISH_URL}"
+                               failOnError="false" />
+            </then>
+        </if>
+
+        <property name="equinoxLauncherJar"
+                  value="${ECLIPSE_BIN_DIR}/plugins/org.eclipse.equinox.launcher_${ECLIPSE_LAUNCHER_VERSION}.jar" />
+
+        <echo message="writing build properties inside ${BUILD_WORK_DIR}/release/misc/ant.properties" />
+        <mkdir dir="${BUILD_WORK_DIR}/release/misc/" />
+        <echoproperties destfile="${BUILD_WORK_DIR}/release/misc/ant.properties"
+                        format="text" />
+        <logFile file="${BUILD_WORK_DIR}/release/misc/ant.properties"
+                 comment="ant.properties"
+                 sorted="true" />
+    	
+    	<mkdir dir="${dir.tmp}"/>
+
+        <!-- avoid subsequent executions-->
+        <property name="initOnceIsExecuted" value="true" />
+    </target>
+
+
+    <target name="isSigning">
+        <condition property="isSigning">
+            <and>
+                <isset property="signJars" />
+                <equals arg1="${signJars}" arg2="true" />
+            </and>
+        </condition>
+    </target>
+    <!-- skipping of signing is done internally, cause pack must happen -->
+    <target name="signing" depends="isSigning">
+        <fail unless="repoToPack" message="specify the property repoToPack" />
+
+        <if>
+            <available file="${repoToPack}/features" type="dir" />
+            <then>
+                <fileset dir="${repoToPack}/features" id="repoToPackFeatures">
+                    <include name="*.jar" />
+                    <exclude name="*.jar.pack.gz" />
+                </fileset>
+
+                <if>
+                    <isset property="isSigning" />
+                    <then>
+                        <pathconvert property="jarsToSign" targetos="unix" pathsep=";">
+                            <path>
+                                <fileset refid="repoToPackFeatures" />
+                            </path>
+                        </pathconvert>
+                        <echo message="collected for signing - features=${jarsToSign}"
+                              level="debug" />
+                        <for param="bundle"
+                             list="${jarsToSign}"
+                             delimiter=";"
+                             parallel="true"
+                             threadCount="${cores.count}">
+                            <sequential>
+                                <unsignjar jarfile="@{bundle}" />
+                                <signJar jar="@{bundle}" dir.dest="${repoToPack}/features" />
+                            </sequential>
+                        </for>
+                        <var name="jarsToSign" unset="true" />
+                    </then>
+                    <else>
+                        <echo message="SIGNING is skipped for features" />
+                    </else>
+                </if>
+
+                <pathconvert property="features"
+                             refid="repoToPackFeatures"
+                             pathsep="${line.separator}">
+                    <regexpmapper from="([a-zA-Z0-9.\-_]+[_64|_32]?)_([0-9]*\.[0-9]*\.[0-9]*[\.a-zA-Z0-9\-_]+)\.jar"
+                                  to="                &lt;feature id=&quot;\1&quot; version=&quot;\2&quot; /&gt;" />
+                </pathconvert>
+            </then>
+            <else>
+                <echo message="no feature directory found" level="debug" />
+                <var name="features" value="" />
+            </else>
+        </if>
+
+        <if>
+            <available file="${repoToPack}/plugins" type="dir" />
+            <then>
+                <fileset dir="${repoToPack}/plugins" id="repoToPackPlugins">
+                    <include name="*.jar" />
+                    <exclude name="*.jar.pack.gz" />
+                </fileset>
+
+                <if>
+                    <isset property="isSigning" />
+                    <then>
+                        <pathconvert property="jarsToSign" targetos="unix" pathsep=";">
+                            <path>
+                                <fileset refid="repoToPackPlugins" />
+                            </path>
+                        </pathconvert>
+                        <echo message="jarsToSign=${jarsToSign}" />
+                        <for param="bundle"
+                             list="${jarsToSign}"
+                             delimiter=";"
+                             parallel="true"
+                             threadCount="8">
+                            <sequential>
+                                <unsignjar jarfile="@{bundle}" />
+                                <signJar jar="@{bundle}" dir.dest="${repoToPack}/plugins" />
+                            </sequential>
+                        </for>
+                        <var name="jarsToSign" unset="true" />
+                    </then>
+                    <else>
+                        <echo message="SIGNING is skipped for plugins" />
+                    </else>
+                </if>
+
+                <pathconvert property="plugins"
+                             refid="repoToPackPlugins"
+                             pathsep="${line.separator}">
+                    <regexpmapper from="([a-zA-Z0-9.\-_]+[_64|_32]?)_([0-9]*\.[0-9]*\.[0-9]*[\.a-zA-Z0-9\-_]+)\.jar"
+                                  to="                &lt;plugin id=&quot;\1&quot; version=&quot;\2&quot; /&gt;" />
+                </pathconvert>
+                <echo message="collected for signing - plugins=${plugins}" level="debug" />
+            </then>
+            <else>
+                <echo message="no plugins directory found" level="debug" />
+                <var name="plugins" value="" />
+            </else>
+        </if>
+
+        <property name="template"
+                  value="${dir.workspace}/build.template/p2/p2.process.artifacts.xml" />
+
+        <property name="p2-process-artifacts" value="${repoToPack}/process.xml" />
+        <copy tofile="${p2-process-artifacts}"
+              file="${template}"
+              overwrite="true"
+              verbose="${debug}">
+            <filterchain>
+                <tokenfilter>
+                    <replacestring from="@repoToSign@" to="${repoToPack}" />
+                    <replacestring from="@features@" to="${features}" />
+                    <replacestring from="@plugins@" to="${plugins}" />
+                </tokenfilter>
+            </filterchain>
+        </copy>
+
+        <ant antfile="${p2-process-artifacts}" inheritall="true" />
+        <delete dir="${repoToPack}" includes="process.xml" />
+
+        <var name="repoToPack" unset="true" />
+        <var name="features" unset="true" />
+        <var name="plugins" unset="true" />
+        <var name="p2-process-artifacts" unset="true" />
+    </target>
+
+    <macrodef name="signJar">
+        <attribute name="jar" />
+        <attribute name="dir.dest" />
+        <sequential>
+
+            <signjar destDir="@{dir.dest}"
+                     alias="${sign.alias}"
+                     keystore="${sign.keystore}"
+                     storepass="${sign.storepass}"
+                     jar="@{jar}"
+                     preservelastmodified="true" />
+        </sequential>
+    </macrodef>
+
+
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: removeAll                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="removeAll" unless="__KEEP_BUILD_WORK_DIR">
+
+        <exec executable="wmic" os="Windows7,Windows 7">
+            <arg line="process get Caption, CommandLine, Handle, ParentProcessId, ProcessId" />
+        </exec>
+
+        <property name="delMessage"
+                  value="Build directory has been deleted - only results are kept inside ${publishDestination} ${line.separator}Build property __KEEP_BUILD_WORK_DIR can be used to avoid deletion." />
+        <echo message="${delMessage}" />
+        <delete includeemptydirs="true">
+            <fileset dir="${BUILD_WORK_DIR}">
+                <include name="**/*" />
+                <exclude name="**/cnf/**" />
+            </fileset>
+        </delete>
+        <echo file="${BUILD_WORK_DIR}/ONLY_LOG_FILES_AVAILABLE.txt" message="${delMessage}" />
+    </target>
+
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: removePack200IUs
+         - - - - - - - - - - - - - - - - - -->
+    <target name="removePack200IUs">
+        <p2.remove.iu>
+            <repository location="${dir.local.ecTarget}" />
+            <iu artifacts="(format=packed)" />
+        </p2.remove.iu>
+    </target>
+
+
+    <!-- = = = = = = = = = = = = = = = = =
+              macrodef: replaceVersion
+              
+              this macro is replacing the versions of .product files, feature.xml files and MANIFEST.MF files inside the location specified by parameter 'dir2Version'
+             
+              the version must be initially set to '0.0.0' to be replaced by this macro
+             = = = = = = = = = = = = = = = = = -->
+    <macrodef name="replaceVersion">
+        <attribute name="dir2version" />
+        <attribute name="newVersion" />
+        <attribute name="parentActivityId" />
+        <sequential>
+            <logActivity activityId="replacing-versions"
+                         label="replacing version with &lt;@{newVersion}&gt;"
+                         parentActivityId="@{parentActivityId}"
+                         autocomplete="false" />
+
+            <replaceregexp byline="true">
+                <regexp pattern="version=&quot;0.0.0.qualifier&quot;" />
+                <substitution expression="version=&quot;@{newVersion}.qualifier&quot;" />
+                <fileset dir="@{dir2version}">
+                    <include name="**/*.product" />
+                    <include name="**/feature.xml" />
+                </fileset>
+            </replaceregexp>
+
+            <replaceregexp byline="true">
+                <regexp pattern="Bundle-Version: 0.0.0.qualifier" />
+                <substitution expression="Bundle-Version: @{newVersion}.qualifier" />
+                <fileset dir="@{dir2version}">
+                    <include name="**/META-INF/MANIFEST.MF" />
+                </fileset>
+            </replaceregexp>
+
+            <logActivityEnd activityId="${replacing-versions}" />
+
+        </sequential>
+    </macrodef>
+
+    <!-- = = = = = = = = = = = = = = = = =
+          macrodef: replaceQualifierFromPropertyFile          
+         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="replaceQualifierFromPropertyFile">
+        <attribute name="propertyFile" />
+        <attribute name="dir2version" />
+        <sequential>
+            <echo message="replacing qualifiers recursively inside directory &lt;@{dir2version}&gt; with values from @{propertyFile}" />
+            <property file="@{propertyFile}" prefix="lastModifiedQualifier" />
+            <propertyselector property="directories4qualifying"
+                              match="lastModifiedQualifier\.([^=]*).*"
+                              select="\1"
+                              override="true" />
+
+            <for param="directory" list="${directories4qualifying}">
+                <sequential>
+                    <propertycopy name="qualifier4directory"
+                                  from="lastModifiedQualifier.@{directory}"
+                                  override="true" />
+                    <replaceQualifierInDirectory directory="@{dir2version}/@{directory}"
+                                                 qualifier="${qualifier4directory}" />
+                </sequential>
+            </for>
+        </sequential>
+    </macrodef>
+
+    <!-- = = = = = = = = = = = = = = = = =
+          macrodef: replaceQualifierInDirectory          
+         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="replaceQualifierInDirectory">
+        <attribute name="directory" />
+        <attribute name="qualifier" default="${buildId}" />
+        <sequential>
+            <basename file="@{directory}" property="shortenedDirectory" />
+            <if>
+                <available file="@{directory}" type="dir" />
+                <then>
+                    <echo message="replacing token qualifier with value &lt;@{qualifier}&gt; inside directory &lt;${shortenedDirectory}&gt;" />
+                    <replace dir="@{directory}"
+                             summary="true"
+                             token="qualifier"
+                             value="@{qualifier}">
+                        <include name="**/META-INF/MANIFEST.MF" />
+                        <include name="**/*.product" />
+                        <include name="**/feature.xml" />
+                        <include name="**/*.bnd" />
+                    </replace>
+                </then>
+            </if>
+            <var name="shortenedDirectory" unset="true" />
+        </sequential>
+    </macrodef>
+
+    <!-- = = = = = = = = = = = = = = = = =
+              macro: store-latest-build-in-releaseline
+             = = = = = = = = = = = = = = = = = -->
+    <macrodef name="store-latest-build-in-releaseline">
+        <sequential>
+            <propertyfile file="${file.buildResultStorage}">
+                <entry key="${BUILD_SCRIPT_FILE}_${buildLabelPrefix}"
+                       value="${buildDefinitionId}/${buildLabel}" />
+            </propertyfile>
+            <echo># --&gt; Storing in file "${file.buildResultStorage}" build result "${BUILD_SCRIPT_FILE}_${buildLabelPrefix}=${buildDefinitionId}/${buildLabel}"</echo>
+            <if>
+                <equals arg1="isBuildAll" arg2="true" />
+                <then>
+                    <logFile file="${BUILD_WORK_DIR}/log_${BUILD_SCRIPT_FILE}.txt"
+                             comment="build log file of ${BUILD_SCRIPT_FILE}" />
+                </then>
+            </if>
+        </sequential>
+    </macrodef>
+
+
+    <!-- = = = = = = = = = = = = = = = = =
+              macrodef: logActivity
+             = = = = = = = = = = = = = = = = = -->
+    <macrodef name="logActivity">
+        <attribute name="activityId" default="NOT_AVAILABLE" />
+        <attribute name="parentActivityId" default="NOT_AVAILABLE" />
+        <attribute name="label" default="@{activityId}" />
+        <attribute name="autocomplete" default="true" />
+        <attribute name="logActivity.verbose" default="false" />
+        <sequential>
+            <property name="logPrefix" value="" />
+            <tstamp>
+                <format property="logActivity.time" pattern="HH:mm:ss" />
+            </tstamp>
+            <if>
+                <isset property="isJazzAvailable" />
+                <then>
+                    <logActivity2Jazz activityId="@{activityId}"
+                                      label="@{label}"
+                                      parentActivityId="@{parentActivityId}"
+                                      autocomplete="@{autocomplete}" />
+                </then>
+            </if>
+            <echo>###################################################################################################</echo>
+            <echo>### Activity &gt; ${logActivity.time} @{label}</echo>
+            <echo>###################################################################################################</echo>
+            <echo file="${BUILD_WORK_DIR}/activityStatus.log"
+                  append="true"
+                  message="&gt; ${logActivity.time} @{label}${line.separator}" />
+            <var name="logActivity.time" unset="true" />
+        </sequential>
+    </macrodef>
+
+    <!-- = = = = = = = = = = = = = = = = =
+          macrodef: logActivity2Jazz
+         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="logActivity2Jazz">
+        <attribute name="activityId" />
+        <attribute name="parentActivityId" />
+        <attribute name="label" />
+        <attribute name="autocomplete" default="true" />
+        <sequential>
+            <condition property="hasActivityId">
+                <not>
+                    <equals arg1="@{activityId}" arg2="NOT_AVAILABLE" />
+                </not>
+            </condition>
+            <condition property="hasParentActivityId">
+                <not>
+                    <equals arg1="@{parentActivityId}" arg2="NOT_AVAILABLE" />
+                </not>
+            </condition>
+            <if>
+                <isset property="hasActivityId" />
+                <then>
+                    <if>
+                        <isset property="hasParentActivityId" />
+                        <then>
+                            <if>
+                                <equals arg1="${isParallelBuild}" arg2="true" />
+                                <then>
+                                    <startBuildActivity activityIdProperty="@{activityId}"
+                                                        label="${logActivity.time} &gt; ${logPrefix} @{label}"
+                                                        verbose="@{logActivity.verbose}"
+                                                        autocomplete="true"
+                                                        buildResultUUID="${buildResultUUID}"
+                                                        repositoryAddress="${repositoryAddress}"
+                                                        userId="${userid}"
+                                                        passwordFile="${pwfile}" />
+                                </then>
+                                <else>
+                                    <startBuildActivity activityIdProperty="@{activityId}"
+                                                        label="${logActivity.time} &gt; ${logPrefix} @{label}"
+                                                        parentActivityId="@{parentActivityId}"
+                                                        verbose="@{logActivity.verbose}"
+                                                        autocomplete="@{autocomplete}"
+                                                        buildResultUUID="${buildResultUUID}"
+                                                        repositoryAddress="${repositoryAddress}"
+                                                        userId="${userid}"
+                                                        passwordFile="${pwfile}" />
+                                </else>
+                            </if>
+                        </then>
+                        <else>
+                            <if>
+                                <equals arg1="${isParallelBuild}" arg2="true" />
+                                <then>
+                                    <startBuildActivity activityIdProperty="@{activityId}"
+                                                        label="${logActivity.time}&gt; ${logPrefix} @{label}"
+                                                        verbose="@{logActivity.verbose}"
+                                                        autocomplete="true"
+                                                        buildResultUUID="${buildResultUUID}"
+                                                        repositoryAddress="${repositoryAddress}"
+                                                        userId="${userid}"
+                                                        passwordFile="${pwfile}" />
+                                </then>
+                                <else>
+                                    <startBuildActivity activityIdProperty="@{activityId}"
+                                                        label="${logActivity.time} &gt; ${logPrefix} @{label}"
+                                                        verbose="@{logActivity.verbose}"
+                                                        autocomplete="@{autocomplete}"
+                                                        buildResultUUID="${buildResultUUID}"
+                                                        repositoryAddress="${repositoryAddress}"
+                                                        userId="${userid}"
+                                                        passwordFile="${pwfile}" />
+                                </else>
+                            </if>
+                        </else>
+                    </if>
+                </then>
+                <else>
+                    <!-- create an placeholder activity -->
+                    <if>
+                        <isset property="hasParentActivityId" />
+                        <then>
+                            <if>
+                                <isset property="isParallelBuild" />
+                                <then>
+                                    <startBuildActivity label="${logActivity.time} ${logPrefix} &gt; @{label}"
+                                                        verbose="@{logActivity.verbose}"
+                                                        autocomplete="true"
+                                                        buildResultUUID="${buildResultUUID}"
+                                                        repositoryAddress="${repositoryAddress}"
+                                                        userId="${userid}"
+                                                        passwordFile="${pwfile}" />
+                                </then>
+                                <else>
+                                    <startBuildActivity label="${logActivity.time} &gt; ${logPrefix} @{label}"
+                                                        parentActivityId="@{parentActivityId}"
+                                                        verbose="@{logActivity.verbose}"
+                                                        autocomplete="@{autocomplete}"
+                                                        buildResultUUID="${buildResultUUID}"
+                                                        repositoryAddress="${repositoryAddress}"
+                                                        userId="${userid}"
+                                                        passwordFile="${pwfile}" />
+                                </else>
+                            </if>
+                        </then>
+                        <else>
+                            <if>
+                                <isset property="isParallelBuild" />
+                                <then>
+                                    <startBuildActivity label="${logActivity.time} ${logPrefix} @{label}"
+                                                        verbose="@{logActivity.verbose}"
+                                                        autocomplete="true"
+                                                        buildResultUUID="${buildResultUUID}"
+                                                        repositoryAddress="${repositoryAddress}"
+                                                        userId="${userid}"
+                                                        passwordFile="${pwfile}" />
+                                </then>
+                                <else>
+                                    <startBuildActivity label="${logActivity.time} ${logPrefix} @{label}"
+                                                        verbose="@{logActivity.verbose}"
+                                                        autocomplete="@{autocomplete}"
+                                                        buildResultUUID="${buildResultUUID}"
+                                                        repositoryAddress="${repositoryAddress}"
+                                                        userId="${userid}"
+                                                        passwordFile="${pwfile}" />
+                                </else>
+                            </if>
+                        </else>
+                    </if>
+                </else>
+            </if>
+            <var name="hasActivityId" unset="true" />
+            <var name="hasParentActivityId" unset="true" />
+        </sequential>
+    </macrodef>
+
+
+    <!-- = = = = = = = = = = = = = = = = =
+              macrodef: logActivityEnd
+             = = = = = = = = = = = = = = = = = -->
+    <macrodef name="logActivityEnd">
+        <attribute name="activityId" />
+        <sequential>
+            <if>
+                <isset property="isJazzAvailable" />
+                <then>
+                    <completeBuildActivity activityId="@{activityId}"
+                                           buildResultUUID="${buildResultUUID}"
+                                           repositoryAddress="${repositoryAddress}"
+                                           userId="${userid}"
+                                           passwordFile="${pwfile}" />
+                </then>
+            </if>
+        </sequential>
+    </macrodef>
+
+    <!-- = = = = = = = = = = = = = = = = =
+          macrodef: logFile
+         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="logFile">
+        <attribute name="file" />
+        <attribute name="comment" />
+        <attribute name="sorted" default="false" />
+        <sequential>
+            <copy todir="${dir.tmp}/scratch"
+                  file="@{file}"
+                  overwrite="true"
+                  verbose="${debug}"
+                  failonerror="true" />
+
+            <!-- remove passwords from file -->
+            <basename property="tmpLogFile" file="@{file}" />
+            <replaceregexp file="@{file}"
+                           match="sign.keypass=(.*)"
+                           replace="sign.keypass=is set but not displayed"
+                           byline="true" />
+            <replaceregexp file="@{file}"
+                           match="sign.storepass=(.*)"
+                           replace="sign.storepass=is set but not displayed"
+                           byline="true" />
+
+            <!-- optional sorting of file -->
+            <if>
+                <equals arg1="@{sorted}" arg2="true" />
+                <then>
+                    <loadfile srcfile="${dir.tmp}/scratch/${tmpLogFile}"
+                              property="unsortedContent" />
+                    <sortlist property="sortedContent"
+                              value="${unsortedContent}"
+                              delimiter="${line.separator}" />
+                    <echo file="${dir.tmp}/scratch/${tmpLogFile}"
+                          message="${sortedContent}"
+                          append="false" />
+
+                </then>
+            </if>
+            <if>
+                <isset property="isJazzAvailable" />
+                <then>
+                    <echo message="# logged file to jazz and ${dir.logging}/${tmpLogFile}" />
+                    <copy todir="${publishDestination}/logs"
+                          file="${dir.tmp}/scratch/${tmpLogFile}"
+                          verbose="${debug}"
+                          preservelastmodified="true" />
+                    <logPublisher repositoryAddress="${repositoryAddress}"
+                                  userId="${userid}"
+                                  passwordFile="${pwfile}"
+                                  buildResultUUID="${buildResultUUID}"
+                                  filePath="${dir.tmp}/scratch/${tmpLogFile}"
+                                  label="@{comment}" />
+                </then>
+                <else>
+                    <propertyregex property="underlineValue"
+                                   input="@{comment}"
+                                   regexp="( )"
+                                   replace="_"
+                                   defaultValue="default" />
+                    <propertyregex property="regexLogFile"
+                                   input="${dir.tmp}/scratch/${tmpLogFile}"
+                                   regexp="([^/|\\]*$)"
+                                   select="\1"
+                                   casesensitive="false"
+                                   defaultValue="@{file}" />
+                    <echo message="# logged file ${dir.logging}/${underlineValue}_${regexLogFile}" />
+                    <move file="${dir.tmp}/scratch/${tmpLogFile}"
+                          tofile="${dir.logging}/${underlineValue}_${regexLogFile}"
+                          overwrite="true" />
+                </else>
+            </if>
+            <var name="underlineValue" unset="true" />
+            <var name="sortedContent" unset="true" />
+            <var name="unsortedContent" unset="true" />
+            <var name="tmpLogFile" unset="true" />
+            <var name="regexLogFile" unset="true" />
+        </sequential>
+    </macrodef>
+
+
+    <!-- - - - - - - - - - - - - - - - - -
+          target: generateJacocoReport
+         - - - - - - - - - - - - - - - - - -->
+    <target name="generateJacocoReport">
+
+        <fail unless="dir.coverageResults"
+              message="specify the directory containing indiviul exec files with the property: dir.coverageResults" />
+        <fail unless="dir.aggregatedOutput"
+              message="specify an output dir with property: dir.aggregatedOutput" />
+        <fail unless="dir.binaryBundles"
+              message="specify the directory containing the installed bundles with property: dir.binaryBundles" />
+
+        <logActivity activityId="createJaCoCoBuildFile"
+                     label="create JaCoCo build file"
+                     parentactivityid="${parentActivityId}" />
+
+        <!-- create an empty tmp dir -->
+        <property name="dir.tmp.jacoco" value="${dir.tmp}/jacoco" />
+        <delete dir="${dir.tmp.jacoco}" quiet="true" />
+        <mkdir dir="${dir.tmp.jacoco}" />
+
+        <!-- merge individual coverage files -->
+        <property name="exec.file" location="${dir.tmp.jacoco}/jacoco_aggregated.exec" />
+        <jacoco:merge destfile="${exec.file}">
+            <fileset dir="${dir.coverageResults}" includes="*.exec" />
+        </jacoco:merge>
+
+        <!-- Create an ant file to be used later for report generation -->
+        <property name="file.buildJaCoCo" value="${dir.tmp.jacoco}/build_jacoco.xml" />
+        <createJaCoCo_FileHeader_begin filename.buildfile="${file.buildJaCoCo}"
+                                       filename.exec="${exec.file}" />
+
+        <!-- create an entry inside jacoco build file for every covered bundle -->
+        <fileset dir="${dir.coverageResults}" id="id.converageBundles">
+            <include name="*_jacoco.exec" />
+        </fileset>
+        <pathconvert property="list.coverageBundles"
+                     refid="id.converageBundles"
+                     targetos="unix"
+                     pathsep=","
+                     dirsep="/">
+            <globmapper from="${dir.coverageResults}/*_test_jacoco.exec"
+                        to="*"
+                        handledirsep="true" />
+        </pathconvert>
+        <for param="bundleName" list="${list.coverageBundles}">
+            <sequential>
+                <echo message="creating jacoco build file entry for bundle @{bundleName}" />
+
+                <createJaCoCo_groupHeader_begin filename.buildfile="${file.buildJaCoCo}"
+                                                bundleName="@{bundleName}" />
+
+                <createJaCoCo_classfilesEntry filename.buildfile="${file.buildJaCoCo}"
+                                              bundleName="@{bundleName}"
+                                              dir.bundleName="${dir.tmp.jacoco}/jars" />
+
+                <createJaCoCo_sourcefilesEntry filename.buildfile="${file.buildJaCoCo}"
+                                               bundleName="@{bundleName}"
+                                               dir.bundleName="${dir.tmp.jacoco}/src/java" />
+
+                <createJaCoCo_groupHeader_end filename.buildfile="${file.buildJaCoCo}" />
+            </sequential>
+        </for>
+
+        <!-- finalizing ant file for report generation -->
+        <createJaCoCo_FileHeader_end filename.buildfile="${file.buildJaCoCo}"
+                                     filename.exec="${exec.file}" />
+
+        <!-- execute the generated JaCoCo ant file and create reports -->
+        <logActivity activityId="generateJaCoCoReport"
+                     label="generate JaCoCo reports"
+                     parentactivityid="${parentActivityId}" />
+        <ant antfile="${file.buildJaCoCo}" target="buildJaCoCoReport" />
+    </target>
+
+    <!-- = = = = = = = = = = = = = = = = =
+          macrodef: createJaCoCo_FileHeader_begin
+         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="createJaCoCo_FileHeader_begin">
+        <attribute name="filename.buildfile" />
+        <attribute name="filename.exec" />
+        <sequential>
+            <echo file="@{filename.buildfile}"
+                  append="true"
+                  message="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;project name=&quot;autogenerated-jacoco-report-project&quot; xmlns:jacoco=&quot;antlib:org.jacoco.ant&quot;&gt;${line.separator}${line.separator}
+   &lt;target name=&quot;buildJaCoCoReport&quot;&gt;${line.separator}      &lt;jacoco:report&gt;${line.separator}         &lt;executiondata&gt;${line.separator}            &lt;file file=&quot;@{filename.exec}&quot; /&gt;
+${line.separator}         &lt;/executiondata>${line.separator}         &lt;structure name=&quot;CEC Framework&quot; &gt;${line.separator}" />
+        </sequential>
+    </macrodef>
+
+    <!-- = = = = = = = = = = = = = = = = =
+          macrodef: createJaCoCo_FileHeader_end
+         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="createJaCoCo_FileHeader_end">
+        <attribute name="filename.buildfile" />
+        <attribute name="filename.exec" />
+        <sequential>
+            <echo file="@{filename.buildfile}"
+                  append="true"
+                  message="${line.separator} 			   &lt;/structure&gt;
+ 			&lt;html destdir=&quot;${dir.aggregatedOutput}&quot; /&gt;
+ 			&lt;csv destfile=&quot;${dir.aggregatedOutput}/coverage_report.csv&quot; /&gt;
+ 			&lt;xml destfile=&quot;${dir.aggregatedOutput}/coverage_report.xml&quot; /&gt;
+ 		&lt;/jacoco:report&gt;${line.separator} 	&lt;/target&gt;${line.separator} &lt;/project&gt;" />
+        </sequential>
+    </macrodef>
+
+    <!-- = = = = = = = = = = = = = = = = =
+          macrodef: createJaCoCo_groupHeader_begin
+         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="createJaCoCo_groupHeader_begin">
+        <attribute name="filename.buildfile" />
+        <attribute name="bundleName" />
+        <sequential>
+            <echo file="@{filename.buildfile}"
+                  append="true"
+                  message="    &lt;group name=&quot;@{bundleName}&quot;&gt;${line.separator}" />
+        </sequential>
+    </macrodef>
+
+    <!-- = = = = = = = = = = = = = = = = =
+          macrodef: createJaCoCo_groupHeader_end
+         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="createJaCoCo_groupHeader_end">
+        <attribute name="filename.buildfile" />
+        <sequential>
+            <echo file="@{filename.buildfile}"
+                  append="true"
+                  message="    &lt;/group&gt;${line.separator}" />
+        </sequential>
+    </macrodef>
+
+    <!-- = = = = = = = = = = = = = = = = =
+          macrodef: createJaCoCo_classfilesEntry
+         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="createJaCoCo_classfilesEntry">
+        <attribute name="filename.buildfile" />
+        <attribute name="bundleName" />
+        <attribute name="dir.bundleName" />
+        <sequential>
+            <!-- prepare classes or binary jars for jacoco reports -->
+            <copy todir="${dir.tmp.jacoco}/jars" failonerror="false" verbose="${debug}">
+                <fileset dir="${dir.binaryBundles}/plugins">
+                    <include name="@{bundleName}_*.jar" />
+                    <exclude name="*_test_*.jar" />
+                    <exclude name="*_wt_*.jar" />
+                </fileset>
+            </copy>
+            <echo file="@{filename.buildfile}"
+                  append="true"
+                  message="        &lt;classfiles&gt;${line.separator}            &lt;fileset dir=&quot;@{dir.bundleName}&quot; includes=&quot;@{bundleName}*.jar&quot; /&gt;${line.separator}        	&lt;/classfiles&gt;${line.separator}" />
+        </sequential>
+    </macrodef>
+
+    <!-- = = = = = = = = = = = = = = = = =
+          macrodef: createJaCoCo_sourcefilesEntry
+         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="createJaCoCo_sourcefilesEntry">
+        <attribute name="filename.buildfile" />
+        <attribute name="bundleName" />
+        <attribute name="dir.bundleName" />
+        <sequential>
+            <if>
+                <available file="${dir.dist}/${filename.zip.repo_ecSDK}" type="file" />
+                <then>
+                    <!-- repo_SDK already exists -->
+                    <unzip src="${dir.dist}/${filename.zip.repo_ecSDK}"
+                           dest="${dir.tmp.jacoco}/src">
+                        <patternset>
+                            <include name="**/@{bundleName}.source_*.jar" />
+                        </patternset>
+                    </unzip>
+
+                    <!-- unzip all the source jars -->
+                    <unzip dest="${dir.tmp.jacoco}/src/java">
+                        <fileset dir="${dir.tmp.jacoco}/src/plugins">
+                            <include name="*.jar" />
+                        </fileset>
+                    </unzip>
+
+                    <echo file="@{filename.buildfile}"
+                          append="true"
+                          message="         &lt;sourcefiles encoding=&quot;UTF-8&quot;&gt;${line.separator}            &lt;fileset dir=&quot;@{dir.bundleName}&quot; includes=&quot;**/*.java&quot; /&gt;${line.separator}        	&lt;/sourcefiles&gt;${line.separator}" />
+
+                </then>
+                <else>
+                    <!-- using source files from fetch directory -->
+                    <echo file="@{filename.buildfile}"
+                          append="true"
+                          message="         &lt;sourcefiles encoding=&quot;UTF-8&quot;&gt;${line.separator}            &lt;fileset dir=&quot;${dir.workspace}/@{bundleName}/src&quot; includes=&quot;**/*.java&quot; /&gt;${line.separator}        	&lt;/sourcefiles&gt;${line.separator}" />
+                </else>
+            </if>
+
+        </sequential>
+    </macrodef>
+
+    <macrodef name="unsignjar" description="To unsign a Jar file">
+        <attribute name="jarfile" description="The jar file to unsign" />
+        <sequential>
+            <copy toFile="@{jarFile}_MANIFEST.tmp">
+                <resources>
+                    <zipentry zipfile="@{jarFile}" name="META-INF/MANIFEST.MF" />
+                </resources>
+            </copy>
+            <if>
+                <available file="@{jarFile}_MANIFEST.tmp" />
+                <then>
+                    <replaceregexp file="@{jarFile}_MANIFEST.tmp"
+                                   match="\r?\nName\:[ [^\r?\n]*\r?\n]*"
+                                   replace=""
+                                   flags="gs" />
+                    <jar jarfile="@{jarFile}.tmp" manifest="@{jarFile}_MANIFEST.tmp">
+                        <zipfileset src="@{jarFile}">
+                            <include name="**" />
+                            <exclude name="META-INF/*.SF" />
+                            <exclude name="META-INF/*.DSA" />
+                            <exclude name="META-INF/*.RSA" />
+                        </zipfileset>
+                    </jar>
+                    <delete file="@{jarFile}_MANIFEST.tmp" />
+                    <move file="@{jarFile}.tmp" tofile="@{jarFile}" overwrite="true" />
+                </then>
+            </if>
+        </sequential>
+    </macrodef>
+
+
+    <!-- = = = = = = = = = = = = = = = = =
+          macrodef: createHumanReadableIndexForP2repository          
+         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="createHumanReadableIndexForP2repository">
+        <attribute name="p2repo" />
+        <sequential>
+            <echo message="Creating human readable index.html for @{p2repo}" />
+            <available file="@{p2repo}/content.jar" property="isJaredContent" type="file" />
+            <if>
+                <isset property="isJaredContent" />
+                <then>
+                    <unzip src="@{p2repo}/content.jar" dest="@{p2repo}">
+                        <patternset>
+                            <include name="content.xml" />
+                        </patternset>
+                    </unzip>
+                </then>
+            </if>
+            <xslt style="${dir.workspace}/build.template/human_readable_index/content2html.xsl"
+                  in="@{p2repo}/content.xml"
+                  out="@{p2repo}/index.html" />
+            <if>
+                <isset property="isJaredContent" />
+                <then>
+                    <delete file="@{p2repo}/content.xml" />
+                </then>
+            </if>
+
+            <var name="isJaredContent" unset="true" />
+        </sequential>
+    </macrodef>
+
+    <import file="${dir.workspace}/build.ant/common/macros.xml" />
+</project>

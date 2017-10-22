@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="signing" default="default">
+    <target name="default" depends="" description="description">
+        <p2.process.artifacts pack="false" normalize="false" repositorypath="file:@repoToSign@">
+@features@
+@plugins@
+        </p2.process.artifacts>
+    </target>
+</project>
