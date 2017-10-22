@@ -131,8 +131,7 @@ public class OutputBndRequireFormat extends OutputContextDefault implements Outp
 				String bundleID = p.getId();
 				// avoid dependencies to framework bundles
 				if (!bundleID.contains("org.eclipse.osgi") 
-						&& !bundleID.startsWith("org.eclipse.equinox.launcher")
-					&& !bundleID.endsWith(".source")) {
+						&& !bundleID.startsWith("org.eclipse.equinox.launcher")) {
 					String version = p.getVersion();
 					String os = p.getOs();
 					String ws = p.getWs();
