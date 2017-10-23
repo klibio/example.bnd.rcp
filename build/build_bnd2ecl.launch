@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.ui.externaltools.ProgramLaunchConfigurationType">
 <stringAttribute key="org.eclipse.ui.externaltools.ATTR_LOCATION" value="${system_property:eclipse.launcher}"/>
-<stringAttribute key="org.eclipse.ui.externaltools.ATTR_TOOL_ARGUMENTS" value="--launcher.suppressErrors&#13;&#10;-nosplash&#13;&#10;-configuration ${project_loc:/build}/_rt/eclBuild/config&#13;&#10;-data ${project_loc:/build}/_rt/eclBuild/data&#13;&#10;-application org.eclipse.ant.core.antRunner &#13;&#10;-buildfile ${project_loc:/build}/build.xml&#13;&#10;-vm ${ee_home:JavaSE-1.8}/bin&#13;&#10;everything"/>
+<stringAttribute key="org.eclipse.ui.externaltools.ATTR_TOOL_ARGUMENTS" value="--launcher.suppressErrors&#13;&#10;-nosplash&#13;&#10;-configuration ${project_loc:/build}/_wrk/eclBuild/config&#13;&#10;-data ${project_loc:/build}/_wrk/eclBuild/data&#13;&#10;-application org.eclipse.ant.core.antRunner &#13;&#10;-buildfile ${project_loc:/build}/build.xml&#13;&#10;-vm ${ee_home:JavaSE-1.8}/bin&#13;&#10;everything"/>
 <stringAttribute key="org.eclipse.ui.externaltools.ATTR_WORKING_DIRECTORY" value="${project_loc:/build}"/>
 </launchConfiguration>
