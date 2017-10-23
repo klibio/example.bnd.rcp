@@ -195,7 +195,7 @@
             <fileset dir="${dir.temp}/bug468131/${product.name}.app/Contents/MacOS" includes="*" />
         </touch>
         <zip destfile="${dir.results}/productArchives/${product.name}_macosx.cocoa.x86_64.zip" update="true">
-            <zipfileset dir="${dir.temp}/bug468131" includes="**/*" />
+            <zipfileset dir="${dir.temp}/bug468131" includes="**/*" filemode="733" />
         </zip>
     </target>
 
@@ -209,10 +209,9 @@
     <property name="product.name" value="example.rcp.product" />
 
     <!-- environment -->
-	<property name="ECLIPSE_HOME"
-	              value="C:/jbe5.0.2/archive/eclipse/4.7.x/eclipse-SDK-4.7.1a-win32-x86_64/eclipse" />
     <property name="ECLIPSE_HOME"
               value="${user.home}/Downloads/eclipse-SDK-4.7.1a-macosx-cocoa-x86_64/Eclipse.app/Contents/Eclipse" />
+    <property name="ECLIPSE_HOME" value="C:/jbe5.0.2/archive/eclipse/4.7.x/eclipse-SDK-4.7.1a-win32-x86_64/eclipse" />
     <property name="ECLIPSE_PDEBUILD_VERSION" value="3.9.300.v20170515-0912" />
     <property name="ECLIPSE_LAUNCHER_VERSION" value="1.4.0.v20161219-1356" />
 
