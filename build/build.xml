@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="buildBnd2EclipseProduct" default="everything">
 
-    <target name="everything" depends="build-product" description="">
+    <tstamp>
+        <format property="NOW" pattern="yyyyMMdd-HHmmss" />
+    </tstamp>
+    <dirname property="dir.script.os" file="${ant.file.mirrorEclipseRepos}" />
+    <pathconvert property="dir.script" targetos="unix">
+        <path location="${dir.script.os}" />
+    </pathconvert>
+    <pathconvert property="dir.workspace" targetos="unix">
+        <path location="${dir.script.os}/.." />
+    </pathconvert>
+    <property name="dir.results" value="${dir.script}/_results/${NOW}" />
+    <mkdir dir="${dir.results}" />
+    <record name="${dir.results}/${NOW}_antRun.log" loglevel="verbose" action="start" />
+    <property name="dir.bndRepo" value="${dir.results}/bndRepo" />
 
+    <target name="everything" depends="build-product" description="">
     </target>
 
     <target name="clean">
@@ -71,15 +85,19 @@
             <entry key="topLevelElementId" value="${topLevelElementId}" />
             <entry key="buildDirectory" value="${dir.pdeBuild}" />
             <entry key="forceContextQualifier" value="${NOW}" />
+            <entry key="buildId" value="example.rcp.product" />
+            <entry key="configs" value="win32,win32,x86_64 &amp; linux,gtk,x86_64 &amp; macosx,cocoa,x86_64" />
 
             <!-- target for pde.build -->
+            <entry key="base" value="" />
             <entry key="baseLocation" value="" />
             <entry key="pluginPath" value="${dir.pdeBuild}/pluginPath" />
-            <entry key="repoBaseLocation" value="${dir.pdeBuild}/repoBase" />
-            <entry key="transformedRepoLocation" value="${dir.pdeBuild}/transformedRepoLocation" />
+            <!-- not used currently -->
+            <entry key="repoBaseLocation" value="${dir.repoBase}" />
+            <entry key="transformedRepoLocation" value="${dir.wrk}/transformedRepoLocation" />
+            <entry key="p2.context.repos" value="file:${dir.bndRepo}" />
 
             <!-- javac -->
-            <entry key="configs" value="win32,win32,x86_64" />
             <entry key="javacSource" value="1.8" />
             <entry key="javacTarget" value="1.8" />
             <entry key="compilerArg" value="-g -encoding UTF-8" />
@@ -89,50 +107,117 @@
             <!-- p2 -->
             <entry key="p2.gathering" value="true" />
             <entry key="p2.compress" value="true" />
-            <entry key="skipDirector" value="" />
+            <entry key="p2.mirror.slicing.includeOptional" value="false" />
+            <entry key="p2.metadata.repo" value="${dir.results}/productRepo" />
+            <entry key="p2.artifact.repo" value="${dir.results}/productRepo" />
+
+            <!-- https://bugs.eclipse.org/bugs/show_bug.cgi?id=468131 -->
+            <entry key="archivePrefix" value="${product.name}.app" />
+            <entry key="p2.director.profile" value="${product.name}" />
         </propertyfile>
 
+        <p2.mirror verbose="true" includepacked="false">
+            <destination location="file:${dir.repoBase}/eclipseDependencies"
+                         name="DeltaPack and Dependencies"
+                         format="${repoFormat}" />
+            <source>
+                <repository location="file:${localURL}/eclipse/updates/4.7/R-4.7.1-201709061700" />
+            </source>
+            <!-- all the dependencies from example.feature/feature.xml-->
+            <iu id="org.eclipse.e4.rcp.feature.group" />
+
+            <!-- eclipse delta-pack containing native/platform specific launchers -->
+            <iu id="org.eclipse.equinox.executable.feature.group" />
+
+            <slicingoptions includeoptional="false" includenongreedy="false" />
+        </p2.mirror>
+
+        <copy todir="${dir.repoBase}/bndRepo">
+            <fileset dir="${dir.bndRepo}" includes="**/*" />
+        </copy>
     </target>
 
     <target name="build-product" depends="prepare">
-        <echoproperties />
         <java classname="org.eclipse.equinox.launcher.Main" fork="true" failonerror="true">
             <arg value="-application" />
             <arg value="org.eclipse.ant.core.antRunner" />
             <arg value="-configuration" />
-            <arg value="${dir.temp}/pde_product_build-${topLevelElementId}/configuration" />
+            <arg value="${dir.temp}/pdeProductBuild-${topLevelElementId}/configuration" />
             <arg value="-data" />
-            <arg value="${dir.temp}/pde_product_build-${topLevelElementId}/data" />
+            <arg value="${dir.temp}/pdeProductBuild-${topLevelElementId}/data" />
+            <arg value="-Dbuilder=${dir.pdeBuild}" />
             <arg value="-buildfile" />
             <arg value="${ECLIPSE_HOME}/plugins/org.eclipse.pde.build_${ECLIPSE_PDEBUILD_VERSION}/scripts/productBuild/productBuild.xml" />
             <arg value="-vmargs" />
-            <arg value="-Dbuilder=${buildDirectory}" />
             <arg value="-Xmx756m" />
             <classpath>
                 <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.equinox.launcher_${ECLIPSE_LAUNCHER_VERSION}.jar" />
             </classpath>
         </java>
+        <!-- fix for PDE bug Bug 468131 - PDE headless build does not generate the Mac OS X package correctly -->
+        <zip destfile="${dir.results}/productArchives/${product.name}_linux.gtk.x86_64.zip">
+            <mappedresources>
+                <zipfileset src="${dir.pdeBuild}/I.${product.name}/${product.name}-linux.gtk.x86_64.zip"
+                            includes="**/*"
+                            defaultexcludes="no"
+                            prefix="${product.name}" />
+                <globmapper from="${product.name}.app*" to="${product.name}*" />
+            </mappedresources>
+        </zip>
+
+        <zip destfile="${dir.results}/productArchives/${product.name}_win32.win32.x86_64.zip">
+            <mappedresources>
+                <zipfileset src="${dir.pdeBuild}/I.${product.name}/${product.name}-win32.win32.x86_64.zip"
+                            includes="**/*"
+                            defaultexcludes="no"
+                            prefix="${product.name}" />
+                <globmapper from="${product.name}.app*" to="${product.name}*" />
+            </mappedresources>
+        </zip>
+
+        <zip destfile="${dir.results}/productArchives/${product.name}_macosx.cocoa.x86_64.zip">
+            <mappedresources>
+                <zipfileset src="${dir.pdeBuild}/I.${product.name}/${product.name}-macosx.cocoa.x86_64.zip"
+                            includes="**/*"
+                            defaultexcludes="no"
+                            prefix="${product.name}">
+                    <exclude name="${product.name}.app/Contents/MacOS/eclipse" />
+                </zipfileset>
+                <globmapper from="${product.name}.app*" to="${product.name}.app*" />
+            </mappedresources>
+        </zip>
+        <copy todir="${dir.temp}/bug468131/${product.name}.app/Contents/MacOS"
+              file="${dir.workspace}/build.template/bug468131/eclipse" />
+        <tstamp>
+            <format property="touch.time" pattern="MM/dd/yyyy hh:mm aa" />
+        </tstamp>
+        <touch datetime="${touch.time}">
+            <fileset dir="${dir.temp}/bug468131/${product.name}.app/Contents/MacOS" includes="*" />
+        </touch>
+        <zip destfile="${dir.results}/productArchives/${product.name}_macosx.cocoa.x86_64.zip" update="true">
+            <zipfileset dir="${dir.temp}/bug468131" includes="**/*" />
+        </zip>
     </target>
 
-    <dirname property="dir.script.os" file="${ant.file.mirrorEclipseRepos}" />
-    <pathconvert property="dir.script" targetos="unix">
-        <path location="${dir.script.os}" />
-    </pathconvert>
-    <pathconvert property="dir.workspace" targetos="unix">
-        <path location="${dir.script.os}/.." />
-    </pathconvert>
+    <property name="dir.wrk" value="${dir.script}/_wrk" />
+    <property name="dir.repoBase" value="${dir.wrk}/repoBase" />
 
-    <tempfile property="dir.temp" destDir="${dir.script}/_wrk" prefix="build" />
+    <tempfile property="dir.temp" destDir="${dir.wrk}" prefix="build" />
     <property name="dir.pdeBuild" value="${dir.temp}/buildDirectory" />
-    <property name="dir.results" value="${dir.script}/_results" />
-    <property name="dir.bndRepo" value="${dir.results}/bndRepo" />
+
     <property name="topLevelElementId" value="example.rcp.app.ui.product" />
-    <property name="ECLIPSE_HOME" value="${user.home}/Downloads/eclipse-SDK-4.7.1a-macosx-cocoa-x86_64/Eclipse.app/Contents/Eclipse" />
+    <property name="product.name" value="example.rcp.product" />
+
+    <!-- environment -->
+    <property name="ECLIPSE_HOME"
+              value="${user.home}/Downloads/eclipse-SDK-4.7.1a-macosx-cocoa-x86_64/Eclipse.app/Contents/Eclipse" />
     <property name="ECLIPSE_PDEBUILD_VERSION" value="3.9.300.v20170515-0912" />
     <property name="ECLIPSE_LAUNCHER_VERSION" value="1.4.0.v20161219-1356" />
 
+    <property name="localURL" value="file:/${user.home}/www/download.eclipse.org" />
+    <property name="repoFormat" value="jar:file:${dir.workspace}/build.template/p2_repo_packedSiblings.zip!/" />
+
     <import file="${dir.workspace}/build.ant/common/macros.xml" />
-    <import file="${dir.workspace}/build.ant/common/product_feature_build_macros.xml" />
 
     <taskdef resource="net/sf/antcontrib/antlib.xml">
         <classpath>
@@ -140,7 +225,4 @@
         </classpath>
     </taskdef>
 
-    <tstamp>
-        <format property="NOW" pattern="yyyyMMdd-HHmmss" />
-    </tstamp>
 </project>
