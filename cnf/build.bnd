@@ -43,7 +43,7 @@ eclipse.name=oxygen
 eclipse.platform.version="R-4.7.1-201709061700"
 
 #eclipse.platform.baseurl = "http://download.eclipse.org/eclipse/updates"
-eclipse.platform.baseurl = "file:///${replace;${user.home};(\\\\);/}/www/download.eclipse.org/eclipse/updates"
+eclipse.platform.baseurl = "${fileuri;${user.home}}www/download.eclipse.org/eclipse/updates"
 eclipse.platform.name    = "Eclipse Platform ${eclipse.platform.version}"
 eclipse.platform.url     = "${eclipse.platform.baseurl}/${eclipse.version}/${eclipse.platform.version}/"
 
@@ -51,7 +51,7 @@ eclipse.platform.url     = "${eclipse.platform.baseurl}/${eclipse.version}/${ecl
 eclipse.simu.version=201710111001
 
 #eclipse.simu.baseurl = "http://download.eclipse.org/releases"
-eclipse.simu.baseurl = "file:///${replace;${user.home};(\\\\);/}/www/download.eclipse.org/releases"
+eclipse.simu.baseurl = "${fileuri;${user.home}}www/download.eclipse.org/releases"
 eclipse.simu.name    = "Eclipse Simu Release ${eclipse.version} - ${eclipse.simu.version}"
 eclipse.simu.url     = "${eclipse.simu.baseurl}/${eclipse.name}/${eclipse.simu.version}/"
 
@@ -76,9 +76,9 @@ eclipse.simu.url     = "${eclipse.simu.baseurl}/${eclipse.name}/${eclipse.simu.v
 #-plugin.20.eclipse.platform: \
 #   aQute.bnd.deployer.repository.FixedIndexedRepo; \
 #       name      = "Eclipse Platform ${eclipse.platform.version}"; \
-#       locations = file:${workspace}/cnf/fixedIndices/p2-Eclipse-Platform-${eclipse.platform.version}/index.xml.gz
+#       locations = "${fileuri;${${workspace}}}cnf/fixedIndices/p2-Eclipse-Platform-${eclipse.platform.version}/index.xml.gz"
 
 #-plugin.21.eclipse.simu: \
 #    aQute.bnd.deployer.repository.FixedIndexedRepo; \
 #        name      = "Eclipse Simu Release - ${eclipse.simu.version}"; \
-#        locations = file:${workspace}/cnf/fixedIndices/p2-Eclipse-Simu-Release-${eclipse.simu.version}/index.xml.gz
+#        locations = "${fileuri;${${workspace}}}cnf/fixedIndices/p2-Eclipse-Simu-Release-${eclipse.simu.version}/index.xml.gz"
