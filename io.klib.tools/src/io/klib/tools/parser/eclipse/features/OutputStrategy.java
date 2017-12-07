@@ -7,7 +7,7 @@ import io.klib.tools.ecl2bnd.model.eclipse.Feature;
 
 public interface OutputStrategy {
 
-	public static final String FEATURE_PREFIX = "FEA_";
+	public static final String FEATURE_PREFIX = "fea_";
 	public static final String PLATFORM_PREFIX = "PLATFORM_";
 
 	public void execute(List<Feature> features, Path outputPath);
