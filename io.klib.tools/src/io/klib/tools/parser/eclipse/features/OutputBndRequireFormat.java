@@ -29,11 +29,20 @@ public class OutputBndRequireFormat extends OutputContextDefault implements Outp
 		for (Feature f : features) {
 			// map for platform specific bundles/fragments
 			TreeMap<String, TreeSet<String>> fragments = new TreeMap<>();
+
 			// pre-fill the supported platform configuration combinations
+			fragments.put("(osgi.os=win32)(osgi.arch=x86)", new TreeSet<String>());
 			fragments.put("(osgi.os=win32)(osgi.ws=win32)(osgi.arch=x86)", new TreeSet<String>());
+			fragments.put("(osgi.os=win32)(osgi.arch=x86_64)", new TreeSet<String>());
 			fragments.put("(osgi.os=win32)(osgi.ws=win32)(osgi.arch=x86_64)", new TreeSet<String>());
+
+			fragments.put("(osgi.os=linux)(osgi.arch=x86)", new TreeSet<String>());
 			fragments.put("(osgi.os=linux)(osgi.ws=gtk)(osgi.arch=x86)", new TreeSet<String>());
+			fragments.put("(osgi.os=linux)(osgi.arch=x86_64)", new TreeSet<String>());
 			fragments.put("(osgi.os=linux)(osgi.ws=gtk)(osgi.arch=x86_64)", new TreeSet<String>());
+
+			fragments.put("(osgi.os=macosx)", new TreeSet<String>());
+			fragments.put("(osgi.os=macosx)(osgi.arch=x86_64)", new TreeSet<String>());
 			fragments.put("(osgi.os=macosx)(osgi.ws=cocoa)(osgi.arch=x86_64)", new TreeSet<String>());
 
 			String featureID = f.getId();
