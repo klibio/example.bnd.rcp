@@ -5,11 +5,16 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+
+import org.osgi.framework.Filter;
+import org.osgi.framework.FrameworkUtil;
+import org.osgi.framework.InvalidSyntaxException;
 
 import io.klib.tools.ecl2bnd.model.eclipse.Feature;
 import io.klib.tools.ecl2bnd.model.eclipse.Plugin;
@@ -18,32 +23,43 @@ public class OutputBndRequireFormat extends OutputContextDefault implements Outp
 
 	private Path path;
 
+	private final Hashtable<String, String> config_WIN32_WIN32_X86_64 = new Hashtable<String, String>();
+	private final Hashtable<String, String> config_MACOSX_COCOA_X86_64 = new Hashtable<String, String>();
+	private final Hashtable<String, String> config_LINUX_GTK_X86_64 = new Hashtable<String, String>();
+
+	TreeMap<String, TreeSet<String>> fragments = new TreeMap<>();
+	TreeMap<String, Hashtable<String, String>> configs = new TreeMap<>();
+
 	public OutputBndRequireFormat() {
 		super();
+
+		config_WIN32_WIN32_X86_64.put("osgi.os", "win32");
+		config_WIN32_WIN32_X86_64.put("osgi.ws", "win32");
+		config_WIN32_WIN32_X86_64.put("osgi.arch", "x86_64");
+		configs.put("win32.win32.x86-64", config_WIN32_WIN32_X86_64);
+
+		config_MACOSX_COCOA_X86_64.put("osgi.os", "macosx");
+		config_MACOSX_COCOA_X86_64.put("osgi.ws", "cocoa");
+		config_MACOSX_COCOA_X86_64.put("osgi.arch", "x86_64");
+		configs.put("macosx.cocoa.x86-64", config_MACOSX_COCOA_X86_64);
+
+		config_LINUX_GTK_X86_64.put("osgi.os", "linux");
+		config_LINUX_GTK_X86_64.put("osgi.ws", "gtk");
+		config_LINUX_GTK_X86_64.put("osgi.arch", "x86_64");
+		configs.put("linux.gtk.x86-64", config_LINUX_GTK_X86_64);
 	}
 
 	@Override
 	public void execute(List<Feature> features, Path outputPath) {
 		path = outputPath;
 		appendBndRequireHeader(tocHeader);
+
+		// pre-fill the supported platform configuration combinations
 		for (Feature f : features) {
-			// map for platform specific bundles/fragments
-			TreeMap<String, TreeSet<String>> fragments = new TreeMap<>();
-
-			// pre-fill the supported platform configuration combinations
-			fragments.put("(osgi.os=win32)(osgi.arch=x86)", new TreeSet<String>());
-			fragments.put("(osgi.os=win32)(osgi.ws=win32)(osgi.arch=x86)", new TreeSet<String>());
-			fragments.put("(osgi.os=win32)(osgi.arch=x86_64)", new TreeSet<String>());
-			fragments.put("(osgi.os=win32)(osgi.ws=win32)(osgi.arch=x86_64)", new TreeSet<String>());
-
-			fragments.put("(osgi.os=linux)(osgi.arch=x86)", new TreeSet<String>());
-			fragments.put("(osgi.os=linux)(osgi.ws=gtk)(osgi.arch=x86)", new TreeSet<String>());
-			fragments.put("(osgi.os=linux)(osgi.arch=x86_64)", new TreeSet<String>());
-			fragments.put("(osgi.os=linux)(osgi.ws=gtk)(osgi.arch=x86_64)", new TreeSet<String>());
-
-			fragments.put("(osgi.os=macosx)", new TreeSet<String>());
-			fragments.put("(osgi.os=macosx)(osgi.arch=x86_64)", new TreeSet<String>());
-			fragments.put("(osgi.os=macosx)(osgi.ws=cocoa)(osgi.arch=x86_64)", new TreeSet<String>());
+			// map OSGi LDAP filter to bundles/fragments
+			fragments.put("win32.win32.x86-64", new TreeSet<String>());
+			fragments.put("macosx.cocoa.x86-64", new TreeSet<String>());
+			fragments.put("linux.gtk.x86-64", new TreeSet<String>());
 
 			String featureID = f.getId();
 			String featureVersion = f.getVersion();
@@ -64,19 +80,26 @@ public class OutputBndRequireFormat extends OutputContextDefault implements Outp
 			featureExpression.append(String.format("%s\n", featurePluginsBndRequire.toString()));
 			featureExpression.append("\n");
 
-//			featureExpression.append("# Platform specific macros for bundles/fragments\n\n");
+			// featureExpression.append("# Platform specific macros for
+			// bundles/fragments\n\n");
 			Set<Entry<String, TreeSet<String>>> entrySet = fragments.entrySet();
 			for (Entry<String, TreeSet<String>> entry : entrySet) {
-				String platformLabel = toHumanReadableString(entry.getKey());
+
+				String platformLabel = entry.getKey().toString();
 
 				TreeSet<String> platformBundles = entry.getValue();
 				if (!platformLabel.isEmpty() && !platformBundles.isEmpty()) {
-					
-					tocHeader.append(String.format("# ${%s%s_%s_%s%s}\n", FEATURE_PREFIX, featureID, featureVersion, PLATFORM_PREFIX, platformLabel));
-					featureExpression.append(String.format("%s%s_%s_%s%s: \\\n", FEATURE_PREFIX, featureID, featureVersion, PLATFORM_PREFIX, platformLabel));
+
+					String headerNote = String.format("# ${%s%s_%s_%s%s}\n", FEATURE_PREFIX, featureID, featureVersion,
+							PLATFORM_PREFIX, platformLabel);
+					tocHeader.append(headerNote);
+
+					String bndFeatureEntry = String.format("%s%s_%s_%s%s: \\\n", FEATURE_PREFIX, featureID,
+							featureVersion, PLATFORM_PREFIX, platformLabel);
+					featureExpression.append(bndFeatureEntry);
 					platformBundles.stream().sorted().forEach(i -> featureExpression.append(i));
 
-					if (platformBundles.size()>0) {
+					if (platformBundles.size() > 0) {
 						// remove the trailing ",\\n"
 						if (featureExpression.length() >= 3) {
 							featureExpression.replace(featureExpression.length() - 3, featureExpression.length(), "");
@@ -90,15 +113,6 @@ public class OutputBndRequireFormat extends OutputContextDefault implements Outp
 		writeBndRequireFile(tocHeader, featureExpression);
 		System.out.println(featureExpression);
 
-	}
-
-	private String toHumanReadableString(String label) {
-		label = label.replaceAll("\\)\\(", ".");
-		label = label.replaceAll("osgi.os=", "");
-		label = label.replaceAll("osgi.ws=", "");
-		label = label.replaceAll("osgi.arch=", "");
-		label = label.replaceAll("\\(|\\)", "");
-		return label;
 	}
 
 	private void appendBndRequireHeader(StringBuffer tocBndRequire) {
@@ -132,20 +146,20 @@ public class OutputBndRequireFormat extends OutputContextDefault implements Outp
 	}
 
 	private StringBuffer parseFeaturePlugins(Feature f, TreeMap<String, TreeSet<String>> fragments) {
-		StringBuffer plugins = new StringBuffer();
 		List<Plugin> pluginList = f.getPlugins();
+		StringBuffer plugins = new StringBuffer();
 
 		if (pluginList != null) {
+
 			for (Plugin p : pluginList) {
 				String bundleID = p.getId();
 				// avoid dependencies to framework bundles
-				if (!bundleID.contains("org.eclipse.osgi") 
-						&& !bundleID.startsWith("org.eclipse.equinox.launcher")) {
+				if (!bundleID.contains("org.eclipse.osgi") && !bundleID.startsWith("org.eclipse.equinox.launcher")) {
 					String version = p.getVersion();
 					String os = p.getOs();
 					String ws = p.getWs();
 					String arch = p.getArch();
-//					String nl = p.getNl();
+					// String nl = p.getNl();
 
 					if (p.isFragment()) {
 						// nothing specific currently
@@ -155,25 +169,38 @@ public class OutputBndRequireFormat extends OutputContextDefault implements Outp
 						// will need specific treatment
 						System.out.println("might cause trouble on execution in bnd");
 					}
-					String key = "";
+
+					String filterStr = "";
 					if (os != null) {
-						key = "(osgi.os=" + os + ")";
+						filterStr = filterStr.concat("(osgi.os=" + os + ")");
 					}
 					if (ws != null) {
-						key += "(osgi.ws=" + ws + ")";
+						filterStr = filterStr.concat("(osgi.ws=" + ws + ")");
 					}
 					if (arch != null) {
-						key += "(osgi.arch=" + arch + ")";
+						filterStr = filterStr.concat("(osgi.arch=" + arch + ")");
 					}
-					if (key.length() > 0) {
-						Set<String> configs = fragments.keySet();
-						for (String config : configs) {
-							if (config.contains(key)) {
-								Set<String> bundles = fragments.get(config);
-								bundles.add(String.format(
-										"    osgi.identity;filter:='(&(osgi.identity=%s)(version>=%s))',\\\n", bundleID,
-										version));
-							}
+
+					if (filterStr.length() > 0) {
+						String filterExp = "";
+						if (filterStr.split("\\)\\(").length > 1) {
+							filterExp = "(&" + filterStr + ")";
+						} else {
+							filterExp = filterStr;
+						}
+						try {
+							Filter bundleFilter = FrameworkUtil.createFilter(filterExp);
+							configs.forEach((c, e) -> {
+								if (bundleFilter.match(configs.get(c))) {
+									Set<String> bundles = fragments.get(c);
+									bundles.add(String.format(
+											"    osgi.identity;filter:='(&(osgi.identity=%s)(version>=%s))',\\\n",
+											bundleID, version));
+								}
+							});
+
+						} catch (InvalidSyntaxException e) {
+							e.printStackTrace();
 						}
 					} else {
 						plugins.append(

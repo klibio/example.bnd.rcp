@@ -13,3 +13,14 @@
 	org.apache.felix.scr;version='[2.0.10,2.0.11)',\
 	org.eclipse.osgi.services;version='[3.6.0,3.6.1)',\
 	org.eclipse.osgi.util;version='[3.4.0,3.4.1)'
+
+ECL_PLATFORM_VERSION = R-4.7.1a-201710090410
+bndRequireFile   = '__runrequires_Eclipse_Platform_${ECL_PLATFORM_VERSION}.bndrun'
+bndBuildPathFile = '__buildPath_Eclipse_Platform_${ECL_PLATFORM_VERSION}.bndrun"
+featureDir_OSX   = '/Users/peterkir/www/download.eclipse.org/eclipse/updates/4.7/${ECL_PLATFORM_VERSION}/features'
+featureDir_WIN   = 'C:/jbe5.0.2/repo/download.eclipse.org/eclipse/updates/4.7/R-4.7.1a-201710090410/features'
+
+-runprogramargs: \
+    ${bndRequireFile} \
+    ${bndBuildPathFile} \
+    ${featureDir_WIN}

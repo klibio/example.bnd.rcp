@@ -17,14 +17,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import org.osgi.framework.BundleException;
+import org.osgi.framework.FrameworkUtil;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import io.klib.tools.ecl2bnd.model.eclipse.Feature;
 
@@ -32,21 +36,27 @@ import io.klib.tools.ecl2bnd.model.eclipse.Feature;
 public class EclipseFeatureFolderParser {
 
 	private boolean debug = false;
-	private final static String SEP = System.getProperty("file.separator");
+	private String[] launcherArguments;
 
+	private final static String SEP = System.getProperty("file.separator");
 	private final static String resultDir = System.getProperty("user.dir") + SEP + "result";
 
-	private final static String ECL_PLATFORM_VERSION = "R-4.7.1-201709061700";
-	private final static String bndRequireFile = "__bnd_runrequires_Eclipse_Platform_" + ECL_PLATFORM_VERSION
-			+ ".bndrun";
-	private final static String bndBuildPathFile = "__bnd_buildPath_Eclipse_Platform_" + ECL_PLATFORM_VERSION
-			+ ".bndrun";
-	private final static String featureDir = "/Users/peterkir/www/download.eclipse.org/eclipse/updates/4.7/"
-			+ ECL_PLATFORM_VERSION + "/features";
+	private String bndRequireFile;
+	private String bndBuildPathFile;
+	private String featureDir;
+	
+    @Reference(target = "(launcher.arguments=*)")
+    void args(final Object object, final Map<String, Object> map) {
+        launcherArguments = (String[]) map.get("launcher.arguments");
+	}
 
 	@Activate
 	public void activate() {
 
+		bndRequireFile = launcherArguments[0];
+		bndBuildPathFile= launcherArguments[1];
+		featureDir= launcherArguments[2];
+		
 		Path featurePath = Paths.get(featureDir);
 		new File(resultDir).mkdirs();
 
@@ -87,7 +97,12 @@ public class EclipseFeatureFolderParser {
 			}
 		}
 
-		System.out.println("done.");
+		System.out.println("done - shutting down framework");
+		try {
+			FrameworkUtil.getBundle(this.getClass()).getBundleContext().getBundle(0).stop();
+		} catch (BundleException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private List<Path> collectFeatures(Path p) {

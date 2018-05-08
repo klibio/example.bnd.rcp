@@ -19,6 +19,8 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import org.osgi.framework.BundleException;
+import org.osgi.framework.FrameworkUtil;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 
@@ -34,13 +36,9 @@ public class EclipseRepoParser {
 
 	private final static String resultDir = System.getProperty("user.dir") + SEP + "result";
 
-	private final static String ECL_PLATFORM_VERSION = "R-4.7.1-201709061700";
-//	private final static String bndRequireFile = "__bnd_runrequires_Eclipse_Platform_" + ECL_PLATFORM_VERSION
-//			+ ".bndrun";
-//	private final static String bndBuildPathFile = "__bnd_buildPath_Eclipse_Platform_" + ECL_PLATFORM_VERSION
-//			+ ".bndrun";
-	private final static String featureDir = "/Users/peterkir/www/download.eclipse.org/eclipse/updates/4.7/"
-			+ ECL_PLATFORM_VERSION + "/features";
+	private final static String rootDir="c:/jbe5.0.2/repo";
+	private final static String ECL_PLATFORM_VERSION = "R-4.7.1a-201710090410";
+	private final static String featureDir = rootDir + "/download.eclipse.org/eclipse/updates/4.7/" + ECL_PLATFORM_VERSION + "/features";
 
 	private JAXBContext ctxt;
 
@@ -109,6 +107,11 @@ public class EclipseRepoParser {
 		}
 
 		System.out.println("done.");
+		try {
+			FrameworkUtil.getBundle(this.getClass()).getBundleContext().getBundle(0).stop();
+		} catch (BundleException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private Feature parseFeatureXml(URL url) {

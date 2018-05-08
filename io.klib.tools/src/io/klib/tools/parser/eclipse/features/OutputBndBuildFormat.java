@@ -6,7 +6,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import io.klib.tools.ecl2bnd.model.eclipse.Feature;
 import io.klib.tools.ecl2bnd.model.eclipse.Plugin;
@@ -15,15 +20,39 @@ public class OutputBndBuildFormat extends OutputContextDefault implements Output
 
 	private Path path;
 
+	private final Hashtable<String, String> config_WIN32_WIN32_X86_64 = new Hashtable<String, String>();
+	private final Hashtable<String, String> config_MACOSX_COCOA_X86_64 = new Hashtable<String, String>();
+	private final Hashtable<String, String> config_LINUX_GTK_X86_64 = new Hashtable<String, String>();
+
+	TreeMap<String, TreeSet<String>> fragments = new TreeMap<>();
+	TreeMap<String, Hashtable<String, String>> configs = new TreeMap<>();
 	public OutputBndBuildFormat() {
 		super();
+		config_WIN32_WIN32_X86_64.put("osgi.os", "win32");
+		config_WIN32_WIN32_X86_64.put("osgi.ws", "win32");
+		config_WIN32_WIN32_X86_64.put("osgi.arch", "x86_64");
+		configs.put("win32.win32.x86-64", config_WIN32_WIN32_X86_64);
+
+		config_MACOSX_COCOA_X86_64.put("osgi.os", "macosx");
+		config_MACOSX_COCOA_X86_64.put("osgi.ws", "cocoa");
+		config_MACOSX_COCOA_X86_64.put("osgi.arch", "x86_64");
+		configs.put("macosx.cocoa.x86-64", config_MACOSX_COCOA_X86_64);
+
+		config_LINUX_GTK_X86_64.put("osgi.os", "linux");
+		config_LINUX_GTK_X86_64.put("osgi.ws", "gtk");
+		config_LINUX_GTK_X86_64.put("osgi.arch", "x86_64");
+		configs.put("linux.gtk.x86-64", config_LINUX_GTK_X86_64);
 	}
 
 	@Override
 	public void execute(List<Feature> features, Path outputPath) {
 		path = outputPath;
 		appendBndBuildHeader(tocHeader);
-		features.stream().forEach(f -> {
+		for (Feature f : features) {
+			// map OSGi LDAP filter to bundles/fragments
+			fragments.put("win32.win32.x86-64", new TreeSet<String>());
+			fragments.put("macosx.cocoa.x86-64", new TreeSet<String>());
+			fragments.put("linux.gtk.x86-64", new TreeSet<String>());
 
 			String featureID = f.getId();
 			String featureVersion = f.getVersion();
@@ -43,7 +72,35 @@ public class OutputBndBuildFormat extends OutputContextDefault implements Output
 			}
 			featureExpression.append(String.format("%s\n", featurePluginsBndBuild.toString()));
 			featureExpression.append("\n");
-		});
+			// featureExpression.append("# Platform specific macros for
+			// bundles/fragments\n\n");
+			Set<Entry<String, TreeSet<String>>> entrySet = fragments.entrySet();
+			for (Entry<String, TreeSet<String>> entry : entrySet) {
+
+				String platformLabel = entry.getKey().toString();
+
+				TreeSet<String> platformBundles = entry.getValue();
+				if (!platformLabel.isEmpty() && !platformBundles.isEmpty()) {
+
+					String headerNote = String.format("# ${%s%s_%s_%s%s}\n", FEATURE_PREFIX, featureID, featureVersion,
+							PLATFORM_PREFIX, platformLabel);
+					tocHeader.append(headerNote);
+
+					String bndFeatureEntry = String.format("%s%s_%s_%s%s: \\\n", FEATURE_PREFIX, featureID,
+							featureVersion, PLATFORM_PREFIX, platformLabel);
+					featureExpression.append(bndFeatureEntry);
+					platformBundles.stream().sorted().forEach(i -> featureExpression.append(i));
+
+					if (platformBundles.size() > 0) {
+						// remove the trailing ",\\n"
+						if (featureExpression.length() >= 3) {
+							featureExpression.replace(featureExpression.length() - 3, featureExpression.length(), "");
+						}
+					}
+					featureExpression.append("\n\n");
+				}
+			}
+		}
 
 		writeBndBuildFile(tocHeader, featureExpression);
 

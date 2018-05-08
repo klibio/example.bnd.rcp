@@ -7,6 +7,6 @@
 
 -runrequires: \
     ${FEA_org.eclipse.e4.rcp_1.6.1.v20170829-0553},\
-    ${PLATFORM_org.eclipse.e4.rcp_macosx.cocoa.x86_64}
+    ${PLATFORM_org.eclipse.e4.rcp_win32.win32.x86_64}
 
 -runbundles: \

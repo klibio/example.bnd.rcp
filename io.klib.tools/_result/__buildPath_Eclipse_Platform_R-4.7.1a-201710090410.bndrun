@@ -5,82 +5,82 @@
 #    hugo
 #
 # -buildpath: \
-#    ${FEA_org.eclipse.rcp_4.7.0.v20170612-1255}
+#    ${fea_org.eclipse.rcp_4.7.0.v20170612-1255}
 # or 
 # -runbundles: \
-#    ${FEA_org.eclipse.rcp_4.7.0.v20170612-1255}
+#    ${fea_org.eclipse.rcp_4.7.0.v20170612-1255}
 #
 #
 # TOC of the contained Eclipse Features
 # every entry name matches an Eclipse Features and contains all included features and plugins
 #
 
-# ${FEA_org.eclipse.core.runtime.feature_1.2.1.v20170821-1548}
-# ${FEA_org.eclipse.cvs.source_1.4.401.v20170906-1700}
-# ${FEA_org.eclipse.cvs_1.4.401.v20170906-1700}
-# ${FEA_org.eclipse.e4.core.tools.feature.source_4.7.0.v20170515-1617}
-# ${FEA_org.eclipse.e4.core.tools.feature_4.7.0.v20170515-1617}
-# ${FEA_org.eclipse.e4.rcp.source_1.6.1.v20170829-0553}
-# ${FEA_org.eclipse.e4.rcp_1.6.1.v20170829-0553}
-# ${FEA_org.eclipse.ecf.core.feature.source_1.4.0.v20170516-2248}
-# ${FEA_org.eclipse.ecf.core.feature_1.4.0.v20170516-2248}
-# ${FEA_org.eclipse.ecf.core.ssl.feature.source_1.1.0.v20170110-1317}
-# ${FEA_org.eclipse.ecf.core.ssl.feature_1.1.0.v20170110-1317}
-# ${FEA_org.eclipse.ecf.filetransfer.feature.source_3.13.7.v20170516-2248}
-# ${FEA_org.eclipse.ecf.filetransfer.feature_3.13.7.v20170516-2248}
-# ${FEA_org.eclipse.ecf.filetransfer.httpclient4.feature.source_3.13.7.v20170516-2248}
-# ${FEA_org.eclipse.ecf.filetransfer.httpclient4.feature_3.13.7.v20170516-2248}
-# ${FEA_org.eclipse.ecf.filetransfer.httpclient4.ssl.feature.source_1.1.0.v20170110-1317}
-# ${FEA_org.eclipse.ecf.filetransfer.httpclient4.ssl.feature_1.1.0.v20170110-1317}
-# ${FEA_org.eclipse.ecf.filetransfer.ssl.feature.source_1.1.0.v20170110-1317}
-# ${FEA_org.eclipse.ecf.filetransfer.ssl.feature_1.1.0.v20170110-1317}
-# ${FEA_org.eclipse.emf.common.source_2.13.0.v20170609-0707}
-# ${FEA_org.eclipse.emf.common_2.13.0.v20170609-0707}
-# ${FEA_org.eclipse.emf.ecore.source_2.13.0.v20170609-0707}
-# ${FEA_org.eclipse.emf.ecore_2.13.0.v20170609-0707}
-# ${FEA_org.eclipse.equinox.compendium.sdk_3.13.1.v20170811-1407}
-# ${FEA_org.eclipse.equinox.core.feature_1.4.1.v20170821-1548}
-# ${FEA_org.eclipse.equinox.core.sdk_3.13.1.v20170821-1548}
-# ${FEA_org.eclipse.equinox.executable_3.7.1.v20170811-1325}
-# ${FEA_org.eclipse.equinox.p2.core.feature.source_1.4.1.v20170906-1259}
-# ${FEA_org.eclipse.equinox.p2.core.feature_1.4.1.v20170906-1259}
-# ${FEA_org.eclipse.equinox.p2.discovery.feature_1.1.1.v20170906-1259}
-# ${FEA_org.eclipse.equinox.p2.extras.feature.source_1.3.1.v20170906-1259}
-# ${FEA_org.eclipse.equinox.p2.extras.feature_1.3.1.v20170906-1259}
-# ${FEA_org.eclipse.equinox.p2.rcp.feature.source_1.3.1.v20170906-1259}
-# ${FEA_org.eclipse.equinox.p2.rcp.feature_1.3.1.v20170906-1259}
-# ${FEA_org.eclipse.equinox.p2.sdk_3.10.1.v20170906-1259}
-# ${FEA_org.eclipse.equinox.p2.user.ui.source_2.3.1.v20170906-1259}
-# ${FEA_org.eclipse.equinox.p2.user.ui_2.3.1.v20170906-1259}
-# ${FEA_org.eclipse.equinox.sdk_3.13.1.v20170906-1529}
-# ${FEA_org.eclipse.equinox.server.core_1.5.1.v20170821-1548}
-# ${FEA_org.eclipse.equinox.server.jetty_1.4.1.v20170811-1407}
-# ${FEA_org.eclipse.equinox.server.p2_1.3.1.v20170906-1259}
-# ${FEA_org.eclipse.equinox.serverside.sdk_3.13.1.v20170906-1529}
-# ${FEA_org.eclipse.help.source_2.2.101.v20170906-1700}
-# ${FEA_org.eclipse.help_2.2.101.v20170906-1700}
-# ${FEA_org.eclipse.jdt.source_3.13.1.v20170906-1700}
-# ${FEA_org.eclipse.jdt_3.13.1.v20170906-1700}
-# ${FEA_org.eclipse.osgi.compatibility.plugins.feature_1.1.1.v20170811-1325}
-# ${FEA_org.eclipse.pde.api.tools.ee.feature_1.0.200.v20170515-0910}
-# ${FEA_org.eclipse.pde.source_3.13.1.v20170906-1700}
-# ${FEA_org.eclipse.pde_3.13.1.v20170906-1700}
-# ${FEA_org.eclipse.platform.source_4.7.1.v20170906-1700}
-# ${FEA_org.eclipse.platform_4.7.1.v20170906-1700}
-# ${FEA_org.eclipse.rcp.configuration_1.1.1.v20170906-1700}
-# ${FEA_org.eclipse.rcp.source_4.7.1.v20170906-1700}
-# ${FEA_org.eclipse.rcp_4.7.1.v20170906-1700}
-# ${FEA_org.eclipse.releng.tools_3.9.100.v20170516-0717}
-# ${FEA_org.eclipse.sdk.examples.source_3.6.1.v20170906-1700}
-# ${FEA_org.eclipse.sdk.examples_3.6.1.v20170906-1700}
-# ${FEA_org.eclipse.sdk.tests_4.7.1.v20170906-1700}
-# ${FEA_org.eclipse.sdk_4.7.1.v20170906-1700}
-# ${FEA_org.eclipse.swt.tools.feature_3.106.0.v20170503-0851}
-# ${FEA_org.eclipse.test_3.7.200.v20170511-1043}
+# ${fea_org.eclipse.core.runtime.feature_1.2.1.v20170928-1321}
+# ${fea_org.eclipse.cvs.source_1.4.401.v20171009-0410}
+# ${fea_org.eclipse.cvs_1.4.401.v20171009-0410}
+# ${fea_org.eclipse.e4.core.tools.feature.source_4.7.0.v20170515-1617}
+# ${fea_org.eclipse.e4.core.tools.feature_4.7.0.v20170515-1617}
+# ${fea_org.eclipse.e4.rcp.source_1.6.1.v20170928-1359}
+# ${fea_org.eclipse.e4.rcp_1.6.1.v20170928-1359}
+# ${fea_org.eclipse.ecf.core.feature.source_1.4.0.v20170516-2248}
+# ${fea_org.eclipse.ecf.core.feature_1.4.0.v20170516-2248}
+# ${fea_org.eclipse.ecf.core.ssl.feature.source_1.1.0.v20170110-1317}
+# ${fea_org.eclipse.ecf.core.ssl.feature_1.1.0.v20170110-1317}
+# ${fea_org.eclipse.ecf.filetransfer.feature.source_3.13.7.v20170516-2248}
+# ${fea_org.eclipse.ecf.filetransfer.feature_3.13.7.v20170516-2248}
+# ${fea_org.eclipse.ecf.filetransfer.httpclient4.feature.source_3.13.7.v20170516-2248}
+# ${fea_org.eclipse.ecf.filetransfer.httpclient4.feature_3.13.7.v20170516-2248}
+# ${fea_org.eclipse.ecf.filetransfer.httpclient4.ssl.feature.source_1.1.0.v20170110-1317}
+# ${fea_org.eclipse.ecf.filetransfer.httpclient4.ssl.feature_1.1.0.v20170110-1317}
+# ${fea_org.eclipse.ecf.filetransfer.ssl.feature.source_1.1.0.v20170110-1317}
+# ${fea_org.eclipse.ecf.filetransfer.ssl.feature_1.1.0.v20170110-1317}
+# ${fea_org.eclipse.emf.common.source_2.13.0.v20170609-0707}
+# ${fea_org.eclipse.emf.common_2.13.0.v20170609-0707}
+# ${fea_org.eclipse.emf.ecore.source_2.13.0.v20170609-0707}
+# ${fea_org.eclipse.emf.ecore_2.13.0.v20170609-0707}
+# ${fea_org.eclipse.equinox.compendium.sdk_3.13.1.v20170811-1407}
+# ${fea_org.eclipse.equinox.core.feature_1.4.1.v20170928-1321}
+# ${fea_org.eclipse.equinox.core.sdk_3.13.1.v20170928-1321}
+# ${fea_org.eclipse.equinox.executable_3.7.1.v20170928-1359}
+# ${fea_org.eclipse.equinox.p2.core.feature.source_1.4.1.v20170928-1405}
+# ${fea_org.eclipse.equinox.p2.core.feature_1.4.1.v20170928-1405}
+# ${fea_org.eclipse.equinox.p2.discovery.feature_1.1.1.v20170906-1259}
+# ${fea_org.eclipse.equinox.p2.extras.feature.source_1.3.1.v20170928-1405}
+# ${fea_org.eclipse.equinox.p2.extras.feature_1.3.1.v20170928-1405}
+# ${fea_org.eclipse.equinox.p2.rcp.feature.source_1.3.1.v20170928-1405}
+# ${fea_org.eclipse.equinox.p2.rcp.feature_1.3.1.v20170928-1405}
+# ${fea_org.eclipse.equinox.p2.sdk_3.10.1.v20170928-1405}
+# ${fea_org.eclipse.equinox.p2.user.ui.source_2.3.1.v20170928-1405}
+# ${fea_org.eclipse.equinox.p2.user.ui_2.3.1.v20170928-1405}
+# ${fea_org.eclipse.equinox.sdk_3.13.1.v20170928-1405}
+# ${fea_org.eclipse.equinox.server.core_1.5.1.v20170928-1321}
+# ${fea_org.eclipse.equinox.server.jetty_1.4.1.v20170811-1407}
+# ${fea_org.eclipse.equinox.server.p2_1.3.1.v20170928-1405}
+# ${fea_org.eclipse.equinox.serverside.sdk_3.13.1.v20170928-1405}
+# ${fea_org.eclipse.help.source_2.2.101.v20171009-0410}
+# ${fea_org.eclipse.help_2.2.101.v20171009-0410}
+# ${fea_org.eclipse.jdt.source_3.13.1.v20171009-0410}
+# ${fea_org.eclipse.jdt_3.13.1.v20171009-0410}
+# ${fea_org.eclipse.osgi.compatibility.plugins.feature_1.1.1.v20170811-1325}
+# ${fea_org.eclipse.pde.api.tools.ee.feature_1.0.200.v20170515-0910}
+# ${fea_org.eclipse.pde.source_3.13.1.v20171009-0537}
+# ${fea_org.eclipse.pde_3.13.1.v20171009-0537}
+# ${fea_org.eclipse.platform.source_4.7.1.v20171009-0410}
+# ${fea_org.eclipse.platform_4.7.1.v20171009-0410}
+# ${fea_org.eclipse.rcp.configuration_1.1.1.v20171009-0410}
+# ${fea_org.eclipse.rcp.source_4.7.1.v20171009-0410}
+# ${fea_org.eclipse.rcp_4.7.1.v20171009-0410}
+# ${fea_org.eclipse.releng.tools_3.9.100.v20170516-0717}
+# ${fea_org.eclipse.sdk.examples.source_3.6.1.v20171009-0410}
+# ${fea_org.eclipse.sdk.examples_3.6.1.v20171009-0410}
+# ${fea_org.eclipse.sdk.tests_4.7.1.v20171009-0410}
+# ${fea_org.eclipse.sdk_4.7.1.v20171009-0537}
+# ${fea_org.eclipse.swt.tools.feature_3.106.0.v20170503-0851}
+# ${fea_org.eclipse.test_3.7.200.v20170511-1043}
 # below this you have the concrete inlcude statements 
 
-FEA_org.eclipse.core.runtime.feature_1.2.1.v20170821-1548: \
-    ${FEA_org.eclipse.equinox.core.feature_1.4.1.v20170821-1548},\
+fea_org.eclipse.core.runtime.feature_1.2.1.v20170928-1321: \
+    ${fea_org.eclipse.equinox.core.feature_1.4.1.v20170928-1321},\
     \
     org.eclipse.core.runtime;version='[3.13.0.v20170207-1030,3.13.0.v20170207-1030]',\
     org.eclipse.core.variables;version='[3.4.0.v20170113-2056,3.4.0.v20170113-2056]',\
@@ -88,21 +88,21 @@ FEA_org.eclipse.core.runtime.feature_1.2.1.v20170821-1548: \
     org.eclipse.equinox.preferences;version='[3.7.0.v20170126-2132,3.7.0.v20170126-2132]',\
     org.eclipse.core.expressions;version='[3.6.0.v20170207-1037,3.6.0.v20170207-1037]'
 
-FEA_org.eclipse.cvs.source_1.4.401.v20170906-1700: \
-    ${FEA_org.eclipse.cvs_1.4.401.v20170906-1700},\
+fea_org.eclipse.cvs.source_1.4.401.v20171009-0410: \
+    ${fea_org.eclipse.cvs_1.4.401.v20171009-0410},\
     \
     org.eclipse.team.cvs.core.source;version='[3.4.100.v20170128-0234,3.4.100.v20170128-0234]',\
     org.eclipse.team.cvs.ssh2.source;version='[3.3.0.v20160418-1534,3.3.0.v20160418-1534]',\
     org.eclipse.team.cvs.ui.source;version='[3.4.1.v20161011-1400,3.4.1.v20161011-1400]'
 
-FEA_org.eclipse.cvs_1.4.401.v20170906-1700: \
-    org.eclipse.cvs;version='[1.4.401.v20170906-1700,1.4.401.v20170906-1700]',\
+fea_org.eclipse.cvs_1.4.401.v20171009-0410: \
+    org.eclipse.cvs;version='[1.4.401.v20171009-0410,1.4.401.v20171009-0410]',\
     org.eclipse.team.cvs.core;version='[3.4.100.v20170128-0234,3.4.100.v20170128-0234]',\
     org.eclipse.team.cvs.ssh2;version='[3.3.0.v20160418-1534,3.3.0.v20160418-1534]',\
     org.eclipse.team.cvs.ui;version='[3.4.1.v20161011-1400,3.4.1.v20161011-1400]'
 
-FEA_org.eclipse.e4.core.tools.feature.source_4.7.0.v20170515-1617: \
-    ${FEA_org.eclipse.e4.core.tools.feature_4.7.0.v20170515-1617},\
+fea_org.eclipse.e4.core.tools.feature.source_4.7.0.v20170515-1617: \
+    ${fea_org.eclipse.e4.core.tools.feature_4.7.0.v20170515-1617},\
     \
     org.eclipse.e4.tools.emf.editor3x.source;version='[4.7.0.v20170301-2031,4.7.0.v20170301-2031]',\
     org.eclipse.e4.tools.emf.ui.source;version='[4.5.200.v20170515-1617,4.5.200.v20170515-1617]',\
@@ -111,7 +111,7 @@ FEA_org.eclipse.e4.core.tools.feature.source_4.7.0.v20170515-1617: \
     org.eclipse.e4.tools.source;version='[4.7.0.v20170412-0858,4.7.0.v20170412-0858]',\
     org.eclipse.e4.tools.jdt.templates.source;version='[4.7.0.v20161219-1049,4.7.0.v20161219-1049]'
 
-FEA_org.eclipse.e4.core.tools.feature_4.7.0.v20170515-1617: \
+fea_org.eclipse.e4.core.tools.feature_4.7.0.v20170515-1617: \
     org.eclipse.e4.tools.emf.editor3x;version='[4.7.0.v20170301-2031,4.7.0.v20170301-2031]',\
     org.eclipse.e4.tools.emf.ui;version='[4.5.200.v20170515-1617,4.5.200.v20170515-1617]',\
     org.eclipse.e4.tools.compat;version='[4.7.0.v20170112-0731,4.7.0.v20170112-0731]',\
@@ -119,8 +119,8 @@ FEA_org.eclipse.e4.core.tools.feature_4.7.0.v20170515-1617: \
     org.eclipse.e4.tools;version='[4.7.0.v20170412-0858,4.7.0.v20170412-0858]',\
     org.eclipse.e4.tools.jdt.templates;version='[4.7.0.v20161219-1049,4.7.0.v20161219-1049]'
 
-FEA_org.eclipse.e4.rcp.source_1.6.1.v20170829-0553: \
-    ${FEA_org.eclipse.e4.rcp_1.6.1.v20170829-0553},\
+fea_org.eclipse.e4.rcp.source_1.6.1.v20170928-1359: \
+    ${fea_org.eclipse.e4.rcp_1.6.1.v20170928-1359},\
     \
     org.eclipse.e4.core.services.source;version='[2.1.0.v20170407-0928,2.1.0.v20170407-0928]',\
     org.eclipse.e4.ui.workbench.swt.source;version='[0.14.101.v20170710-1119,0.14.101.v20170710-1119]',\
@@ -167,17 +167,17 @@ FEA_org.eclipse.e4.rcp.source_1.6.1.v20170829-0553: \
     org.eclipse.equinox.preferences.source;version='[3.7.0.v20170126-2132,3.7.0.v20170126-2132]',\
     org.eclipse.equinox.registry.source;version='[3.7.0.v20170222-1344,3.7.0.v20170222-1344]',\
     org.eclipse.equinox.simpleconfigurator.source;version='[1.2.0.v20170110-1705,1.2.0.v20170110-1705]',\
-    org.eclipse.osgi.source;version='[3.12.1.v20170821-1548,3.12.1.v20170821-1548]',\
+    org.eclipse.osgi.source;version='[3.12.50.v20170928-1321,3.12.50.v20170928-1321]',\
     org.eclipse.osgi.compatibility.state.source;version='[1.1.0.v20170516-1513,1.1.0.v20170516-1513]',\
     org.eclipse.osgi.services.source;version='[3.6.0.v20170228-1906,3.6.0.v20170228-1906]',\
     org.eclipse.osgi.util.source;version='[3.4.0.v20170111-1608,3.4.0.v20170111-1608]',\
-    org.eclipse.swt.win32.win32.x86.source;version='[3.106.1.v20170829-0553,3.106.1.v20170829-0553]',\
-    org.eclipse.swt.win32.win32.x86_64.source;version='[3.106.1.v20170829-0553,3.106.1.v20170829-0553]',\
-    org.eclipse.swt.gtk.linux.x86.source;version='[3.106.1.v20170829-0553,3.106.1.v20170829-0553]',\
-    org.eclipse.swt.gtk.linux.ppc64.source;version='[3.106.1.v20170829-0553,3.106.1.v20170829-0553]',\
-    org.eclipse.swt.gtk.linux.ppc64le.source;version='[3.106.1.v20170829-0553,3.106.1.v20170829-0553]',\
-    org.eclipse.swt.gtk.linux.x86_64.source;version='[3.106.1.v20170829-0553,3.106.1.v20170829-0553]',\
-    org.eclipse.swt.cocoa.macosx.x86_64.source;version='[3.106.1.v20170829-0553,3.106.1.v20170829-0553]',\
+    org.eclipse.swt.win32.win32.x86.source;version='[3.106.1.v20170926-0519,3.106.1.v20170926-0519]',\
+    org.eclipse.swt.win32.win32.x86_64.source;version='[3.106.1.v20170926-0519,3.106.1.v20170926-0519]',\
+    org.eclipse.swt.gtk.linux.x86.source;version='[3.106.1.v20170926-0519,3.106.1.v20170926-0519]',\
+    org.eclipse.swt.gtk.linux.ppc64.source;version='[3.106.1.v20170926-0519,3.106.1.v20170926-0519]',\
+    org.eclipse.swt.gtk.linux.ppc64le.source;version='[3.106.1.v20170926-0519,3.106.1.v20170926-0519]',\
+    org.eclipse.swt.gtk.linux.x86_64.source;version='[3.106.1.v20170926-0519,3.106.1.v20170926-0519]',\
+    org.eclipse.swt.cocoa.macosx.x86_64.source;version='[3.106.1.v20170926-0519,3.106.1.v20170926-0519]',\
     org.eclipse.equinox.util.source;version='[1.0.500.v20130404-1337,1.0.500.v20130404-1337]',\
     org.eclipse.jface.source;version='[3.13.1.v20170810-0135,3.13.1.v20170810-0135]',\
     org.eclipse.jface.databinding.source;version='[1.8.100.v20170503-1507,1.8.100.v20170503-1507]',\
@@ -195,7 +195,7 @@ FEA_org.eclipse.e4.rcp.source_1.6.1.v20170829-0553: \
     org.eclipse.e4.ui.swt.gtk.source;version='[1.0.200.v20170513-0428,1.0.200.v20170513-0428]',\
     org.eclipse.e4.core.di.extensions.supplier.source;version='[0.15.0.v20170407-0928,0.15.0.v20170407-0928]'
 
-FEA_org.eclipse.e4.rcp_1.6.1.v20170829-0553: \
+fea_org.eclipse.e4.rcp_1.6.1.v20170928-1359: \
     org.eclipse.e4.core.services;version='[2.1.0.v20170407-0928,2.1.0.v20170407-0928]',\
     org.eclipse.e4.ui.workbench.swt;version='[0.14.101.v20170710-1119,0.14.101.v20170710-1119]',\
     org.eclipse.e4.core.commands;version='[0.12.100.v20170513-0428,0.12.100.v20170513-0428]',\
@@ -241,25 +241,25 @@ FEA_org.eclipse.e4.rcp_1.6.1.v20170829-0553: \
     org.eclipse.equinox.preferences;version='[3.7.0.v20170126-2132,3.7.0.v20170126-2132]',\
     org.eclipse.equinox.registry;version='[3.7.0.v20170222-1344,3.7.0.v20170222-1344]',\
     org.eclipse.equinox.simpleconfigurator;version='[1.2.0.v20170110-1705,1.2.0.v20170110-1705]',\
-    org.eclipse.osgi;version='[3.12.1.v20170821-1548,3.12.1.v20170821-1548]',\
+    org.eclipse.osgi;version='[3.12.50.v20170928-1321,3.12.50.v20170928-1321]',\
     org.eclipse.osgi.compatibility.state;version='[1.1.0.v20170516-1513,1.1.0.v20170516-1513]',\
     org.eclipse.osgi.services;version='[3.6.0.v20170228-1906,3.6.0.v20170228-1906]',\
     org.eclipse.osgi.util;version='[3.4.0.v20170111-1608,3.4.0.v20170111-1608]',\
-    org.eclipse.equinox.launcher.cocoa.macosx.x86_64;version='[1.1.500.v20170531-1133,1.1.500.v20170531-1133]',\
-    org.eclipse.equinox.launcher.gtk.linux.ppc64;version='[1.1.500.v20170531-1133,1.1.500.v20170531-1133]',\
-    org.eclipse.equinox.launcher.gtk.linux.ppc64le;version='[1.1.500.v20170531-1133,1.1.500.v20170531-1133]',\
-    org.eclipse.equinox.launcher.gtk.linux.x86;version='[1.1.500.v20170531-1133,1.1.500.v20170531-1133]',\
-    org.eclipse.equinox.launcher.gtk.linux.x86_64;version='[1.1.500.v20170531-1133,1.1.500.v20170531-1133]',\
-    org.eclipse.equinox.launcher.win32.win32.x86;version='[1.1.500.v20170531-1133,1.1.500.v20170531-1133]',\
-    org.eclipse.equinox.launcher.win32.win32.x86_64;version='[1.1.500.v20170531-1133,1.1.500.v20170531-1133]',\
-    org.eclipse.swt;version='[3.106.1.v20170829-0553,3.106.1.v20170829-0553]',\
-    org.eclipse.swt.win32.win32.x86;version='[3.106.1.v20170829-0553,3.106.1.v20170829-0553]',\
-    org.eclipse.swt.win32.win32.x86_64;version='[3.106.1.v20170829-0553,3.106.1.v20170829-0553]',\
-    org.eclipse.swt.gtk.linux.x86;version='[3.106.1.v20170829-0553,3.106.1.v20170829-0553]',\
-    org.eclipse.swt.gtk.linux.ppc64;version='[3.106.1.v20170829-0553,3.106.1.v20170829-0553]',\
-    org.eclipse.swt.gtk.linux.ppc64le;version='[3.106.1.v20170829-0553,3.106.1.v20170829-0553]',\
-    org.eclipse.swt.gtk.linux.x86_64;version='[3.106.1.v20170829-0553,3.106.1.v20170829-0553]',\
-    org.eclipse.swt.cocoa.macosx.x86_64;version='[3.106.1.v20170829-0553,3.106.1.v20170829-0553]',\
+    org.eclipse.equinox.launcher.cocoa.macosx.x86_64;version='[1.1.550.v20170928-1359,1.1.550.v20170928-1359]',\
+    org.eclipse.equinox.launcher.gtk.linux.ppc64;version='[1.1.550.v20170928-1359,1.1.550.v20170928-1359]',\
+    org.eclipse.equinox.launcher.gtk.linux.ppc64le;version='[1.1.550.v20170928-1359,1.1.550.v20170928-1359]',\
+    org.eclipse.equinox.launcher.gtk.linux.x86;version='[1.1.550.v20170928-1359,1.1.550.v20170928-1359]',\
+    org.eclipse.equinox.launcher.gtk.linux.x86_64;version='[1.1.550.v20170928-1359,1.1.550.v20170928-1359]',\
+    org.eclipse.equinox.launcher.win32.win32.x86;version='[1.1.550.v20170928-1359,1.1.550.v20170928-1359]',\
+    org.eclipse.equinox.launcher.win32.win32.x86_64;version='[1.1.550.v20170928-1359,1.1.550.v20170928-1359]',\
+    org.eclipse.swt;version='[3.106.1.v20170926-0519,3.106.1.v20170926-0519]',\
+    org.eclipse.swt.win32.win32.x86;version='[3.106.1.v20170926-0519,3.106.1.v20170926-0519]',\
+    org.eclipse.swt.win32.win32.x86_64;version='[3.106.1.v20170926-0519,3.106.1.v20170926-0519]',\
+    org.eclipse.swt.gtk.linux.x86;version='[3.106.1.v20170926-0519,3.106.1.v20170926-0519]',\
+    org.eclipse.swt.gtk.linux.ppc64;version='[3.106.1.v20170926-0519,3.106.1.v20170926-0519]',\
+    org.eclipse.swt.gtk.linux.ppc64le;version='[3.106.1.v20170926-0519,3.106.1.v20170926-0519]',\
+    org.eclipse.swt.gtk.linux.x86_64;version='[3.106.1.v20170926-0519,3.106.1.v20170926-0519]',\
+    org.eclipse.swt.cocoa.macosx.x86_64;version='[3.106.1.v20170926-0519,3.106.1.v20170926-0519]',\
     org.eclipse.equinox.util;version='[1.0.500.v20130404-1337,1.0.500.v20130404-1337]',\
     org.eclipse.jface;version='[3.13.1.v20170810-0135,3.13.1.v20170810-0135]',\
     org.eclipse.jface.databinding;version='[1.8.100.v20170503-1507,1.8.100.v20170503-1507]',\
@@ -277,71 +277,71 @@ FEA_org.eclipse.e4.rcp_1.6.1.v20170829-0553: \
     org.eclipse.e4.ui.swt.gtk;version='[1.0.200.v20170513-0428,1.0.200.v20170513-0428]',\
     org.eclipse.e4.core.di.extensions.supplier;version='[0.15.0.v20170407-0928,0.15.0.v20170407-0928]'
 
-FEA_org.eclipse.ecf.core.feature.source_1.4.0.v20170516-2248: \
+fea_org.eclipse.ecf.core.feature.source_1.4.0.v20170516-2248: \
     org.eclipse.ecf.source;version='[3.8.0.v20170104-0657,3.8.0.v20170104-0657]',\
     org.eclipse.ecf.identity.source;version='[3.8.0.v20161203-2153,3.8.0.v20161203-2153]'
 
-FEA_org.eclipse.ecf.core.feature_1.4.0.v20170516-2248: \
+fea_org.eclipse.ecf.core.feature_1.4.0.v20170516-2248: \
     org.eclipse.ecf;version='[3.8.0.v20170104-0657,3.8.0.v20170104-0657]',\
     org.eclipse.ecf.identity;version='[3.8.0.v20161203-2153,3.8.0.v20161203-2153]'
 
-FEA_org.eclipse.ecf.core.ssl.feature.source_1.1.0.v20170110-1317: \
+fea_org.eclipse.ecf.core.ssl.feature.source_1.1.0.v20170110-1317: \
     org.eclipse.ecf.ssl.source;version='[1.2.0.v20160817-1024,1.2.0.v20160817-1024]'
 
-FEA_org.eclipse.ecf.core.ssl.feature_1.1.0.v20170110-1317: \
+fea_org.eclipse.ecf.core.ssl.feature_1.1.0.v20170110-1317: \
     org.eclipse.ecf.ssl;version='[1.2.0.v20160817-1024,1.2.0.v20160817-1024]'
 
-FEA_org.eclipse.ecf.filetransfer.feature.source_3.13.7.v20170516-2248: \
+fea_org.eclipse.ecf.filetransfer.feature.source_3.13.7.v20170516-2248: \
     org.eclipse.ecf.filetransfer.source;version='[5.0.0.v20160817-1024,5.0.0.v20160817-1024]',\
     org.eclipse.ecf.provider.filetransfer.source;version='[3.2.300.v20161203-1840,3.2.300.v20161203-1840]'
 
-FEA_org.eclipse.ecf.filetransfer.feature_3.13.7.v20170516-2248: \
+fea_org.eclipse.ecf.filetransfer.feature_3.13.7.v20170516-2248: \
     org.eclipse.ecf.filetransfer;version='[5.0.0.v20160817-1024,5.0.0.v20160817-1024]',\
     org.eclipse.ecf.provider.filetransfer;version='[3.2.300.v20161203-1840,3.2.300.v20161203-1840]'
 
-FEA_org.eclipse.ecf.filetransfer.httpclient4.feature.source_3.13.7.v20170516-2248: \
+fea_org.eclipse.ecf.filetransfer.httpclient4.feature.source_3.13.7.v20170516-2248: \
     org.eclipse.ecf.provider.filetransfer.httpclient4.source;version='[1.1.200.v20170314-0133,1.1.200.v20170314-0133]',\
     org.apache.commons.codec.source;version='[1.9.0.v20170208-1614,1.9.0.v20170208-1614]',\
     org.apache.commons.logging.source;version='[1.1.1.v201101211721,1.1.1.v201101211721]',\
     org.apache.httpcomponents.httpclient.source;version='[4.5.2.v20170210-0925,4.5.2.v20170210-0925]',\
     org.apache.httpcomponents.httpcore.source;version='[4.4.6.v20170210-0925,4.4.6.v20170210-0925]'
 
-FEA_org.eclipse.ecf.filetransfer.httpclient4.feature_3.13.7.v20170516-2248: \
+fea_org.eclipse.ecf.filetransfer.httpclient4.feature_3.13.7.v20170516-2248: \
     org.eclipse.ecf.provider.filetransfer.httpclient4;version='[1.1.200.v20170314-0133,1.1.200.v20170314-0133]',\
     org.apache.commons.codec;version='[1.9.0.v20170208-1614,1.9.0.v20170208-1614]',\
     org.apache.commons.logging;version='[1.1.1.v201101211721,1.1.1.v201101211721]',\
     org.apache.httpcomponents.httpclient;version='[4.5.2.v20170210-0925,4.5.2.v20170210-0925]',\
     org.apache.httpcomponents.httpcore;version='[4.4.6.v20170210-0925,4.4.6.v20170210-0925]'
 
-FEA_org.eclipse.ecf.filetransfer.httpclient4.ssl.feature.source_1.1.0.v20170110-1317: \
+fea_org.eclipse.ecf.filetransfer.httpclient4.ssl.feature.source_1.1.0.v20170110-1317: \
     org.eclipse.ecf.provider.filetransfer.httpclient4.ssl.source;version='[1.1.0.v20160817-1024,1.1.0.v20160817-1024]'
 
-FEA_org.eclipse.ecf.filetransfer.httpclient4.ssl.feature_1.1.0.v20170110-1317: \
+fea_org.eclipse.ecf.filetransfer.httpclient4.ssl.feature_1.1.0.v20170110-1317: \
     org.eclipse.ecf.provider.filetransfer.httpclient4.ssl;version='[1.1.0.v20160817-1024,1.1.0.v20160817-1024]'
 
-FEA_org.eclipse.ecf.filetransfer.ssl.feature.source_1.1.0.v20170110-1317: \
+fea_org.eclipse.ecf.filetransfer.ssl.feature.source_1.1.0.v20170110-1317: \
     org.eclipse.ecf.provider.filetransfer.ssl.source;version='[1.0.0.v20160817-1024,1.0.0.v20160817-1024]'
 
-FEA_org.eclipse.ecf.filetransfer.ssl.feature_1.1.0.v20170110-1317: \
+fea_org.eclipse.ecf.filetransfer.ssl.feature_1.1.0.v20170110-1317: \
     org.eclipse.ecf.provider.filetransfer.ssl;version='[1.0.0.v20160817-1024,1.0.0.v20160817-1024]'
 
-FEA_org.eclipse.emf.common.source_2.13.0.v20170609-0707: \
+fea_org.eclipse.emf.common.source_2.13.0.v20170609-0707: \
     org.eclipse.emf.common.source;version='[2.13.0.v20170609-0707,2.13.0.v20170609-0707]'
 
-FEA_org.eclipse.emf.common_2.13.0.v20170609-0707: \
+fea_org.eclipse.emf.common_2.13.0.v20170609-0707: \
     org.eclipse.emf.common;version='[2.13.0.v20170609-0707,2.13.0.v20170609-0707]'
 
-FEA_org.eclipse.emf.ecore.source_2.13.0.v20170609-0707: \
+fea_org.eclipse.emf.ecore.source_2.13.0.v20170609-0707: \
     org.eclipse.emf.ecore.source;version='[2.13.0.v20170609-0707,2.13.0.v20170609-0707]',\
     org.eclipse.emf.ecore.xmi.source;version='[2.13.0.v20170609-0707,2.13.0.v20170609-0707]',\
     org.eclipse.emf.ecore.change.source;version='[2.11.0.v20170609-0707,2.11.0.v20170609-0707]'
 
-FEA_org.eclipse.emf.ecore_2.13.0.v20170609-0707: \
+fea_org.eclipse.emf.ecore_2.13.0.v20170609-0707: \
     org.eclipse.emf.ecore;version='[2.13.0.v20170609-0707,2.13.0.v20170609-0707]',\
     org.eclipse.emf.ecore.change;version='[2.11.0.v20170609-0707,2.11.0.v20170609-0707]',\
     org.eclipse.emf.ecore.xmi;version='[2.13.0.v20170609-0707,2.13.0.v20170609-0707]'
 
-FEA_org.eclipse.equinox.compendium.sdk_3.13.1.v20170811-1407: \
+fea_org.eclipse.equinox.compendium.sdk_3.13.1.v20170811-1407: \
     org.eclipse.equinox.app;version='[1.3.400.v20150715-1528,1.3.400.v20150715-1528]',\
     org.eclipse.equinox.app.source;version='[1.3.400.v20150715-1528,1.3.400.v20150715-1528]',\
     org.eclipse.equinox.coordinator;version='[1.3.300.v20170512-2111,1.3.300.v20170512-2111]',\
@@ -371,8 +371,8 @@ FEA_org.eclipse.equinox.compendium.sdk_3.13.1.v20170811-1407: \
     org.apache.felix.scr;version='[2.0.10.v20170501-2007,2.0.10.v20170501-2007]',\
     org.apache.felix.scr.source;version='[2.0.10.v20170501-2007,2.0.10.v20170501-2007]'
 
-FEA_org.eclipse.equinox.core.feature_1.4.1.v20170821-1548: \
-    org.eclipse.osgi;version='[3.12.1.v20170821-1548,3.12.1.v20170821-1548]',\
+fea_org.eclipse.equinox.core.feature_1.4.1.v20170928-1321: \
+    org.eclipse.osgi;version='[3.12.50.v20170928-1321,3.12.50.v20170928-1321]',\
     org.eclipse.osgi.services;version='[3.6.0.v20170228-1906,3.6.0.v20170228-1906]',\
     org.eclipse.osgi.util;version='[3.4.0.v20170111-1608,3.4.0.v20170111-1608]',\
     org.eclipse.equinox.common;version='[3.9.0.v20170207-1454,3.9.0.v20170207-1454]',\
@@ -388,13 +388,13 @@ FEA_org.eclipse.equinox.core.feature_1.4.1.v20170821-1548: \
     org.apache.felix.gogo.shell;version='[0.10.0.v201212101605,0.10.0.v201212101605]',\
     org.apache.felix.scr;version='[2.0.10.v20170501-2007,2.0.10.v20170501-2007]'
 
-FEA_org.eclipse.equinox.core.sdk_3.13.1.v20170821-1548: \
-    org.eclipse.osgi;version='[3.12.1.v20170821-1548,3.12.1.v20170821-1548]',\
+fea_org.eclipse.equinox.core.sdk_3.13.1.v20170928-1321: \
+    org.eclipse.osgi;version='[3.12.50.v20170928-1321,3.12.50.v20170928-1321]',\
     org.eclipse.osgi.compatibility.state;version='[1.1.0.v20170516-1513,1.1.0.v20170516-1513]',\
     org.eclipse.osgi.compatibility.state.source;version='[1.1.0.v20170516-1513,1.1.0.v20170516-1513]',\
     org.eclipse.osgi.services;version='[3.6.0.v20170228-1906,3.6.0.v20170228-1906]',\
     org.eclipse.osgi.services.source;version='[3.6.0.v20170228-1906,3.6.0.v20170228-1906]',\
-    org.eclipse.osgi.source;version='[3.12.1.v20170821-1548,3.12.1.v20170821-1548]',\
+    org.eclipse.osgi.source;version='[3.12.50.v20170928-1321,3.12.50.v20170928-1321]',\
     org.eclipse.equinox.common;version='[3.9.0.v20170207-1454,3.9.0.v20170207-1454]',\
     org.eclipse.equinox.common.source;version='[3.9.0.v20170207-1454,3.9.0.v20170207-1454]',\
     org.eclipse.equinox.launcher;version='[1.4.0.v20161219-1356,1.4.0.v20161219-1356]',\
@@ -453,20 +453,20 @@ FEA_org.eclipse.equinox.core.sdk_3.13.1.v20170821-1548: \
     org.eclipse.equinox.weaving.hook;version='[1.2.0.v20160929-1449,1.2.0.v20160929-1449]',\
     org.eclipse.equinox.weaving.hook.source;version='[1.2.0.v20160929-1449,1.2.0.v20160929-1449]'
 
-FEA_org.eclipse.equinox.executable_3.7.1.v20170811-1325: \
+fea_org.eclipse.equinox.executable_3.7.1.v20170928-1359: \
     org.eclipse.equinox.launcher;version='[1.4.0.v20161219-1356,1.4.0.v20161219-1356]',\
-    org.eclipse.equinox.launcher.cocoa.macosx.x86_64;version='[1.1.500.v20170531-1133,1.1.500.v20170531-1133]',\
-    org.eclipse.equinox.launcher.gtk.linux.ppc64;version='[1.1.500.v20170531-1133,1.1.500.v20170531-1133]',\
-    org.eclipse.equinox.launcher.gtk.linux.ppc64le;version='[1.1.500.v20170531-1133,1.1.500.v20170531-1133]',\
-    org.eclipse.equinox.launcher.gtk.linux.x86;version='[1.1.500.v20170531-1133,1.1.500.v20170531-1133]',\
-    org.eclipse.equinox.launcher.gtk.linux.x86_64;version='[1.1.500.v20170531-1133,1.1.500.v20170531-1133]',\
-    org.eclipse.equinox.launcher.win32.win32.x86;version='[1.1.500.v20170531-1133,1.1.500.v20170531-1133]',\
-    org.eclipse.equinox.launcher.win32.win32.x86_64;version='[1.1.500.v20170531-1133,1.1.500.v20170531-1133]'
+    org.eclipse.equinox.launcher.cocoa.macosx.x86_64;version='[1.1.550.v20170928-1359,1.1.550.v20170928-1359]',\
+    org.eclipse.equinox.launcher.gtk.linux.ppc64;version='[1.1.550.v20170928-1359,1.1.550.v20170928-1359]',\
+    org.eclipse.equinox.launcher.gtk.linux.ppc64le;version='[1.1.550.v20170928-1359,1.1.550.v20170928-1359]',\
+    org.eclipse.equinox.launcher.gtk.linux.x86;version='[1.1.550.v20170928-1359,1.1.550.v20170928-1359]',\
+    org.eclipse.equinox.launcher.gtk.linux.x86_64;version='[1.1.550.v20170928-1359,1.1.550.v20170928-1359]',\
+    org.eclipse.equinox.launcher.win32.win32.x86;version='[1.1.550.v20170928-1359,1.1.550.v20170928-1359]',\
+    org.eclipse.equinox.launcher.win32.win32.x86_64;version='[1.1.550.v20170928-1359,1.1.550.v20170928-1359]'
 
-FEA_org.eclipse.equinox.p2.core.feature.source_1.4.1.v20170906-1259: \
-    ${FEA_org.eclipse.equinox.p2.core.feature_1.4.1.v20170906-1259},\
+fea_org.eclipse.equinox.p2.core.feature.source_1.4.1.v20170928-1405: \
+    ${fea_org.eclipse.equinox.p2.core.feature_1.4.1.v20170928-1405},\
     \
-    org.eclipse.equinox.p2.artifact.repository.source;version='[1.1.600.v20170906-1259,1.1.600.v20170906-1259]',\
+    org.eclipse.equinox.p2.artifact.repository.source;version='[1.1.650.v20170928-1405,1.1.650.v20170928-1405]',\
     org.eclipse.equinox.p2.console.source;version='[1.0.600.v20170511-1106,1.0.600.v20170511-1106]',\
     org.eclipse.equinox.p2.core.source;version='[2.4.101.v20170906-1259,2.4.101.v20170906-1259]',\
     org.eclipse.equinox.p2.director.source;version='[2.3.300.v20160504-1450,2.3.300.v20160504-1450]',\
@@ -491,8 +491,8 @@ FEA_org.eclipse.equinox.p2.core.feature.source_1.4.1.v20170906-1259: \
     org.eclipse.equinox.security.win32.x86_64.source;version='[1.0.100.v20130327-1442,1.0.100.v20130327-1442]',\
     org.tukaani.xz.source;version='[1.5.0.v20170111-1717,1.5.0.v20170111-1717]'
 
-FEA_org.eclipse.equinox.p2.core.feature_1.4.1.v20170906-1259: \
-    org.eclipse.equinox.p2.artifact.repository;version='[1.1.600.v20170906-1259,1.1.600.v20170906-1259]',\
+fea_org.eclipse.equinox.p2.core.feature_1.4.1.v20170928-1405: \
+    org.eclipse.equinox.p2.artifact.repository;version='[1.1.650.v20170928-1405,1.1.650.v20170928-1405]',\
     org.eclipse.equinox.p2.console;version='[1.0.600.v20170511-1106,1.0.600.v20170511-1106]',\
     org.eclipse.equinox.p2.core;version='[2.4.101.v20170906-1259,2.4.101.v20170906-1259]',\
     org.eclipse.equinox.p2.director;version='[2.3.300.v20160504-1450,2.3.300.v20160504-1450]',\
@@ -519,14 +519,14 @@ FEA_org.eclipse.equinox.p2.core.feature_1.4.1.v20170906-1259: \
     org.eclipse.equinox.security.win32.x86_64;version='[1.0.100.v20130327-1442,1.0.100.v20130327-1442]',\
     org.tukaani.xz;version='[1.5.0.v20170111-1717,1.5.0.v20170111-1717]'
 
-FEA_org.eclipse.equinox.p2.discovery.feature_1.1.1.v20170906-1259: \
+fea_org.eclipse.equinox.p2.discovery.feature_1.1.1.v20170906-1259: \
     org.eclipse.equinox.p2.discovery;version='[1.0.400.v20160504-1450,1.0.400.v20160504-1450]',\
     org.eclipse.equinox.p2.discovery.compatibility;version='[1.0.201.v20170906-1259,1.0.201.v20170906-1259]',\
     org.eclipse.equinox.p2.ui.discovery;version='[1.0.300.v20170418-0708,1.0.300.v20170418-0708]'
 
-FEA_org.eclipse.equinox.p2.extras.feature.source_1.3.1.v20170906-1259: \
-    ${FEA_org.eclipse.equinox.p2.core.feature.source_1.4.1.v20170906-1259},\
-    ${FEA_org.eclipse.equinox.p2.extras.feature_1.3.1.v20170906-1259},\
+fea_org.eclipse.equinox.p2.extras.feature.source_1.3.1.v20170928-1405: \
+    ${fea_org.eclipse.equinox.p2.core.feature.source_1.4.1.v20170928-1405},\
+    ${fea_org.eclipse.equinox.p2.extras.feature_1.3.1.v20170928-1405},\
     \
     org.eclipse.equinox.p2.director.app.source;version='[1.0.500.v20160419-0834,1.0.500.v20160419-0834]',\
     org.eclipse.equinox.p2.directorywatcher.source;version='[1.1.100.v20150423-1455,1.1.100.v20150423-1455]',\
@@ -536,8 +536,8 @@ FEA_org.eclipse.equinox.p2.extras.feature.source_1.3.1.v20170906-1259: \
     org.eclipse.equinox.p2.repository.tools.source;version='[2.1.400.v20170511-1216,2.1.400.v20170511-1216]',\
     org.eclipse.equinox.p2.publisher.eclipse.source;version='[1.2.201.v20170906-1259,1.2.201.v20170906-1259]'
 
-FEA_org.eclipse.equinox.p2.extras.feature_1.3.1.v20170906-1259: \
-    ${FEA_org.eclipse.equinox.p2.core.feature_1.4.1.v20170906-1259},\
+fea_org.eclipse.equinox.p2.extras.feature_1.3.1.v20170928-1405: \
+    ${fea_org.eclipse.equinox.p2.core.feature_1.4.1.v20170928-1405},\
     \
     org.eclipse.equinox.p2.director.app;version='[1.0.500.v20160419-0834,1.0.500.v20160419-0834]',\
     org.eclipse.equinox.p2.directorywatcher;version='[1.1.100.v20150423-1455,1.1.100.v20150423-1455]',\
@@ -547,9 +547,9 @@ FEA_org.eclipse.equinox.p2.extras.feature_1.3.1.v20170906-1259: \
     org.eclipse.equinox.p2.repository.tools;version='[2.1.400.v20170511-1216,2.1.400.v20170511-1216]',\
     org.eclipse.equinox.p2.publisher.eclipse;version='[1.2.201.v20170906-1259,1.2.201.v20170906-1259]'
 
-FEA_org.eclipse.equinox.p2.rcp.feature.source_1.3.1.v20170906-1259: \
-    ${FEA_org.eclipse.equinox.p2.core.feature.source_1.4.1.v20170906-1259},\
-    ${FEA_org.eclipse.equinox.p2.rcp.feature_1.3.1.v20170906-1259},\
+fea_org.eclipse.equinox.p2.rcp.feature.source_1.3.1.v20170928-1405: \
+    ${fea_org.eclipse.equinox.p2.core.feature.source_1.4.1.v20170928-1405},\
+    ${fea_org.eclipse.equinox.p2.rcp.feature_1.3.1.v20170928-1405},\
     \
     org.eclipse.equinox.p2.ui.source;version='[2.5.1.v20170906-1259,2.5.1.v20170906-1259]',\
     org.eclipse.equinox.p2.ui.sdk.scheduler.source;version='[1.3.100.v20170418-0708,1.3.100.v20170418-0708]',\
@@ -557,8 +557,8 @@ FEA_org.eclipse.equinox.p2.rcp.feature.source_1.3.1.v20170906-1259: \
     org.eclipse.equinox.security.ui.source;version='[1.1.400.v20170505-1235,1.1.400.v20170505-1235]',\
     org.eclipse.equinox.p2.ui.sdk.source;version='[1.0.500.v20170511-1216,1.0.500.v20170511-1216]'
 
-FEA_org.eclipse.equinox.p2.rcp.feature_1.3.1.v20170906-1259: \
-    ${FEA_org.eclipse.equinox.p2.core.feature_1.4.1.v20170906-1259},\
+fea_org.eclipse.equinox.p2.rcp.feature_1.3.1.v20170928-1405: \
+    ${fea_org.eclipse.equinox.p2.core.feature_1.4.1.v20170928-1405},\
     \
     org.eclipse.equinox.p2.ui;version='[2.5.1.v20170906-1259,2.5.1.v20170906-1259]',\
     org.eclipse.equinox.p2.ui.sdk.scheduler;version='[1.3.100.v20170418-0708,1.3.100.v20170418-0708]',\
@@ -566,12 +566,12 @@ FEA_org.eclipse.equinox.p2.rcp.feature_1.3.1.v20170906-1259: \
     org.eclipse.equinox.security.ui;version='[1.1.400.v20170505-1235,1.1.400.v20170505-1235]',\
     org.eclipse.equinox.p2.ui.sdk;version='[1.0.500.v20170511-1216,1.0.500.v20170511-1216]'
 
-FEA_org.eclipse.equinox.p2.sdk_3.10.1.v20170906-1259: \
-    ${FEA_org.eclipse.equinox.p2.core.feature_1.4.1.v20170906-1259},\
-    ${FEA_org.eclipse.equinox.p2.discovery.feature_1.1.1.v20170906-1259},\
+fea_org.eclipse.equinox.p2.sdk_3.10.1.v20170928-1405: \
+    ${fea_org.eclipse.equinox.p2.core.feature_1.4.1.v20170928-1405},\
+    ${fea_org.eclipse.equinox.p2.discovery.feature_1.1.1.v20170906-1259},\
     \
-    org.eclipse.equinox.p2.artifact.repository;version='[1.1.600.v20170906-1259,1.1.600.v20170906-1259]',\
-    org.eclipse.equinox.p2.artifact.repository.source;version='[1.1.600.v20170906-1259,1.1.600.v20170906-1259]',\
+    org.eclipse.equinox.p2.artifact.repository;version='[1.1.650.v20170928-1405,1.1.650.v20170928-1405]',\
+    org.eclipse.equinox.p2.artifact.repository.source;version='[1.1.650.v20170928-1405,1.1.650.v20170928-1405]',\
     org.eclipse.equinox.p2.console;version='[1.0.600.v20170511-1106,1.0.600.v20170511-1106]',\
     org.eclipse.equinox.p2.console.source;version='[1.0.600.v20170511-1106,1.0.600.v20170511-1106]',\
     org.eclipse.equinox.p2.core;version='[2.4.101.v20170906-1259,2.4.101.v20170906-1259]',\
@@ -643,32 +643,32 @@ FEA_org.eclipse.equinox.p2.sdk_3.10.1.v20170906-1259: \
     org.eclipse.equinox.p2.discovery.compatibility.source;version='[1.0.201.v20170906-1259,1.0.201.v20170906-1259]',\
     org.eclipse.equinox.p2.ui.discovery.source;version='[1.0.300.v20170418-0708,1.0.300.v20170418-0708]'
 
-FEA_org.eclipse.equinox.p2.user.ui.source_2.3.1.v20170906-1259: \
-    ${FEA_org.eclipse.equinox.p2.core.feature.source_1.4.1.v20170906-1259},\
-    ${FEA_org.eclipse.equinox.p2.extras.feature.source_1.3.1.v20170906-1259},\
-    ${FEA_org.eclipse.equinox.p2.rcp.feature.source_1.3.1.v20170906-1259},\
-    ${FEA_org.eclipse.equinox.p2.user.ui_2.3.1.v20170906-1259},\
+fea_org.eclipse.equinox.p2.user.ui.source_2.3.1.v20170928-1405: \
+    ${fea_org.eclipse.equinox.p2.core.feature.source_1.4.1.v20170928-1405},\
+    ${fea_org.eclipse.equinox.p2.extras.feature.source_1.3.1.v20170928-1405},\
+    ${fea_org.eclipse.equinox.p2.rcp.feature.source_1.3.1.v20170928-1405},\
+    ${fea_org.eclipse.equinox.p2.user.ui_2.3.1.v20170928-1405},\
     \
     org.eclipse.equinox.p2.updatesite.source;version='[1.0.601.v20170906-1259,1.0.601.v20170906-1259]',\
     org.eclipse.equinox.p2.ui.importexport.source;version='[1.1.301.v20170816-1007,1.1.301.v20170816-1007]'
 
-FEA_org.eclipse.equinox.p2.user.ui_2.3.1.v20170906-1259: \
-    ${FEA_org.eclipse.equinox.p2.core.feature_1.4.1.v20170906-1259},\
-    ${FEA_org.eclipse.equinox.p2.extras.feature_1.3.1.v20170906-1259},\
-    ${FEA_org.eclipse.equinox.p2.rcp.feature_1.3.1.v20170906-1259},\
+fea_org.eclipse.equinox.p2.user.ui_2.3.1.v20170928-1405: \
+    ${fea_org.eclipse.equinox.p2.core.feature_1.4.1.v20170928-1405},\
+    ${fea_org.eclipse.equinox.p2.extras.feature_1.3.1.v20170928-1405},\
+    ${fea_org.eclipse.equinox.p2.rcp.feature_1.3.1.v20170928-1405},\
     \
     org.eclipse.equinox.p2.updatesite;version='[1.0.601.v20170906-1259,1.0.601.v20170906-1259]',\
     org.eclipse.equinox.p2.ui.importexport;version='[1.1.301.v20170816-1007,1.1.301.v20170816-1007]'
 
-FEA_org.eclipse.equinox.sdk_3.13.1.v20170906-1529: \
-    ${FEA_org.eclipse.equinox.compendium.sdk_3.13.1.v20170811-1407},\
-    ${FEA_org.eclipse.equinox.core.feature_1.4.1.v20170821-1548},\
-    ${FEA_org.eclipse.equinox.core.sdk_3.13.1.v20170821-1548},\
-    ${FEA_org.eclipse.equinox.executable_3.7.1.v20170811-1325},\
-    ${FEA_org.eclipse.equinox.serverside.sdk_3.13.1.v20170906-1529}
+fea_org.eclipse.equinox.sdk_3.13.1.v20170928-1405: \
+    ${fea_org.eclipse.equinox.compendium.sdk_3.13.1.v20170811-1407},\
+    ${fea_org.eclipse.equinox.core.feature_1.4.1.v20170928-1321},\
+    ${fea_org.eclipse.equinox.core.sdk_3.13.1.v20170928-1321},\
+    ${fea_org.eclipse.equinox.executable_3.7.1.v20170928-1359},\
+    ${fea_org.eclipse.equinox.serverside.sdk_3.13.1.v20170928-1405}
 
-FEA_org.eclipse.equinox.server.core_1.5.1.v20170821-1548: \
-    org.eclipse.osgi;version='[3.12.1.v20170821-1548,3.12.1.v20170821-1548]',\
+fea_org.eclipse.equinox.server.core_1.5.1.v20170928-1321: \
+    org.eclipse.osgi;version='[3.12.50.v20170928-1321,3.12.50.v20170928-1321]',\
     org.eclipse.osgi.services;version='[3.6.0.v20170228-1906,3.6.0.v20170228-1906]',\
     org.eclipse.osgi.util;version='[3.4.0.v20170111-1608,3.4.0.v20170111-1608]',\
     org.eclipse.equinox.common;version='[3.9.0.v20170207-1454,3.9.0.v20170207-1454]',\
@@ -681,7 +681,7 @@ FEA_org.eclipse.equinox.server.core_1.5.1.v20170821-1548: \
     org.eclipse.osgi.compatibility.state;version='[1.1.0.v20170516-1513,1.1.0.v20170516-1513]',\
     org.apache.felix.scr;version='[2.0.10.v20170501-2007,2.0.10.v20170501-2007]'
 
-FEA_org.eclipse.equinox.server.jetty_1.4.1.v20170811-1407: \
+fea_org.eclipse.equinox.server.jetty_1.4.1.v20170811-1407: \
     javax.servlet;version='[3.1.0.v201410161800,3.1.0.v201410161800]',\
     org.eclipse.equinox.http.jetty;version='[3.4.0.v20170503-2025,3.4.0.v20170503-2025]',\
     org.eclipse.equinox.http.servlet;version='[1.4.0.v20170524-1452,1.4.0.v20170524-1452]',\
@@ -693,8 +693,8 @@ FEA_org.eclipse.equinox.server.jetty_1.4.1.v20170811-1407: \
     org.eclipse.jetty.servlet;version='[9.4.5.v20170502,9.4.5.v20170502]',\
     org.eclipse.jetty.util;version='[9.4.5.v20170502,9.4.5.v20170502]'
 
-FEA_org.eclipse.equinox.server.p2_1.3.1.v20170906-1259: \
-    org.eclipse.equinox.p2.artifact.repository;version='[1.1.600.v20170906-1259,1.1.600.v20170906-1259]',\
+fea_org.eclipse.equinox.server.p2_1.3.1.v20170928-1405: \
+    org.eclipse.equinox.p2.artifact.repository;version='[1.1.650.v20170928-1405,1.1.650.v20170928-1405]',\
     org.eclipse.equinox.p2.console;version='[1.0.600.v20170511-1106,1.0.600.v20170511-1106]',\
     org.eclipse.equinox.p2.core;version='[2.4.101.v20170906-1259,2.4.101.v20170906-1259]',\
     org.eclipse.equinox.p2.director;version='[2.3.300.v20160504-1450,2.3.300.v20160504-1450]',\
@@ -716,10 +716,10 @@ FEA_org.eclipse.equinox.server.p2_1.3.1.v20170906-1259: \
     org.eclipse.equinox.p2.jarprocessor;version='[1.0.500.v20160504-1450,1.0.500.v20160504-1450]',\
     org.eclipse.equinox.p2.transport.ecf;version='[1.1.300.v20161004-0244,1.1.300.v20161004-0244]'
 
-FEA_org.eclipse.equinox.serverside.sdk_3.13.1.v20170906-1529: \
-    ${FEA_org.eclipse.equinox.server.core_1.5.1.v20170821-1548},\
-    ${FEA_org.eclipse.equinox.server.jetty_1.4.1.v20170811-1407},\
-    ${FEA_org.eclipse.equinox.server.p2_1.3.1.v20170906-1259},\
+fea_org.eclipse.equinox.serverside.sdk_3.13.1.v20170928-1405: \
+    ${fea_org.eclipse.equinox.server.core_1.5.1.v20170928-1321},\
+    ${fea_org.eclipse.equinox.server.jetty_1.4.1.v20170811-1407},\
+    ${fea_org.eclipse.equinox.server.p2_1.3.1.v20170928-1405},\
     \
     javax.servlet;version='[3.1.0.v201410161800,3.1.0.v201410161800]',\
     javax.servlet.jsp;version='[2.2.0.v201112011158,2.2.0.v201112011158]',\
@@ -758,8 +758,8 @@ FEA_org.eclipse.equinox.serverside.sdk_3.13.1.v20170906-1529: \
     org.eclipse.equinox.servletbridge;version='[1.3.200.v20160128-1435,1.3.200.v20160128-1435]',\
     org.eclipse.equinox.servletbridge.source;version='[1.3.200.v20160128-1435,1.3.200.v20160128-1435]'
 
-FEA_org.eclipse.help.source_2.2.101.v20170906-1700: \
-    ${FEA_org.eclipse.help_2.2.101.v20170906-1700},\
+fea_org.eclipse.help.source_2.2.101.v20171009-0410: \
+    ${fea_org.eclipse.help_2.2.101.v20171009-0410},\
     \
     javax.el.source;version='[2.2.0.v201303151357,2.2.0.v201303151357]',\
     javax.servlet.source;version='[3.1.0.v201410161800,3.1.0.v201410161800]',\
@@ -768,7 +768,7 @@ FEA_org.eclipse.help.source_2.2.101.v20170906-1700: \
     org.apache.commons.logging.source;version='[1.1.1.v201101211721,1.1.1.v201101211721]',\
     org.apache.jasper.glassfish.source;version='[2.2.2.v201501141630,2.2.2.v201501141630]',\
     org.apache.lucene.analyzers-common.source;version='[6.1.0.v20161115-1612,6.1.0.v20161115-1612]',\
-    org.apache.lucene.core.source;version='[6.1.0.v20161115-1612,6.1.0.v20161115-1612]',\
+    org.apache.lucene.core.source;version='[6.1.0.v20170814-1820,6.1.0.v20170814-1820]',\
     org.apache.lucene.analyzers-smartcn.source;version='[6.1.0.v20161115-1612,6.1.0.v20161115-1612]',\
     org.apache.lucene.misc.source;version='[6.1.0.v20161115-1612,6.1.0.v20161115-1612]',\
     org.eclipse.equinox.http.jetty.source;version='[3.4.0.v20170503-2025,3.4.0.v20170503-2025]',\
@@ -776,7 +776,7 @@ FEA_org.eclipse.help.source_2.2.101.v20170906-1700: \
     org.eclipse.equinox.http.servlet.source;version='[1.4.0.v20170524-1452,1.4.0.v20170524-1452]',\
     org.eclipse.equinox.jsp.jasper.source;version='[1.0.500.v20150119-1358,1.0.500.v20150119-1358]',\
     org.eclipse.equinox.jsp.jasper.registry.source;version='[1.0.300.v20130327-1442,1.0.300.v20130327-1442]',\
-    org.eclipse.help.base.source;version='[4.2.101.v20170906-1700,4.2.101.v20170906-1700]',\
+    org.eclipse.help.base.source;version='[4.2.101.v20171009-0410,4.2.101.v20171009-0410]',\
     org.eclipse.help.ui.source;version='[4.1.0.v20170311-0931,4.1.0.v20170311-0931]',\
     org.eclipse.help.webapp.source;version='[3.9.1.v20170816-0843,3.9.1.v20170816-0843]',\
     org.eclipse.jetty.continuation.source;version='[9.4.5.v20170502,9.4.5.v20170502]',\
@@ -789,7 +789,7 @@ FEA_org.eclipse.help.source_2.2.101.v20170906-1700: \
     org.eclipse.core.net.source;version='[1.3.100.v20170516-0820,1.3.100.v20170516-0820]',\
     org.eclipse.equinox.security.source;version='[1.2.300.v20170505-1235,1.2.300.v20170505-1235]'
 
-FEA_org.eclipse.help_2.2.101.v20170906-1700: \
+fea_org.eclipse.help_2.2.101.v20171009-0410: \
     javax.el;version='[2.2.0.v201303151357,2.2.0.v201303151357]',\
     javax.servlet;version='[3.1.0.v201410161800,3.1.0.v201410161800]',\
     javax.servlet.jsp;version='[2.2.0.v201112011158,2.2.0.v201112011158]',\
@@ -797,7 +797,7 @@ FEA_org.eclipse.help_2.2.101.v20170906-1700: \
     org.apache.commons.logging;version='[1.1.1.v201101211721,1.1.1.v201101211721]',\
     org.apache.jasper.glassfish;version='[2.2.2.v201501141630,2.2.2.v201501141630]',\
     org.apache.lucene.analyzers-common;version='[6.1.0.v20161115-1612,6.1.0.v20161115-1612]',\
-    org.apache.lucene.core;version='[6.1.0.v20161115-1612,6.1.0.v20161115-1612]',\
+    org.apache.lucene.core;version='[6.1.0.v20170814-1820,6.1.0.v20170814-1820]',\
     org.apache.lucene.analyzers-smartcn;version='[6.1.0.v20161115-1612,6.1.0.v20161115-1612]',\
     org.apache.lucene.misc;version='[6.1.0.v20161115-1612,6.1.0.v20161115-1612]',\
     org.eclipse.equinox.http.jetty;version='[3.4.0.v20170503-2025,3.4.0.v20170503-2025]',\
@@ -805,7 +805,7 @@ FEA_org.eclipse.help_2.2.101.v20170906-1700: \
     org.eclipse.equinox.http.servlet;version='[1.4.0.v20170524-1452,1.4.0.v20170524-1452]',\
     org.eclipse.equinox.jsp.jasper;version='[1.0.500.v20150119-1358,1.0.500.v20150119-1358]',\
     org.eclipse.equinox.jsp.jasper.registry;version='[1.0.300.v20130327-1442,1.0.300.v20130327-1442]',\
-    org.eclipse.help.base;version='[4.2.101.v20170906-1700,4.2.101.v20170906-1700]',\
+    org.eclipse.help.base;version='[4.2.101.v20171009-0410,4.2.101.v20171009-0410]',\
     org.eclipse.help.ui;version='[4.1.0.v20170311-0931,4.1.0.v20170311-0931]',\
     org.eclipse.help.webapp;version='[3.9.1.v20170816-0843,3.9.1.v20170816-0843]',\
     org.eclipse.jetty.continuation;version='[9.4.5.v20170502,9.4.5.v20170502]',\
@@ -818,65 +818,91 @@ FEA_org.eclipse.help_2.2.101.v20170906-1700: \
     org.eclipse.core.net;version='[1.3.100.v20170516-0820,1.3.100.v20170516-0820]',\
     org.eclipse.equinox.security;version='[1.2.300.v20170505-1235,1.2.300.v20170505-1235]'
 
-FEA_org.eclipse.jdt.source_3.13.1.v20170906-1700: \
-    ${FEA_org.eclipse.jdt_3.13.1.v20170906-1700},\
+fea_org.eclipse.jdt.source_3.13.1.v20171009-0410: \
+    ${fea_org.eclipse.jdt_3.13.1.v20171009-0410},\
     \
     org.eclipse.ant.ui.source;version='[3.7.0.v20170412-1054,3.7.0.v20170412-1054]',\
-    org.eclipse.jdt.apt.core.source;version='[3.5.0.v20170411-0710,3.5.0.v20170411-0710]',\
+    org.eclipse.jdt.apt.core.source;version='[3.5.50.v20170920-0950,3.5.50.v20170920-0950]',\
     org.eclipse.jdt.apt.ui.source;version='[3.5.0.v20170505-1107,3.5.0.v20170505-1107]',\
     org.eclipse.jdt.apt.pluggable.core.source;version='[1.2.0.v20170322-1054,1.2.0.v20170322-1054]',\
-    org.eclipse.jdt.compiler.apt.source;version='[1.3.0.v20170502-0408,1.3.0.v20170502-0408]',\
-    org.eclipse.jdt.compiler.tool.source;version='[1.2.0.v20170502-0408,1.2.0.v20170502-0408]',\
-    org.eclipse.jdt.core.source;version='[3.13.0.v20170516-1929,3.13.0.v20170516-1929]',\
+    org.eclipse.jdt.compiler.apt.source;version='[1.3.50.v20170920-0950,1.3.50.v20170920-0950]',\
+    org.eclipse.jdt.compiler.tool.source;version='[1.2.50.v20170920-0950,1.2.50.v20170920-0950]',\
+    org.eclipse.jdt.core.source;version='[3.13.50.v20171007-0855,3.13.50.v20171007-0855]',\
     org.eclipse.jdt.annotation.source;version='[1.1.100.v20160418-1457,1.1.100.v20160418-1457]',\
     org.eclipse.jdt.annotation.source;version='[2.1.100.v20170511-1408,2.1.100.v20170511-1408]',\
-    org.eclipse.jdt.core.manipulation.source;version='[1.9.0.v20161219-2145,1.9.0.v20161219-2145]',\
-    org.eclipse.jdt.debug.ui.source;version='[3.8.1.v20170826-0709,3.8.1.v20170826-0709]',\
-    org.eclipse.jdt.debug.source;version='[3.11.0.v20170510-1451,3.11.0.v20170510-1451]',\
-    org.eclipse.jdt.junit.source;version='[3.10.0.v20170208-1347,3.10.0.v20170208-1347]',\
-    org.eclipse.jdt.junit.core.source;version='[3.9.0.v20170316-1142,3.9.0.v20170316-1142]',\
-    org.eclipse.jdt.junit.runtime.source;version='[3.4.600.v20160505-0715,3.4.600.v20160505-0715]',\
-    org.eclipse.jdt.junit4.runtime.source;version='[1.1.600.v20160505-0715,1.1.600.v20160505-0715]',\
-    org.eclipse.jdt.launching.source;version='[3.9.0.v20170419-1235,3.9.0.v20170419-1235]',\
-    org.eclipse.jdt.ui.source;version='[3.13.1.v20170822-1011,3.13.1.v20170822-1011]',\
+    org.eclipse.jdt.core.manipulation.source;version='[1.9.50.v20170920-1015,1.9.50.v20170920-1015]',\
+    org.eclipse.jdt.debug.ui.source;version='[3.8.50.v20170928-1211,3.8.50.v20170928-1211]',\
+    org.eclipse.jdt.debug.source;version='[3.11.50.v20170920-1717,3.11.50.v20170920-1717]',\
+    org.eclipse.jdt.junit.source;version='[3.10.50.v20171004-1157,3.10.50.v20171004-1157]',\
+    org.eclipse.jdt.junit.core.source;version='[3.9.50.v20170927-1941,3.9.50.v20170927-1941]',\
+    org.eclipse.jdt.junit.runtime.source;version='[3.4.650.v20170920-1015,3.4.650.v20170920-1015]',\
+    org.eclipse.jdt.junit4.runtime.source;version='[1.1.650.v20170920-1015,1.1.650.v20170920-1015]',\
+    org.eclipse.jdt.junit5.runtime.source;version='[1.0.0.v20171006-0854,1.0.0.v20171006-0854]',\
+    org.eclipse.jdt.launching.source;version='[3.9.50.v20171009-0349,3.9.50.v20171009-0349]',\
+    org.eclipse.jdt.ui.source;version='[3.13.50.v20170929-1653,3.13.50.v20170929-1653]',\
     org.junit.source;version='[4.12.0.v201504281640,4.12.0.v201504281640]',\
     org.hamcrest.core.source;version='[1.3.0.v201303031735,1.3.0.v201303031735]',\
+    org.junit.jupiter.api.source;version='[5.0.0.v20170910-2246,5.0.0.v20170910-2246]',\
+    org.junit.jupiter.engine.source;version='[5.0.0.v20170910-2246,5.0.0.v20170910-2246]',\
+    org.junit.jupiter.migrationsupport.source;version='[5.0.0.v20170910-2246,5.0.0.v20170910-2246]',\
+    org.junit.jupiter.params.source;version='[5.0.0.v20170910-2246,5.0.0.v20170910-2246]',\
+    org.junit.platform.commons.source;version='[1.0.0.v20170910-2246,1.0.0.v20170910-2246]',\
+    org.junit.platform.engine.source;version='[1.0.0.v20170910-2246,1.0.0.v20170910-2246]',\
+    org.junit.platform.launcher.source;version='[1.0.0.v20170910-2246,1.0.0.v20170910-2246]',\
+    org.junit.platform.runner.source;version='[1.0.0.v20170910-2246,1.0.0.v20170910-2246]',\
+    org.junit.platform.suite.api.source;version='[1.0.0.v20170910-2246,1.0.0.v20170910-2246]',\
+    org.junit.vintage.engine.source;version='[4.12.0.v20170910-2246,4.12.0.v20170910-2246]',\
+    org.opentest4j.source;version='[1.0.0.v20170910-2246,1.0.0.v20170910-2246]',\
+    org.apiguardian.source;version='[1.0.0.v20170910-2246,1.0.0.v20170910-2246]',\
     org.eclipse.jdt.launching.macosx.source;version='[3.4.0.v20160923-0911,3.4.0.v20160923-0911]',\
     org.eclipse.jdt.launching.ui.macosx.source;version='[1.2.0.v20160923-0911,1.2.0.v20160923-0911]',\
     org.eclipse.ant.launching.source;version='[1.2.0.v20170509-2157,1.2.0.v20170509-2157]',\
-    org.eclipse.jdt.doc.isv;version='[3.13.1.v20170830-1120,3.13.1.v20170830-1120]'
+    org.eclipse.jdt.doc.isv;version='[3.13.50.v20171009-0537,3.13.50.v20171009-0537]'
 
-FEA_org.eclipse.jdt_3.13.1.v20170906-1700: \
-    org.eclipse.jdt;version='[3.13.1.v20170906-1700,3.13.1.v20170906-1700]',\
+fea_org.eclipse.jdt_3.13.1.v20171009-0410: \
+    org.eclipse.jdt;version='[3.13.1.v20171009-0410,3.13.1.v20171009-0410]',\
     org.eclipse.ant.ui;version='[3.7.0.v20170412-1054,3.7.0.v20170412-1054]',\
-    org.eclipse.jdt.apt.core;version='[3.5.0.v20170411-0710,3.5.0.v20170411-0710]',\
+    org.eclipse.jdt.apt.core;version='[3.5.50.v20170920-0950,3.5.50.v20170920-0950]',\
     org.eclipse.jdt.apt.ui;version='[3.5.0.v20170505-1107,3.5.0.v20170505-1107]',\
     org.eclipse.jdt.apt.pluggable.core;version='[1.2.0.v20170322-1054,1.2.0.v20170322-1054]',\
-    org.eclipse.jdt.compiler.apt;version='[1.3.0.v20170502-0408,1.3.0.v20170502-0408]',\
-    org.eclipse.jdt.compiler.tool;version='[1.2.0.v20170502-0408,1.2.0.v20170502-0408]',\
-    org.eclipse.jdt.core;version='[3.13.0.v20170516-1929,3.13.0.v20170516-1929]',\
+    org.eclipse.jdt.compiler.apt;version='[1.3.50.v20170920-0950,1.3.50.v20170920-0950]',\
+    org.eclipse.jdt.compiler.tool;version='[1.2.50.v20170920-0950,1.2.50.v20170920-0950]',\
+    org.eclipse.jdt.core;version='[3.13.50.v20171007-0855,3.13.50.v20171007-0855]',\
     org.eclipse.jdt.annotation;version='[1.1.100.v20160418-1457,1.1.100.v20160418-1457]',\
     org.eclipse.jdt.annotation;version='[2.1.100.v20170511-1408,2.1.100.v20170511-1408]',\
-    org.eclipse.jdt.core.manipulation;version='[1.9.0.v20161219-2145,1.9.0.v20161219-2145]',\
-    org.eclipse.jdt.debug.ui;version='[3.8.1.v20170826-0709,3.8.1.v20170826-0709]',\
-    org.eclipse.jdt.debug;version='[3.11.0.v20170510-1451,3.11.0.v20170510-1451]',\
-    org.eclipse.jdt.junit;version='[3.10.0.v20170208-1347,3.10.0.v20170208-1347]',\
-    org.eclipse.jdt.junit.core;version='[3.9.0.v20170316-1142,3.9.0.v20170316-1142]',\
-    org.eclipse.jdt.junit.runtime;version='[3.4.600.v20160505-0715,3.4.600.v20160505-0715]',\
-    org.eclipse.jdt.junit4.runtime;version='[1.1.600.v20160505-0715,1.1.600.v20160505-0715]',\
-    org.eclipse.jdt.launching;version='[3.9.0.v20170419-1235,3.9.0.v20170419-1235]',\
-    org.eclipse.jdt.ui;version='[3.13.1.v20170822-1011,3.13.1.v20170822-1011]',\
+    org.eclipse.jdt.core.manipulation;version='[1.9.50.v20170920-1015,1.9.50.v20170920-1015]',\
+    org.eclipse.jdt.debug.ui;version='[3.8.50.v20170928-1211,3.8.50.v20170928-1211]',\
+    org.eclipse.jdt.debug;version='[3.11.50.v20170920-1717,3.11.50.v20170920-1717]',\
+    org.eclipse.jdt.junit;version='[3.10.50.v20171004-1157,3.10.50.v20171004-1157]',\
+    org.eclipse.jdt.junit.core;version='[3.9.50.v20170927-1941,3.9.50.v20170927-1941]',\
+    org.eclipse.jdt.junit.runtime;version='[3.4.650.v20170920-1015,3.4.650.v20170920-1015]',\
+    org.eclipse.jdt.junit4.runtime;version='[1.1.650.v20170920-1015,1.1.650.v20170920-1015]',\
+    org.eclipse.jdt.junit5.runtime;version='[1.0.0.v20171006-0854,1.0.0.v20171006-0854]',\
+    org.eclipse.jdt.launching;version='[3.9.50.v20171009-0349,3.9.50.v20171009-0349]',\
+    org.eclipse.jdt.ui;version='[3.13.50.v20170929-1653,3.13.50.v20170929-1653]',\
     org.junit;version='[4.12.0.v201504281640,4.12.0.v201504281640]',\
     org.hamcrest.core;version='[1.3.0.v201303031735,1.3.0.v201303031735]',\
-    org.eclipse.jdt.doc.user;version='[3.13.0.v20170608-0925,3.13.0.v20170608-0925]',\
+    org.junit.jupiter.api;version='[5.0.0.v20170910-2246,5.0.0.v20170910-2246]',\
+    org.junit.jupiter.engine;version='[5.0.0.v20170910-2246,5.0.0.v20170910-2246]',\
+    org.junit.jupiter.migrationsupport;version='[5.0.0.v20170910-2246,5.0.0.v20170910-2246]',\
+    org.junit.jupiter.params;version='[5.0.0.v20170910-2246,5.0.0.v20170910-2246]',\
+    org.junit.platform.commons;version='[1.0.0.v20170910-2246,1.0.0.v20170910-2246]',\
+    org.junit.platform.engine;version='[1.0.0.v20170910-2246,1.0.0.v20170910-2246]',\
+    org.junit.platform.launcher;version='[1.0.0.v20170910-2246,1.0.0.v20170910-2246]',\
+    org.junit.platform.runner;version='[1.0.0.v20170910-2246,1.0.0.v20170910-2246]',\
+    org.junit.platform.suite.api;version='[1.0.0.v20170910-2246,1.0.0.v20170910-2246]',\
+    org.junit.vintage.engine;version='[4.12.0.v20170910-2246,4.12.0.v20170910-2246]',\
+    org.opentest4j;version='[1.0.0.v20170910-2246,1.0.0.v20170910-2246]',\
+    org.apiguardian;version='[1.0.0.v20170910-2246,1.0.0.v20170910-2246]',\
+    org.eclipse.jdt.doc.user;version='[3.13.50.v20171004-1030,3.13.50.v20171004-1030]',\
     org.eclipse.jdt.launching.macosx;version='[3.4.0.v20160923-0911,3.4.0.v20160923-0911]',\
     org.eclipse.jdt.launching.ui.macosx;version='[1.2.0.v20160923-0911,1.2.0.v20160923-0911]',\
     org.eclipse.ant.launching;version='[1.2.0.v20170509-2157,1.2.0.v20170509-2157]'
 
-FEA_org.eclipse.osgi.compatibility.plugins.feature_1.1.1.v20170811-1325: \
+fea_org.eclipse.osgi.compatibility.plugins.feature_1.1.1.v20170811-1325: \
     org.eclipse.osgi.compatibility.plugins;version='[1.1.0.v20170516-1513,1.1.0.v20170516-1513]'
 
-FEA_org.eclipse.pde.api.tools.ee.feature_1.0.200.v20170515-0910: \
+fea_org.eclipse.pde.api.tools.ee.feature_1.0.200.v20170515-0910: \
     org.eclipse.pde.api.tools.ee.cdcfoundation10;version='[1.1.0.v20170118-0848,1.1.0.v20170118-0848]',\
     org.eclipse.pde.api.tools.ee.cdcfoundation11;version='[1.1.0.v20170118-0848,1.1.0.v20170118-0848]',\
     org.eclipse.pde.api.tools.ee.j2se12;version='[1.1.0.v20170118-0848,1.1.0.v20170118-0848]',\
@@ -891,14 +917,14 @@ FEA_org.eclipse.pde.api.tools.ee.feature_1.0.200.v20170515-0910: \
     org.eclipse.pde.api.tools.ee.osgiminimum12;version='[1.1.0.v20170118-0848,1.1.0.v20170118-0848]',\
     org.eclipse.pde.api.tools.ee.javase18;version='[1.1.0.v20170118-0848,1.1.0.v20170118-0848]'
 
-FEA_org.eclipse.pde.source_3.13.1.v20170906-1700: \
-    ${FEA_org.eclipse.pde_3.13.1.v20170906-1700},\
+fea_org.eclipse.pde.source_3.13.1.v20171009-0537: \
+    ${fea_org.eclipse.pde_3.13.1.v20171009-0537},\
     \
     org.eclipse.pde.build.source;version='[3.9.300.v20170515-0912,3.9.300.v20170515-0912]',\
     org.eclipse.pde.core.source;version='[3.11.100.v20170517-0724,3.11.100.v20170517-0724]',\
-    org.eclipse.pde.junit.runtime.source;version='[3.5.0.v20151013-0625,3.5.0.v20151013-0625]',\
+    org.eclipse.pde.junit.runtime.source;version='[3.5.50.v20170923-0844,3.5.50.v20170923-0844]',\
     org.eclipse.pde.runtime.source;version='[3.6.0.v20170413-1620,3.6.0.v20170413-1620]',\
-    org.eclipse.pde.ui.source;version='[3.10.1.v20170804-0814,3.10.1.v20170804-0814]',\
+    org.eclipse.pde.ui.source;version='[3.10.50.v20171007-1315,3.10.50.v20171007-1315]',\
     org.eclipse.pde.ui.templates.source;version='[3.6.100.v20170515-0910,3.6.100.v20170515-0910]',\
     org.eclipse.ui.views.log.source;version='[1.2.100.v20170515-1458,1.2.100.v20170515-1458]',\
     org.objectweb.asm.source;version='[5.0.1.v201404251740,5.0.1.v201404251740]',\
@@ -908,7 +934,7 @@ FEA_org.eclipse.pde.source_3.13.1.v20170906-1700: \
     org.eclipse.pde.api.tools.ui.source;version='[1.1.101.v20170810-1621,1.1.101.v20170810-1621]',\
     org.eclipse.pde.ds.core.source;version='[1.1.100.v20170515-0910,1.1.100.v20170515-0910]',\
     org.eclipse.pde.ds.ui.source;version='[1.1.100.v20170515-0910,1.1.100.v20170515-0910]',\
-    org.eclipse.pde.launching.source;version='[3.7.0.v20170322-1119,3.7.0.v20170322-1119]',\
+    org.eclipse.pde.launching.source;version='[3.7.50.v20171007-1315,3.7.50.v20171007-1315]',\
     org.eclipse.pde.ua.core.source;version='[1.1.0.v20170201-2036,1.1.0.v20170201-2036]',\
     org.eclipse.pde.ua.ui.source;version='[1.1.100.v20170515-0910,1.1.100.v20170515-0910]',\
     org.eclipse.ui.trace.source;version='[1.1.0.v20170201-2036,1.1.0.v20170201-2036]',\
@@ -918,14 +944,14 @@ FEA_org.eclipse.pde.source_3.13.1.v20170906-1700: \
     org.eclipse.pde.ds1_2.lib.source;version='[1.0.0.v20170303-1624,1.0.0.v20170303-1624]',\
     org.eclipse.tools.layout.spy.source;version='[1.0.0.v20170428-1608,1.0.0.v20170428-1608]'
 
-FEA_org.eclipse.pde_3.13.1.v20170906-1700: \
-    org.eclipse.pde;version='[3.13.1.v20170906-1700,3.13.1.v20170906-1700]',\
+fea_org.eclipse.pde_3.13.1.v20171009-0537: \
+    org.eclipse.pde;version='[3.13.1.v20171009-0410,3.13.1.v20171009-0410]',\
     org.eclipse.pde.build;version='[3.9.300.v20170515-0912,3.9.300.v20170515-0912]',\
     org.eclipse.pde.core;version='[3.11.100.v20170517-0724,3.11.100.v20170517-0724]',\
-    org.eclipse.pde.junit.runtime;version='[3.5.0.v20151013-0625,3.5.0.v20151013-0625]',\
+    org.eclipse.pde.junit.runtime;version='[3.5.50.v20170923-0844,3.5.50.v20170923-0844]',\
     org.eclipse.pde.runtime;version='[3.6.0.v20170413-1620,3.6.0.v20170413-1620]',\
-    org.eclipse.pde.ui;version='[3.10.1.v20170804-0814,3.10.1.v20170804-0814]',\
-    org.eclipse.pde.doc.user;version='[3.13.1.v20170830-1120,3.13.1.v20170830-1120]',\
+    org.eclipse.pde.ui;version='[3.10.50.v20171007-1315,3.10.50.v20171007-1315]',\
+    org.eclipse.pde.doc.user;version='[3.13.1.v20171009-0537,3.13.1.v20171009-0537]',\
     org.eclipse.pde.ui.templates;version='[3.6.100.v20170515-0910,3.6.100.v20170515-0910]',\
     org.eclipse.ui.views.log;version='[1.2.100.v20170515-1458,1.2.100.v20170515-1458]',\
     org.objectweb.asm;version='[5.0.1.v201404251740,5.0.1.v201404251740]',\
@@ -935,7 +961,7 @@ FEA_org.eclipse.pde_3.13.1.v20170906-1700: \
     org.eclipse.pde.api.tools.ui;version='[1.1.101.v20170810-1621,1.1.101.v20170810-1621]',\
     org.eclipse.pde.ds.core;version='[1.1.100.v20170515-0910,1.1.100.v20170515-0910]',\
     org.eclipse.pde.ds.ui;version='[1.1.100.v20170515-0910,1.1.100.v20170515-0910]',\
-    org.eclipse.pde.launching;version='[3.7.0.v20170322-1119,3.7.0.v20170322-1119]',\
+    org.eclipse.pde.launching;version='[3.7.50.v20171007-1315,3.7.50.v20171007-1315]',\
     org.eclipse.pde.ua.core;version='[1.1.0.v20170201-2036,1.1.0.v20170201-2036]',\
     org.eclipse.pde.ua.ui;version='[1.1.100.v20170515-0910,1.1.100.v20170515-0910]',\
     org.eclipse.ui.trace;version='[1.1.0.v20170201-2036,1.1.0.v20170201-2036]',\
@@ -945,11 +971,11 @@ FEA_org.eclipse.pde_3.13.1.v20170906-1700: \
     org.eclipse.pde.ds1_2.lib;version='[1.0.0.v20170303-1624,1.0.0.v20170303-1624]',\
     org.eclipse.tools.layout.spy;version='[1.0.0.v20170428-1608,1.0.0.v20170428-1608]'
 
-FEA_org.eclipse.platform.source_4.7.1.v20170906-1700: \
-    ${FEA_org.eclipse.equinox.p2.user.ui.source_2.3.1.v20170906-1259},\
-    ${FEA_org.eclipse.help.source_2.2.101.v20170906-1700},\
-    ${FEA_org.eclipse.platform_4.7.1.v20170906-1700},\
-    ${FEA_org.eclipse.rcp.source_4.7.1.v20170906-1700},\
+fea_org.eclipse.platform.source_4.7.1.v20171009-0410: \
+    ${fea_org.eclipse.equinox.p2.user.ui.source_2.3.1.v20170928-1405},\
+    ${fea_org.eclipse.help.source_2.2.101.v20171009-0410},\
+    ${fea_org.eclipse.platform_4.7.1.v20171009-0410},\
+    ${fea_org.eclipse.rcp.source_4.7.1.v20171009-0410},\
     \
     org.apache.ant.source;version='[1.10.1.v20170504-0840,1.10.1.v20170504-0840]',\
     org.eclipse.ant.core.source;version='[3.5.0.v20170509-2149,3.5.0.v20170509-2149]',\
@@ -963,11 +989,11 @@ FEA_org.eclipse.platform.source_4.7.1.v20170906-1700: \
     org.eclipse.core.resources.source;version='[3.12.0.v20170417-1558,3.12.0.v20170417-1558]',\
     org.eclipse.osgi.util.source;version='[3.4.0.v20170111-1608,3.4.0.v20170111-1608]',\
     org.eclipse.debug.core.source;version='[3.11.0.v20170605-1534,3.11.0.v20170605-1534]',\
-    org.eclipse.debug.ui.source;version='[3.12.0.v20170605-1534,3.12.0.v20170605-1534]',\
+    org.eclipse.debug.ui.source;version='[3.12.50.v20170920-1329,3.12.50.v20170920-1329]',\
     org.eclipse.equinox.event.source;version='[1.4.0.v20170105-1446,1.4.0.v20170105-1446]',\
     org.eclipse.ltk.core.refactoring.source;version='[3.8.0.v20170105-1156,3.8.0.v20170105-1156]',\
     org.eclipse.ltk.ui.refactoring.source;version='[3.9.0.v20170412-0825,3.9.0.v20170412-0825]',\
-    org.eclipse.platform.source;version='[4.7.1.v20170906-1700,4.7.1.v20170906-1700]',\
+    org.eclipse.platform.source;version='[4.7.1.v20171009-0410,4.7.1.v20171009-0410]',\
     org.eclipse.search.source;version='[3.11.100.v20170515-1603,3.11.100.v20170515-1603]',\
     org.eclipse.team.core.source;version='[3.8.100.v20170516-0820,3.8.100.v20170516-0820]',\
     org.eclipse.team.ui.source;version='[3.8.1.v20170515-1133,3.8.1.v20170515-1133]',\
@@ -1006,12 +1032,12 @@ FEA_org.eclipse.platform.source_4.7.1.v20170906-1700: \
     org.eclipse.core.runtime.source;version='[3.13.0.v20170207-1030,3.13.0.v20170207-1030]',\
     org.eclipse.ui.intro.quicklinks.source;version='[1.0.100.v20170515-0756,1.0.100.v20170515-0756]',\
     org.eclipse.team.genericeditor.diff.extension.source;version='[1.0.1.v20170809-1356,1.0.1.v20170809-1356]',\
-    org.eclipse.platform.doc.isv;version='[4.7.1.v20170830-1120,4.7.1.v20170830-1120]'
+    org.eclipse.platform.doc.isv;version='[4.7.1.v20171009-0537,4.7.1.v20171009-0537]'
 
-FEA_org.eclipse.platform_4.7.1.v20170906-1700: \
-    ${FEA_org.eclipse.equinox.p2.user.ui_2.3.1.v20170906-1259},\
-    ${FEA_org.eclipse.help_2.2.101.v20170906-1700},\
-    ${FEA_org.eclipse.rcp_4.7.1.v20170906-1700},\
+fea_org.eclipse.platform_4.7.1.v20171009-0410: \
+    ${fea_org.eclipse.equinox.p2.user.ui_2.3.1.v20170928-1405},\
+    ${fea_org.eclipse.help_2.2.101.v20171009-0410},\
+    ${fea_org.eclipse.rcp_4.7.1.v20171009-0410},\
     \
     org.apache.ant;version='[1.10.1.v20170504-0840,1.10.1.v20170504-0840]',\
     org.eclipse.ant.core;version='[3.5.0.v20170509-2149,3.5.0.v20170509-2149]',\
@@ -1029,11 +1055,11 @@ FEA_org.eclipse.platform_4.7.1.v20170906-1700: \
     org.eclipse.core.resources;version='[3.12.0.v20170417-1558,3.12.0.v20170417-1558]',\
     org.eclipse.osgi.util;version='[3.4.0.v20170111-1608,3.4.0.v20170111-1608]',\
     org.eclipse.debug.core;version='[3.11.0.v20170605-1534,3.11.0.v20170605-1534]',\
-    org.eclipse.debug.ui;version='[3.12.0.v20170605-1534,3.12.0.v20170605-1534]',\
+    org.eclipse.debug.ui;version='[3.12.50.v20170920-1329,3.12.50.v20170920-1329]',\
     org.eclipse.equinox.event;version='[1.4.0.v20170105-1446,1.4.0.v20170105-1446]',\
     org.eclipse.ltk.core.refactoring;version='[3.8.0.v20170105-1156,3.8.0.v20170105-1156]',\
     org.eclipse.ltk.ui.refactoring;version='[3.9.0.v20170412-0825,3.9.0.v20170412-0825]',\
-    org.eclipse.platform;version='[4.7.1.v20170906-1700,4.7.1.v20170906-1700]',\
+    org.eclipse.platform;version='[4.7.1.v20171009-0410,4.7.1.v20171009-0410]',\
     org.eclipse.platform.doc.user;version='[4.7.1.v20170630-0820,4.7.1.v20170630-0820]',\
     org.eclipse.search;version='[3.11.100.v20170515-1603,3.11.100.v20170515-1603]',\
     org.eclipse.team.core;version='[3.8.100.v20170516-0820,3.8.100.v20170516-0820]',\
@@ -1083,12 +1109,12 @@ FEA_org.eclipse.platform_4.7.1.v20170906-1700: \
     org.eclipse.ui.intro.quicklinks;version='[1.0.100.v20170515-0756,1.0.100.v20170515-0756]',\
     org.eclipse.team.genericeditor.diff.extension;version='[1.0.1.v20170809-1356,1.0.1.v20170809-1356]'
 
-FEA_org.eclipse.rcp.configuration_1.1.1.v20170906-1700: \
+fea_org.eclipse.rcp.configuration_1.1.1.v20171009-0410: \
 
 
-FEA_org.eclipse.rcp.source_4.7.1.v20170906-1700: \
-    ${FEA_org.eclipse.e4.rcp.source_1.6.1.v20170829-0553},\
-    ${FEA_org.eclipse.rcp_4.7.1.v20170906-1700},\
+fea_org.eclipse.rcp.source_4.7.1.v20171009-0410: \
+    ${fea_org.eclipse.e4.rcp.source_1.6.1.v20170928-1359},\
+    ${fea_org.eclipse.rcp_4.7.1.v20171009-0410},\
     \
     org.eclipse.help.source;version='[3.8.1.v20170815-1448,3.8.1.v20170815-1448]',\
     org.eclipse.ui.source;version='[3.109.0.v20170411-1742,3.109.0.v20170411-1742]',\
@@ -1096,21 +1122,21 @@ FEA_org.eclipse.rcp.source_4.7.1.v20170906-1700: \
     org.eclipse.update.configurator.source;version='[3.3.400.v20160506-0750,3.3.400.v20160506-0750]',\
     org.eclipse.ui.cocoa.source;version='[1.1.100.v20151202-1450,1.1.100.v20151202-1450]'
 
-FEA_org.eclipse.rcp_4.7.1.v20170906-1700: \
-    ${FEA_org.eclipse.e4.rcp_1.6.1.v20170829-0553},\
+fea_org.eclipse.rcp_4.7.1.v20171009-0410: \
+    ${fea_org.eclipse.e4.rcp_1.6.1.v20170928-1359},\
     \
     org.eclipse.help;version='[3.8.1.v20170815-1448,3.8.1.v20170815-1448]',\
     org.eclipse.ui;version='[3.109.0.v20170411-1742,3.109.0.v20170411-1742]',\
     org.eclipse.ui.workbench;version='[3.110.1.v20170704-1208,3.110.1.v20170704-1208]',\
     org.eclipse.update.configurator;version='[3.3.400.v20160506-0750,3.3.400.v20160506-0750]',\
-    org.eclipse.rcp;version='[4.7.1.v20170906-1700,4.7.1.v20170906-1700]',\
+    org.eclipse.rcp;version='[4.7.1.v20171009-0410,4.7.1.v20171009-0410]',\
     org.eclipse.ui.cocoa;version='[1.1.100.v20151202-1450,1.1.100.v20151202-1450]'
 
-FEA_org.eclipse.releng.tools_3.9.100.v20170516-0717: \
+fea_org.eclipse.releng.tools_3.9.100.v20170516-0717: \
     org.eclipse.releng.tools;version='[3.9.100.v20170505-1020,3.9.100.v20170505-1020]'
 
-FEA_org.eclipse.sdk.examples.source_3.6.1.v20170906-1700: \
-    ${FEA_org.eclipse.sdk.examples_3.6.1.v20170906-1700},\
+fea_org.eclipse.sdk.examples.source_3.6.1.v20171009-0410: \
+    ${fea_org.eclipse.sdk.examples_3.6.1.v20171009-0410},\
     \
     org.eclipse.compare.examples.source;version='[3.2.100.v20170516-0820,3.2.100.v20170516-0820]',\
     org.eclipse.compare.examples.xml.source;version='[3.4.100.v20161029-1807,3.4.100.v20161029-1807]',\
@@ -1131,10 +1157,10 @@ FEA_org.eclipse.sdk.examples.source_3.6.1.v20170906-1700: \
     org.eclipse.ui.examples.fieldassist.source;version='[1.1.100.v20160330-1439,1.1.100.v20160330-1439]',\
     org.eclipse.team.examples.filesystem.source;version='[3.5.1.v20160824-1211,3.5.1.v20160824-1211]',\
     org.eclipse.swt.examples.ole.win32.source;version='[3.106.0.v20160712-1239,3.106.0.v20160712-1239]',\
-    org.eclipse.sdk.examples.source;version='[3.5.701.v20170906-1700,3.5.701.v20170906-1700]',\
+    org.eclipse.sdk.examples.source;version='[3.5.701.v20171009-0410,3.5.701.v20171009-0410]',\
     org.eclipse.ui.genericeditor.examples.source;version='[1.0.0.v20170515-1011,1.0.0.v20170515-1011]'
 
-FEA_org.eclipse.sdk.examples_3.6.1.v20170906-1700: \
+fea_org.eclipse.sdk.examples_3.6.1.v20171009-0410: \
     org.eclipse.compare.examples;version='[3.2.100.v20170516-0820,3.2.100.v20170516-0820]',\
     org.eclipse.compare.examples.xml;version='[3.4.100.v20161029-1807,3.4.100.v20161029-1807]',\
     org.eclipse.debug.examples.core;version='[1.4.0.v20160419-1720,1.4.0.v20160419-1720]',\
@@ -1154,18 +1180,18 @@ FEA_org.eclipse.sdk.examples_3.6.1.v20170906-1700: \
     org.eclipse.ui.examples.fieldassist;version='[1.1.100.v20160330-1439,1.1.100.v20160330-1439]',\
     org.eclipse.team.examples.filesystem;version='[3.5.1.v20160824-1211,3.5.1.v20160824-1211]',\
     org.eclipse.swt.examples.ole.win32;version='[3.106.0.v20160712-1239,3.106.0.v20160712-1239]',\
-    org.eclipse.sdk.examples;version='[3.5.701.v20170906-1700,3.5.701.v20170906-1700]',\
+    org.eclipse.sdk.examples;version='[3.5.701.v20171009-0410,3.5.701.v20171009-0410]',\
     org.eclipse.ui.genericeditor.examples;version='[1.0.0.v20170515-1011,1.0.0.v20170515-1011]'
 
-FEA_org.eclipse.sdk.tests_4.7.1.v20170906-1700: \
-    ${FEA_org.eclipse.test_3.7.200.v20170511-1043},\
+fea_org.eclipse.sdk.tests_4.7.1.v20171009-0410: \
+    ${fea_org.eclipse.test_3.7.200.v20170511-1043},\
     \
-    org.eclipse.sdk.tests;version='[4.7.1.v20170906-1700,4.7.1.v20170906-1700]',\
+    org.eclipse.sdk.tests;version='[4.7.1.v20171009-0410,4.7.1.v20171009-0410]',\
     org.eclipse.ant.tests.core;version='[3.5.0.v20170428-0920,3.5.0.v20170428-0920]',\
     org.eclipse.ant.tests.ui;version='[3.9.200.v20170515-1006,3.9.200.v20170515-1006]',\
     org.eclipse.compare.tests;version='[3.6.100.v20170515-1347,3.6.100.v20170515-1347]',\
     org.eclipse.core.tests.harness;version='[3.11.100.v20170207-1037,3.11.100.v20170207-1037]',\
-    org.eclipse.osgi.tests;version='[3.12.1.v20170821-1548,3.12.1.v20170821-1548]',\
+    org.eclipse.osgi.tests;version='[3.12.51.v20170928-1340,3.12.51.v20170928-1340]',\
     org.eclipse.core.tests.runtime;version='[3.11.100.v20170516-0700,3.11.100.v20170516-0700]',\
     org.eclipse.core.tests.resources;version='[3.10.0.v20170428-1626,3.10.0.v20170428-1626]',\
     org.eclipse.core.tests.net;version='[1.4.100.v20170516-0820,1.4.100.v20170516-0820]',\
@@ -1177,18 +1203,18 @@ FEA_org.eclipse.sdk.tests_4.7.1.v20170906-1700: \
     org.eclipse.e4.ui.tests;version='[0.11.101.v20170815-0824,0.11.101.v20170815-0824]',\
     com.google.code.atinject.tck;version='[1.1.0.v20160901-1938,1.1.0.v20160901-1938]',\
     org.eclipse.equinox.ds.tests;version='[1.5.0.v20170523-1359,1.5.0.v20170523-1359]',\
-    org.eclipse.jdt.apt.tests;version='[3.4.100.v20170511-1408,3.4.100.v20170511-1408]',\
-    org.eclipse.jdt.compiler.apt.tests;version='[1.1.200.v20170511-1408,1.1.200.v20170511-1408]',\
+    org.eclipse.jdt.apt.tests;version='[3.4.150.v20170920-0950,3.4.150.v20170920-0950]',\
+    org.eclipse.jdt.compiler.apt.tests;version='[1.1.250.v20170920-0950,1.1.250.v20170920-0950]',\
     org.eclipse.jdt.apt.pluggable.tests;version='[3.4.200.v20170511-1408,3.4.200.v20170511-1408]',\
-    org.eclipse.jdt.core.tests.builder;version='[3.10.5.v20170511-1408,3.10.5.v20170511-1408]',\
-    org.eclipse.jdt.core.tests.compiler;version='[3.12.300.v20170422-2057,3.12.300.v20170422-2057]',\
-    org.eclipse.jdt.core.tests.model;version='[3.10.300.v20170516-1814,3.10.300.v20170516-1814]',\
-    org.eclipse.jdt.compiler.tool.tests;version='[1.2.0.v20170123-1057,1.2.0.v20170123-1057]',\
-    org.eclipse.jdt.core.tests.performance;version='[3.10.100.v20170511-1408,3.10.100.v20170511-1408]',\
-    org.eclipse.jdt.debug.tests;version='[3.11.0.v20170522-1239,3.11.0.v20170522-1239]',\
-    org.eclipse.jdt.ui.tests;version='[3.13.0.v20170506-1842,3.13.0.v20170506-1842]',\
-    org.eclipse.jdt.ui.tests.refactoring;version='[3.13.0.v20170509-1400,3.13.0.v20170509-1400]',\
-    org.eclipse.jdt.text.tests;version='[3.13.0.v20170308-1620,3.13.0.v20170308-1620]',\
+    org.eclipse.jdt.core.tests.builder;version='[3.10.50.v20170920-0950,3.10.50.v20170920-0950]',\
+    org.eclipse.jdt.core.tests.compiler;version='[3.12.350.v20170920-0950,3.12.350.v20170920-0950]',\
+    org.eclipse.jdt.core.tests.model;version='[3.10.350.v20170926-1343,3.10.350.v20170926-1343]',\
+    org.eclipse.jdt.compiler.tool.tests;version='[1.2.50.v20170926-1454,1.2.50.v20170926-1454]',\
+    org.eclipse.jdt.core.tests.performance;version='[3.10.150.v20170926-1119,3.10.150.v20170926-1119]',\
+    org.eclipse.jdt.debug.tests;version='[3.11.50.v20170927-1630,3.11.50.v20170927-1630]',\
+    org.eclipse.jdt.ui.tests;version='[3.13.50.v20170926-1541,3.13.50.v20170926-1541]',\
+    org.eclipse.jdt.ui.tests.refactoring;version='[3.13.50.v20170921-1748,3.13.50.v20170921-1748]',\
+    org.eclipse.jdt.text.tests;version='[3.13.50.v20170928-0747,3.13.50.v20170928-0747]',\
     org.eclipse.core.expressions.tests;version='[3.5.1.v20170207-0959,3.5.1.v20170207-0959]',\
     org.eclipse.ltk.core.refactoring.tests;version='[3.8.0.v20161207-1354,3.8.0.v20161207-1354]',\
     org.eclipse.ltk.ui.refactoring.tests;version='[3.9.0.v20160926-1208,3.9.0.v20160926-1208]',\
@@ -1243,26 +1269,26 @@ FEA_org.eclipse.sdk.tests_4.7.1.v20170906-1700: \
     org.mockito;version='[1.9.5.v201605172210,1.9.5.v201605172210]',\
     org.objenesis;version='[1.0.0.v201505121915,1.0.0.v201505121915]'
 
-FEA_org.eclipse.sdk_4.7.1.v20170906-1700: \
-    ${FEA_org.eclipse.cvs_1.4.401.v20170906-1700},\
-    ${FEA_org.eclipse.cvs.source_1.4.401.v20170906-1700},\
-    ${FEA_org.eclipse.help_2.2.101.v20170906-1700},\
-    ${FEA_org.eclipse.help.source_2.2.101.v20170906-1700},\
-    ${FEA_org.eclipse.jdt_3.13.1.v20170906-1700},\
-    ${FEA_org.eclipse.jdt.source_3.13.1.v20170906-1700},\
-    ${FEA_org.eclipse.pde_3.13.1.v20170906-1700},\
-    ${FEA_org.eclipse.pde.source_3.13.1.v20170906-1700},\
-    ${FEA_org.eclipse.platform_4.7.1.v20170906-1700},\
-    ${FEA_org.eclipse.platform.source_4.7.1.v20170906-1700},\
+fea_org.eclipse.sdk_4.7.1.v20171009-0537: \
+    ${fea_org.eclipse.cvs_1.4.401.v20171009-0410},\
+    ${fea_org.eclipse.cvs.source_1.4.401.v20171009-0410},\
+    ${fea_org.eclipse.help_2.2.101.v20171009-0410},\
+    ${fea_org.eclipse.help.source_2.2.101.v20171009-0410},\
+    ${fea_org.eclipse.jdt_3.13.1.v20171009-0410},\
+    ${fea_org.eclipse.jdt.source_3.13.1.v20171009-0410},\
+    ${fea_org.eclipse.pde_3.13.1.v20171009-0537},\
+    ${fea_org.eclipse.pde.source_3.13.1.v20171009-0537},\
+    ${fea_org.eclipse.platform_4.7.1.v20171009-0410},\
+    ${fea_org.eclipse.platform.source_4.7.1.v20171009-0410},\
     \
-    org.eclipse.sdk;version='[4.7.1.v20170906-1700,4.7.1.v20170906-1700]'
+    org.eclipse.sdk;version='[4.7.1.v20171009-0410,4.7.1.v20171009-0410]'
 
-FEA_org.eclipse.swt.tools.feature_3.106.0.v20170503-0851: \
+fea_org.eclipse.swt.tools.feature_3.106.0.v20170503-0851: \
     org.eclipse.swt.tools;version='[3.106.0.v20170502-1947,3.106.0.v20170502-1947]',\
     org.eclipse.swt.tools.spies;version='[3.106.0.v20170503-0851,3.106.0.v20170503-0851]',\
     org.eclipse.swt.tools.base;version='[3.106.0.v20160921-0846,3.106.0.v20160921-0846]'
 
-FEA_org.eclipse.test_3.7.200.v20170511-1043: \
+fea_org.eclipse.test_3.7.200.v20170511-1043: \
     org.eclipse.ant.optional.junit;version='[3.3.200.v20160315-2119,3.3.200.v20160315-2119]',\
     org.eclipse.test;version='[3.4.0.v20170511-1043,3.4.0.v20170511-1043]',\
     org.eclipse.test.source;version='[3.4.0.v20170511-1043,3.4.0.v20170511-1043]',\
