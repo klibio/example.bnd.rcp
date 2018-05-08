@@ -1,65 +1,139 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Mirror Eclipse P2 repostitories" default="everything">
 
-    <target name="everything"
-            description="specify here all targets you want to execute"
-            depends="
-        mirror_4.7_categories,  
-        mirror_4.7_Platform,
-        mirror_4.7.1_Platform,
-        mirror_4.7.1a_Platform,
-        mirror_Oxygen_eppPackages,
-        mirror_Oxygen_201709271000,
-        mirror_Oxygen_201710111001
-     " />
-
-    <target name="mirror_4.7_categories">
-        <p2.metadata.mirror source="${eclURL}/eclipse/updates/4.7/categoriesOxygen"
-                            destination="${localURL}/eclipse/updates/4.7/categoriesOxygen" />
-    </target>
-
-    <target name="mirror_4.7_Platform">
-        <p2.mirror source="${eclURL}/eclipse/updates/4.7/R-4.7-201706120950" raw="true">
-            <destination location="${localURL}/eclipse/updates/4.7/R-4.7-201706120950" format="${repoFormat}" />
-        </p2.mirror>
-    </target>
-
-    <target name="mirror_4.7.1_Platform">
-        <p2.mirror source="${eclURL}/eclipse/updates/4.7/R-4.7.1-201709061700" raw="true">
-            <destination location="${localURL}/eclipse/updates/4.7/R-4.7.1-201709061700" format="${repoFormat}" />
-        </p2.mirror>
-    </target>
-
-    <target name="mirror_4.7.1a_Platform">
-        <p2.mirror source="${eclURL}/eclipse/updates/4.7/R-4.7.1a-201710090410" raw="true">
-            <destination location="${localURL}/eclipse/updates/4.7/R-4.7.1a-201710090410" format="${repoFormat}" />
-        </p2.mirror>
-    </target>
-
-    <target name="mirror_Oxygen_eppPackages">
-        <p2.mirror source="${eclURL}/technology/epp/packages/oxygen/" raw="true">
-            <destination location="${localURL}/technology/epp/packages/oxygen/" format="${repoFormat}" />
-        </p2.mirror>
-    </target>
-
-    <target name="mirror_Oxygen_201709271000">
-        <p2.mirror source="${eclURL}/releases/oxygen/201709271000" raw="true">
-            <destination location="${localURL}/releases/oxygen/201709271000" format="${repoFormat}" />
-        </p2.mirror>
-    </target>
-
-    <target name="mirror_Oxygen_201710111001">
-        <p2.mirror source="${eclURL}/releases/oxygen/201710111001" raw="true">
-            <destination location="${localURL}/releases/oxygen/201710111001" format="${repoFormat}" />
-        </p2.mirror>
-    </target>
-
+    <tstamp>
+        <format property="CurrentTime" pattern="yyyyMMdd-HHmmss" />
+    </tstamp>
     <dirname property="dir.script.os" file="${ant.file.mirrorEclipseRepos}" />
     <pathconvert property="dir.script" targetos="unix">
         <path location="${dir.script.os}" />
     </pathconvert>
 
-    <property name="eclURL" value="http://download.eclipse.org" />
-    <property name="localURL" value="file:/${user.home}/www/download.eclipse.org" />
+    <path id="ant.lib.path">
+        <fileset dir="${dir.script}/lib" includes="*.jar" />
+    </path>
+    <taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="ant.lib.path" />
+
+    <property name="categoryRepo" value="/eclipse/updates/4.7/categoriesOxygen" />
+    <property name="platformReleases"
+              value="R-4.7-201706120950,R-4.7.1-201709061700,R-4.7.1a-201710090410,R-4.7.2-201711300510,R-4.7.3-201803010715,R-4.7.3a-201803300640" />
+
+    <property name="eclipse.release.name" value="oxygen" />
+    <property name="eppRepo" value="/technology/epp/packages/oxygen/" />
+    <property name="simuReleases" value="201712201001,201803211000,201804111000" />
+
+    <target name="everything"
+            description="specify here all targets you want to execute"
+            depends="
+                        mirror_categories,  
+                        mirror_platformReleases,
+                        mirror_eppPackages,
+                        mirror_simultaneousReleases
+                     " />
+
+    <property name="localDir" value="${user.home}/www/download.eclipse.org" />
     <property name="repoFormat" value="jar:file:${dir.workspace}/build.template/p2_repo_packedSiblings.zip!/" />
+    <property name="eclURL" value="http://download.eclipse.org" />
+
+
+    <target name="mirror_platformReleases">
+        <for param="platform" list="${platformReleases}" delimiter=",">
+            <sequential>
+                <antcall target="mirror_platform">
+                    <param name="platformRelease" value="@{platform}" />
+                </antcall>
+            </sequential>
+        </for>
+    </target>
+
+    <target name="mirror_categories">
+        <p2.metadata.mirror source="${eclURL}/${categoryRepo}" destination="file:/${localDir}/${categoryRepo}" />
+    </target>
+
+    <target name="mirror_platform">
+        <loadresource property="eclipse.major.version">
+            <propertyresource name="platformRelease" />
+            <filterchain>
+                <tokenfilter>
+                    <filetokenizer />
+                    <replaceregex pattern="R-(.\..).*" replace="\1" />
+                </tokenfilter>
+            </filterchain>
+        </loadresource>
+        <var name="eclVersion" value="eclipse/updates/${eclipse.major.version}/${platformRelease}" />
+
+        <echo message="# mirroring Eclipse Platform Repo ${line.separator}# ${eclURL}/${eclVersion}" />
+        <echo message="# to local folder ${line.separator}# ${localDir}/${eclVersion}" />
+
+        <mkdir dir="${localDir}/${eclVersion}" />
+        <p2.metadata.mirror destination="file:/${localDir}/${eclVersion}"
+                            source="${eclURL}/${eclVersion}"
+                            references="no">
+        </p2.metadata.mirror >
+        <p2.artifact.mirror raw="true"
+                            log="${localDir}/${eclVersion}/mirror.log"
+                            destination="file:/${localDir}/${eclVersion}"
+                            source="${eclURL}/${eclVersion}"
+                            references="no">
+        </p2.artifact.mirror >
+
+        <downloadAdditionalFiles srcuri="${eclURL}/${eclVersion}" target="${localDir}/${eclVersion}" />
+    </target>
+
+    <target name="mirror_simultaneousReleases">
+        <for param="simu" list="${simuReleases}" delimiter=",">
+            <sequential>
+                <antcall target="mirror_simultaneousRelease">
+                    <param name="simuRelease" value="@{simu}" />
+                </antcall>
+            </sequential>
+        </for>
+    </target>
+
+    <target name="mirror_simultaneousRelease">
+        <var name="eclVersion" value="releases/${eclipse.release.name}/${simuRelease}" />
+
+        <echo message="# mirroring Eclipse Simultaneous Repo ${line.separator}# ${eclURL}/${eclVersion}" />
+        <echo message="# to local folder ${line.separator}# ${localDir}/${eclVersion}" />
+
+        <p2.metadata.mirror destination="file:///${localDir}/${eclVersion}"
+                            source="${eclURL}/${eclVersion}"
+                            references="no">
+        </p2.metadata.mirror >
+        <p2.artifact.mirror raw="true"
+                            log="${localDir}/${eclVersion}/mirror.log"
+                            destination="file:///${localDir}/${eclVersion}"
+                            source="${eclURL}/${eclVersion}"
+                            references="no">
+        </p2.artifact.mirror >
+
+        <downloadAdditionalFiles srcuri="${eclURL}/${eclVersion}" target="${localDir}/${eclVersion}" />
+    </target>
+
+    <target name="mirror_eppPackages">
+        <p2.mirror source="${eclURL}${eppRepo}" raw="true">
+            <destination location="file:/${localDir}/technology/epp/packages/oxygen/" format="${repoFormat}" />
+        </p2.mirror>
+    </target>
+
+
+    <!-- = = = = = = = = = = = = = = = = =
+          macrodef: downloadAdditionalFiles          
+         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="downloadAdditionalFiles">
+        <attribute name="files2download"
+                   default="p2.index,compositeContent.jar,compositeArtifacts.jar,content.xml.xz,artifacts.xml.xz,content.jar,artifacts.jar,composite.xml,artifacts.xml" />
+        <attribute name="srcUri" />
+        <attribute name="target" />
+        <sequential>
+            <echo message="trying to download additional repository files. Not all must be available. Hence ignore ...  &quot;Error opening connetion ...&quot;" />
+            <for param="file" list="@{files2download}" delimiter=",">
+                <sequential>
+                    <mkdir dir="@{target}" />
+                    <get src="@{srcUri}/@{file}" dest="@{target}/@{file}" ignoreerrors="true" />
+                </sequential>
+            </for>
+        </sequential>
+    </macrodef>
+
 </project>
