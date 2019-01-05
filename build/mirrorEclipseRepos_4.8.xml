@@ -14,13 +14,13 @@
     </path>
     <taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="ant.lib.path" />
 
-    <property name="categoryRepo" value="/eclipse/updates/4.7/categoriesOxygen" />
+    <property name="categoryRepo" value="/eclipse/updates/4.8/categoriesPhoton" />
     <property name="platformReleases"
-              value="R-4.7-201706120950,R-4.7.1-201709061700,R-4.7.1a-201710090410,R-4.7.2-201711300510,R-4.7.3-201803010715,R-4.7.3a-201803300640" />
+              value="R-4.8-201806110500" />
 
-    <property name="eclipse.release.name" value="oxygen" />
-    <property name="eppRepo" value="/technology/epp/packages/oxygen/" />
-    <property name="simuReleases" value="201712201001,201803211000,201804111000" />
+    <property name="eclipse.release.name" value="photon" />
+    <property name="eppRepo" value="/technology/epp/packages/photon/" />
+    <property name="simuReleases" value="201806271001" />
 
     <target name="everything"
             description="specify here all targets you want to execute"

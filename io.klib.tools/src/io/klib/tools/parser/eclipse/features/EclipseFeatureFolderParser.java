@@ -1,6 +1,5 @@
 package io.klib.tools.parser.eclipse.features;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -17,52 +16,35 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import org.osgi.framework.BundleException;
-import org.osgi.framework.FrameworkUtil;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ConfigurationPolicy;
 
 import io.klib.tools.ecl2bnd.model.eclipse.Feature;
 
-@Component
+@Component(configurationPolicy = ConfigurationPolicy.REQUIRE)
 public class EclipseFeatureFolderParser {
 
 	private boolean debug = false;
-	private String[] launcherArguments;
 
-	private final static String SEP = System.getProperty("file.separator");
-	private final static String resultDir = System.getProperty("user.dir") + SEP + "result";
-
-	private String bndRequireFile;
-	private String bndBuildPathFile;
-	private String featureDir;
-	
-    @Reference(target = "(launcher.arguments=*)")
-    void args(final Object object, final Map<String, Object> map) {
-        launcherArguments = (String[]) map.get("launcher.arguments");
+	@interface Config {
+		String featureDirectory();
+		String bndBuildpathString();
+		String bndRequireString();
 	}
 
 	@Activate
-	public void activate() {
-
-		bndRequireFile = launcherArguments[0];
-		bndBuildPathFile= launcherArguments[1];
-		featureDir= launcherArguments[2];
-		
-		Path featurePath = Paths.get(featureDir);
-		new File(resultDir).mkdirs();
+	public void activate(Config config) {
 
 		List<Feature> eclFeatures = new LinkedList<Feature>();
 
-		List<Path> featureJars = collectFeatures(featurePath);
+		List<Path> featureJars = collectFeatures(Paths.get(config.featureDirectory()));
 		for (Path path : featureJars) {
 			try {
 				URI uri = new URI("jar:" + path.toUri().toString());
@@ -77,10 +59,14 @@ public class EclipseFeatureFolderParser {
 		OutputContext outputContext = new OutputContext();
 
 		outputContext.setStrategy(new OutputBndBuildFormat());
-		outputContext.execute(eclFeatures, Paths.get(resultDir, bndBuildPathFile));
+		Path buildpathPath = Paths.get(config.bndBuildpathString());
+		buildpathPath.toFile().getParentFile().mkdirs();
+		outputContext.execute(eclFeatures, buildpathPath);
 
 		outputContext.setStrategy(new OutputBndRequireFormat());
-		outputContext.execute(eclFeatures, Paths.get(resultDir, bndRequireFile));
+		Path bndRequirePath = Paths.get(config.bndRequireString());
+		bndRequirePath.toFile().getParentFile().mkdirs();
+		outputContext.execute(eclFeatures, bndRequirePath);
 
 		if (debug) {
 			// outputs all parsed features as XML
@@ -95,13 +81,6 @@ public class EclipseFeatureFolderParser {
 					e.printStackTrace();
 				}
 			}
-		}
-
-		System.out.println("done - shutting down framework");
-		try {
-			FrameworkUtil.getBundle(this.getClass()).getBundleContext().getBundle(0).stop();
-		} catch (BundleException e) {
-			e.printStackTrace();
 		}
 	}
 

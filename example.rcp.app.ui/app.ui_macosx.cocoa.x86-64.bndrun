@@ -1,5 +1,5 @@
 -include: \
-    ${workspace}/cnf/fixedIndices/bnd_runrequires_Eclipse_Platform_R-4.7.1-201709061700.bndrun
+    ${workspace}/cnf/fixedIndices/bnd_runrequires_Eclipse_Platform_R-4.8-201806110500.bndrun
 
 -runee: JavaSE-1.8
 -runfw: org.eclipse.osgi;version>='[3.12.1.v20170821-1548,3.12.1.v20170821-1548]'

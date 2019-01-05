@@ -1,13 +1,10 @@
 # Configure Repositories
 -plugin.1.Central: \
-	aQute.bnd.deployer.repository.wrapper.Plugin; \
-		location = "${build}/cache/wrapper"; \
-		reindex = true, \
-	aQute.bnd.jpm.Repository; \
-		includeStaged = true; \
-		name = Central; \
-		location = ~/.bnd/shacache; \
-		index = ${build}/central.json
+    aQute.bnd.repository.maven.provider.MavenBndRepository; \
+        releaseUrl=https://repo.maven.apache.org/maven2/; \
+        index=${.}/central.maven; \
+        readOnly=true; \
+        name="Maven Central"
 
 -plugin.2.Local: \
 	aQute.bnd.deployer.repository.LocalIndexedRepo; \
@@ -36,11 +33,14 @@ junit: org.apache.servicemix.bundles.junit; version=4.12
 cache = "${build}/cnf/cache"
 
 # Eclipse Release repositories 
-eclipse.version=4.7
-eclipse.name=oxygen
+#eclipse.version=4.7
+#eclipse.name=oxygen
+eclipse.version=4.8
+eclipse.name=photon
 
 #eclipse.platform.version="R-4.7-201706120950"
-eclipse.platform.version="R-4.7.1-201709061700"
+#eclipse.platform.version="R-4.7.1-201709061700"
+eclipse.platform.version="R-4.8-201806110500"
 
 #eclipse.platform.baseurl = "http://download.eclipse.org/eclipse/updates"
 eclipse.platform.baseurl = "${fileuri;${user.home}}www/download.eclipse.org/eclipse/updates"
@@ -48,7 +48,8 @@ eclipse.platform.name    = "Eclipse Platform ${eclipse.platform.version}"
 eclipse.platform.url     = "${eclipse.platform.baseurl}/${eclipse.version}/${eclipse.platform.version}/"
 
 #eclipse.simu.version=201709271000
-eclipse.simu.version=201710111001
+#eclipse.simu.version=201710111001
+eclipse.simu.version=201806271001
 
 #eclipse.simu.baseurl = "http://download.eclipse.org/releases"
 eclipse.simu.baseurl = "${fileuri;${user.home}}www/download.eclipse.org/releases"
@@ -64,11 +65,11 @@ eclipse.simu.url     = "${eclipse.simu.baseurl}/${eclipse.name}/${eclipse.simu.v
         url   = "${eclipse.platform.url}"; \
         cache = "${cache}"
 
-#-plugin.11.eclipse.simu: \
-#    aQute.bnd.repository.p2.provider.P2Repository; \
-#        name  = "${eclipse.simu.name}"; \
-#        url   = "${eclipse.simu.url}"; \
-#        cache = ${cache}
+-plugin.11.eclipse.simu: \
+    aQute.bnd.repository.p2.provider.P2Repository; \
+        name  = "${eclipse.simu.name}"; \
+        url   = "${eclipse.simu.url}"; \
+        cache = ${cache}
 
 # Reference the locally indexed eclipse repositories
 

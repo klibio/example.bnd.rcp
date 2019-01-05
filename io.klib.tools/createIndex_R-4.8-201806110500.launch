@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.ui.externaltools.ProgramLaunchConfigurationType">
+<stringAttribute key="org.eclipse.ui.externaltools.ATTR_LOCATION" value="${ee_home:JavaSE-1.8}/bin/java"/>
+<stringAttribute key="org.eclipse.ui.externaltools.ATTR_TOOL_ARGUMENTS" value="-jar ${project_loc:/io.klib.tools}/generated/io.klib.tools.parser.eclipse.features.jar&#10;__runrequires_Eclipse_Platform_R-4.8-201806110500.bndrun&#10;__buildPath_Eclipse_Platform_R-4.8-201806110500.bndrun&#10;/Users/peterkir/www/download.eclipse.org/eclipse/updates/4.7/R-4.8-201806110500/features"/>
+<stringAttribute key="org.eclipse.ui.externaltools.ATTR_WORKING_DIRECTORY" value="${project_loc:/io.klib.tools/}"/>
+</launchConfiguration>

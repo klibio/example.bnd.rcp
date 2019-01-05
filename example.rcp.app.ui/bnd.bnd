@@ -1,8 +1,8 @@
 -include: \
-    ${workspace}/cnf/fixedIndices/bnd_buildPath_Eclipse_Platform_R-4.7.1-201709061700.bndrun
+    ${workspace}/cnf/fixedIndices/bnd_buildPath_Eclipse_Platform_R-4.8-201806110500.bndrun
 
 -buildpath: \
-    ${FEA_org.eclipse.e4.rcp_1.6.1.v20170829-0553}
+    ${fea_org.eclipse.rcp_4.8.0.v20180611-0656}
 
 -includeresource: ./root/
 
