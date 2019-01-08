@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="exportFatJar" default="exportFatJar">
+
+	<tstamp>
+		<format property="NOW" pattern="yyyyMMdd-HHmmss" />
+	</tstamp>
+	<dirname property="dir.script" file="${ant.file}" />
+    <pathconvert property="dir.workspace" targetos="unix">
+        <path location="${dir.script}/.." />
+    </pathconvert>
+
+	<target name="exportFatJar">
+        <fileset dir="${dir.workspace}/cnf/local/biz.aQute.bnd" id="id.biz.aQute.bnd">
+            <include name="biz.aQute.bnd*" />
+        </fileset>
+        <pathconvert property="jar.biz.aQute.bnd" refid="id.biz.aQute.bnd" targetos="unix" />
+
+<!--	    
+		<java jar="${jar.biz.aQute.bnd}" fork="true" dir="${dir.script}" failonerror="true" timeout="120000">
+			<arg line="package" />
+			<arg line="-o ${dir.script}/_export/example.rcp.app.ui_macosx.cocoa.x86-64.jar" />
+			<arg line="${dir.script}/app.ui_macosx.cocoa.x86-64.bndrun" />
+		</java>
+-->		
+        <java jar="${jar.biz.aQute.bnd}" fork="true" dir="${dir.workspace}" failonerror="true" timeout="120000">
+            <arg line="package" />
+            <arg line="-o ${dir.script}/_export/example.rcp.app.ui_win32.win32.x86-64.jar" />
+            <arg line="${dir.script}/app.ui_win32.win32.x86-64.bndrun" />
+        </java>
+
+    <echo message="exported fat jar inside folder `/example.rcp.app.ui/_export`" />
+        <echo message="launch option 1: via Eclipse run configuration `/example.rcp.app.ui/launch/2_run_exported_example.rcp.app.ui_win32.win32.x86-64.launch`" />
+		<echo message="launch option 2: via cmd line `java -jar example.rcp.app.ui_win32.win32.x86-64.jar`" />
+	</target>
+
+</project>

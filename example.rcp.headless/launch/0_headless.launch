@@ -2,7 +2,7 @@
 <launchConfiguration type="bndtools.launch">
 <booleanAttribute key="clean" value="true"/>
 <booleanAttribute key="dynamicBundles" value="true"/>
-<stringAttribute key="launchTarget" value="example.rcp.headless/rcp.bndrun"/>
+<stringAttribute key="launchTarget" value="example.rcp.headless/headless.bndrun"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="example.rcp.headless"/>
 <booleanAttribute key="trace" value="false"/>
 </launchConfiguration>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="bndtools.launch">
+<stringAttribute key="bad_container_name" value="\example.rcp.app.ui\launch\0_rcp.app.ui.launch"/>
+<booleanAttribute key="clean" value="true"/>
+<booleanAttribute key="dynamicBundles" value="true"/>
+<stringAttribute key="launchTarget" value="example.rcp.app.ui/app.ui_win32.win32.x86-64.bndrun"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="example.rcp.app.ui"/>
+<booleanAttribute key="trace" value="false"/>
+</launchConfiguration>

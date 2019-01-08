@@ -90,7 +90,7 @@ public class EclipseFeatureParserCLI {
 	public static void shutdownGraceful() {
 		System.out.println("shutting down framework");
 		try {
-			FrameworkUtil.getBundle(EclipseFeatureParserCLI.class.getClass()).getBundleContext().getBundle(0).stop();
+			FrameworkUtil.getBundle(EclipseFeatureParserCLI.class).getBundleContext().getBundle(0).stop();
 		} catch (BundleException e) {
 			e.printStackTrace();
 		}

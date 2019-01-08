@@ -44,6 +44,10 @@ public class EclipseFeatureFolderParser {
 	@Activate
 	public void activate(Config config) {
 
+		System.out.format("\n# Launching Eclipse Feature Parser inside directory %s\n", config.featureDirectory());
+		System.out.format("  creating the bnd build requirement file %s\n", config.bndBuildpathString());
+		System.out.format("  creating the bnd run requirement file   %s\n\n\n", config.bndRequireString());
+
 		List<Feature> eclFeatures = new LinkedList<Feature>();
 
 		List<Path> featureJars = collectFeatures(Paths.get(config.featureDirectory()));
@@ -71,7 +75,7 @@ public class EclipseFeatureFolderParser {
 		outputContext.execute(eclFeatures, bndRequirePath);
 
 		if (debug) {
-			// outputs all parsed features as XML
+			System.out.println("DEBUG Output: outputs all parsed features as XML");
 			for (Path path : featureJars) {
 				try {
 					StringWriter writer = new StringWriter();

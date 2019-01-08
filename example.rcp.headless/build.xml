@@ -17,13 +17,13 @@
 
 		<java jar="${jar.biz.aQute.bnd}" fork="true" dir="${dir.script}" failonerror="true" timeout="120000">
 			<arg line="package" />
-			<arg line="-o ${dir.script}/_export/example.rcp.headless.jar" />
-			<arg line="${dir.script}/rcp.bndrun" />
+			<arg line="-o ${dir.script}/_export/headless.jar" />
+			<arg line="${dir.script}/headless_JAR.bndrun" />
 		</java>
 		
 		<echo message="exported fat jar inside folder `/example.rcp.headless/_export`" />
-        <echo message="launch option 1: via Eclipse run configuration `/example.rcp.headless/launch/2_run_exported_example.rcp.headless.launch`" />
-		<echo message="launch option 2: via cmd line `java -jar example.rcp.headless.jar`" />
+        <echo message="launch option 1: via Eclipse run configuration `/example.rcp.headless/launch/2_run_exported_headless.launch`" />
+		<echo message="launch option 2: via cmd line `java -jar headless.jar`" />
 	</target>
 
 </project>
