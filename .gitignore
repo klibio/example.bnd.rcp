@@ -1,10 +1,11 @@
+# Eclipse Workspace metadata
 .metadata
-cnf/cache/
 
 # Mac OS detritus
 .DS_Store
 
 .gradle/
+cnf/cache/
 bin/
 bin_test/
 reports/
