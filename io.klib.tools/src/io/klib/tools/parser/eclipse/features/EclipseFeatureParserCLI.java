@@ -21,8 +21,8 @@ public class EclipseFeatureParserCLI {
 	private static final String name = "io.klib.tools.parser.eclipse.features.EclipseFeatureFolderParser";
 	private final static String SEP = System.getProperty("file.separator");
 	private final static String resultDir = System.getProperty("user.dir") + SEP + "generated";
-	private final static String FILENAME_BNDBUILD = "bnd_runrequires_Eclipse_Platform_${ECL_PLATFORM_VERSION}.bndrun";
-	private final static String FILENAME_BNDREQUIRE = "bnd_buildPath_Eclipse_Platform_${ECL_PLATFORM_VERSION}.bndrun";
+	private final static String FILENAME_BNDBUILD = "bnd_runrequires_Eclipse_Platform.bndrun";
+	private final static String FILENAME_BNDREQUIRE = "bnd_buildpath_Eclipse_Platform.bndrun";
 
 	private String[] launcherArguments;
 	private String featureDir;
@@ -87,10 +87,10 @@ public class EclipseFeatureParserCLI {
 		}
 	}
 
-	private void shutdownGraceful() {
+	public static void shutdownGraceful() {
 		System.out.println("shutting down framework");
 		try {
-			FrameworkUtil.getBundle(this.getClass()).getBundleContext().getBundle(0).stop();
+			FrameworkUtil.getBundle(EclipseFeatureParserCLI.class.getClass()).getBundleContext().getBundle(0).stop();
 		} catch (BundleException e) {
 			e.printStackTrace();
 		}

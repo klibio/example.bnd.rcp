@@ -35,7 +35,9 @@ public class EclipseFeatureFolderParser {
 
 	@interface Config {
 		String featureDirectory();
+
 		String bndBuildpathString();
+
 		String bndRequireString();
 	}
 
@@ -82,6 +84,8 @@ public class EclipseFeatureFolderParser {
 				}
 			}
 		}
+
+		EclipseFeatureParserCLI.shutdownGraceful();
 	}
 
 	private List<Path> collectFeatures(Path p) {
