@@ -4,7 +4,6 @@ cnf/cache/
 # Mac OS detritus
 .DS_Store
 
-/bin/
 /.gradle/
 /reports/
 /generated/
