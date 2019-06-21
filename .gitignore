@@ -1,14 +1,16 @@
+# Eclipse Workspace metadata
 .metadata
-cnf/cache/
 
 # Mac OS detritus
 .DS_Store
 
-/bin/
-/.gradle/
-/reports/
-/generated/
-/_rt/
-/_results/
-/_wrk/
+.gradle/
+cnf/cache/
+bin/
+bin_test/
+reports/
+generated/
+_rt/
+_results/
+_wrk/
 

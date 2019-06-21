@@ -1,0 +1,41 @@
+-runee: JavaSE-1.8
+-runfw: org.eclipse.osgi;version='[3.13,4)'
+
+-runprovidedcapabilities: ${native_capability}
+-runvm: -Ddebug=false
+
+-resolve.effective: active;skip:="osgi.service"
+
+-runrequires: \
+	osgi.identity;filter:='(&(osgi.identity=io.klib.tools.parser.eclipse.features)(version>=0.1.0.201707091312))',\
+	osgi.identity;filter:='(&(osgi.identity=org.eclipse.equinox.cm)(version>=1.3.0.v20180418-1839))',\
+	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.http.jetty)(version>=3.4.8))',\
+	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.webconsole)(version>=4.3.8))',\
+	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.webconsole.plugins.ds)(version>=2.0.8))',\
+	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.command)(version>=1.0.2.v20170914-1324))',\
+	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.shell)(version>=1.0.0.v20170914-1324))'
+
+-runbundles: \
+	io.klib.tools.parser.eclipse.features;version=snapshot,\
+	org.apache.felix.scr;version='[2.0.14,2.0.15)',\
+	org.eclipse.osgi.services;version='[3.7.0,3.7.1)',\
+	org.eclipse.osgi.util;version='[3.5.0,3.5.1)',\
+	org.eclipse.equinox.cm;version='[1.3.0,1.3.1)',\
+	javax.servlet;version='[3.1.0,3.1.1)',\
+	org.apache.commons.fileupload;version='[1.3.2,1.3.3)',\
+	org.apache.commons.io;version='[2.2.0,2.2.1)',\
+	org.apache.felix.gogo.command;version='[1.0.2,1.0.3)',\
+	org.apache.felix.gogo.shell;version='[1.1.0,1.1.1)',\
+	org.apache.felix.http.jetty;version='[3.4.8,3.4.9)',\
+	org.apache.felix.webconsole;version='[4.3.8,4.3.9)',\
+	org.apache.felix.inventory;version='[1.0.6,1.0.7)',\
+	org.apache.felix.webconsole.plugins.ds;version='[2.0.8,2.0.9)',\
+	org.apache.felix.gogo.runtime;version='[1.0.6,1.0.7)'
+
+ECL_PLATFORM_VERSION = 'R-4.8-201806110500'
+featureDir_OSX   = '/Users/peterkir/www/download.eclipse.org/eclipse/updates/4.8/${ECL_PLATFORM_VERSION}/features'
+featureDir_WIN   = 'C:/jbe5.0.2/repo/download.eclipse.org/eclipse/updates/4.8/${ECL_PLATFORM_VERSION}/features'
+
+-runprogramargs: \
+    ${featureDir_OSX}
+

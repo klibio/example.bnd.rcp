@@ -1,0 +1,21 @@
+Bundle-Version: 0.1.0.${tstamp;yyyyMMdd-HHmmss}
+
+-runee: JavaSE-1.8
+-runfw: org.eclipse.osgi;version='[3.13,4)'
+
+-runsystemcapabilities: ${native_capability}
+
+-runproperties: \
+    launch.keep=false,\
+    launch.storage.dir=_rt/cfg,\
+    \
+    eclipse.application=example.rcp.ui.application
+
+-runvm: "-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts"
+
+-runrequires: \
+	osgi.identity;filter:='(&(osgi.identity=bndtools.runtime.applaunch.eclipse4)(version>=0.1.0))',\
+	osgi.identity;filter:='(&(osgi.identity=example.rcp.ui)(version>=0.1.0))',\
+	osgi.identity;filter:='(osgi.identity=org.eclipse.swt)'
+
+-runbundles: \

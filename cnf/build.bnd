@@ -1,27 +1,59 @@
-# Configure Repositories
--plugin.1.Central: \
-	aQute.bnd.deployer.repository.wrapper.Plugin; \
-		location = "${build}/cache/wrapper"; \
-		reindex = true, \
-	aQute.bnd.jpm.Repository; \
-		includeStaged = true; \
-		name = Central; \
-		location = ~/.bnd/shacache; \
-		index = ${build}/central.json
 
--plugin.2.Local: \
+# Configure Repositories
+-plugin.1.R7.API: \
+	aQute.bnd.repository.maven.pom.provider.BndPomRepository; \
+		snapshotUrls=https://oss.sonatype.org/content/repositories/osgi/; \
+		releaseUrls=https://repo.maven.apache.org/maven2/; \
+		revision=org.osgi.enroute:osgi-api:7.0.0; \
+		readOnly=true; \
+		name="OSGi R7 API"
+-plugin.2.Enterprise.API: \
+	aQute.bnd.repository.maven.pom.provider.BndPomRepository; \
+		snapshotUrls=https://oss.sonatype.org/content/repositories/osgi/; \
+		releaseUrls=https://repo.maven.apache.org/maven2/; \
+		revision=org.osgi.enroute:enterprise-api:7.0.0; \
+		readOnly=true; \
+		name="Enterprise Java APIs"
+-plugin.3.R7.Impl: \
+	aQute.bnd.repository.maven.pom.provider.BndPomRepository; \
+		snapshotUrls=https://oss.sonatype.org/content/repositories/osgi/; \
+		releaseUrls=https://repo.maven.apache.org/maven2/; \
+		revision=org.osgi.enroute:impl-index:7.0.0; \
+		readOnly=true; \
+		name="OSGi R7 Reference Implementations"
+-plugin.4.Test: \
+	aQute.bnd.repository.maven.pom.provider.BndPomRepository; \
+		snapshotUrls=https://oss.sonatype.org/content/repositories/osgi/; \
+		releaseUrls=https://repo.maven.apache.org/maven2/; \
+		revision=org.osgi.enroute:test-bundles:7.0.0; \
+		readOnly=true; \
+		name="Testing Bundles"
+-plugin.5.Debug: \
+	aQute.bnd.repository.maven.pom.provider.BndPomRepository; \
+		snapshotUrls=https://oss.sonatype.org/content/repositories/osgi/; \
+		releaseUrls=https://repo.maven.apache.org/maven2/; \
+		revision=org.osgi.enroute:debug-bundles:7.0.0; \
+		readOnly=true; \
+		name="Debug Bundles"
+-plugin.6.Central: \
+	aQute.bnd.repository.maven.provider.MavenBndRepository; \
+		releaseUrl=https://repo.maven.apache.org/maven2/; \
+		index=${.}/central.maven; \
+		readOnly=true; \
+		name="Maven Central"
+-plugin.7.Local: \
 	aQute.bnd.deployer.repository.LocalIndexedRepo; \
 		name = Local; \
 		pretty = true; \
 		local = ${build}/local
 
--plugin.3.Templates: \
+-plugin.8.Templates: \
 	aQute.bnd.deployer.repository.LocalIndexedRepo; \
 		name = Templates; \
 		pretty = true; \
 		local = ${build}/templates
 
--plugin.4.Release: \
+-plugin.9.Release: \
 	aQute.bnd.deployer.repository.LocalIndexedRepo; \
 		name = Release; \
 		pretty = true; \
@@ -30,45 +62,54 @@
 -releaserepo: Release
 -baselinerepo: Release
 
+# Always use contracts
+-contract: *
+
+# Set Git revision information in the manifests of built bundles
+Git-Descriptor:           ${system-allow-fail;git describe --dirty --always}
+Git-SHA:                  ${system-allow-fail;git rev-list -1 HEAD}
+
 # JUnit
 junit: org.apache.servicemix.bundles.junit; version=4.12
-
+mockito: org.mockito.mockito-core; version=2.13.0
+mockito-deps: org.objenesis; version=2.6.0,\
+  net.bytebuddy.byte-buddy; version=1.7.9,\
+  net.bytebuddy.byte-buddy-agent; version=1.7.9 
+  
 cache = "${build}/cnf/cache"
 
 # Eclipse Release repositories 
-eclipse.version=4.7
-eclipse.name=oxygen
+eclipse.version          = 4.10
+eclipse.name             = 2018-12
+eclipse.platform.version = R-4.10-201812060815
+eclipse.simu.version     = 201812191000
 
-#eclipse.platform.version="R-4.7-201706120950"
-eclipse.platform.version="R-4.7.1-201709061700"
-
-#eclipse.platform.baseurl = "http://download.eclipse.org/eclipse/updates"
-eclipse.platform.baseurl = "${fileuri;${user.home}}www/download.eclipse.org/eclipse/updates"
+eclipse.platform.baseurl = http://download.eclipse.org/eclipse/updates
+#eclipse.platform.baseurl = "${fileuri;${user.home}}www/download.eclipse.org/eclipse/updates"
 eclipse.platform.name    = "Eclipse Platform ${eclipse.platform.version}"
-eclipse.platform.url     = "${eclipse.platform.baseurl}/${eclipse.version}/${eclipse.platform.version}/"
+eclipse.platform.url     = "${eclipse.platform.baseurl}/${eclipse.version}/${eclipse.platform.version}"
 
-#eclipse.simu.version=201709271000
-eclipse.simu.version=201710111001
 
-#eclipse.simu.baseurl = "http://download.eclipse.org/releases"
-eclipse.simu.baseurl = "${fileuri;${user.home}}www/download.eclipse.org/releases"
-eclipse.simu.name    = "Eclipse Simu Release ${eclipse.version} - ${eclipse.simu.version}"
-eclipse.simu.url     = "${eclipse.simu.baseurl}/${eclipse.name}/${eclipse.simu.version}/"
+
+eclipse.simu.baseurl = http://download.eclipse.org/releases
+#eclipse.simu.baseurl = "${fileuri;${user.home}}www/download.eclipse.org/releases"
+eclipse.simu.name    = "Eclipse Simu Release ${eclipse.name} - ${eclipse.simu.version}"
+eclipse.simu.url     = "${eclipse.simu.baseurl}/${eclipse.name}/${eclipse.simu.version}"
 
 # Remote Eclipse repositories
 
 # 1. creation of the indices via this configurations and store inside cnf/fixedIndices
 -plugin.10.eclipse.platform: \
     aQute.bnd.repository.p2.provider.P2Repository; \
-        name  = "${eclipse.platform.name}"; \
-        url   = "${eclipse.platform.url}"; \
+        name  = ${eclipse.platform.name}; \
+        url   = ${eclipse.platform.url}; \
         cache = "${cache}"
 
-#-plugin.11.eclipse.simu: \
-#    aQute.bnd.repository.p2.provider.P2Repository; \
-#        name  = "${eclipse.simu.name}"; \
-#        url   = "${eclipse.simu.url}"; \
-#        cache = ${cache}
+-plugin.11.eclipse.simu: \
+    aQute.bnd.repository.p2.provider.P2Repository; \
+        name  = ${eclipse.simu.name}; \
+        url   = ${eclipse.simu.url}; \
+        cache = ${cache}
 
 # Reference the locally indexed eclipse repositories
 
@@ -76,9 +117,9 @@ eclipse.simu.url     = "${eclipse.simu.baseurl}/${eclipse.name}/${eclipse.simu.v
 #-plugin.20.eclipse.platform: \
 #   aQute.bnd.deployer.repository.FixedIndexedRepo; \
 #       name      = "Eclipse Platform ${eclipse.platform.version}"; \
-#       locations = "${fileuri;${${workspace}}}cnf/fixedIndices/p2-Eclipse-Platform-${eclipse.platform.version}/index.xml.gz"
-
+#       locations = "${fileuri;${${workspace}}}cnf/fixedIndices/p2-Eclipse-Platform/index.xml.gz"
+#
 #-plugin.21.eclipse.simu: \
 #    aQute.bnd.deployer.repository.FixedIndexedRepo; \
 #        name      = "Eclipse Simu Release - ${eclipse.simu.version}"; \
-#        locations = "${fileuri;${${workspace}}}cnf/fixedIndices/p2-Eclipse-Simu-Release-${eclipse.simu.version}/index.xml.gz"
+#        locations = "${fileuri;${${workspace}}}cnf/fixedIndices/p2-Eclipse-Simu-Release/index.xml.gz"

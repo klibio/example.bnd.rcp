@@ -1,0 +1,17 @@
+# List repository contents using GAV coordinates
+biz.aQute.bnd:biz.aQute.bnd:4.1.0
+ch.qos.logback:logback-core:1.2.3
+ch.qos.logback:logback-classic:1.2.3
+org.osgi:osgi.annotation:6.0.1
+org.osgi:osgi.cmpn:6.0.0
+org.osgi:osgi.core:6.0.0
+
+org.apache.felix:org.apache.felix.http.jetty:3.4.8
+org.apache.felix:org.apache.felix.webconsole:4.3.8
+org.apache.felix:org.apache.felix.webconsole.plugins.ds:2.0.8
+#org.apache.felix:org.apache.felix.webconsole.plugins.ds:2.1.0
+
+org.apache.felix:org.apache.felix.gogo.runtime:1.1.0
+org.apache.felix:org.apache.felix.gogo.shell:1.1.0
+org.apache.felix:org.apache.felix.gogo.command:1.0.2
+org.apache.felix:org.apache.felix.inventory:1.0.6
