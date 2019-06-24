@@ -119,7 +119,9 @@
     </macrodef>
 
     <!-- - - - - - - - - - - - - - - - - - 
-          target: createFeatureIncludeSectionForBundlesAndFragments  
+          target: createFeatureIncludeSectionForBundlesAndFragments
+           
+          HINT: per convention bundles containing pattern "app.ui" will be unpacked for Eclipse installation   
                     
           gather the feature include section for bundles from a directory containing the bundle artifacts                    
          - - - - - - - - - - - - - - - - - -->
@@ -141,6 +143,13 @@
                                    input="@{bundleArtifact}"
                                    regexp="([a-zA-Z0-9.\-_]+[_64|_32]?)_([0-9]*\.[0-9]*\.[0-9]*[\.a-zA-Z0-9\-_]+)\.jar"
                                    select="\1"
+                                   override="true"
+                                   casesensitive="false" />
+                    <propertyregex property="unpack"
+                                   input="@{bundleArtifact}"
+                                   regexp="(.*app\.ui.*)"
+                                   replace=""
+                                   defaultValue=" unpack=&quot;false&quot;"
                                    override="true"
                                    casesensitive="false" />
                     <propertyregex property="bundleVersion"
@@ -176,7 +185,7 @@
 
                     <echo file="@{file.includeSection}"
                           append="true"
-                          message="   &lt;plugin id=&quot;${bundleName}&quot; version=&quot;${bundleVersion}&quot;${osgi.ws}${osgi.os}${osgi.arch} unpack=&quot;false&quot;/&gt;${line.separator}" />
+                          message="   &lt;plugin id=&quot;${bundleName}&quot; version=&quot;${bundleVersion}&quot;${osgi.ws}${osgi.os}${osgi.arch}${unpack}/&gt;${line.separator}" />
 
                 </sequential>
             </for>

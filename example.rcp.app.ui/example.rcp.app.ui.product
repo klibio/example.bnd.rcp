@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="example.rcp.app.ui" id="example.rcp.app.ui.product" application="org.eclipse.e4.ui.workbench.swt.E4Application" version="1.0.0.qualifier" useFeatures="true" includeLaunchers="true">
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <programArgs>-clearPersistedState
+      </programArgs>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
+      </vmArgsMac>
+   </launcherArgs>
+
+   <windowImages/>
+
+   <launcher name="ExampleRcpApp">
+      <linux icon="iconfinder_examples_60173_linux.xpm"/>
+      <macosx icon="iconfinder_examples_60173_macosx.icns"/>
+      <win useIco="true">
+         <ico path="iconfinder_examples_60173_win32.ico"/>
+         <bmp
+            winSmallHigh="icon_win32_16x16_32bit.bmp"
+            winSmallLow="icon_win32_16x16_8bit.bmp"
+            winMediumHigh="icon_win32_32x32_32bit.bmp"
+            winMediumLow="icon_win32_32x32_8bit.bmp"
+            winLargeHigh="icon_win32_48x48_32bit.bmp"
+            winLargeLow="icon_win32_48x48_8bit.bmp"
+            winExtraLargeHigh="icon_win32_256x256_32bit.bmp"/>
+      </win>
+   </launcher>
+
+   <vm>
+   </vm>
+
+   <plugins>
+   </plugins>
+
+   <features>
+      <feature id="org.eclipse.e4.rcp"/>
+      <feature id="org.eclipse.emf.common"/>
+      <feature id="org.eclipse.emf.ecore"/>
+      <feature id="example.feature"/>
+      <feature id="example.bnd2ecl.feature"/>
+   </features>
+
+   <configurations>
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
+      <property name="osgi.instance.area" value="@none" />
+   </configurations>
+
+   <preferencesInfo>
+      <targetfile overwrite="false"/>
+   </preferencesInfo>
+
+   <cssInfo>
+   </cssInfo>
+
+</product>

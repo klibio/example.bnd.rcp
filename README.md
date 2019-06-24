@@ -1,9 +1,10 @@
 # Project: example.bnd.eclipse
 This GitHub repo shows the usage of Eclipse RCP framework with Bndtools.
-Contained is a bndtools configuration referencing Eclipse 4.7 Oxygen release.
+Contained is a bndtools configuration referencing Eclipse Platform 4.10 Simultaneous 2018.12 release.
 
-Project `example.rcp.headless` contains a minimal Eclipse RCP application.
-
+Project `example.rcp.headless` contains a minimal console Eclipse RCP application.
+Project `example.rcp.ui` contains a minimal Eclipse SWT UI application
+Project `example.rcp.app.ui` contains a minimal Eclipse RCP UI application with a Platform specific product for win32, linux and macosx.
 
 ## License
 Licensed under the [Eclipse Public License v1.0](http://www.eclipse.org/legal/epl-v10.html).
@@ -13,7 +14,7 @@ Licensed under the [Eclipse Public License v1.0](http://www.eclipse.org/legal/ep
 ### Target Management
 
 Bndtools enables users to reference different repositories types [add link here].
-We are using here 2 pre-indexed repositories (Platform and Simultaneous) of Eclipse 4.7 Oxygen Release. 
+We are using here 2 pre-indexed repositories (Platform and Simultaneous) of Eclipse release. 
 
 #### Repositories
 
@@ -30,8 +31,8 @@ Mind `bndtools.runtim.eclipse.applaunch`
 ## Project content description
 
 ```
-# /folder - directory content description>
-# file    - purpose of the file
+# /folder - <directory content description>
+# file    - <purpose of the file>
  
 /cnf                  -> bnd workspace containing the configuration for bnd	
 
@@ -63,7 +64,7 @@ Mind `bndtools.runtim.eclipse.applaunch`
    bnd.bnd                   - bnd project configuration (build path)
    build.xml                 - Ant file for exporting project fat jar file
    rcp.bndrun                - bnd run configuration
-   rcpHeadless_JAR.bndrun    - bnd run configuration used for exporting fat jar (without IDE arguments)
+   rcpHeadless_JAR.bndrun    - bnd run configuration used for exporting fat jar (without arguments used inside the Eclipse IDE bndtools launch)
    
 ```
 

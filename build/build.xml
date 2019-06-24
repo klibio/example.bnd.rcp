@@ -43,7 +43,6 @@
 		<echo message="# creating feature for including dynamically all bnd generated bundles" />
 		<property name="bundleIncludeSection_bnd2pde" value="${dir.temp}/bundleIncludeSection.txt" />
 		<createFeatureIncludeSectionForBundlesAndFragments dir.bundles="${dir.bndRepo}" file.includesection="${bundleIncludeSection_bnd2pde}" />
-
 		<echo message="" file="${bundleIncludeSection_bnd2pde}" append="true" />
 		<loadfile property="plugin.includes" srcfile="${bundleIncludeSection_bnd2pde}" />
 
@@ -70,7 +69,7 @@
 
 		<echo message="project specific adaptation of the build.properties template file inside ${dir.buildWrkspc}" />
 		<propertyfile file="${dir.pdeBuild}/build.properties">
-			<entry key="product" value="${dir.workspace}/example.rcp.app.ui/root/example.rcp.app.ui.product" />
+			<entry key="product" value="${dir.workspace}/example.rcp.app.ui/example.rcp.app.ui.product" />
 			<entry key="topLevelElementId" value="${topLevelElementId}" />
 			<entry key="buildDirectory" value="${dir.pdeBuild}" />
 			<entry key="forceContextQualifier" value="${NOW}" />
@@ -108,7 +107,7 @@
 		<p2.mirror verbose="true" includepacked="false">
 			<destination location="file:${dir.repoBase}/eclipseDependencies" name="DeltaPack and Dependencies" format="${repoFormat}" />
 			<source>
-				<repository location="file:${localURL}/eclipse/updates/4.7/R-4.7.1-201709061700" />
+				<repository location="file:${localURL}/eclipse/updates/4.10/R-4.10-201812060815" />
 			</source>
 			<!-- all the dependencies from example.feature/feature.xml-->
 			<iu id="org.eclipse.e4.rcp.feature.group" />
