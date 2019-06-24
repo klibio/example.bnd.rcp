@@ -11,9 +11,9 @@
 	<pathconvert property="dir.workspace" targetos="unix">
 		<path location="${dir.script.os}/.." />
 	</pathconvert>
-    <mkdir dir="${dir.script}/_results" />
+	<mkdir dir="${dir.script}/_results" />
 	<record name="${dir.script}/_results/${NOW}_antRun.log" loglevel="verbose" action="start" />
-    <property name="dir.results" value="${dir.script}/_results/${NOW}" />
+	<property name="dir.results" value="${dir.script}/_results/${NOW}" />
 
 	<property file="build.properties" />
 
@@ -249,6 +249,36 @@
 			             extraArguments="-profileProperties org.eclipse.update.install.features=true">
 				<iu id="${topLevelElementId}" />
 			</p2.director>
+		</sequential>
+	</macrodef>
+
+	<!-- ================================= 
+          target: removeRequirementsCapabilitiesFromP2Repo              
+         ================================= -->
+	<target name="removeRequirementsCapabilitiesFromP2Repo">
+		<loadfile property="latestBuild" srcFile="${file.latest}" />
+		<property name="p2repo2remove"
+		          value="${dir.script}/_results/${latestBuild}/productRepoWithoutCapReq/content.jar" />
+
+		<echo message="removing all requirements/capabilities from p2 content repo inside ${p2repo2remove}" />
+		<copy todir="${dir.script}/_results/${latestBuild}/productRepoWithoutCapReq"
+		      file="${dir.script}/_results/${latestBuild}/productRepo/content.jar" />
+		<xslTransformation targetfile="${p2repo2remove}" />
+	</target>
+
+
+	<!-- = = = = = = = = = = = = = = = = =
+	      macrodef: xslTransformation          
+	     = = = = = = = = = = = = = = = = = -->
+	<macrodef name="xslTransformation">
+		<attribute name="targetFile" />
+		<sequential>
+			<property name="tranformJar" value="${dir.script}/lib/transform.xslt.jar" />
+			<dirname file="@{targetFile}" property="dirTargetFile" />
+			<java jar="${tranformJar}" fork="true" failonerror="true" output="${dirTargetFile}/xslTransform.log">
+				<arg line="@{targetFile}" />
+				<jvmarg value="-Dbackup=true" />
+			</java>
 		</sequential>
 	</macrodef>
 
