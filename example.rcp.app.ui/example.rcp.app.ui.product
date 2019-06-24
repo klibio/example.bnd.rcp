@@ -19,6 +19,9 @@
       <linux icon="iconfinder_examples_60173_linux.xpm"/>
       <macosx icon="iconfinder_examples_60173_macosx.icns"/>
       <win useIco="false">
+<!-- single icon file does not work - [IconExe] Error - 7 original icon(s) not replaced in ...           
+         <ico path="iconfinder_examples_60173_win32.ico"/>
+-->
          <bmp
             winSmallHigh="icon_win32_16x16_32bit.bmp"
             winSmallLow="icon_win32_16x16_8bit.bmp"
