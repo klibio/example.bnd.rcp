@@ -18,8 +18,7 @@
    <launcher name="ExampleRcpApp">
       <linux icon="iconfinder_examples_60173_linux.xpm"/>
       <macosx icon="iconfinder_examples_60173_macosx.icns"/>
-      <win useIco="true">
-         <ico path="iconfinder_examples_60173_win32.ico"/>
+      <win useIco="false">
          <bmp
             winSmallHigh="icon_win32_16x16_32bit.bmp"
             winSmallLow="icon_win32_16x16_8bit.bmp"
