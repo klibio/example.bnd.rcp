@@ -1,304 +1,308 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="buildBnd2EclipseProduct" default="everything">
 
-	<tstamp>
-		<format property="NOW" pattern="yyyyMMdd-HHmmss" />
-	</tstamp>
-	<dirname property="dir.script.os" file="${ant.file.mirrorEclipseRepos}" />
-	<pathconvert property="dir.script" targetos="unix">
-		<path location="${dir.script.os}" />
-	</pathconvert>
-	<pathconvert property="dir.workspace" targetos="unix">
-		<path location="${dir.script.os}/.." />
-	</pathconvert>
-	<mkdir dir="${dir.script}/_results" />
-	<record name="${dir.script}/_results/${NOW}_antRun.log" loglevel="verbose" action="start" />
-	<property name="dir.results" value="${dir.script}/_results/${NOW}" />
+    <tstamp>
+        <format property="NOW" pattern="yyyyMMdd-HHmmss" />
+    </tstamp>
+    <dirname property="dir.script.os" file="${ant.file.mirrorEclipseRepos}" />
+    <pathconvert property="dir.script" targetos="unix">
+        <path location="${dir.script.os}" />
+    </pathconvert>
+    <pathconvert property="dir.workspace" targetos="unix">
+        <path location="${dir.script.os}/.." />
+    </pathconvert>
+    <mkdir dir="${dir.script}/_results" />
+    <record name="${dir.script}/_results/${NOW}_antRun.log" loglevel="verbose" action="start" />
+    <property name="dir.results" value="${dir.script}/_results/${NOW}" />
 
-	<property file="build.properties" />
+    <property file="build.properties" />
 
-	<target name="everything" depends="build-product" description="">
-	</target>
+    <target name="everything" depends="build-product" description="">
+    </target>
 
-	<target name="clean">
-		<delete failonerror="false" includeemptydirs="true">
-			<fileset dir="${dir.bndRepo}" includes="**/*" />
-			<fileset dir="${dir.temp}" includes="**/*" />
-		</delete>
+    <target name="clean">
+        <delete failonerror="false" includeemptydirs="true">
+            <fileset dir="${dir.bndRepo}" includes="**/*" />
+            <fileset dir="${dir.temp}" includes="**/*" />
+        </delete>
 
-	</target>
+    </target>
 
-	<target name="collectBNDgeneratedBundles" depends="clean">
-		<p2.publish.featuresAndBundles compress="true"
-		                               publishartifacts="true"
-		                               append="true"
-		                               repository="file:${dir.bndRepo}"
-		                               repositoryname="bndRepo">
-			<bundles dir="${dir.workspace}">
-				<include name="**/generated/*.jar" />
-				<exclude name=".*/**" />
-				<exclude name="io.klib*/**" />
-			</bundles>
-		</p2.publish.featuresAndBundles>
-	</target>
+    <target name="collectBNDgeneratedBundles" depends="clean">
+        <p2.publish.featuresAndBundles compress="true"
+                                       publishartifacts="true"
+                                       append="true"
+                                       repository="file:${dir.bndRepo}"
+                                       repositoryname="bndRepo">
+            <bundles dir="${dir.workspace}">
+                <include name="**/generated/*.jar" />
+                <exclude name=".*/**" />
+                <exclude name="io.klib*/**" />
+            </bundles>
+        </p2.publish.featuresAndBundles>
+    </target>
 
-	<target name="createDynamicFeature" depends="collectBNDgeneratedBundles" description="description">
-		<echo message="# creating feature for including dynamically all bnd generated bundles" />
-		<property name="bundleIncludeSection_bnd2pde" value="${dir.temp}/bundleIncludeSection.txt" />
-		<createFeatureIncludeSectionForBundlesAndFragments dir.bundles="${dir.bndRepo}"
-		                                                   file.includesection="${bundleIncludeSection_bnd2pde}" />
-		<echo message="" file="${bundleIncludeSection_bnd2pde}" append="true" />
-		<loadfile property="plugin.includes" srcfile="${bundleIncludeSection_bnd2pde}" />
+    <target name="createDynamicFeature" depends="collectBNDgeneratedBundles" description="description">
+        <echo message="# creating feature for including dynamically all bnd generated bundles" />
+        <property name="bundleIncludeSection_bnd2pde" value="${dir.temp}/bundleIncludeSection.txt" />
+        <createFeatureIncludeSectionForBundlesAndFragments dir.bundles="${dir.bndRepo}"
+                                                           file.includesection="${bundleIncludeSection_bnd2pde}" />
+        <echo message="" file="${bundleIncludeSection_bnd2pde}" append="true" />
+        <loadfile property="plugin.includes" srcfile="${bundleIncludeSection_bnd2pde}" />
 
-		<property name="featureNameContainer" value="example.bnd2ecl.feature" />
-		<createFeatureXmlFile filename="${dir.temp}/dynamic_feature/features/${featureNameContainer}/feature.xml"
-		                      id="${featureNameContainer}"
-		                      name="${featureNameContainer}"
-		                      version="1.0.0.${NOW}"
-		                      includeplugins="${plugin.includes}" />
-		<echo file="${dir.temp}/dynamic_feature/features/${featureNameContainer}/build.properties"
-		      message="bin.includes = feature.xml" />
-		<copy todir="${dir.temp}/dynamic_feature/features/${featureNameContainer}"
-		      file="${dir.workspace}/build.template/p2/category/p2.inf" />
+        <property name="featureNameContainer" value="example.bnd2ecl.feature" />
+        <createFeatureXmlFile filename="${dir.temp}/dynamic_feature/features/${featureNameContainer}/feature.xml"
+                              id="${featureNameContainer}"
+                              name="${featureNameContainer}"
+                              version="1.0.0.${NOW}"
+                              includeplugins="${plugin.includes}" />
+        <echo file="${dir.temp}/dynamic_feature/features/${featureNameContainer}/build.properties"
+              message="bin.includes = feature.xml" />
+        <copy todir="${dir.temp}/dynamic_feature/features/${featureNameContainer}"
+              file="${dir.workspace}/build.template/p2/category/p2.inf" />
 
-		<echo message="# publishing the bundles final p2 repository" />
-		<featureAndPluginPublisher dir.source="${dir.temp}/dynamic_feature" dir.repository="${dir.bndRepo}" />
-	</target>
+        <echo message="# publishing the bundles final p2 repository" />
+        <featureAndPluginPublisher dir.source="${dir.temp}/dynamic_feature" dir.repository="${dir.bndRepo}" />
+    </target>
 
-	<target name="prepare" depends="createDynamicFeature">
-		<mkdir dir="${dir.pdeBuild}" />
+    <target name="prepare" depends="createDynamicFeature">
+        <mkdir dir="${dir.pdeBuild}" />
 
-		<copy todir="${dir.pdeBuild}/features" preservelastmodified="true">
-			<fileset dir="${dir.workspace}" defaultexcludes="true">
-				<include name="example.feature/**" />
-			</fileset>
-		</copy>
+        <copy todir="${dir.pdeBuild}/features" preservelastmodified="true">
+            <fileset dir="${dir.workspace}" defaultexcludes="true">
+                <include name="example.feature/**" />
+            </fileset>
+        </copy>
 
-		<echo message="copy the build.properties template file to ${dir.buildWrkspc}" />
-		<copy file="${eclipse.pdebuild.home}/templates/headless-build/build.properties"
-		      todir="${dir.pdeBuild}"
-		      failonerror="true" />
+        <echo message="copy the build.properties template file to ${dir.buildWrkspc}" />
+        <copy file="${eclipse.pdebuild.home}/templates/headless-build/build.properties"
+              todir="${dir.pdeBuild}"
+              failonerror="true" />
 
-		<echo message="project specific adaptation of the build.properties template file inside ${dir.buildWrkspc}" />
-		<propertyfile file="${dir.pdeBuild}/build.properties">
-			<entry key="product" value="${dir.workspace}/example.rcp.app.ui/${topLevelElementId}" />
-			<entry key="topLevelElementId" value="${topLevelElementId}" />
-			<entry key="buildDirectory" value="${dir.pdeBuild}" />
-			<entry key="forceContextQualifier" value="${NOW}" />
-			<entry key="buildId" value="example.rcp.product" />
-			<entry key="configs" value="win32,win32,x86_64 &amp; linux,gtk,x86_64 &amp; macosx,cocoa,x86_64" />
+        <echo message="project specific adaptation of the build.properties template file inside ${dir.buildWrkspc}" />
+        <propertyfile file="${dir.pdeBuild}/build.properties">
+            <entry key="product" value="${dir.workspace}/example.rcp.app.ui/${topLevelElementId}" />
+            <entry key="topLevelElementId" value="${topLevelElementId}" />
+            <entry key="buildDirectory" value="${dir.pdeBuild}" />
+            <entry key="forceContextQualifier" value="${NOW}" />
+            <entry key="buildId" value="example.rcp.product" />
+            <entry key="configs" value="win32,win32,x86_64 &amp; linux,gtk,x86_64 &amp; macosx,cocoa,x86_64" />
 
-			<!-- target for pde.build -->
-			<entry key="base" value="" />
-			<entry key="baseLocation" value="" />
-			<entry key="pluginPath" value="${dir.pdeBuild}/pluginPath" />
-			<!-- not used currently -->
-			<entry key="repoBaseLocation" value="${dir.repoBase}" />
-			<entry key="transformedRepoLocation" value="${dir.wrk}/transformedRepoLocation" />
-			<entry key="p2.context.repos" value="file:${dir.bndRepo}" />
+            <!-- target for pde.build -->
+            <entry key="base" value="" />
+            <entry key="baseLocation" value="" />
+            <entry key="pluginPath" value="${dir.pdeBuild}/pluginPath" />
+            <!-- not used currently -->
+            <entry key="repoBaseLocation" value="${dir.repoBase}" />
+            <entry key="transformedRepoLocation" value="${dir.wrk}/transformedRepoLocation" />
+            <entry key="p2.context.repos" value="file:${dir.bndRepo}" />
 
-			<!-- javac -->
-			<entry key="javacSource" value="1.8" />
-			<entry key="javacTarget" value="1.8" />
-			<entry key="compilerArg" value="-g -encoding UTF-8" />
-			<entry key="javacDebugLevel" value="lines, vars, source" />
-			<entry key="individualSourceBundles" value="true" />
+            <!-- javac -->
+            <entry key="javacSource" value="1.8" />
+            <entry key="javacTarget" value="1.8" />
+            <entry key="compilerArg" value="-g -encoding UTF-8" />
+            <entry key="javacDebugLevel" value="lines, vars, source" />
+            <entry key="individualSourceBundles" value="true" />
 
-			<!-- p2 -->
-			<entry key="p2.gathering" value="true" />
-			<entry key="p2.compress" value="true" />
-			<entry key="p2.mirror.slicing.includeOptional" value="false" />
-			<entry key="p2.metadata.repo" value="${dir.results}/productRepo" />
-			<entry key="p2.artifact.repo" value="${dir.results}/productRepo" />
+            <!-- p2 -->
+            <entry key="p2.gathering" value="true" />
+            <entry key="p2.compress" value="true" />
+            <entry key="p2.mirror.slicing.includeOptional" value="false" />
+            <entry key="p2.metadata.repo" value="${dir.results}/productRepo" />
+            <entry key="p2.artifact.repo" value="${dir.results}/productRepo" />
 
-			<!-- https://bugs.eclipse.org/bugs/show_bug.cgi?id=468131 -->
-			<entry key="archivePrefix" value="${product.name}.app" />
-			<entry key="p2.director.profile" value="${product.name}" />
-		</propertyfile>
+            <!-- https://bugs.eclipse.org/bugs/show_bug.cgi?id=468131 -->
+            <entry key="archivePrefix" value="${product.name}.app" />
+            <entry key="p2.director.profile" value="${product.name}" />
+        </propertyfile>
 
-		<p2.mirror verbose="true" includepacked="false">
-			<destination location="file:${dir.repoBase}/eclipseDependencies"
-			             name="DeltaPack and Dependencies"
-			             format="${repoFormat}" />
-			<source>
-				<repository location="file:${localURL}/eclipse/updates/4.10/R-4.10-201812060815" />
-			</source>
-			<!-- all the dependencies from example.feature/feature.xml-->
-			<iu id="org.eclipse.e4.rcp.feature.group" />
+        <p2.mirror verbose="true" includepacked="false">
+            <destination location="file:${dir.repoBase}/eclipseDependencies"
+                         name="DeltaPack and Dependencies"
+                         format="${repoFormat}" />
+            <source>
+                <repository location="file:${localURL}/eclipse/updates/4.10/R-4.10-201812060815" />
+            </source>
+            <!-- all the dependencies from example.feature/feature.xml-->
+            <iu id="org.eclipse.e4.rcp.feature.group" />
 
-			<!-- eclipse delta-pack containing native/platform specific launchers -->
-			<iu id="org.eclipse.equinox.executable.feature.group" />
+            <!-- eclipse delta-pack containing native/platform specific launchers -->
+            <iu id="org.eclipse.equinox.executable.feature.group" />
 
-			<slicingoptions includeoptional="false" includenongreedy="false" />
-		</p2.mirror>
+            <slicingoptions includeoptional="false" includenongreedy="false" />
+        </p2.mirror>
 
-		<copy todir="${dir.repoBase}/bndRepo">
-			<fileset dir="${dir.bndRepo}" includes="**/*" />
-		</copy>
-	</target>
+        <copy todir="${dir.repoBase}/bndRepo">
+            <fileset dir="${dir.bndRepo}" includes="**/*" />
+        </copy>
+    </target>
 
-	<target name="build-product" depends="prepare">
-		<java classname="org.eclipse.equinox.launcher.Main" fork="true" failonerror="true">
-			<arg value="-application" />
-			<arg value="org.eclipse.ant.core.antRunner" />
-			<arg value="-configuration" />
-			<arg value="${dir.temp}/pdeProductBuild-${topLevelElementId}/configuration" />
-			<arg value="-data" />
-			<arg value="${dir.temp}/pdeProductBuild-${topLevelElementId}/data" />
-			<arg value="-Dbuilder=${dir.pdeBuild}" />
-			<arg value="-buildfile" />
-			<arg value="${ECLIPSE_HOME}/plugins/org.eclipse.pde.build_${ECLIPSE_PDEBUILD_VERSION}/scripts/productBuild/productBuild.xml" />
-			<arg value="-vmargs" />
-			<arg value="-Xmx756m" />
-			<classpath>
-				<pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.equinox.launcher_${ECLIPSE_LAUNCHER_VERSION}.jar" />
-			</classpath>
-		</java>
-		<!-- fix for PDE bug Bug 468131 - PDE headless build does not generate the Mac OS X package correctly -->
-		<zip destfile="${dir.results}/productArchives/${product.name}_linux.gtk.x86_64.zip">
-			<mappedresources>
-				<zipfileset src="${dir.pdeBuild}/I.${product.name}/${product.name}-linux.gtk.x86_64.zip"
-				            includes="**/*"
-				            defaultexcludes="no"
-				            prefix="${product.name}" />
-				<globmapper from="${product.name}.app*" to="${product.name}*" />
-			</mappedresources>
-		</zip>
+    <target name="build-product" depends="prepare">
+        <java classname="org.eclipse.equinox.launcher.Main" fork="true" failonerror="true">
+            <arg value="-application" />
+            <arg value="org.eclipse.ant.core.antRunner" />
+            <arg value="-configuration" />
+            <arg value="${dir.temp}/pdeProductBuild-${topLevelElementId}/configuration" />
+            <arg value="-data" />
+            <arg value="${dir.temp}/pdeProductBuild-${topLevelElementId}/data" />
+            <arg value="-Dbuilder=${dir.pdeBuild}" />
+            <arg value="-buildfile" />
+            <arg value="${ECLIPSE_HOME}/plugins/org.eclipse.pde.build_${ECLIPSE_PDEBUILD_VERSION}/scripts/productBuild/productBuild.xml" />
+            <arg value="-vmargs" />
+            <arg value="-Xmx756m" />
+            <classpath>
+                <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.equinox.launcher_${ECLIPSE_LAUNCHER_VERSION}.jar" />
+            </classpath>
+        </java>
+        <!-- fix for PDE bug Bug 468131 - PDE headless build does not generate the Mac OS X package correctly -->
+        <zip destfile="${dir.results}/productArchives/${product.name}_linux.gtk.x86_64.zip">
+            <mappedresources>
+                <zipfileset src="${dir.pdeBuild}/I.${product.name}/${product.name}-linux.gtk.x86_64.zip"
+                            includes="**/*"
+                            defaultexcludes="no"
+                            prefix="${product.name}" />
+                <globmapper from="${product.name}.app*" to="${product.name}*" />
+            </mappedresources>
+        </zip>
 
-		<zip destfile="${dir.results}/productArchives/${product.name}_win32.win32.x86_64.zip">
-			<mappedresources>
-				<zipfileset src="${dir.pdeBuild}/I.${product.name}/${product.name}-win32.win32.x86_64.zip"
-				            includes="**/*"
-				            defaultexcludes="no"
-				            prefix="${product.name}" />
-				<globmapper from="${product.name}.app*" to="${product.name}*" />
-			</mappedresources>
-		</zip>
+        <zip destfile="${dir.results}/productArchives/${product.name}_win32.win32.x86_64.zip">
+            <mappedresources>
+                <zipfileset src="${dir.pdeBuild}/I.${product.name}/${product.name}-win32.win32.x86_64.zip"
+                            includes="**/*"
+                            defaultexcludes="no"
+                            prefix="${product.name}" />
+                <globmapper from="${product.name}.app*" to="${product.name}*" />
+            </mappedresources>
+        </zip>
 
-		<zip destfile="${dir.results}/productArchives/${product.name}_macosx.cocoa.x86_64.zip">
-			<mappedresources>
-				<zipfileset src="${dir.pdeBuild}/I.${product.name}/${product.name}-macosx.cocoa.x86_64.zip"
-				            includes="**/*"
-				            defaultexcludes="no"
-				            prefix="${product.name}">
-					<exclude name="${product.name}.app/Contents/MacOS/eclipse" />
-				</zipfileset>
-				<globmapper from="${product.name}.app*" to="${product.name}.app*" />
-			</mappedresources>
-		</zip>
-		<copy todir="${dir.temp}/bug468131/${product.name}.app/Contents/MacOS"
-		      file="${dir.workspace}/build.template/bug468131/eclipse" />
-		<tstamp>
-			<format property="touch.time" pattern="MM/dd/yyyy hh:mm aa" />
-		</tstamp>
-		<touch datetime="${touch.time}">
-			<fileset dir="${dir.temp}/bug468131/${product.name}.app/Contents/MacOS" includes="*" />
-		</touch>
-		<zip destfile="${dir.results}/productArchives/${product.name}_macosx.cocoa.x86_64.zip" update="true">
-			<zipfileset dir="${dir.temp}/bug468131" includes="**/*" filemode="733" />
-		</zip>
-		<echo file="${file.latest}" message="${NOW}" />
-	</target>
+        <zip destfile="${dir.results}/productArchives/${product.name}_macosx.cocoa.x86_64.zip">
+            <mappedresources>
+                <zipfileset src="${dir.pdeBuild}/I.${product.name}/${product.name}-macosx.cocoa.x86_64.zip"
+                            includes="**/*"
+                            defaultexcludes="no"
+                            prefix="${product.name}">
+                    <exclude name="${product.name}.app/Contents/MacOS/*" />
+                </zipfileset>
+                <globmapper from="${product.name}.app*" to="${product.name}.app*" />
+            </mappedresources>
+        </zip>
+        <unzip dest="${dir.temp}/bug468131"
+               src="${dir.pdeBuild}/I.${product.name}/${product.name}-macosx.cocoa.x86_64.zip">
+            <patternset>
+                <include name="${product.name}.app/Contents/MacOS/*" />
+            </patternset>
+        </unzip>
+        <tstamp>
+            <format property="touch.time" pattern="MM/dd/yyyy hh:mm aa" />
+        </tstamp>
+        <touch datetime="${touch.time}">
+            <fileset dir="${dir.temp}/bug468131/${product.name}.app/Contents/MacOS" includes="*" />
+        </touch>
+        <zip destfile="${dir.results}/productArchives/${product.name}_macosx.cocoa.x86_64.zip" update="true">
+            <zipfileset dir="${dir.temp}/bug468131" includes="**/*" filemode="744" />
+        </zip>
+        <echo file="${file.latest}" message="${NOW}" />
+    </target>
 
-	<!-- - - - - - - - - - - - - - - - - - 
+    <!-- - - - - - - - - - - - - - - - - - 
           target: p2.director.install.ant              
          - - - - - - - - - - - - - - - - - -->
-	<target name="p2.director.install.ant">
-		<loadfile property="latestBuild" srcFile="${file.latest}" />
-		<property name="director.output" value="${dir.script}/_results/${latestBuild}/directorInstall" />
-		<p2.director.installation os="win32"
-		                          ws="win32"
-		                          arch="x86_64"
-		                          sourcerepo="${dir.script}/_results/${latestBuild}/productRepo"
-		                          destination="${director.output}" />
-		<p2.director.installation os="linux"
-		                          ws="gtk"
-		                          arch="x86_64"
-		                          sourcerepo="${dir.script}/_results/${latestBuild}/productRepo"
-		                          destination="${director.output}" />
-		<p2.director.installation os="macosx"
-		                          ws="cocoa"
-		                          arch="x86_64"
-		                          sourcerepo="${dir.script}/_results/${latestBuild}/productRepo"
-		                          destination="${director.output}/macosx" />
-	</target>
+    <target name="p2.director.install.ant">
+        <loadfile property="latestBuild" srcFile="${file.latest}" />
+        <property name="director.output" value="${dir.script}/_results/${latestBuild}/directorInstall" />
+        <p2.director.installation os="win32"
+                                  ws="win32"
+                                  arch="x86_64"
+                                  sourcerepo="${dir.script}/_results/${latestBuild}/productRepo"
+                                  destination="${director.output}" />
+        <p2.director.installation os="linux"
+                                  ws="gtk"
+                                  arch="x86_64"
+                                  sourcerepo="${dir.script}/_results/${latestBuild}/productRepo"
+                                  destination="${director.output}" />
+        <p2.director.installation os="macosx"
+                                  ws="cocoa"
+                                  arch="x86_64"
+                                  sourcerepo="${dir.script}/_results/${latestBuild}/productRepo"
+                                  destination="${director.output}/macosx" />
+    </target>
 
-	<!-- = = = = = = = = = = = = = = = = =
+    <!-- = = = = = = = = = = = = = = = = =
           macrodef: p2.director.installation          
          = = = = = = = = = = = = = = = = = -->
-	<macrodef name="p2.director.installation">
-		<attribute name="os" />
-		<attribute name="ws" />
-		<attribute name="arch" />
-		<attribute name="sourceRepo" />
-		<attribute name="destination" />
-		<sequential>
-			<echo message="p2.director installation of IU ${topLevelElementId}" />
-			<echo message="from repository @{sourceRepo}" />
-			<echo message="into destination @{destination}/@{os}.@{ws}.@{arch}" />
-			<p2.director os="@{os}"
-			             ws="@{ws}"
-			             arch="@{arch}"
-			             roaming="true"
-			             flavor="tooling"
-			             profile="exampleApp"
-			             metadatarepository="file:@{sourceRepo}"
-			             artifactrepository="file:@{sourceRepo}"
-			             destination="@{destination}/@{os}.@{ws}.@{arch}"
-			             outputProperty="build.launcher.p2.director.@{os}.@{ws}.@{arch}.output"
-			             extraArguments="-profileProperties org.eclipse.update.install.features=true">
-				<iu id="${topLevelElementId}" />
-			</p2.director>
-		</sequential>
-	</macrodef>
+    <macrodef name="p2.director.installation">
+        <attribute name="os" />
+        <attribute name="ws" />
+        <attribute name="arch" />
+        <attribute name="sourceRepo" />
+        <attribute name="destination" />
+        <sequential>
+            <echo message="p2.director installation of IU ${topLevelElementId}" />
+            <echo message="from repository @{sourceRepo}" />
+            <echo message="into destination @{destination}/@{os}.@{ws}.@{arch}" />
+            <p2.director os="@{os}"
+                         ws="@{ws}"
+                         arch="@{arch}"
+                         roaming="true"
+                         flavor="tooling"
+                         profile="exampleApp"
+                         metadatarepository="file:@{sourceRepo}"
+                         artifactrepository="file:@{sourceRepo}"
+                         destination="@{destination}/@{os}.@{ws}.@{arch}"
+                         outputProperty="build.launcher.p2.director.@{os}.@{ws}.@{arch}.output"
+                         extraArguments="-profileProperties org.eclipse.update.install.features=true">
+                <iu id="${topLevelElementId}" />
+            </p2.director>
+        </sequential>
+    </macrodef>
 
-	<!-- ================================= 
+    <!-- ================================= 
           target: removeRequirementsCapabilitiesFromP2Repo              
          ================================= -->
-	<target name="removeRequirementsCapabilitiesFromP2Repo">
-		<loadfile property="latestBuild" srcFile="${file.latest}" />
-		<property name="p2repo2remove"
-		          value="${dir.script}/_results/${latestBuild}/productRepoWithoutCapReq/content.jar" />
+    <target name="removeRequirementsCapabilitiesFromP2Repo">
+        <loadfile property="latestBuild" srcFile="${file.latest}" />
+        <property name="p2repo2remove"
+                  value="${dir.script}/_results/${latestBuild}/productRepoWithoutCapReq/content.jar" />
 
-		<echo message="removing all requirements/capabilities from p2 content repo inside ${p2repo2remove}" />
-		<copy todir="${dir.script}/_results/${latestBuild}/productRepoWithoutCapReq"
-		      file="${dir.script}/_results/${latestBuild}/productRepo/content.jar" />
-		<xslTransformation targetfile="${p2repo2remove}" />
-	</target>
+        <echo message="removing all requirements/capabilities from p2 content repo inside ${p2repo2remove}" />
+        <copy todir="${dir.script}/_results/${latestBuild}/productRepoWithoutCapReq"
+              file="${dir.script}/_results/${latestBuild}/productRepo/content.jar" />
+        <xslTransformation targetfile="${p2repo2remove}" />
+    </target>
 
 
-	<!-- = = = = = = = = = = = = = = = = =
+    <!-- = = = = = = = = = = = = = = = = =
 	      macrodef: xslTransformation          
 	     = = = = = = = = = = = = = = = = = -->
-	<macrodef name="xslTransformation">
-		<attribute name="targetFile" />
-		<sequential>
-			<property name="tranformJar" value="${dir.script}/lib/transform.xslt.jar" />
-			<dirname file="@{targetFile}" property="dirTargetFile" />
-			<java jar="${tranformJar}" fork="true" failonerror="true" output="${dirTargetFile}/xslTransform.log">
-				<arg line="@{targetFile}" />
-				<jvmarg value="-Dbackup=true" />
-			</java>
-		</sequential>
-	</macrodef>
+    <macrodef name="xslTransformation">
+        <attribute name="targetFile" />
+        <sequential>
+            <property name="tranformJar" value="${dir.script}/lib/transform.xslt.jar" />
+            <dirname file="@{targetFile}" property="dirTargetFile" />
+            <java jar="${tranformJar}" fork="true" failonerror="true" output="${dirTargetFile}/xslTransform.log">
+                <arg line="@{targetFile}" />
+                <jvmarg value="-Dbackup=true" />
+            </java>
+        </sequential>
+    </macrodef>
 
 
-	<property name="dir.bndRepo" value="${dir.results}/bndRepo" />
-	<property name="dir.wrk" value="${dir.script}/_wrk" />
-	<property name="dir.repoBase" value="${dir.wrk}/repoBase" />
-	<property name="file.latest" value="${dir.script}/_results/latest.txt" />
+    <property name="dir.bndRepo" value="${dir.results}/bndRepo" />
+    <property name="dir.wrk" value="${dir.script}/_wrk" />
+    <property name="dir.repoBase" value="${dir.wrk}/repoBase" />
+    <property name="file.latest" value="${dir.script}/_results/latest.txt" />
 
-	<tempfile property="dir.temp" destDir="${dir.wrk}" prefix="build" />
-	<property name="dir.pdeBuild" value="${dir.temp}/buildDirectory" />
+    <tempfile property="dir.temp" destDir="${dir.wrk}" prefix="build" />
+    <property name="dir.pdeBuild" value="${dir.temp}/buildDirectory" />
 
-	<property name="repoFormat" value="jar:file:${dir.workspace}/build.template/p2_repo_packedSiblings.zip!/" />
+    <property name="repoFormat" value="jar:file:${dir.workspace}/build.template/p2_repo_packedSiblings.zip!/" />
 
-	<import file="${dir.workspace}/build.ant/common/macros.xml" />
+    <import file="${dir.workspace}/build.ant/common/macros.xml" />
 
-	<taskdef resource="net/sf/antcontrib/antlib.xml">
-		<classpath>
-			<pathelement location="${dir.workspace}/build.ant/lib/ant-contrib-1.0b3.jar" />
-		</classpath>
-	</taskdef>
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+        <classpath>
+            <pathelement location="${dir.workspace}/build.ant/lib/ant-contrib-1.0b3.jar" />
+        </classpath>
+    </taskdef>
 
 </project>
