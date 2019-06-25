@@ -186,6 +186,10 @@
                 <globmapper from="${product.name}.app*" to="${product.name}.app*" />
             </mappedresources>
         </zip>
+        <!-- 
+        Bug 468131 - PDE headless build does not generate the Mac OS X package correctly
+        https://bugs.eclipse.org/bugs/show_bug.cgi?id=468131#c20
+        -->
         <unzip dest="${dir.temp}/bug468131"
                src="${dir.pdeBuild}/I.${product.name}/${product.name}-macosx.cocoa.x86_64.zip">
             <patternset>
@@ -210,36 +214,55 @@
     <target name="p2.director.install.ant">
         <loadfile property="latestBuild" srcFile="${file.latest}" />
         <property name="director.output" value="${dir.script}/_results/${latestBuild}/directorInstall" />
-        <p2.director.installation os="win32"
+        <p2.director.installation product.name="${product.name}"
+                                  topLevelElementId="${topLevelElementId}"
+                                  os="win32"
                                   ws="win32"
                                   arch="x86_64"
                                   sourcerepo="${dir.script}/_results/${latestBuild}/productRepo"
                                   destination="${director.output}" />
-        <p2.director.installation os="linux"
+        <p2.director.installation product.name="${product.name}"
+                                  topLevelElementId="${topLevelElementId}"
+                                  os="linux"
                                   ws="gtk"
                                   arch="x86_64"
                                   sourcerepo="${dir.script}/_results/${latestBuild}/productRepo"
                                   destination="${director.output}" />
-        <p2.director.installation os="macosx"
+        <p2.director.installation product.name="${product.name}"
+                                  topLevelElementId="${topLevelElementId}"
+                                  os="macosx"
                                   ws="cocoa"
                                   arch="x86_64"
                                   sourcerepo="${dir.script}/_results/${latestBuild}/productRepo"
-                                  destination="${director.output}/macosx" />
+                                  destination="${director.output}" />
     </target>
 
     <!-- = = = = = = = = = = = = = = = = =
           macrodef: p2.director.installation          
          = = = = = = = = = = = = = = = = = -->
     <macrodef name="p2.director.installation">
+        <attribute name="product.name" />
+        <attribute name="topLevelElementId" />
         <attribute name="os" />
         <attribute name="ws" />
         <attribute name="arch" />
         <attribute name="sourceRepo" />
         <attribute name="destination" />
         <sequential>
-            <echo message="p2.director installation of IU ${topLevelElementId}" />
+            <!-- fix for macosx p2.director install location -->
+            <if>
+                <equals arg1="@{os}" arg2="macosx" />
+                <then>
+                    <property name="destination"
+                              value="@{destination}/@{os}.@{ws}.@{arch}/@{product.name}.app/Contents/Eclipse" />
+                </then>
+                <else>
+                    <property name="destination" value="@{destination}/@{os}.@{ws}.@{arch}/@{product.name}" />
+                </else>
+            </if>
+            <echo message="p2.director installation of IU @{topLevelElementId}" />
             <echo message="from repository @{sourceRepo}" />
-            <echo message="into destination @{destination}/@{os}.@{ws}.@{arch}" />
+            <echo message="into destination ${destination}/@{os}.@{ws}.@{arch}" />
             <p2.director os="@{os}"
                          ws="@{ws}"
                          arch="@{arch}"
@@ -248,11 +271,12 @@
                          profile="exampleApp"
                          metadatarepository="file:@{sourceRepo}"
                          artifactrepository="file:@{sourceRepo}"
-                         destination="@{destination}/@{os}.@{ws}.@{arch}"
+                         destination="${destination}"
                          outputProperty="build.launcher.p2.director.@{os}.@{ws}.@{arch}.output"
                          extraArguments="-profileProperties org.eclipse.update.install.features=true">
                 <iu id="${topLevelElementId}" />
             </p2.director>
+            <var name="destination" unset="true" />
         </sequential>
     </macrodef>
 
