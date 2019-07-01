@@ -51,6 +51,18 @@ public class JarUnsigner {
 		}
 	}
 
+	public static void unsignJarFile(String jarFile) {
+		try {
+			Path sourceFile = Paths.get(jarFile).toAbsolutePath();
+			Path tempFile = Files.createTempFile("unsign", "");
+			Files.move(sourceFile, tempFile, StandardCopyOption.REPLACE_EXISTING);
+			unsignJar(tempFile.toString(), sourceFile.toString());
+			tempFile.toFile().delete();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	private static void unsignJar(String infile, String outfile) {
 		try {
 			ZipFile zipFile = new ZipFile(infile);

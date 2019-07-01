@@ -1,6 +1,7 @@
 package io.klib.tools.signing;
 
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -55,6 +56,18 @@ public class JarSigner {
 							e.printStackTrace();
 						}
 					});
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void signJarFile(Properties config, String jarFile) {
+		try {
+			Path sourceFile = Paths.get(jarFile).toAbsolutePath();
+			Path tempFile = Files.createTempFile("sign", "");
+			Files.move(sourceFile, tempFile, StandardCopyOption.REPLACE_EXISTING);
+			signJar(tempFile.toString(), sourceFile.toString(), config);
+			tempFile.toFile().delete();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -132,6 +145,10 @@ public class JarSigner {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static void verifyJarFile(String jarFile) {
+		verifyJar(jarFile);
 	}
 
 	private static void verifyJar(String jar) {
