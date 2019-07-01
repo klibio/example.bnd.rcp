@@ -4,5 +4,6 @@
 	<classpathentry kind="src" output="bin_test" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="con" path="aQute.bnd.classpath.container"/>
+	<classpathentry kind="lib" path="C:/cec/ENGINE_LIB_DIR/build/java/win32/x86_64/jdk8u202-b08/lib/tools.jar" sourcepath="C:/cec/ENGINE_LIB_DIR/build/java/win32/x86_64/jdk8u202-b08/src.zip"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
