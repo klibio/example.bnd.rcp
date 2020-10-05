@@ -33,11 +33,34 @@ public class XSLTransform {
 
 	/**
 	 * 
-	 * @param args
-	 *            jar or xml file to process
+	 * @param args jar or xml file to process
 	 */
 	private void run(String[] args) {
-		String xsltFile = SEP + "xslt" + SEP + "transform.xslt";
+
+		// default
+		File inputFile = null;
+		String xsltFile = null;
+		for (String arg : args) {
+			if (arg.contains("=")) {
+				String[] argSplit = arg.split("=");
+				String key = argSplit[0];
+				String value = argSplit[1];
+				if (key.equalsIgnoreCase("xsltFile")) {
+					xsltFile = value;
+				}
+				if (key.equalsIgnoreCase("transformFile")) {
+					inputFile = new File(value);
+				}
+			} else {
+				System.out.format("provided argument %s is not assignment <argument>=<value>", arg);
+				System.exit(-1);
+			}
+		}
+		if ((inputFile == null) || !inputFile.exists() || !inputFile.isFile()) {
+			System.out.format("no file %s does not exist", args[0]);
+			System.exit(-1);
+		}
+
 		Path tmpDir = null;
 		try {
 			tmpDir = Files.createTempDirectory("_transformXSLT");
@@ -46,20 +69,9 @@ public class XSLTransform {
 			e2.printStackTrace();
 		}
 
-		File inputFile = new File(args[0]);
-		if ((inputFile == null) || !inputFile.exists() || !inputFile.isFile()) {
-			System.out.format("provided file %s does not exist", args[0]);
-			System.exit(-1);
-		}
-
 		InputStream xsltInputStream = null;
-		if (args.length > 1) {
-			try {
-				xsltInputStream = new FileInputStream(new File(args[1]));
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
-		} else {
+		if (xsltFile == null) {
+			xsltFile = SEP + "xslt" + SEP + "transform.xslt";
 			xsltInputStream = XSLTransform.class.getResourceAsStream(xsltFile.replace("\\", "/"));
 			if (xsltInputStream == null) {
 				try {
@@ -67,6 +79,12 @@ public class XSLTransform {
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
+			}
+		} else {
+			try {
+				xsltInputStream = new FileInputStream(xsltFile);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
 			}
 		}
 
@@ -139,7 +157,7 @@ public class XSLTransform {
 			while (enumEntries.hasMoreElements()) {
 				JarEntry file = (JarEntry) enumEntries.nextElement();
 
-				if (file.getName().equals("artifacts.xml")) {
+				if (file.getName().equals("artifacts.xml") || file.getName().equals("content.xml")) {
 					Files.createDirectories(destination);
 					String filePathName = destination + File.separator + file.getName();
 					File f = new File(filePathName);
