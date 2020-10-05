@@ -1,6 +1,8 @@
 package io.klib.tools.signing;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,6 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Enumeration;
+import java.util.Scanner;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
@@ -23,18 +26,18 @@ public class JarUnsigner {
 		long start = System.currentTimeMillis();
 		if (args != null) {
 			for (String folder : args) {
-				unsignJarFiles(folder);
+				unsignFolder(folder);
 			}
 		}
 		long durationInS = (System.currentTimeMillis() - start) / 1000;
 		System.out.format("execution took %s seconds\n", durationInS);
 	}
 
-	public static void unsignJarFiles(String rootFolder) {
+	public static void unsignFolder(String rootFolder) {
 
 		try {
 			Files.find(Paths.get(rootFolder), Integer.MAX_VALUE,
-					(filePath, fileAttr) -> fileAttr.isRegularFile() && filePath.toString().endsWith(JAR))
+					(filePath, fileAttr) -> fileAttr.isRegularFile() && filePath.toString().endsWith(JAR)).parallel()
 					.forEach(f -> {
 						try {
 							Path sourceFile = f.toAbsolutePath();
@@ -47,6 +50,27 @@ public class JarUnsigner {
 						}
 					});
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void unsignJarFiles(String filelist) {
+		try {
+			Scanner scanner = new Scanner(new File(filelist));
+			while (scanner.hasNextLine()) {
+				String line = scanner.nextLine();
+				try {
+					Path sourceFile = Paths.get(line).toAbsolutePath();
+					Path tempFile = Files.createTempFile("unsign", "");
+					Files.move(sourceFile, tempFile, StandardCopyOption.REPLACE_EXISTING);
+					unsignJar(tempFile.toString(), sourceFile.toString());
+					tempFile.toFile().deleteOnExit();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			scanner.close();
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
@@ -111,7 +135,7 @@ public class JarUnsigner {
 			}
 			zos.close();
 			zipFile.close();
-			System.out.println("Successfully unsigned " + outfile);
+			System.out.println("Successfully unsigned " + outfile.replaceFirst(".*[/|\\\\]", ""));
 
 		} catch (IOException ex) {
 			System.err.println("Error for file: " + infile);

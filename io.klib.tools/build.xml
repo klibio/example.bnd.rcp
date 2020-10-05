@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+1. copy
+2. remove packed
+3. unsign
+4. sign
+5. p2.process.artifacts with or without pack=true
+-->
+<project name="project" default="everything">
+
+	<tstamp>
+		<format property="NOW" pattern="yyyyMMdd-HHmmss" />
+	</tstamp>
+	<dirname property="dir.script.os" file="${ant.file.mirrorEclipseRepos}" />
+	<pathconvert property="dir.script" targetos="unix">
+		<path location="${dir.script.os}" />
+	</pathconvert>
+	<pathconvert property="dir.workspace" targetos="unix">
+		<path location="${dir.script.os}/.." />
+	</pathconvert>
+
+	<property name="platformRepoOrigin"
+	          value="C:/cec/ENGINE_LIB_DIR/repo/download.eclipse.org/eclipse/updates/4.10/R-4.10-201812060815" />
+
+	<property name="platformRepo"
+	          value="C:/cec/ENGINE_LIB_DIR/repoSigned/download.eclipse.org/eclipse/updates/4.10/R-4.10-201812060815" />
+
+	<property name="simuRepoOrigin"
+	          value="C:/cec/ENGINE_LIB_DIR/repo/download.eclipse.org/releases/2018-12/201812191000" />
+
+	<property name="simuRepo"
+	          value="C:/cec/ENGINE_LIB_DIR/repoSigned/download.eclipse.org/releases/2018-12/201812191000" />
+
+	<target name="everything">
+		<prepare-repo sourcerepo="${simuRepoOrigin}" targetrepo="${simuRepo}" />
+	</target>
+
+	<!-- = = = = = = = = = = = = = = = = =
+          macrodef: prepare-repo          
+         = = = = = = = = = = = = = = = = = -->
+	<macrodef name="prepare-repo">
+		<attribute name="sourceRepo" />
+		<attribute name="targetRepo" />
+		<attribute name="properties" default="${user.home}/.signing_cec.properties" />
+		<sequential>
+			<!--
+			<echo message="copy the origin repo to @{targetRepo}" />
+			<copy todir="@{targetRepo}">
+				<fileset dir="@{sourceRepo}" includes="**/*" />
+			</copy>
+
+			<echo message="remove the packed (.jar.gz) bundles" />
+			<p2.remove.iu>
+				<repository location="@{targetRepo}" />
+				<iu artifacts="(format=packed)" />
+			</p2.remove.iu>
+			<echo message="unsign bundles" />
+			<java fork="true"
+			      failonerror="true"
+			      jar="${dir.workspace}/io.klib.tools/generated/io.klib.tools.jarsigner.jar">
+				<arg value="unsign" />
+				<arg value="@{targetRepo}" />
+			</java>
+			<echo message="sign bundles" />
+			<java fork="true"
+			      failonerror="true"
+			      jar="${dir.workspace}/io.klib.tools/generated/io.klib.tools.jarsigner.jar">
+				<arg value="sign" />
+				<arg value="@{properties}" />
+				<arg value="@{targetRepo}" />
+			</java>
+
+			<echo message="update the p2 repo metadata @{targetRepo}" />
+			<p2.process.artifacts repositorypath="file:@{targetRepo}" pack="true" />
+-->
+
+			<echo message="create a filelist" />
+			<createList location="@{targetRepo}/features" file="@{targetRepo}/filelist.txt" />
+			<createList location="@{targetRepo}/plugins" file="@{targetRepo}/filelist.txt" />
+
+		</sequential>
+	</macrodef>
+
+	<!-- = = = = = = = = = = = = = = = = =
+          macrodef: createList          
+         = = = = = = = = = = = = = = = = = -->
+	<macrodef name="createList">
+		<attribute name="location" />
+		<attribute name="file" />
+		<sequential>
+			<fileset dir="@{location}" id="idFiles">
+				<include name="*.jar" />
+				<exclude name="*.jar.pack.gz" />
+			</fileset>
+			<pathconvert property="fileToSignExcludeList" targetos="unix" pathsep="${line.separator}" refid="idFiles">
+				<flattenmapper />
+			</pathconvert>
+			<echo message="${fileToSignExcludeList}${line.separator}" file="@{file}" append="true" />
+		</sequential>
+	</macrodef>
+
+</project>
