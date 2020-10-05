@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/io.klib.transform.xslt/src/io/klib/transform/xslt/XSLTransform.java"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="1"/>
+</listAttribute>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="io.klib.transform.xslt.XSLTransform"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="${project_loc:/io.klib.transform.xslt}/data/content.jar"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="io.klib.transform.xslt"/>
+</launchConfiguration>
