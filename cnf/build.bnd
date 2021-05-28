@@ -1,3 +1,22 @@
+########################
+## BUILD SETTINGS ##
+########################
+## Java Compiler Options
+#java:                  java
+#javac:                 javac
+javac.source:           1.8
+javac.target:           1.8
+javac.compliance:       1.8
+javac.debug:            on
+
+# Maven info. The maven artifactId defaults to Bundle-SymbolicName
+-groupid:               klib.io
+-pom:                   version=${versionmask;===s;${@version}}
+-maven-release:         pom;path=JAR,javadoc;-classpath="${project.buildpath}"
+
+Automatic-Module-Name:  ${def;bsn}
+Bundle-Vendor:          Kirschners GmbH https://klib.io/
+Bundle-Copyright:       Copyright (c) Kirschners GmbH (2017, ${tstamp;yyyy}) and others. All Rights Reserved.
 
 # Configure Repositories
 -plugin.1.R7.API: \
@@ -46,13 +65,11 @@
 		name = Local; \
 		pretty = true; \
 		local = ${build}/local
-
 -plugin.8.Templates: \
 	aQute.bnd.deployer.repository.LocalIndexedRepo; \
 		name = Templates; \
 		pretty = true; \
 		local = ${build}/templates
-
 -plugin.9.Release: \
 	aQute.bnd.deployer.repository.LocalIndexedRepo; \
 		name = Release; \
@@ -79,21 +96,21 @@ mockito-deps: org.objenesis; version=2.6.0,\
 cache = "${build}/cnf/cache"
 
 # Eclipse Release repositories 
-eclipse.version          = 4.10
-eclipse.name             = 2018-12
-eclipse.platform.version = R-4.10-201812060815
-eclipse.simu.version     = 201812191000
+eclipse.version          = 4.18
+eclipse.name             = 2020-12
+eclipse.platform.version = R-4.18-202012021800
+eclipse.simu.version     = 202012161000
 
 eclipse.platform.baseurl = http://download.eclipse.org/eclipse/updates
 #eclipse.platform.baseurl = "${fileuri;${user.home}}www/download.eclipse.org/eclipse/updates"
-eclipse.platform.name    = "Eclipse Platform ${eclipse.platform.version}"
+eclipse.platform.name    = "Platform_${eclipse.platform.version}"
 eclipse.platform.url     = "${eclipse.platform.baseurl}/${eclipse.version}/${eclipse.platform.version}"
 
 
 
 eclipse.simu.baseurl = http://download.eclipse.org/releases
 #eclipse.simu.baseurl = "${fileuri;${user.home}}www/download.eclipse.org/releases"
-eclipse.simu.name    = "Eclipse Simu Release ${eclipse.name} - ${eclipse.simu.version}"
+eclipse.simu.name    = "SimuRel_${eclipse.name}_${eclipse.simu.version}"
 eclipse.simu.url     = "${eclipse.simu.baseurl}/${eclipse.name}/${eclipse.simu.version}"
 
 # Remote Eclipse repositories

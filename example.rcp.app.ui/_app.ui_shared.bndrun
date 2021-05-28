@@ -1,0 +1,28 @@
+-include: \
+    ${workspace}/cnf/fixedIndices/bnd_runrequires_Eclipse_Platform.bndrun
+
+# This run file contains all the cross-platform bundle and settings to run 
+# Do not run this, use the platform-specific bndrun files (which "-include" this)
+
+-runfw: org.eclipse.osgi;version='[3.16,4)';repo='Platform*'
+-runee: JavaSE-11
+
+-runproperties: \
+	eclipse.product=example.rcp.app.ui.product,\
+	launch.keep=false,\
+	launch.storage.dir=_rt/cfg
+
+-runrequires: \
+	osgi.identity;filter:='(&(osgi.identity=bndtools.runtime.applaunch.eclipse4)(version>=0.1.0))',\
+	${fea_org.eclipse.rcp_4.18.0.v20201202-1800},\
+	osgi.identity;filter:='(&(osgi.identity=example.rcp.app.ui)(version>=0.1.0))'
+
+-runrepos: \
+	"Workspace",\
+	"Local",\
+	"Platform_R-4.18-202012021800"
+
+# This will help us keep -runbundles sorted
+-runstartlevel: \
+    order=sortbynameversion,\
+    begin=-1
