@@ -14,7 +14,7 @@
 
 -runrequires: \
 	osgi.identity;filter:='(&(osgi.identity=bndtools.runtime.applaunch.eclipse4)(version>=0.1.0))',\
-	${fea_org.eclipse.rcp_4.18.0.v20201202-1800},\
+	${fea_org.eclipse.e4.rcp_4.18.0.v20201202-1103},\
 	osgi.identity;filter:='(&(osgi.identity=example.rcp.app.ui)(version>=0.1.0))'
 
 -runrepos: \

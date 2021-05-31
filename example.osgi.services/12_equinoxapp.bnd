@@ -1,0 +1,9 @@
+name=${project.name}.${replace;${thisfile};.*/...(.*).bnd;$1}
+Automatic-Module-Name: ${name}
+Bundle-SymbolicName: ${name};singleton:=true
+Bundle-Version: 0.1.0.${tstamp}
+
+-includeresource: ./root/
+
+-privatepackage: example.osgi.services.equinoxapp
+Bundle-Activator: example.osgi.services.equinoxapp.MyBundleActivator

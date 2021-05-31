@@ -1,7 +1,5 @@
-#Bundle-Version: 0.1.0.${tstamp;yyyyMMdd-HHmmss}
-
--runee: JavaSE-1.8
--runfw: org.eclipse.osgi;version='[3.13,4)'
+-runee: JavaSE-11
+-runfw: org.eclipse.osgi;version='[3.16,4)'
 
 -runproperties: \
     launch.keep=false,\
@@ -16,6 +14,6 @@
 -runbundles: \
 	bndtools.runtime.applaunch.eclipse4;version='[0.1.0,0.1.1)',\
 	example.rcp.headless;version=snapshot,\
-	org.eclipse.equinox.app;version='[1.4.0,1.4.1)',\
-	org.eclipse.equinox.common;version='[3.10.200,3.10.201)',\
-	org.eclipse.equinox.registry;version='[3.8.200,3.8.201)'
+	org.eclipse.equinox.app;version='[1.5.0,1.5.1)',\
+	org.eclipse.equinox.common;version='[3.14.0,3.14.1)',\
+	org.eclipse.equinox.registry;version='[3.10.0,3.10.1)'
