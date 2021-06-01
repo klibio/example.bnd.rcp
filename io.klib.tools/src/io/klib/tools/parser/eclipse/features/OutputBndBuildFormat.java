@@ -26,6 +26,7 @@ public class OutputBndBuildFormat extends OutputContextDefault implements Output
 
 	TreeMap<String, TreeSet<String>> fragments = new TreeMap<>();
 	TreeMap<String, Hashtable<String, String>> configs = new TreeMap<>();
+
 	public OutputBndBuildFormat() {
 		super();
 		config_WIN32_WIN32_X86_64.put("osgi.os", "win32");
@@ -107,12 +108,12 @@ public class OutputBndBuildFormat extends OutputContextDefault implements Output
 	}
 
 	private void appendBndBuildHeader(StringBuffer tocBndBuild) {
-		//Path filename = path.getName(path.getNameCount() - 2);
+		// Path filename = path.getName(path.getNameCount() - 2);
 		Path filename = Paths.get("hugo");
 		tocBndBuild.append(
 				"# This file contains include variables for bnd files inside statements '-buildpath' or '-runbundles'\n");
 		tocBndBuild.append("\n# Usage example for a dependency on feature org.eclipse.rcp\n");
-		tocBndBuild.append(String.format("#-include: \\\n#    %s\n", filename ));
+		tocBndBuild.append(String.format("#-include: \\\n#    %s\n", filename));
 		tocBndBuild.append("#\n");
 		tocBndBuild.append("# -buildpath: \\\n");
 		tocBndBuild.append(String.format("#    ${%sorg.eclipse.rcp_4.7.0.v20170612-1255}\n", FEATURE_PREFIX));
@@ -149,11 +150,9 @@ public class OutputBndBuildFormat extends OutputContextDefault implements Output
 			pluginList.stream().forEach(p -> {
 				String bundleID = p.getId();
 				String version = p.getVersion();
-/*				
-				String os = p.getOs();
-				String ws = p.getWs();
-				String arch = p.getArch();
-*/
+				/*
+				 * String os = p.getOs(); String ws = p.getWs(); String arch = p.getArch();
+				 */
 				plugins.append(String.format("    %s;version='[%s,%s]',\\\n", bundleID, version, version));
 			});
 			// remove the trailing ",\\n"

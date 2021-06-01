@@ -14,7 +14,7 @@ public class MyBundleActivator implements BundleActivator {
 	@Override
 	public void start(BundleContext context) throws Exception {
 		if (serviceTracker == null) {
-			System.out.format("%s,%s: creating service tracker for %s\n", Thread.currentThread(),
+			System.out.format("%s: %s: creating service tracker for %s\n", Thread.currentThread(),
 					MyBundleActivator.class.getSimpleName(), ImmediateService.class);
 			serviceTracker = new ServiceTracker<ImmediateService, ImmediateService>(context, ImmediateService.class,
 					null) {
@@ -25,7 +25,7 @@ public class MyBundleActivator implements BundleActivator {
 					// The required service has become available, so we should
 					// start our service if it hasn't been started yet.
 					if (EquinoxApplication.service == null) {
-						System.out.format("%s,%s: service %s available\n", Thread.currentThread(),
+						System.out.format("%s: %s: service %s available\n", Thread.currentThread(),
 								MyBundleActivator.class.getSimpleName(), ImmediateService.class);
 						EquinoxApplication.service = result;
 					}
