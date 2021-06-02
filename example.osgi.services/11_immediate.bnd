@@ -1,7 +1,8 @@
 name=${project.name}.${replace;${thisfile};.*/...(.*).bnd;$1}
+
 Automatic-Module-Name: ${name}
+Bundle-ActivationPolicy: lazy
 Bundle-SymbolicName: ${name}
 Bundle-Version: 0.1.0.${tstamp}
-
 
 Export-Package: example.osgi.services.immediate

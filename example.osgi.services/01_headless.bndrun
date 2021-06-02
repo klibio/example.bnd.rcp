@@ -15,9 +15,9 @@
 
 -runbundles+: \
     bndtools.runtime.applaunch.eclipse4;    startlevel=1,\
+    org.apache.felix.scr;                   startlevel=2,\
     org.eclipse.equinox.simpleconfigurator; startlevel=2,\
     org.eclipse.equinox.common;             startlevel=3,\
     org.eclipse.equinox.event;              startlevel=3,\
     org.eclipse.equinox.cm;                 startlevel=3,\
-    org.apache.felix.scr;                   startlevel=4,\
     *;  

@@ -140,3 +140,5 @@ eclipse.simu.url     = "${eclipse.simu.baseurl}/${eclipse.name}/${eclipse.simu.v
 #    aQute.bnd.deployer.repository.FixedIndexedRepo; \
 #        name      = "Eclipse Simu Release - ${eclipse.simu.version}"; \
 #        locations = "${fileuri;${${workspace}}}cnf/fixedIndices/p2-Eclipse-Simu-Release/index.xml.gz"
+
+-noimportjava: true

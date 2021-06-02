@@ -5,6 +5,9 @@ import java.text.SimpleDateFormat;
 
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
+import org.osgi.util.tracker.ServiceTracker;
 
 import example.osgi.services.immediate.ImmediateService;
 
@@ -13,7 +16,7 @@ import example.osgi.services.immediate.ImmediateService;
  */
 public class EquinoxApplication implements IApplication {
 
-	final private static int timeout = 10 * 1000;
+	final private static int timeout = 15 * 1000;
 	protected static volatile ImmediateService service = null;
 
 	@Override
@@ -22,25 +25,12 @@ public class EquinoxApplication implements IApplication {
 				.format(new Timestamp(System.currentTimeMillis()));
 		System.out.format("%s: %s: headless equinox app launched at %s!\n", Thread.currentThread(),
 				EquinoxApplication.class.getSimpleName(), timeStamp);
-		Thread thread = new Thread() {
-			int timer = 0;
 
-			public void run() {
-				while (service == null && timer < timeout) {
-					System.out.format("%s: %s: waiting for ImmediateService since %s seconds!\n",
-							Thread.currentThread(), EquinoxApplication.class.getSimpleName(), timer / 1000);
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					timer = timer + 1000;
-				}
-				interrupt();
-			}
-		};
-		thread.setName("wait-for-service");
-		thread.run();
+		BundleContext bundleContext = FrameworkUtil.getBundle(EquinoxApplication.class).getBundleContext();
+		ServiceTracker<ImmediateService, ImmediateService> serviceTracker = new ServiceTracker<ImmediateService, ImmediateService>(
+				bundleContext, ImmediateService.class, null);
+		serviceTracker.open(true);
+		service = serviceTracker.waitForService(timeout);
 		if (service == null) {
 			System.out.format("%s: %s: timeout occured - service not found!\n", Thread.currentThread(),
 					EquinoxApplication.class.getSimpleName());

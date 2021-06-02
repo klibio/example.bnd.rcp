@@ -16,6 +16,16 @@
     eclipse.application=example.osgi.services.equinoxapp.application,\
 	launch.trace=false
 
+#-runbundles+: \
+#    bndtools.runtime.applaunch.eclipse4;    startlevel=1,\
+#    org.apache.felix.scr;                   startlevel=2,\
+#    org.eclipse.equinox.simpleconfigurator; startlevel=2,\
+#    org.eclipse.equinox.common;             startlevel=3,\
+#    org.eclipse.equinox.event;              startlevel=3,\
+#    org.eclipse.equinox.cm;                 startlevel=3,\
+#    example.osgi.services.equinoxapp;       startlevel=1,\
+#    *;  
+
 -runbundles: \
 	bndtools.runtime.applaunch.eclipse4;version='[0.1.0,0.1.1)',\
 	com.ibm.icu;version='[67.1.0,67.1.1)',\

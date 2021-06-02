@@ -11,10 +11,10 @@ public class ImmediateService {
 
 	@Activate
 	public void activate() {
-		System.out.format("%s: %s: waiting for activation\n", Thread.currentThread(),
-				ImmediateService.class.getSimpleName());
 		try {
-			int randomNumber = new Random().ints(1, 1, 5).findFirst().getAsInt();
+			int randomNumber = new Random().ints(3, 10).findFirst().getAsInt();
+			System.out.format("%s: %s: delay activation for %s seconds\n", Thread.currentThread(),
+					ImmediateService.class.getSimpleName(), randomNumber);
 			Thread.sleep(randomNumber * 1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
