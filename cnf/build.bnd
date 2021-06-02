@@ -103,10 +103,8 @@ eclipse.simu.version     = 202012161000
 
 eclipse.platform.baseurl = http://download.eclipse.org/eclipse/updates
 #eclipse.platform.baseurl = "${fileuri;${user.home}}www/download.eclipse.org/eclipse/updates"
-eclipse.platform.name    = "Platform_${eclipse.platform.version}"
+eclipse.platform.name    = Platform_${eclipse.platform.version}
 eclipse.platform.url     = "${eclipse.platform.baseurl}/${eclipse.version}/${eclipse.platform.version}"
-
-
 
 eclipse.simu.baseurl = http://download.eclipse.org/releases
 #eclipse.simu.baseurl = "${fileuri;${user.home}}www/download.eclipse.org/releases"
@@ -116,29 +114,31 @@ eclipse.simu.url     = "${eclipse.simu.baseurl}/${eclipse.name}/${eclipse.simu.v
 # Remote Eclipse repositories
 
 # 1. creation of the indices via this configurations and store inside cnf/fixedIndices
--plugin.10.eclipse.platform: \
-    aQute.bnd.repository.p2.provider.P2Repository; \
-        name  = ${eclipse.platform.name}; \
-        url   = ${eclipse.platform.url}; \
-        cache = "${cache}"
+#-plugin.10.eclipse.platform: \
+#    aQute.bnd.repository.p2.provider.P2Repository; \
+#        name  = ${eclipse.platform.name}; \
+#        url   = ${eclipse.platform.url}; \
+#        cache = "${cache}"
 
--plugin.11.eclipse.simu: \
-    aQute.bnd.repository.p2.provider.P2Repository; \
-        name  = ${eclipse.simu.name}; \
-        url   = ${eclipse.simu.url}; \
-        cache = ${cache}
+#-plugin.11.eclipse.simu: \
+#    aQute.bnd.repository.p2.provider.P2Repository; \
+#        name  = ${eclipse.simu.name}; \
+#        url   = ${eclipse.simu.url}; \
+#        cache = ${cache}
 
 # Reference the locally indexed eclipse repositories
 
-# 2. use the fixed indices saves the load time on new workspaces
-#-plugin.20.eclipse.platform: \
-#   aQute.bnd.deployer.repository.FixedIndexedRepo; \
-#       name      = "Eclipse Platform ${eclipse.platform.version}"; \
-#       locations = "${fileuri;${${workspace}}}cnf/fixedIndices/p2-Eclipse-Platform/index.xml.gz"
-#
+# 2. use the fixed indices saves the load time on new workspaces - https://bndtools.org/repositories.html
+-plugin.20.eclipse.platform: \
+	aQute.bnd.repository.osgi.OSGiRepository;\
+		locations=$[fileuri;${.}]/fixedIndices/p2-Platform_R-4.18-202012021800_index.xml.gz;\
+		name=${eclipse.platform.name};\
+		max.stale=-1
+
 #-plugin.21.eclipse.simu: \
-#    aQute.bnd.deployer.repository.FixedIndexedRepo; \
-#        name      = "Eclipse Simu Release - ${eclipse.simu.version}"; \
-#        locations = "${fileuri;${${workspace}}}cnf/fixedIndices/p2-Eclipse-Simu-Release/index.xml.gz"
+#	aQute.bnd.repository.osgi.OSGiRepository;\
+#        locations = ${fileuri;${.}}/fixedIndices/p2-SimuRel_2020-12_202012161000_index.xml.gz;\
+#        name      = ${eclipse.simu.name}; \
+#		max.stale=-1
 
 -noimportjava: true

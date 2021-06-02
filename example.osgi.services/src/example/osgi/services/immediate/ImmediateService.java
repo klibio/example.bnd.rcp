@@ -6,7 +6,7 @@ import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
 
-@Component(service = ImmediateService.class)
+@Component(immediate = true, service = ImmediateService.class)
 public class ImmediateService {
 
 	@Activate
