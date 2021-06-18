@@ -4,11 +4,11 @@
 	osgi.core;version=6.0,\
 	osgi.cmpn;version=6.0,\
 	osgi.annotation;version=6.0.1,\
-	${env;JAVA_HOME}/lib/tools.jar;version=file
+	jaxb-api
 
 -testpath: \
     junit:junit;version=4.12,\
 	org.hamcrest:hamcrest-core;version=1.3
 
-javac.source: 1.8
-javac.target: 1.8
+javac.source: 11
+javac.target: 11

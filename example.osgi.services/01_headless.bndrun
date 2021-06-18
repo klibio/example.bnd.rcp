@@ -1,0 +1,26 @@
+# This run file contains all the cross-platform bundle and settings to run Bndtools.
+# Do not run this, use the platform-specific bndrun files (which "-include" this)
+
+-runee: JavaSE-11
+-runfw: org.eclipse.osgi;version='[3.16,4)'
+-runproperties: \
+    launch.keep=false,\
+    launch.storage.dir=_rt/cfg,\
+	osgi.console=,\
+	osgi.console.enable.builtin=false
+-runrequires: \
+	osgi.identity;filter:='(osgi.identity=org.apache.felix.gogo.shell)',\
+	osgi.identity;filter:='(osgi.identity=org.apache.felix.gogo.command)'
+
+-runblacklist: \
+	bnd.identity;id='osgi.*',\
+	bnd.identity;id='org.apache.felix.scr';version='[2.1.10,2.1.11)'
+
+-runbundles+: \
+    bndtools.runtime.applaunch.eclipse4;    startlevel=1,\
+    org.apache.felix.scr;                   startlevel=2,\
+    org.eclipse.equinox.simpleconfigurator; startlevel=2,\
+    org.eclipse.equinox.common;             startlevel=3,\
+    org.eclipse.equinox.event;              startlevel=3,\
+    org.eclipse.equinox.cm;                 startlevel=3,\
+    *;  

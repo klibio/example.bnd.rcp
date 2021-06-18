@@ -36,9 +36,10 @@ public class EclipseRepoParser {
 
 	private final static String resultDir = System.getProperty("user.dir") + SEP + "result";
 
-	private final static String rootDir="c:/jbe5.0.2/repo";
+	private final static String rootDir = "c:/jbe5.0.2/repo";
 	private final static String ECL_PLATFORM_VERSION = "R-4.7.1a-201710090410";
-	private final static String featureDir = rootDir + "/download.eclipse.org/eclipse/updates/4.7/" + ECL_PLATFORM_VERSION + "/features";
+	private final static String featureDir = rootDir + "/download.eclipse.org/eclipse/updates/4.7/"
+			+ ECL_PLATFORM_VERSION + "/features";
 
 	private JAXBContext ctxt;
 

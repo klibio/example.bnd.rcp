@@ -16,7 +16,7 @@ public class OutputContext {
 	public void setStrategy(OutputStrategy strategy) {
 		this.strategy = strategy;
 	}
-	
+
 	public void execute(List<Feature> features, Path outputPath) {
 		strategy.execute(features, outputPath);
 	}

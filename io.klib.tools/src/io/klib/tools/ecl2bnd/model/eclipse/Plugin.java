@@ -41,7 +41,7 @@ public class Plugin {
 	@XmlAttribute
 	@XmlSchemaType(name = "boolean")
 	boolean fragment;
-	
+
 	public String getId() {
 		return id;
 	}
