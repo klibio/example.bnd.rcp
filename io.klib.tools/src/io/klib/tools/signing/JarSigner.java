@@ -48,6 +48,7 @@ public class JarSigner {
 
 	public static void signJarFolder(Properties config, String rootFolder) {
 		try {
+			@SuppressWarnings("unused")
 			long numFiles = Files
 					.find(Paths.get(rootFolder), Integer.MAX_VALUE,
 							(filePath, fileAttr) -> fileAttr.isRegularFile() && filePath.toString().endsWith(JAR))

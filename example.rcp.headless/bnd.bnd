@@ -1,6 +1,6 @@
 -buildpath: \
-	org.eclipse.osgi;version=3.12,\
-	org.eclipse.equinox.app;version=1.3
+	osgi.core;version=7.0.0,\
+	org.eclipse.equinox.app
 	
 -includeresource: ./root/
 

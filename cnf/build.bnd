@@ -93,8 +93,6 @@ mockito-deps: org.objenesis; version=2.6.0,\
   net.bytebuddy.byte-buddy; version=1.7.9,\
   net.bytebuddy.byte-buddy-agent; version=1.7.9 
   
-cache = "${build}/cnf/cache"
-
 # Eclipse Release repositories 
 eclipse.version          = 4.18
 eclipse.name             = 2020-12
@@ -117,14 +115,12 @@ eclipse.simu.url     = "${eclipse.simu.baseurl}/${eclipse.name}/${eclipse.simu.v
 #-plugin.10.eclipse.platform: \
 #    aQute.bnd.repository.p2.provider.P2Repository; \
 #        name  = ${eclipse.platform.name}; \
-#        url   = ${eclipse.platform.url}; \
-#        cache = "${cache}"
+#        url   = ${eclipse.platform.url}
 
 #-plugin.11.eclipse.simu: \
 #    aQute.bnd.repository.p2.provider.P2Repository; \
 #        name  = ${eclipse.simu.name}; \
-#        url   = ${eclipse.simu.url}; \
-#        cache = ${cache}
+#        url   = ${eclipse.simu.url}
 
 # Reference the locally indexed eclipse repositories
 
