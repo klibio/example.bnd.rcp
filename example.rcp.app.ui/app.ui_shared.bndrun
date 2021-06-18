@@ -1,9 +1,6 @@
--include: \
-    ${workspace}/cnf/fixedIndices/bnd_runrequires_Eclipse_Platform.bndrun
-
+-include: ${workspace}/cnf/fixedIndices/bnd_runrequires_Eclipse_Platform.bndrun
 # This run file contains all the cross-platform bundle and settings to run 
 # Do not run this, use the platform-specific bndrun files (which "-include" this)
-
 -runfw: org.eclipse.osgi;version='[3.16,4)';repo='Platform*'
 -runee: JavaSE-11
 

@@ -1,6 +1,6 @@
 -include: \
 	01_headless.bndrun,\
-	02_linux.gtk.x86-64.bndrun,\
+	${workspace}/cnf/shared/linux.gtk.x86-64.bndrun,\
     ${workspace}/cnf/fixedIndices/bnd_runrequires_Eclipse_Platform.bndrun
     
 -runrequires.linux: \

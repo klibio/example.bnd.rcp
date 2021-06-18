@@ -1,23 +1,6 @@
 -include: \
-    _app.ui_shared.bndrun
-
--runvm.linux: \
-	-Dosgi.dataAreaRequiresExplicitInit=true, \
-	-Dosgi.requiredJavaVersion=11, \
-	-XX:+UseG1GC, \
-	-XX:+UseStringDeduplication
-
--runsystemcapabilities.linux: \
-	osgi.native;osgi.native.osname:List<String>="linux";osgi.native.processor:List<String>="x86-64"
-
--runproperties.linux: \
-	osgi.ws=gtk,\
-	osgi.arch=x86_64,\
-	osgi.os=linux
-
--runblacklist.linux: \
-	osgi.identity;filter:='(osgi.identity=*macosx*)',\
-	osgi.identity;filter:='(osgi.identity=*win32*)',\
+    app.ui_shared.bndrun,\
+    ${workspace}/cnf/shared/linux.gtk.x86-64.bndrun
 
 -runrequires.linux: \
 	${fea_org.eclipse.e4.rcp_4.18.0.v20201202-1103_PLATFORM_linux.gtk.x86-64}
