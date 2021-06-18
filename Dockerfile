@@ -5,6 +5,13 @@
 #COPY --chown=gradle:gradle --from=ng-build /app/dist /home/gradle/src/XW/angular/dist
 #WORKDIR /home/gradle/src
 #RUN gradle export.XW_DEBUG --no-daemon
+# build angular app
+FROM node:16.3.0-alpine3.13 AS ng-build
+WORKDIR /app
+COPY ./java-src/com.daimler.ctp.spa/angular/package*.json ./ 
+RUN npm ci && npm install -g @angular/cli@12.0.4
+COPY ./java-src/com.daimler.ctp.spa/angular /app
+RUN ng build --configuration production --base-href ./
 
 # build easy-novnc server
 FROM golang:1.14-buster AS easy-novnc-build
@@ -45,9 +52,8 @@ EXPOSE 8080
 RUN groupadd --gid 1000 app && \
     useradd --home-dir /data --shell /bin/bash --uid 1000 --gid 1000 app && \
     mkdir -p /data
-VOLUME /datado
+VOLUME /data
 
-# Anpassen an JDK11
 ARG JavaURL=https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u222-b10/OpenJDK8U-jre_x64_linux_hotspot_8u222b10.tar.gz
 RUN cd /data && \
     wget -q -O - ${JavaURL} | tar -xvz && \
