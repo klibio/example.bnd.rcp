@@ -16,4 +16,4 @@
 core.ignore.recursive= 
 
 core.ignore= \
-	{deploy} 
+	{deploy}
