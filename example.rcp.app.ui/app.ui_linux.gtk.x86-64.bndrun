@@ -1,23 +1,6 @@
 -include: \
-    _app.ui_shared.bndrun
-
--runvm.linux: \
-	-Dosgi.dataAreaRequiresExplicitInit=true, \
-	-Dosgi.requiredJavaVersion=11, \
-	-XX:+UseG1GC, \
-	-XX:+UseStringDeduplication
-
--runsystemcapabilities.linux: \
-	osgi.native;osgi.native.osname:List<String>="linux";osgi.native.processor:List<String>="x86-64"
-
--runproperties.linux: \
-	osgi.ws=gtk,\
-	osgi.arch=x86_64,\
-	osgi.os=linux
-
--runblacklist.linux: \
-	osgi.identity;filter:='(osgi.identity=*macosx*)',\
-	osgi.identity;filter:='(osgi.identity=*win32*)',\
+    app.ui_shared.bndrun,\
+    ${workspace}/cnf/shared/linux.gtk.x86-64.bndrun
 
 -runrequires.linux: \
 	${fea_org.eclipse.e4.rcp_4.18.0.v20201202-1103_PLATFORM_linux.gtk.x86-64}
@@ -86,19 +69,14 @@
 	org.eclipse.equinox.preferences;version='[3.8.100,3.8.101)',\
 	org.eclipse.equinox.registry;version='[3.10.0,3.10.1)',\
 	org.eclipse.equinox.simpleconfigurator;version='[1.3.600,1.3.601)',\
-	org.eclipse.help;version='[3.8.800,3.8.801)',\
 	org.eclipse.jface;version='[3.22.0,3.22.1)',\
 	org.eclipse.jface.databinding;version='[1.12.100,1.12.101)',\
 	org.eclipse.jface.notifications;version='[0.2.100,0.2.101)',\
 	org.eclipse.osgi.services;version='[3.9.0,3.9.1)',\
 	org.eclipse.osgi.util;version='[3.5.300,3.5.301)',\
-	org.eclipse.rcp;version='[4.18.0,4.18.1)',\
 	org.eclipse.swt;version='[3.115.100,3.115.101)',\
 	org.eclipse.swt.browser.chromium.gtk.linux.x86_64;version='[3.115.100,3.115.101)',\
 	org.eclipse.swt.gtk.linux.x86_64;version='[3.115.100,3.115.101)',\
-	org.eclipse.ui;version='[3.118.100,3.118.101)',\
-	org.eclipse.ui.workbench;version='[3.122.0,3.122.1)',\
-	org.eclipse.update.configurator;version='[3.4.700,3.4.701)',\
 	org.eclipse.urischeme;version='[1.1.200,1.1.201)',\
 	org.w3c.css.sac;version='[1.3.1,1.3.2)',\
 	org.w3c.dom.events;version='[3.0.0,3.0.1)',\

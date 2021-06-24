@@ -26,4 +26,3 @@ units.@inc@.hostRequirements.2.greedy=false
 units.@inc@.requires.1.namespace=osgi.bundle
 units.@inc@.requires.1.name=@bundle@
 units.@inc@.requires.1.greedy=false
-

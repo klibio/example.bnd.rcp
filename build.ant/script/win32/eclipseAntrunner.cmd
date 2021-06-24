@@ -149,4 +149,4 @@ IF EXISTS "%LOCAL_BUILD_DIR%/.ecl/data/.metadata/.log" {
 
 ECHO. >> "%CMD_LOGFILE%"  
 ECHO end of build script reached >> "%CMD_LOGFILE%"
-ECHO ################################################################################ >> "%CMD_LOGFILE%" 
+ECHO ################################################################################ >> "%CMD_LOGFILE%"

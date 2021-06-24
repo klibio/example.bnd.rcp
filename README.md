@@ -82,3 +82,12 @@ General hint: Mind the line concatenation with `\` and comment all lines belongi
 3. un-comment the lines starting with `-plugin.2`
 4. save the file
 5. verify that inside the view `Repositories` the nodes for `Eclipse Platform <version>` and `Eclipse Simu Release <version>` can be expanded and have contents.
+
+
+# Docker
+
+docker container run -d \
+  --detach \
+  --volume=example-data:/data \
+  -p 5800:5800/tcp \
+  example-bnd-rcp
