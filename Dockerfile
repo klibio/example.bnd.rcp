@@ -3,10 +3,11 @@
 FROM gradle:6.9.0-jdk11 AS java-build
 COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
-RUN ls -l /home/gradle/src/cnf/fixedIndices/
-RUN ls /home/gradle/src/cnf/fixedIndices/bnd_buildPath_Eclipse_Platform.bndrun
+RUN ls -l /home/gradle/src/
 #run for all 3 linux projects
 RUN gradle clean export.app.ui_linux.gtk.x86-64 --no-daemon
+RUN gradle clean export.12_equinoxapp_linux.gtk.x86-64.bndrun --no-daemon
+RUN gradle clean export.ui_linux.gtk.x86-64.bndrun --no-daemon
 
 # build easy-novnc server
 FROM golang:1.14-buster AS easy-novnc-build
@@ -52,12 +53,15 @@ RUN groupadd --gid 1000 app && \
     mkdir -p /data
 VOLUME /data
 
-#ARG JavaURL=https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u222-b10/OpenJDK8U-jre_x64_linux_hotspot_8u222b10.tar.gz
-ARG JavaURL=https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.11%2B9/OpenJDK11U-jre_x64_windows_hotspot_11.0.11_9.zip
+ARG JavaURL=https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.11%2B9/OpenJDK11U-jre_x64_linux_hotspot_11.0.11_9.tar.gz
+SHELL [ "/bin/bash", "-c"]
 RUN cd /data && \
     wget -q -O - ${JavaURL} | tar -xvz && \
-    extractJavaDir=`expr "${JavaURL}" : '.*/\(.*\)/.*'`-jre && mv ${extractJavaDir} jre
+    JavaURLdecoded=$(echo "$JavaURL" | sed "s/%2B/+/") \
+    extractJavaDir=`expr "${JavaURLdecoded}" : '.*/\(.*\)/.*'`-jre && mv ${extractJavaDir} jre
 
-#COPY --from=java-build /home/gradle/src/<project>/generated/distributions/executable/*.jar /data
+COPY --from=java-build /home/gradle/src/example.rcp.app.ui/generated/distributions/executable/*.jar /data
+COPY --from=java-build /home/gradle/src/example.rcp.ui/generated/distributions/executable/*.jar /data
+COPY --from=java-build /home/gradle/src/example.osgi.services/generated/distributions/executable/*.jar /data
 
 CMD ["sh", "-c", "chown app:app /data /dev/stdout && exec gosu app supervisord"]
