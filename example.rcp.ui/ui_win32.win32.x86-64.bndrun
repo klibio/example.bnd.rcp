@@ -1,28 +1,6 @@
-Bundle-Version: 0.1.0.${tstamp;yyyyMMdd-HHmmss}
-
--runee: JavaSE-11
--runfw: org.eclipse.osgi;version='[3.13,4)'
-
--runprovidedcapabilities: ${native_capability}
--runsystemcapabilities:   ${native_capability}
-
--runproperties: \
-    launch.keep=false,\
-    launch.storage.dir=_rt/cfg,\
-    \
-    eclipse.application=example.rcp.ui.application
-
-# explicit exclusion necessary - unknown why exactly
--runblacklist: \
-	bnd.identity;id='org.eclipse.swt.cocoa.macosx.x86_64',\
-	bnd.identity;id='org.eclipse.swt.gtk.linux.x86_64',\
-	bnd.identity;id='org.eclipse.swt.gtk.linux.ppc64le',\
-	bnd.identity;id='org.eclipse.rap.jface',\
-	bnd.identity;id='org.eclipse.rap.rwt'
-
--runrequires: \
-	osgi.identity;filter:='(&(osgi.identity=bndtools.runtime.applaunch.eclipse4)(version>=0.1.0)(!(version>=1.0.0)))',\
-	osgi.identity;filter:='(&(osgi.identity=example.rcp.ui)(version>=0.1.0)(!(version>=1.0.0)))'
+-include: \
+	ui_shared.bndrun,\
+	${workspace}/cnf/shared/win32.win32.x86-64.bndrun
 
 -runbundles: \
 	bndtools.runtime.applaunch.eclipse4;version='[0.1.0,0.1.1)',\

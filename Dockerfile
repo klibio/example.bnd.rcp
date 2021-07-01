@@ -6,8 +6,8 @@ WORKDIR /home/gradle/src
 RUN ls -l /home/gradle/src/
 #run for all 3 linux projects
 RUN gradle clean export.app.ui_linux.gtk.x86-64 --no-daemon
-RUN gradle clean export.12_equinoxapp_linux.gtk.x86-64 --no-daemon
-RUN gradle clean export.ui_linux.gtk.x86-64 --no-daemon
+RUN gradle export.12_equinoxapp_linux.gtk.x86-64 --no-daemon
+RUN gradle export.ui_linux.gtk.x86-64 --no-daemon
 
 # build easy-novnc server
 FROM golang:1.14-buster AS easy-novnc-build
@@ -59,9 +59,9 @@ RUN cd /data && \
     wget -q -O - ${JavaURL} | tar -xvz && \
     JavaURLdecoded=$(echo "$JavaURL" | sed "s/%2B/+/") \
     extractJavaDir=`expr "${JavaURLdecoded}" : '.*/\(.*\)/.*'`-jre && mv ${extractJavaDir} jre
-
-COPY --from=java-build /home/gradle/src/example.rcp.app.ui/generated/distributions/executable/*.jar /data
+COPY --from=java-build /home/gradle/src/example.rcp.app.ui/generated/distributions/executable /data
 COPY --from=java-build /home/gradle/src/example.rcp.ui/generated/distributions/executable/*.jar /data
 COPY --from=java-build /home/gradle/src/example.osgi.services/generated/distributions/executable/*.jar /data
 
 CMD ["sh", "-c", "chown app:app /data /dev/stdout && exec gosu app supervisord"]
+
