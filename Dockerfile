@@ -6,8 +6,8 @@ WORKDIR /home/gradle/src
 RUN ls -l /home/gradle/src/
 #run for all 3 linux projects
 RUN gradle clean export.app.ui_linux.gtk.x86-64 --no-daemon
-RUN gradle clean export.12_equinoxapp_linux.gtk.x86-64.bndrun --no-daemon
-RUN gradle clean export.ui_linux.gtk.x86-64.bndrun --no-daemon
+RUN gradle clean export.12_equinoxapp_linux.gtk.x86-64 --no-daemon
+RUN gradle clean export.ui_linux.gtk.x86-64 --no-daemon
 
 # build easy-novnc server
 FROM golang:1.14-buster AS easy-novnc-build

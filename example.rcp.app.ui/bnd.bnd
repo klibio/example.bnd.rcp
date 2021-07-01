@@ -1,5 +1,5 @@
 -include: \
-    ${workspace}/cnf/fixedIndices/bnd_buildPath_Eclipse_Platform.bndrun
+    ${workspace}/cnf/fixedIndices/bnd_buildpath_Eclipse_Platform.bndrun
 
 -buildpath: \
     ${fea_org.eclipse.rcp_4.18.0.v20201202-1800}
