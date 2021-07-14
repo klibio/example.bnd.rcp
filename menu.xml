@@ -28,7 +28,7 @@
         </item>
         <item label="EquinoxApp">
             <action name="Execute">
-                <execute>/data/jre/bin/java -jar /data/12_equinoxapp_linux.gtk.x86-64.jar</execute>
+                <execute>/usr/bin/x-terminal-emulator -e /data/jre/bin/java -jar /data/12_equinoxapp_linux.gtk.x86-64.jar</execute>
             </action>
         </item>
     </menu>

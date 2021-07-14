@@ -14,4 +14,5 @@
 	
 -runblacklist.linux: \
 	osgi.identity;filter:='(osgi.identity=*macosx*)',\
+	osgi.identity;filter:='(osgi.identity=*ppc64le*)',\
 	osgi.identity;filter:='(osgi.identity=*win32*)'
