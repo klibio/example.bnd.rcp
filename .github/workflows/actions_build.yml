@@ -1,5 +1,10 @@
 name: docker_build
 
+env:
+   NAME: "klibio/example.bnd.rcp"
+   DATE: $(date +'%Y.%m.%d-%H.%M.%S')
+   TAG: "${{ env.NAME }}:${{ env.DATE }}"
+
 on:
   push:
     branches:
@@ -20,7 +25,7 @@ jobs:
      - 
         name: Set up tag variable
         id: tag
-        run: echo "tag=klibio/example.bnd.rcp:${{ steps.date.outputs.date }}" >> $GITHUB_ENV
+        run: echo "tagged=klibio/example.bnd.rcp:${{ steps.date.outputs.date }}" >> $GITHUB_ENV
      -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -39,11 +44,11 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: false
-          tags: ${{ env.tag }}
+          tags: ${{ env.TAG }}
      - 
   container:
     runs-on: ubuntu-latest
-    container: ${{ env.tag }}
+    container: ${{ env.TAG }}
     steps:
       - name: test_container
         run: |
