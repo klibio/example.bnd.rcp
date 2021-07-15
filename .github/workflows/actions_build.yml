@@ -47,9 +47,8 @@ jobs:
             ${{ env.NAME }}latest
   container:
     runs-on: ubuntu-latest
-    container: klibio/example.bnd.rcp
+    container: docker://klibio/example.bnd.rcp
     steps:
       - name: test_container
         run: |
           /data/jre/bin/java -jar /data/12_equinoxapp_linux.gtk.x86-64.jar
-
