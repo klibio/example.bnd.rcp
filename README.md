@@ -85,9 +85,9 @@ General hint: Mind the line concatenation with `\` and comment all lines belongi
 
 
 # Docker
-
+```bash
+#!/bin/bash
 docker container run -d \
-  --detach \
-  --volume=example-data:/data \
   -p 5800:5800/tcp \
   example-bnd-rcp
+```
