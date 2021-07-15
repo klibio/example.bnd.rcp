@@ -1,9 +1,8 @@
 name: docker_build
 
 env:
-   NAME: "klibio/example.bnd.rcp"
+   NAME: "klibio/example.bnd.rcp:"
    DATE: $(date +'%Y.%m.%d-%H.%M.%S')
-   TAG: "${{ env.NAME }}:${{ env.DATE }}"
 
 on:
   push:
@@ -44,5 +43,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: false
-          tags: ${{ env.TAG }}
+          tags: |
+            ${{ env.NAME }}${{ env.DATE }}
+            ${{ env.NAME }}latest
 
