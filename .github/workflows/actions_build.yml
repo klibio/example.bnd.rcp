@@ -45,12 +45,4 @@ jobs:
         with:
           push: false
           tags: ${{ env.TAG }}
-     - 
-  container:
-    runs-on: ubuntu-latest
-    container: ${{ env.TAG }}
-    steps:
-      - name: test_container
-        run: |
-          /data/jre/bin/java -jar /data/12_equinoxapp_linux.gtk.x86-64.jar
 
