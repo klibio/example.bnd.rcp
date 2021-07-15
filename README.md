@@ -89,5 +89,5 @@ General hint: Mind the line concatenation with `\` and comment all lines belongi
 #!/bin/bash
 docker container run -d \
   -p 5800:5800/tcp \
-  example-bnd-rcp
+  klibio/example-bnd-rcp
 ```
