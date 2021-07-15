@@ -47,7 +47,7 @@ jobs:
             ${{ env.NAME }}latest
   container:
     runs-on: ubuntu-latest
-    container: ${{ env.NAME }}latest
+    container: klibio/example.bnd.rcp
     steps:
       - name: test_container
         run: |
