@@ -25,9 +25,6 @@ jobs:
         id: tag
         run: echo "DATE=${{ steps.date.outputs.date }}" >> $GITHUB_ENV
      -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-     -
         name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v1
      -
@@ -45,10 +42,3 @@ jobs:
           tags: |
             ${{ env.NAME }}${{ env.DATE }}
             ${{ env.NAME }}latest
-  container:
-    runs-on: ubuntu-latest
-    container: docker://klibio/example.bnd.rcp
-    steps:
-      - name: test_container
-        run: |
-          /data/jre/bin/java -jar /data/12_equinoxapp_linux.gtk.x86-64.jar

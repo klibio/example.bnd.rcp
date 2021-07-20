@@ -59,6 +59,8 @@ RUN cd /data && \
     wget -q -O - ${JavaURL} | tar -xvz && \
     JavaURLdecoded=$(echo "$JavaURL" | sed "s/%2B/+/") \
     extractJavaDir=`expr "${JavaURLdecoded}" : '.*/\(.*\)/.*'`-jre && mv ${extractJavaDir} jre
+COPY pop.sh /data/pop.sh
+
 COPY --from=java-build /home/gradle/src/example.rcp.app.ui/generated/distributions/executable /data
 COPY --from=java-build /home/gradle/src/example.rcp.ui/generated/distributions/executable/*.jar /data
 COPY --from=java-build /home/gradle/src/example.osgi.services/generated/distributions/executable/*.jar /data
