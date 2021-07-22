@@ -16,5 +16,20 @@
                 <execute>/usr/bin/pcmanfm</execute>
             </action>
         </item>
+        <item label="App UI">
+            <action name="Execute">
+                <execute>/data/jre/bin/java -jar /data/app.ui_linux.gtk.x86-64.jar</execute>
+            </action>
+        </item>
+        <item label="RCP UI">
+            <action name="Execute">
+                <execute>/data/jre/bin/java -jar /data/ui_linux.gtk.x86-64.jar</execute>
+            </action>
+        </item>
+        <item label="EquinoxApp">
+            <action name="Execute">
+                <execute>/usr/bin/x-terminal-emulator -e /data/jre/bin/java -jar /data/12_equinoxapp_linux.gtk.x86-64.jar</execute>
+            </action>
+        </item>
     </menu>
 </openbox_menu>

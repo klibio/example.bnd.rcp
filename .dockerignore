@@ -1,0 +1,12 @@
+.git
+.gitattributes
+.gitignore
+.dockerignore*
+*/.dockerignore*
+Dockerfile*
+*.md
+*.pdf
+**/_rt/
+.metadata
+**/generated/
+cnf/cache/
