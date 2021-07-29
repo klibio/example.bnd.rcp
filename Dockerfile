@@ -18,6 +18,14 @@ RUN go mod init build && \
 
 # build app container
 FROM debian:buster
+
+ARG BUILD_DATE
+ARG VCS_REF
+
+LABEL org.opencontainers.image.authors="dev@klib.io" \
+      org.label-schema.build-date=$BUILD_DATE \
+      org.label-schema.vcs-url="https://github.com/klibio/example.bnd.rcp" \
+      org.label-schema.vcs-ref=$VCS_REF
 # Workaround https://unix.stackexchange.com/questions/2544/how-to-work-around-release-file-expired-problem-on-a-local-mirror
 RUN echo "Acquire::Check-Valid-Until \"false\";\nAcquire::Check-Date \"false\";" | cat > /etc/apt/apt.conf.d/10no--check-valid-until
 RUN apt-get update -y && \
