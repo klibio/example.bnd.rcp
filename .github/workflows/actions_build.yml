@@ -1,4 +1,4 @@
-name: docker_build
+name: 'Build and publish to Docker Hub'
 
 env:
    NAME: "klibio/example.bnd.rcp:"
@@ -7,7 +7,8 @@ on:
   workflow_dispatch:
   push:
     branches:
-     - 'add_test_script'
+     - 'feature/*'
+     - 'bugfix/*'
   pull_request:
     branches:
      - 'main'
