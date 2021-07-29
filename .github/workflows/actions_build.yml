@@ -4,41 +4,26 @@ env:
    NAME: "klibio/example.bnd.rcp:"
 
 on:
+  workflow_dispatch:
   push:
     branches:
-     - 'gradle_build'
+     - 'add_test_script'
   pull_request:
     branches:
      - 'main'
-  workflow_dispatch:
 
 jobs:
-  docker:
+  start:
     runs-on: ubuntu-latest
     steps:
+     - uses: actions/checkout@v2
+       with:
+        fetch-depth: 1
      - 
-        name: Get current date
-        id: date
-        run: echo "::set-output name=date::$(date +'%Y.%m.%d-%H.%M.%S')"
-     - 
-        name: Set up tag variable
-        id: tag
-        run: echo "DATE=${{ steps.date.outputs.date }}" >> $GITHUB_ENV
-     -
-        name: Setup Docker Buildx
-        uses: docker/setup-buildx-action@v1
-     -
-        name: Login to DockerHub
-        uses: docker/login-action@v1 
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-     -
-        name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          tags: |
-            ${{ env.NAME }}${{ env.DATE }}
-            ${{ env.NAME }}latest
+      name: Build docker image and push to docker hub
+      id: script
+      run: |
+        /bin/bash ${GITHUB_WORKSPACE}/start.sh
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+        DOCKER_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
