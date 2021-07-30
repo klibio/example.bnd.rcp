@@ -27,6 +27,9 @@ docker run -d \
   --mount type=bind,source=$TEST_RESULT,target=/data/target \
   --name test "$IMAGE:latest"
 
+CONTAINER_ID=$(docker ps -aqf "ancestor=$IMAGE")
+docker logs -f $CONTAINER_ID &
+
 timeout=60
 while [ ! -f $TEST_RESULT ];
 do
