@@ -13,16 +13,31 @@ fi
 set -eauo pipefail
 
 DATE=$(date +'%Y.%m.%d-%H.%M.%S')
-IMAGE="klibio/example.bnd.rcp:"
-
+IMAGE="klibio/example.bnd.rcp"
 docker build \
   --no-cache \
   --progress=plain \
-  --build-arg BUILD_DATE=${DATE} \
+  --build-arg BUILD_DATE=$DATE \
   --build-arg VCS_REF=$(git rev-list -1 HEAD) \
-  . -t "$IMAGE$DATE" -t "${IMAGE}latest"
+  . -t "$IMAGE:$DATE" -t "$IMAGE:latest"
 
-docker run -d -e POP='1' --mount type=bind,source="$(pwd)"/ressources,target=/data/target --name test "${IMAGE}latest"
+TEST_RESULT=$(pwd)/ressources
+docker run -d \
+  -e POP='1' \
+  --mount type=bind,source=$TEST_RESULT,target=/data/target \
+  --name test "$IMAGE:latest"
+
+timeout=60
+while [ ! -f $TEST_RESULT ];
+do
+  if [ "$timeout" == 0 ]; then
+    echo "ERROR: timeout waiting for test result file $TEST_RESULT"
+    exit 1
+  fi
+  sleep 1
+  # Decrease the timeout of one
+  ((timeout--))
+done
 
 input="$(pwd)/ressources/result.txt"
 line=$(head -n 1 $input)
