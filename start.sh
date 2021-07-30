@@ -26,7 +26,9 @@ POP_CONTAINER=popContainer
 echo "# launching container for PoP - $POP_CONTAINER"
 POP_RESULT_DIR=$(pwd)/ressources
 POP_RESULT=$POP_RESULT_DIR/result.txt
+chmod go+w $POP_RESULT_DIR
 rm -rf $POP_RESULT
+ls -l $PWD
 docker run -d \
   -e POP='1' \
   -p 5800:5800/tcp \
