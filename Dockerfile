@@ -54,7 +54,6 @@ COPY --from=easy-novnc-build /bin/easy-novnc /usr/local/bin/
 COPY menu.xml /etc/xdg/openbox/
 COPY supervisord.conf /etc/
 COPY pop.sh /data/pop.sh
-RUN chmod +x /data/pop.sh
 
 EXPOSE 8080
 
