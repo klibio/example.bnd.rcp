@@ -22,6 +22,7 @@ docker build \
   -t "$IMAGE:latest" \
   .
 
+echo "# launching docker container for PoP"
 TEST_RESULT=$(pwd)/ressources
 ls $TEST_RESULT
 docker run -d \
@@ -31,6 +32,7 @@ docker run -d \
   "$IMAGE:latest"
 ls $TEST_RESULT
 
+echo "# disploy container logs for $IMAGE"
 CONTAINER_ID=$(docker ps -aqf "ancestor=$IMAGE")
 docker logs -f $CONTAINER_ID &
 
