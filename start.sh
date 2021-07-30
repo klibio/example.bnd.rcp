@@ -23,7 +23,7 @@ docker build \
   .
 
 echo "# launching docker container for PoP"
-TEST_RESULT=$(pwd)/ressources
+TEST_RESULT=$(pwd)/ressources/result.txt
 ls $TEST_RESULT
 docker run -d \
   -e POP='1' \
