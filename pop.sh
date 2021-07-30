@@ -9,8 +9,6 @@ else
     printf "# executing PoP"
 fi
 
-ln -s /usr/lib/jni/libswt-* ~/.swt/lib/linux/x86_64/
-
 printf "# execute process 1"
 /data/jre/bin/java -jar /data/app.ui_linux.gtk.x86-64.jar & PID1=$!
 
