@@ -5,9 +5,13 @@ set -x
 if [ -z "$POP" ]
 then 
     exit 0;
+else
+    printf "# executing PoP"
 fi
 
-#execute process 1
+ln -s /usr/lib/jni/libswt-* ~/.swt/lib/linux/x86_64/
+
+printf "# execute process 1"
 /data/jre/bin/java -jar /data/app.ui_linux.gtk.x86-64.jar & PID1=$!
 
 #check pid 1
@@ -18,7 +22,8 @@ then
 else
     kill $PID1
 fi
-#execute process 2
+
+printf "# execute process 2"
 /data/jre/bin/java -jar /data/ui_linux.gtk.x86-64.jar & PID2=$!
 
 #check pid 2
@@ -30,7 +35,7 @@ else
     kill $PID2
 fi
 
-#execute process 3
+printf "# execute process 3"
 /usr/bin/x-terminal-emulator -e /data/jre/bin/java -jar /data/12_equinoxapp_linux.gtk.x86-64.jar & PID3=$!
 
 #check pid 3
