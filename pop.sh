@@ -1,46 +1,34 @@
 #!/bin/bash
+scriptDir="$( cd $( dirname $0 ) >/dev/null 2>&1 && pwd )"
+stdout=$scriptDir/pop.stdout
+result=$scriptDir/target/result.txt
 
 if [ -z "$POP" ]
 then 
     exit 0;
-fi
-
-#execute process 1
-/data/jre/bin/java -jar /data/app.ui_linux.gtk.x86-64.jar & PID1=$!
-
-#check pid 1
-if [ -z "$PID1" ]
-then
-    echo "false"
-    exit 1
 else
-    kill $PID1
-fi
-#execute process 2
-/data/jre/bin/java -jar /data/ui_linux.gtk.x86-64.jar & PID2=$!
-
-#check pid 2
-if [ -z "$PID2" ]
-then
-    echo "false"
-    exit 1
-else
-    kill $PID2
+    printf "# executing PoP inside $scriptDir\n"
 fi
 
-#execute process 3
-/usr/bin/x-terminal-emulator -e /data/jre/bin/java -jar /data/12_equinoxapp_linux.gtk.x86-64.jar & PID3=$!
+function executeProcess {
+  printf "## execute process $1\n"
+  $1 & PID1=$!
 
-#check pid 3
-if [ -z "$PID3" ]
-then
-    echo "false"
-    exit 1
-else
-    echo "true"
-    kill $PID3
-fi
-#copy result to mounted filesystem
-cp /data/pop.stdout /data/target/result.txt
+  if [ -z "$PID1" ]
+  then
+      echo "false" > $stdout
+      exit 1
+  else
+      echo "true" > $stdout
+      printf "## successfully launched $1\n"
+      kill $PID1
+  fi
+}
 
-#output of this file is in /data/pop.stdout
+executeProcess "/data/jre/bin/java -jar /data/app.ui_linux.gtk.x86-64.jar"
+executeProcess "/data/jre/bin/java -jar /data/ui_linux.gtk.x86-64.jar"
+executeProcess "/data/jre/bin/java -jar /data/12_equinoxapp_linux.gtk.x86-64.jar"
+
+echo "## copying execution result $stdout to mounted filesystem"
+cp $stdout $result
+echo "# done"

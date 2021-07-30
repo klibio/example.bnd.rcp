@@ -53,6 +53,8 @@ RUN apt-get update -y && \
 COPY --from=easy-novnc-build /bin/easy-novnc /usr/local/bin/
 COPY menu.xml /etc/xdg/openbox/
 COPY supervisord.conf /etc/
+COPY pop.sh /data/pop.sh
+
 EXPOSE 8080
 
 #add unix user and group with specific home dir
@@ -67,11 +69,9 @@ RUN cd /data && \
     wget -q -O - ${JavaURL} | tar -xvz && \
     JavaURLdecoded=$(echo "$JavaURL" | sed "s/%2B/+/") \
     extractJavaDir=`expr "${JavaURLdecoded}" : '.*/\(.*\)/.*'`-jre && mv ${extractJavaDir} jre
-COPY pop.sh /data/pop.sh
 
 COPY --from=java-build /home/gradle/src/example.rcp.app.ui/generated/distributions/executable /data
 COPY --from=java-build /home/gradle/src/example.rcp.ui/generated/distributions/executable/*.jar /data
 COPY --from=java-build /home/gradle/src/example.osgi.services/generated/distributions/executable/*.jar /data
 
 CMD ["sh", "-c", "chown app:app /data /dev/stdout && exec gosu app supervisord"]
-
