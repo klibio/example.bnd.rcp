@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 # env validation
 printf "\n# validate mandatory environment configuration variables\n\n"

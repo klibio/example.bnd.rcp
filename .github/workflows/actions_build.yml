@@ -24,7 +24,7 @@ jobs:
       name: Build docker image and push to docker hub
       id: script
       run: |
-        /bin/bash -x ${GITHUB_WORKSPACE}/start.sh
+        /bin/bash ${GITHUB_WORKSPACE}/start.sh
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
         DOCKER_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
