@@ -23,11 +23,13 @@ docker build \
   .
 
 TEST_RESULT=$(pwd)/ressources
+ls $TEST_RESULT
 docker run -d \
   -e POP='1' \
   -p 5800:5800/tcp \
   --mount type=bind,source=$TEST_RESULT,target=/data/target \
-  --name test "$IMAGE:latest"
+  "$IMAGE:latest"
+ls $TEST_RESULT
 
 CONTAINER_ID=$(docker ps -aqf "ancestor=$IMAGE")
 docker logs -f $CONTAINER_ID &
