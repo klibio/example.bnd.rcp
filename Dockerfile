@@ -74,4 +74,3 @@ COPY --from=java-build /home/gradle/src/example.rcp.ui/generated/distributions/e
 COPY --from=java-build /home/gradle/src/example.osgi.services/generated/distributions/executable/*.jar /data
 
 CMD ["sh", "-c", "chown app:app /data /dev/stdout && exec gosu app supervisord"]
-

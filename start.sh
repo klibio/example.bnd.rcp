@@ -1,5 +1,4 @@
 #!/bin/bash
-set -x
 
 # env validation
 printf "\n# validate mandatory environment configuration variables\n\n"
@@ -19,11 +18,14 @@ docker build \
   --progress=plain \
   --build-arg BUILD_DATE=$DATE \
   --build-arg VCS_REF=$(git rev-list -1 HEAD) \
-  . -t "$IMAGE:$DATE" -t "$IMAGE:latest"
+  -t "$IMAGE:$DATE" \
+  -t "$IMAGE:latest" \
+  .
 
 TEST_RESULT=$(pwd)/ressources
 docker run -d \
   -e POP='1' \
+  -p 5800:5800/tcp \
   --mount type=bind,source=$TEST_RESULT,target=/data/target \
   --name test "$IMAGE:latest"
 

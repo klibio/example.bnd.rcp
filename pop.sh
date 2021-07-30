@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 if [ -z "$POP" ]
 then 
     exit 0;
