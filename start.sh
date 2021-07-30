@@ -24,13 +24,12 @@ docker build \
 
 echo "# launching docker container for PoP"
 TEST_RESULT=$(pwd)/ressources
-ls $TEST_RESULT
 docker run -d \
   -e POP='1' \
   -p 5800:5800/tcp \
   --mount type=bind,source=$TEST_RESULT,target=/data/target \
   "$IMAGE:latest"
-ls $TEST_RESULT
+ls -ls $(pwd)
 
 echo "# disploy container logs for $IMAGE"
 CONTAINER_ID=$(docker ps -aqf "ancestor=$IMAGE")
