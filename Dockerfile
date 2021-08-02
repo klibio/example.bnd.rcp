@@ -55,7 +55,7 @@ RUN apt-get update -y && \
 COPY --from=easy-novnc-build /bin/easy-novnc /usr/local/bin/
 COPY menu.xml /etc/xdg/openbox/
 COPY supervisord.conf /etc/
-COPY pop.sh /data/pop.sh
+COPY pop/pop.sh /data/pop.sh
 
 EXPOSE 8080
 
