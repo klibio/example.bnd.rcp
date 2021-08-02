@@ -36,10 +36,10 @@ docker container run -d `
   klibio/example.bnd.rcp
 ```
 
-##  Access the UI via  web browser http://localhost:5800 
-1. connect to VNC
+##  Access the UI via  web browser http://localhost:5800
+1. [connect to VNC](http://localhost:5800)
 2. use context-menu (right-mouse) to launch applications
-
+![BrowserUI showing ContextMenu](_doc/pic/02_Browser_Desktop_ContextMenu.png)
 # License
 
 Licensed under the [Eclipse Public License v1.0](http://www.eclipse.org/legal/epl-v10.html).
