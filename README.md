@@ -19,7 +19,7 @@ Multiple minimalistic Eclipse RCP project types are demonstrated
 
 See the project [![Project](https://img.shields.io/badge/Project-Wiki-blueviolet)](https://github.com/klibio/example.bnd.rcp/wiki) for more information on using, building and more!
 
-![BrowserUI displaying Eclipse RCP applications](_doc\pic\03_Browser_Desktop_Apps.png)
+![BrowserUI displaying Eclipse RCP applications](_doc/pic/03_Browser_Desktop_Apps.png)
 # Try it out ( local [Docker](https://www.docker.com/) installation required)
 
 ## launch the application container with
