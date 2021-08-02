@@ -7,4 +7,4 @@ services:
 
 install: ./gradlew --version
 
-script: ./buildAndPublish.sh
+script: env | sort && ./buildAndPublish.sh
