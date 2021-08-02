@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openbox_menu xmlns="http://openbox.org/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://openbox.org/ file:///usr/share/openbox/menu.xsd">
     <menu id="root-menu" label="Openbox 3">
+        <item label="Eclipse 4 RCP Application">
+            <action name="Execute">
+                <execute>/data/jre/bin/java -jar /data/app.ui_linux.gtk.x86-64.jar</execute>
+            </action>
+        </item>
+        <item label="Eclipse SWT Dialog">
+            <action name="Execute">
+                <execute>/data/jre/bin/java -jar /data/ui_linux.gtk.x86-64.jar</execute>
+            </action>
+        </item>
+        <item label="Eclipse Equinox App - Terminal">
+            <action name="Execute">
+                <execute>/usr/bin/x-terminal-emulator -e /data/jre/bin/java -jar /data/12_equinoxapp_linux.gtk.x86-64.jar</execute>
+            </action>
+        </item>
         <item label="Terminal">
             <action name="Execute">
                 <execute>/usr/bin/x-terminal-emulator</execute>
@@ -14,21 +29,6 @@
         <item label="PCManFM">
             <action name="Execute">
                 <execute>/usr/bin/pcmanfm</execute>
-            </action>
-        </item>
-        <item label="App UI">
-            <action name="Execute">
-                <execute>/data/jre/bin/java -jar /data/app.ui_linux.gtk.x86-64.jar</execute>
-            </action>
-        </item>
-        <item label="RCP UI">
-            <action name="Execute">
-                <execute>/data/jre/bin/java -jar /data/ui_linux.gtk.x86-64.jar</execute>
-            </action>
-        </item>
-        <item label="EquinoxApp">
-            <action name="Execute">
-                <execute>/usr/bin/x-terminal-emulator -e /data/jre/bin/java -jar /data/12_equinoxapp_linux.gtk.x86-64.jar</execute>
             </action>
         </item>
     </menu>

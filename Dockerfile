@@ -1,22 +1,24 @@
-# Anpassen an example.bnd.rcp
-# build OSGi app with gradle and bndtools
+# GRADLE BUILD CONTAINER for OSGi Java implementation
+#   build OSGi app with gradle and bndtools
 FROM gradle:6.9.0-jdk11 AS java-build
 COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
 RUN ls -l /home/gradle/src/
-#run for all 3 linux projects
-RUN gradle clean export.app.ui_linux.gtk.x86-64 --no-daemon
-RUN gradle export.12_equinoxapp_linux.gtk.x86-64 --no-daemon
-RUN gradle export.ui_linux.gtk.x86-64 --no-daemon
+# calling gradle explicitly for all platform-independent and linux.gtk projects
+RUN gradle --no-daemon clean \
+    export.app.ui_linux.gtk.x86-64 \
+    export.12_equinoxapp_linux.gtk.x86-64 \
+    export.ui_linux.gtk.x86-64
 
-# build easy-novnc server
+# GOLANG BUILD CONTAINER for easy-novnc
+#   build easy-novnc server
 FROM golang:1.14-buster AS easy-novnc-build
 WORKDIR /src
 RUN go mod init build && \
     go get github.com/geek1011/easy-novnc@v1.1.0 && \
     go build -o /bin/easy-novnc github.com/geek1011/easy-novnc
 
-# build app container
+# APPLICATION RUNTIME container
 FROM debian:buster
 
 ARG BUILD_DATE
