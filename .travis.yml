@@ -1,10 +1,10 @@
 sudo: false
-
 language: java
-
 services:
-  - docker
-
-install: ./gradlew --version
-
-script: ./buildAndPublish.sh
+- docker
+install: "./gradlew --version"
+script: env | sort && ./buildAndPublish.sh
+env:
+  global:
+    - DOCKER_USER=peterkir
+    - secure: OlRVLJwHsxlifL9h/NiFaOzMlBO5buikltUvcweJVaeH5zCT78qxRRueEPkFsUZHwhFejvBElaJpg3IwOWO1PEWzNaR1ww1gm9ogVuISD6txR9veVYgKvpX69c/V6KZSilzOj/20rB23LdSxKYDe/Xnyl/3W6ev+ADwHUr2Gb0qYlez+BudXGl3RSkE4c7ePs0uCHCg5TJHcx/pkgFTn6woqLIq8DLcjTS5u5li9HMEGSShXOtdSyX4LfDebRe+u7mzJDyX9MlLLcz5lx9D6PaxEE/PvIfoque8j4tCZtngkQ4swSe62euelcO/QuAnvx435WmvdGYpJMRRBvionUkV52l2iM1b6lxciyPPf8RorWUU3hRw2hkIyKQXdtRLy1FHtREJd6jUxRIFZTUh1v9kpr4hIgP6fJDOfKRUr2d9W6yLG9hfjlVk29wRxeLYb2Uj1y1SPDLG9ZMLzXMqb96r0UrS8GUGHLkWehX4zlKbvnNQlMsmYGEYadsypKLuHMigROUujtBV9vDdDWm/JIMofoHvQhMZPLO5ia5Wwc6lOCQZLWNLZI/9ct6gm4vJMzRW4/b2XPaLn+wQTjhmJbns5kFzZr67+ben7r477pi0Lh5QIq+vUwkKhclU8cE/z10e8o4ed5DlwHLPM5aK+yix16cpziqfsZkKrzDx0760=

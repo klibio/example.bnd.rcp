@@ -6,12 +6,12 @@ if [[ -z "$DOCKER_USERNAME" || -z "$DOCKER_TOKEN" ]];
   then echo "  missing ENV var DOCKER_USER and DOCKER_TOKEN"; exit 1; 
   else echo "  found mandatory env vars for DOCKER_USER=$DOCKER_USERNAME and DOCKER_TOKEN=<hidden>"; 
 fi
-
 # activate bash checks for unset vars, pipe fails
 set -eauo pipefail
 
 DATE=$(date +'%Y.%m.%d-%H.%M.%S')
 IMAGE="klibio/example.bnd.rcp"
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
 echo "# launching docker build for image $IMAGE at $DATE"
 docker build \
   --no-cache \
@@ -24,11 +24,10 @@ docker build \
 
 POP_CONTAINER=popContainer
 echo "# launching container for PoP - $POP_CONTAINER"
-POP_RESULT_DIR=$(pwd)/ressources
+POP_RESULT_DIR=$(pwd)/pop
 POP_RESULT=$POP_RESULT_DIR/result.txt
 chmod go+w $POP_RESULT_DIR
 rm -rf $POP_RESULT
-ls -l $PWD
 docker run -d \
   -e POP='1' \
   -p 5800:5800/tcp \
@@ -55,17 +54,19 @@ done
 input="$POP_RESULT"
 line=$(head -n 1 $input)
 
-if [ "$line" = "true" ]
-then
-    echo "# PoP successful - stopping container"
-    docker stop $POP_CONTAINER
-    docker rm -f $POP_CONTAINER
+if [ "$line" = "true" ]; then
+  echo "# PoP successful - stopping container"
+  docker stop $POP_CONTAINER
+  docker rm -f $POP_CONTAINER
 
-    echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    docker push "$IMAGE:$DATE"
+  echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  docker push "$IMAGE:$DATE"
+  echo "# successfully pushed $IMAGE:$DATE to DockerHub https://hub.docker.com/r/$IMAGE"
+  if [ "$BRANCH" = "main" ]; then
     docker push "$IMAGE:latest"
-    echo "# successfully pushed image to DockerHub https://hub.docker.com/r/$IMAGE"
-    exit 0
+    echo "# successfully updated $IMAGE:latest image on DockerHub https://hub.docker.com/r/$IMAGE"
+  fi
+  exit 0
 fi
 
 docker stop test
