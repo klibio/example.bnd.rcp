@@ -3,3 +3,10 @@ Bundle-Version: 0.1.0.${tstamp}
 Private-Package: \
 	io.klib.tools.parser.eclipse.features,\
 	io.klib.tools.ecl2bnd.model.eclipse
+
+#-includeresource: @${repo;org.glassfish.jaxb:jaxb-runtime}
+#
+#Import-Package: \
+#	com.sun.*;'resolution:'=optional,\
+#	org.jvnet.*;'resolution:'=optional,\
+#	*

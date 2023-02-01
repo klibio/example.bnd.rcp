@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="Templates" increment="1556547019867">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="Templates" increment="1622010521707">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="org.bndtools.templates.osgi"/>
@@ -88,8 +88,8 @@
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="25577" type="Long"/>
-      <attribute name="url" value="org.bndtools.templates.osgi/org.bndtools.templates.osgi-7.0.0.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="org.bndtools.templates.osgi/org.bndtools.templates.osgi-7.0.0.jar"/>
       <attribute name="osgi.content" value="274A856A7D66B1B56D976F1619B5DE2253635305EC8D1BA271389F8AB5623495"/>
     </capability>
   </resource>

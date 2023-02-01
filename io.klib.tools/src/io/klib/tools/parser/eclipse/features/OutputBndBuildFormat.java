@@ -22,13 +22,16 @@ public class OutputBndBuildFormat extends OutputContextDefault implements Output
 
 	private final Hashtable<String, String> config_WIN32_WIN32_X86_64 = new Hashtable<String, String>();
 	private final Hashtable<String, String> config_MACOSX_COCOA_X86_64 = new Hashtable<String, String>();
+	private final Hashtable<String, String> config_MACOSX_COCOA_AARCH64 = new Hashtable<String, String>();
 	private final Hashtable<String, String> config_LINUX_GTK_X86_64 = new Hashtable<String, String>();
+	private final Hashtable<String, String> config_LINUX_GTK_AARCH64 = new Hashtable<String, String>();
 
 	TreeMap<String, TreeSet<String>> fragments = new TreeMap<>();
 	TreeMap<String, Hashtable<String, String>> configs = new TreeMap<>();
 
 	public OutputBndBuildFormat() {
 		super();
+
 		config_WIN32_WIN32_X86_64.put("osgi.os", "win32");
 		config_WIN32_WIN32_X86_64.put("osgi.ws", "win32");
 		config_WIN32_WIN32_X86_64.put("osgi.arch", "x86_64");
@@ -39,10 +42,20 @@ public class OutputBndBuildFormat extends OutputContextDefault implements Output
 		config_MACOSX_COCOA_X86_64.put("osgi.arch", "x86_64");
 		configs.put("macosx.cocoa.x86-64", config_MACOSX_COCOA_X86_64);
 
+		config_MACOSX_COCOA_X86_64.put("osgi.os", "macosx");
+		config_MACOSX_COCOA_X86_64.put("osgi.ws", "cocoa");
+		config_MACOSX_COCOA_X86_64.put("osgi.arch", "aarch64");
+		configs.put("macosx.cocoa.aarch64", config_MACOSX_COCOA_AARCH64);
+
 		config_LINUX_GTK_X86_64.put("osgi.os", "linux");
 		config_LINUX_GTK_X86_64.put("osgi.ws", "gtk");
 		config_LINUX_GTK_X86_64.put("osgi.arch", "x86_64");
 		configs.put("linux.gtk.x86-64", config_LINUX_GTK_X86_64);
+
+		config_LINUX_GTK_X86_64.put("osgi.os", "linux");
+		config_LINUX_GTK_X86_64.put("osgi.ws", "gtk");
+		config_LINUX_GTK_X86_64.put("osgi.arch", "aarch64");
+		configs.put("linux.gtk.aarch64", config_LINUX_GTK_AARCH64);
 	}
 
 	@Override
@@ -53,7 +66,9 @@ public class OutputBndBuildFormat extends OutputContextDefault implements Output
 			// map OSGi LDAP filter to bundles/fragments
 			fragments.put("win32.win32.x86-64", new TreeSet<String>());
 			fragments.put("macosx.cocoa.x86-64", new TreeSet<String>());
-			fragments.put("linux.gtk.x86-64", new TreeSet<String>());
+			fragments.put("macosx.cocoa.aarch64", new TreeSet<String>());
+			fragments.put("linux.gtk.x86_64", new TreeSet<String>());
+			fragments.put("linux.gtk.aarch64", new TreeSet<String>());
 
 			String featureID = f.getId();
 			String featureVersion = f.getVersion();

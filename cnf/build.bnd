@@ -4,9 +4,9 @@
 ## Java Compiler Options
 #java:                  java
 #javac:                 javac
-javac.source:           1.8
-javac.target:           1.8
-javac.compliance:       1.8
+javac.source:           11
+javac.target:           11
+javac.compliance:       11
 javac.debug:            on
 
 # Maven info. The maven artifactId defaults to Bundle-SymbolicName
@@ -99,8 +99,9 @@ eclipse.name             = 2020-12
 eclipse.platform.version = R-4.18-202012021800
 eclipse.simu.version     = 202012161000
 
-eclipse.platform.baseurl = http://download.eclipse.org/eclipse/updates
+#eclipse.platform.baseurl = http://download.eclipse.org/eclipse/updates
 #eclipse.platform.baseurl = "${fileuri;${user.home}}www/download.eclipse.org/eclipse/updates"
+eclipse.platform.baseurl = "${fileuri;C:/cec/ENGINE_LIB_DIR/repo/download.eclipse.org/eclipse/updates/${eclipse.version}/${eclipse.platform.version}"
 eclipse.platform.name    = Platform_${eclipse.platform.version}
 eclipse.platform.url     = "${eclipse.platform.baseurl}/${eclipse.version}/${eclipse.platform.version}"
 

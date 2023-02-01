@@ -1,0 +1,18 @@
+-runee: JavaSE-1.8
+-runfw: org.eclipse.osgi;version='[3.13,4)'
+
+-runprovidedcapabilities: ${native_capability}
+-runvm: -Ddebug=true
+
+-resolve.effective: active;skip:="osgi.service"
+
+-runblacklist: \
+	bnd.identity;id='osgi.cmpn',\
+	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.scr)(version>=2.1.10)(!(version>=2.1.11)))'
+
+-runrequires: \
+	bnd.identity;id='org.apache.felix.configadmin';version:Version='1.9.8',\
+	bnd.identity;id='org.apache.felix.gogo.runtime';version:Version='1.1.0',\
+	bnd.identity;id='org.apache.felix.gogo.shell';version:Version='1.1.0',\
+	bnd.identity;id='org.apache.felix.gogo.command';version:Version='1.0.2',\
+	bnd.identity;id='io.klib.tools.parser.eclipse.features'
