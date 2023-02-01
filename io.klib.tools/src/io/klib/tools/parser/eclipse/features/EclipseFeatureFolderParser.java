@@ -2,7 +2,6 @@ package io.klib.tools.parser.eclipse.features;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.io.StringWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
@@ -19,7 +18,6 @@ import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import org.osgi.service.component.annotations.Activate;
@@ -31,7 +29,7 @@ import io.klib.tools.ecl2bnd.model.eclipse.Feature;
 @Component(configurationPolicy = ConfigurationPolicy.REQUIRE)
 public class EclipseFeatureFolderParser {
 
-	private boolean debug = false;
+	private boolean debug = Boolean.parseBoolean(System.getProperty("debug", "false"));
 
 	@interface Config {
 		String featureDirectory();
@@ -44,16 +42,18 @@ public class EclipseFeatureFolderParser {
 	@Activate
 	public void activate(Config config) {
 
-		System.out.format("\n# Launching Eclipse Feature Parser inside directory %s\n", config.featureDirectory());
-		System.out.format("  creating the bnd build requirement file %s\n", config.bndBuildpathString());
-		System.out.format("  creating the bnd run requirement file   %s\n\n\n", config.bndRequireString());
+		String featureDirectory = config.featureDirectory();
+		System.out.format("\n# Launching Eclipse Feature Parser\n");
 
 		List<Feature> eclFeatures = new LinkedList<Feature>();
 
-		List<Path> featureJars = collectFeatures(Paths.get(config.featureDirectory()));
-		for (Path path : featureJars) {
+		System.out.format("  parsing feature from %s\n", featureDirectory);
+		List<Path> featureJars = collectFeatures(Paths.get(featureDirectory));
+		for (Path featurePath : featureJars) {
 			try {
-				URI uri = new URI("jar:" + path.toUri().toString());
+				URI uri = new URI("jar:" + featurePath.toUri().toString());
+				String featureId = featurePath.toString().replaceFirst(".*[\\/|\\\\]", "");
+				System.out.format("  parsing feature %s\n", featureId);
 				eclFeatures.addAll(parseFeatureJar(uri));
 			} catch (IOException ioEx) {
 				ioEx.printStackTrace();
@@ -64,30 +64,27 @@ public class EclipseFeatureFolderParser {
 
 		OutputContext outputContext = new OutputContext();
 
+		System.out.format("  creating the bnd build requirement file %s\n", config.bndBuildpathString());
 		outputContext.setStrategy(new OutputBndBuildFormat());
 		Path buildpathPath = Paths.get(config.bndBuildpathString());
 		buildpathPath.toFile().getParentFile().mkdirs();
 		outputContext.execute(eclFeatures, buildpathPath);
 
+		System.out.format("  creating the bnd run requirement file   %s\n\n\n", config.bndRequireString());
 		outputContext.setStrategy(new OutputBndRequireFormat());
 		Path bndRequirePath = Paths.get(config.bndRequireString());
 		bndRequirePath.toFile().getParentFile().mkdirs();
 		outputContext.execute(eclFeatures, bndRequirePath);
 
-		if (debug) {
-			System.out.println("DEBUG Output: outputs all parsed features as XML");
-			for (Path path : featureJars) {
-				try {
-					StringWriter writer = new StringWriter();
-					JAXBContext context = JAXBContext.newInstance(Feature.class);
-					Marshaller m = context.createMarshaller();
-					m.marshal(path, writer);
-					System.out.println(writer.toString());
-				} catch (JAXBException e) {
-					e.printStackTrace();
-				}
-			}
-		}
+		/*
+		 * if (debug) {
+		 * System.out.println("DEBUG Output: outputs all parsed features as XML"); for
+		 * (Path path : featureJars) { try { StringWriter writer = new StringWriter();
+		 * JAXBContext context = JAXBContext.newInstance(Feature.class); Marshaller m =
+		 * context.createMarshaller(); m.marshal(path, writer);
+		 * System.out.println(writer.toString()); } catch (JAXBException e) {
+		 * e.printStackTrace(); } } }
+		 */
 
 		EclipseFeatureParserCLI.shutdownGraceful();
 	}

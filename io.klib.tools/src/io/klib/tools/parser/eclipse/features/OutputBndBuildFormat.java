@@ -18,6 +18,8 @@ import io.klib.tools.ecl2bnd.model.eclipse.Plugin;
 
 public class OutputBndBuildFormat extends OutputContextDefault implements OutputStrategy {
 
+	private boolean debug = Boolean.parseBoolean(System.getProperty("debug", "false"));
+
 	private Path path;
 
 	private final Hashtable<String, String> config_WIN32_WIN32_X86_64 = new Hashtable<String, String>();
@@ -26,8 +28,8 @@ public class OutputBndBuildFormat extends OutputContextDefault implements Output
 	private final Hashtable<String, String> config_LINUX_GTK_X86_64 = new Hashtable<String, String>();
 	private final Hashtable<String, String> config_LINUX_GTK_AARCH64 = new Hashtable<String, String>();
 
-	TreeMap<String, TreeSet<String>> fragments = new TreeMap<>();
-	TreeMap<String, Hashtable<String, String>> configs = new TreeMap<>();
+	TreeMap<String, TreeSet<String>> filterBundles = new TreeMap<>();
+	TreeMap<String, Hashtable<String, String>> supportedOsgiConfigs = new TreeMap<>();
 
 	public OutputBndBuildFormat() {
 		super();
@@ -35,43 +37,48 @@ public class OutputBndBuildFormat extends OutputContextDefault implements Output
 		config_WIN32_WIN32_X86_64.put("osgi.os", "win32");
 		config_WIN32_WIN32_X86_64.put("osgi.ws", "win32");
 		config_WIN32_WIN32_X86_64.put("osgi.arch", "x86_64");
-		configs.put("win32.win32.x86-64", config_WIN32_WIN32_X86_64);
+		supportedOsgiConfigs.put("win32.win32.x86_64", config_WIN32_WIN32_X86_64);
 
 		config_MACOSX_COCOA_X86_64.put("osgi.os", "macosx");
 		config_MACOSX_COCOA_X86_64.put("osgi.ws", "cocoa");
 		config_MACOSX_COCOA_X86_64.put("osgi.arch", "x86_64");
-		configs.put("macosx.cocoa.x86-64", config_MACOSX_COCOA_X86_64);
+		supportedOsgiConfigs.put("cocoa.macosx.x86_64", config_MACOSX_COCOA_X86_64);
 
-		config_MACOSX_COCOA_X86_64.put("osgi.os", "macosx");
-		config_MACOSX_COCOA_X86_64.put("osgi.ws", "cocoa");
-		config_MACOSX_COCOA_X86_64.put("osgi.arch", "aarch64");
-		configs.put("macosx.cocoa.aarch64", config_MACOSX_COCOA_AARCH64);
+		config_MACOSX_COCOA_AARCH64.put("osgi.os", "macosx");
+		config_MACOSX_COCOA_AARCH64.put("osgi.ws", "cocoa");
+		config_MACOSX_COCOA_AARCH64.put("osgi.arch", "aarch64");
+		supportedOsgiConfigs.put("cocoa.macosx.aarch64", config_MACOSX_COCOA_AARCH64);
 
 		config_LINUX_GTK_X86_64.put("osgi.os", "linux");
 		config_LINUX_GTK_X86_64.put("osgi.ws", "gtk");
 		config_LINUX_GTK_X86_64.put("osgi.arch", "x86_64");
-		configs.put("linux.gtk.x86-64", config_LINUX_GTK_X86_64);
+		supportedOsgiConfigs.put("gtk.linux.x86_64", config_LINUX_GTK_X86_64);
 
-		config_LINUX_GTK_X86_64.put("osgi.os", "linux");
-		config_LINUX_GTK_X86_64.put("osgi.ws", "gtk");
-		config_LINUX_GTK_X86_64.put("osgi.arch", "aarch64");
-		configs.put("linux.gtk.aarch64", config_LINUX_GTK_AARCH64);
+		config_LINUX_GTK_AARCH64.put("osgi.os", "linux");
+		config_LINUX_GTK_AARCH64.put("osgi.ws", "gtk");
+		config_LINUX_GTK_AARCH64.put("osgi.arch", "aarch64");
+		supportedOsgiConfigs.put("gtk.linux.aarch64", config_LINUX_GTK_AARCH64);
 	}
 
 	@Override
 	public void execute(List<Feature> features, Path outputPath) {
 		path = outputPath;
 		appendBndBuildHeader(tocHeader);
+
 		for (Feature f : features) {
-			// map OSGi LDAP filter to bundles/fragments
-			fragments.put("win32.win32.x86-64", new TreeSet<String>());
-			fragments.put("macosx.cocoa.x86-64", new TreeSet<String>());
-			fragments.put("macosx.cocoa.aarch64", new TreeSet<String>());
-			fragments.put("linux.gtk.x86_64", new TreeSet<String>());
-			fragments.put("linux.gtk.aarch64", new TreeSet<String>());
+
+			// create empty maps for each supported OSGi LDAP filter to hold
+			// bundles/fragments
+			filterBundles.put("win32.win32.x86_64", new TreeSet<String>());
+			filterBundles.put("cocoa.macosx.x86_64", new TreeSet<String>());
+			filterBundles.put("cocoa.macosx.aarch64", new TreeSet<String>());
+			filterBundles.put("gtk.linux.x86_64", new TreeSet<String>());
+			filterBundles.put("gtk.linux.aarch64", new TreeSet<String>());
 
 			String featureID = f.getId();
 			String featureVersion = f.getVersion();
+			if (debug)
+				System.out.println("processing feature " + featureID);
 
 			// bnd build
 			tocHeader.append(String.format("# ${%s%s_%s}\n", FEATURE_PREFIX, featureID, featureVersion));
@@ -90,7 +97,7 @@ public class OutputBndBuildFormat extends OutputContextDefault implements Output
 			featureExpression.append("\n");
 			// featureExpression.append("# Platform specific macros for
 			// bundles/fragments\n\n");
-			Set<Entry<String, TreeSet<String>>> entrySet = fragments.entrySet();
+			Set<Entry<String, TreeSet<String>>> entrySet = filterBundles.entrySet();
 			for (Entry<String, TreeSet<String>> entry : entrySet) {
 
 				String platformLabel = entry.getKey().toString();
@@ -119,12 +126,9 @@ public class OutputBndBuildFormat extends OutputContextDefault implements Output
 		}
 
 		writeBndBuildFile(tocHeader, featureExpression);
-
 	}
 
 	private void appendBndBuildHeader(StringBuffer tocBndBuild) {
-		// Path filename = path.getName(path.getNameCount() - 2);
-		Path filename = Paths.get("hugo");
 		tocBndBuild.append(
 				"# This file contains include variables for bnd files inside statements '-buildpath' or '-runbundles'\n");
 		tocBndBuild.append("\n# Usage example for a dependency on feature org.eclipse.rcp\n");

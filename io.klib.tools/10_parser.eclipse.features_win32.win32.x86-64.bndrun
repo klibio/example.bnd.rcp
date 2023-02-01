@@ -3,6 +3,11 @@
 #featureDir = 'C:/cec/ENGINE_LIB_DIR/repo/download.eclipse.org/eclipse/updates/${eclipse.version}/${eclipse.platform.version}/features'
 featureDir = 'Z:/ENGINE_LIB_DIR/repo/download.eclipse.org/eclipse/updates/4.26/R-4.26-202211231800/features'
 
+# for developemnt and test
+#featureDir = '${workspace}/io.klib.tools/data/testData/features'
+
+-runproperties: -Ddebug=true
+
 -runprogramargs: ${featureDir}
 
 -runbundles: \
