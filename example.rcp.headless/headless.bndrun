@@ -11,6 +11,7 @@
 	osgi.identity;filter:='(&(osgi.identity=bndtools.runtime.applaunch.eclipse4)(version>=0.1.0))',\
 	osgi.identity;filter:='(&(osgi.identity=example.rcp.headless)(version>=0.1.0.20170714-181245))'
 
+
 -runbundles: \
 	bndtools.runtime.applaunch.eclipse4;version='[0.1.0,0.1.1)',\
 	example.rcp.headless;version=snapshot,\

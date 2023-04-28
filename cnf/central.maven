@@ -16,5 +16,13 @@ org.apache.felix:org.apache.felix.gogo.shell:1.1.0
 org.apache.felix:org.apache.felix.gogo.command:1.0.2
 org.apache.felix:org.apache.felix.inventory:1.0.6
 
-javax.xml.bind:jaxb-api:2.3.1
-org.glassfish.jaxb:jaxb-runtime:2.3.1
+jakarta.xml.bind:jakarta.xml.bind-api:4.0.0
+jakarta.activation:jakarta.activation-api:2.1.1
+
+
+# JAXB dependencies J2SE-11 # see https://adangel.org/2021/03/20/eclipse-jaxb-java11-osgi/
+org.glassfish.jaxb:jaxb-runtime:4.0.2
+    org.glassfish.jaxb:jaxb-core:4.0.2
+    com.sun.istack:istack-commons-runtime:4.2.0
+    org.glassfish.jaxb:txw2:4.0.2
+    org.glassfish.hk2:osgi-resource-locator:2.5.0-b42

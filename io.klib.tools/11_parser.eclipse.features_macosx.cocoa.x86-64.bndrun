@@ -1,7 +1,0 @@
--include: _parser.eclipse.features.bndrun
-
-featureDir = '/Users/peterkir/www/download.eclipse.org/eclipse/updates/${eclipse.version}/${eclipse.platform.version}/features'
-
--runprogramargs: \
-    ${featureDir}
-

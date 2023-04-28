@@ -1,0 +1,16 @@
+# This run file contains only the platform specific properties and settings to run Bndtools.
+-runvm.macos:
+	-XstartOnFirstThread,\
+	-Dorg.eclipse.swt.internal.carbon.smallFonts
+	
+-runsystemcapabilities.macos: \
+	osgi.native;osgi.native.osname:List<String>="macosx";osgi.native.processor:List<String>="aarch64"
+	
+-runproperties.macos: \
+	osgi.ws=cocoa,\
+	osgi.arch=aarch64,\
+	osgi.os=macosx
+	
+-runblacklist.macos: \
+	osgi.identity;filter:='(osgi.identity=*linux*)',\
+	osgi.identity;filter:='(osgi.identity=*win32*)'

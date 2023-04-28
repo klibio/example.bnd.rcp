@@ -129,6 +129,7 @@ public class OutputBndBuildFormat extends OutputContextDefault implements Output
 	}
 
 	private void appendBndBuildHeader(StringBuffer tocBndBuild) {
+		Path filename = Paths.get("hugo");
 		tocBndBuild.append(
 				"# This file contains include variables for bnd files inside statements '-buildpath' or '-runbundles'\n");
 		tocBndBuild.append("\n# Usage example for a dependency on feature org.eclipse.rcp\n");
