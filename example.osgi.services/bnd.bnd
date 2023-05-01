@@ -9,8 +9,7 @@
 
 -testpath: \
 	${junit},\
-	${mockito},\
-	${mockito-deps}
+	${mockito}
 
 javac.source: 11
 javac.target: 11

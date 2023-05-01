@@ -1,0 +1,28 @@
+# Run all integration tests which are named xyzTest
+Test-Cases: ${classes;CONCRETE;PUBLIC;NAMED;*Test}
+
+-tester: biz.aQute.tester.junit-platform
+
+# Build dependencies 
+-buildpath: \
+	${junit},\
+	${mockito},\
+	osgi.annotation; version=7.0.0,\
+	osgi.core; version=7.0.0,\
+	osgi.cmpn; version=7.0.0
+
+# We need JUnit and Mockito to resolve the test cases at runtime. 
+# Other runtime dependencies should be added as necessary
+-runbundles: \
+	${junit},\
+	${mockito}
+
+Bundle-Version: 0.1.0.${tstamp}
+
+# Needed for Mockito's mocking to work
+-runsystempackages.objenesis: sun.misc,sun.reflect
+
+# Use Equinox by default
+-runfw: org.eclipse.osgi;version=3.18
+-runvm: -ea
+-runee: JavaSE-11

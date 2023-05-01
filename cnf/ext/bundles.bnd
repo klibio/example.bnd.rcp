@@ -1,0 +1,6 @@
+testing:\
+    bnd.identity;id='biz.aQute.tester.junit-platform',\
+    bnd.identity;id='junit-platform-commons',\
+    bnd.identity;id='org.apiguardian.api',\
+    bnd.identity;id='junit-jupiter-engine',\
+    bnd.identity;id='org.junit';version='[4.13,5)'

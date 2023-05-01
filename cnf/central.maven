@@ -1,5 +1,4 @@
 # List repository contents using GAV coordinates
-biz.aQute.bnd:biz.aQute.bnd:4.1.0
 ch.qos.logback:logback-core:1.2.3
 ch.qos.logback:logback-classic:1.2.3
 org.osgi:osgi.annotation:7.0.0
@@ -19,10 +18,28 @@ org.apache.felix:org.apache.felix.inventory:1.0.6
 jakarta.xml.bind:jakarta.xml.bind-api:4.0.0
 jakarta.activation:jakarta.activation-api:2.1.1
 
-
 # JAXB dependencies J2SE-11 # see https://adangel.org/2021/03/20/eclipse-jaxb-java11-osgi/
 org.glassfish.jaxb:jaxb-runtime:4.0.2
     org.glassfish.jaxb:jaxb-core:4.0.2
     com.sun.istack:istack-commons-runtime:4.2.0
     org.glassfish.jaxb:txw2:4.0.2
     org.glassfish.hk2:osgi-resource-locator:2.5.0-b42
+
+# Testing
+biz.aQute.bnd:biz.aQute.bnd:6.4.0
+biz.aQute.bnd:biz.aQute.tester.junit-platform:6.4.0
+org.junit.jupiter:junit-jupiter:5.9.2
+org.junit.jupiter:junit-jupiter-api:5.9.2
+org.junit.jupiter:junit-jupiter-engine:5.9.2
+org.junit.platform:junit-platform-commons:1.9.2
+org.mockito:mockito-all:2.0.2-beta
+org.apiguardian:apiguardian-api:1.1.2
+org.junit.platform:junit-platform-engine:1.9.2
+    org.opentest4j:opentest4j:1.2.0
+org.junit.platform:junit-platform-launcher:1.9.2
+
+org.knowhowlab.osgi:org.knowhowlab.osgi.testing.all:1.3.0
+
+org.jacoco:org.jacoco.agent:jar:runtime:0.8.10
+org.jacoco:org.jacoco.agent:jar:0.8.10
+org.jacoco:org.jacoco.core:0.8.10

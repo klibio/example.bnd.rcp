@@ -1,7 +1,5 @@
 Bundle-Version: 0.1.0.${tstamp}
 
-Require-Bundle: org.glassfish.jaxb.runtime
-
 Private-Package: \
 	io.klib.tools.parser.eclipse.features,\
 	io.klib.tools.ecl2bnd.model.eclipse

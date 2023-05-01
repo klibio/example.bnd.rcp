@@ -1,6 +1,9 @@
 -buildpath: \
-	osgi.core;version=7.0.0,\
-	org.eclipse.equinox.app
+	osgi.core;version='7.0.0',\
+	osgi.cmpn;version='7.0.0',\
+	org.eclipse.equinox.app,\
+	javax.inject,\
+	org.eclipse.osgi
 	
 -includeresource: ./root/
 
@@ -9,3 +12,4 @@ Bundle-Version: 0.1.0.${tstamp;yyyyMMdd-HHmmss}
 
 Private-Package: example.rcp.headless
 	
+-privatepackage: example.rcp.args

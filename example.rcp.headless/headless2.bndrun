@@ -4,17 +4,21 @@
 -runproperties: \
     launch.keep=false,\
     launch.storage.dir=_rt/cfg,\
-    launch.trace=true,\
+    launch.trace=false,\
     \
     eclipse.application=example.rcp.headless.application
 
+-runprogramargs: -application example.rcp.headless.application keyA valueA keyB valueB
+
 -runrequires: \
-	bnd.identity;id='bndtools.runtime.applaunch.eclipse4';version='[0.1.0,0.2.0)',\
+	bnd.identity;id='bndtools.runtime.applaunch.eclipse4';version='[0.2.0,1)',\
 	bnd.identity;id='example.rcp.headless'
 
 -runbundles: \
-	bndtools.runtime.applaunch.eclipse4;version='[0.1.0,0.1.1)',\
+	bndtools.runtime.applaunch.eclipse4;version=snapshot,\
 	example.rcp.headless;version=snapshot,\
 	org.eclipse.equinox.app;version='[1.6.100,1.6.101)',\
 	org.eclipse.equinox.common;version='[3.16.100,3.16.101)',\
-	org.eclipse.equinox.registry;version='[3.11.100,3.11.101)'
+	org.eclipse.equinox.registry;version='[3.11.100,3.11.101)',\
+	org.apache.felix.scr;version='[2.1.10,2.1.11)',\
+	org.osgi.util.function;version='[1.2.0,1.2.1)'

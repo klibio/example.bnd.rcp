@@ -87,11 +87,10 @@ Git-Descriptor:           ${system-allow-fail;git describe --dirty --always}
 Git-SHA:                  ${system-allow-fail;git rev-list -1 HEAD}
 
 # JUnit
-junit: org.apache.servicemix.bundles.junit; version=4.12
-mockito: org.mockito.mockito-core; version=2.13.0
-mockito-deps: org.objenesis; version=2.6.0,\
-  net.bytebuddy.byte-buddy; version=1.7.9,\
-  net.bytebuddy.byte-buddy-agent; version=1.7.9 
+junit: \
+  junit-jupiter,\
+  junit-jupiter-api
+mockito: org.mockito.mockito-all
   
 # Eclipse Release repositories 
 eclipse.version          = 4.24
@@ -102,7 +101,7 @@ eclipse.simu.version     = 202206151000
 eclipse.platform.baseurl = http://download.eclipse.org/eclipse/updates
 #eclipse.platform.baseurl = "${fileuri;${user.home}}www/download.eclipse.org/eclipse/updates"
 #eclipse.platform.baseurl = "${fileuri;C:/cec/ENGINE_LIB_DIR/repo/download.eclipse.org/eclipse/updates/${eclipse.version}/${eclipse.platform.version}"
-eclipse.platform.name    = Platform_${eclipse.platform.version}
+eclipse.platform.name    = "Platform_${eclipse.platform.version}"
 eclipse.platform.url     = "${eclipse.platform.baseurl}/${eclipse.version}/${eclipse.platform.version}"
 
 eclipse.simu.baseurl = http://download.eclipse.org/releases
@@ -128,16 +127,20 @@ eclipse.simu.url     = "${eclipse.simu.baseurl}/${eclipse.name}/${eclipse.simu.v
 # 2. use the fixed indices saves the load time on new workspaces - https://bndtools.org/repositories.html
 #-plugin.20.eclipse.platform: \
 #	aQute.bnd.repository.osgi.OSGiRepository;\
-#		locations=$[fileuri;${.}]/fixedIndices/p2-Platform_R-4.18-202012021800_index.xml.gz;\
+#		locations=$[fileuri;${.}]/fixedIndices/4.24/index.xml.gz;\
 #		name=${eclipse.platform.name};\
 #       poll.time=60;\
 #		max.stale=-1
 
 #-plugin.21.eclipse.simu: \
 #	aQute.bnd.repository.osgi.OSGiRepository;\
-#        locations = ${fileuri;${.}}/fixedIndices/p2-SimuRel_2020-12_202012161000_index.xml.gz;\
+#        locations = ${fileuri;${.}}/fixedIndices/4.24/2206/index.xml.gz,\
 #        name      = ${eclipse.simu.name}; \
 #        poll.time=60;\
 #   	 max.stale=-1
 
 -noimportjava: true
+
+# https://bnd.bndtools.org/instructions/remoteworkspace.html
+-remoteworkspace    true
+

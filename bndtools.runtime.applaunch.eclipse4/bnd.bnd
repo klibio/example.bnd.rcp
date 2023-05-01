@@ -1,0 +1,6 @@
+-buildpath: org.eclipse.osgi
+
+Bundle-Activator: bndtools.runtime.applaunch.eclipse4.Activator
+Bundle-Version: 0.2.0.${tstamp;"yyyyMMdd-HHmmss"}
+
+-privatepackage: bndtools.runtime.applaunch.eclipse4

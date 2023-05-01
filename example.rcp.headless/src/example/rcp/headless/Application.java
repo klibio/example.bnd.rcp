@@ -16,6 +16,7 @@ public class Application implements IApplication {
 		String timeStamp = new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss")
 				.format(new Timestamp(System.currentTimeMillis()));
 		System.out.format("RCP headless app launched at %s!\n", timeStamp);
+		Thread.sleep(5*1000);
 		return IApplication.EXIT_OK;
 	}
 
