@@ -1,0 +1,143 @@
+-runfw: org.eclipse.osgi;version=3.13
+-runee: JavaSE-17
+
+-resolve.effective: active
+-runprovidedcapabilities: ${native_capability}
+
+-runvm: -Dorg.eclipse.ecf.provider.filetransfer.retrieve.multithreaded=true \n\
+	-Dorg.eclipse.ecf.provider.filetransfer.retrieve.readTimeout=15000 \n\
+	-Dorg.eclipse.ecf.provider.filetransfer.retrieve.connectTimeout=10000 \n\
+	-Dorg.eclipse.ecf.provider.filetransfer.retrieve.workerThreads=16 \n\
+	-Declipse.p2.max.threads=16 -Declipse.p2.force.threading=true
+
+
+# eclipse.p2.max.threads to control the number of active thread. The default is 4.
+# eclipse.p2.force.threading to enable or disable the multi threaded download. The default is true.
+# eclipse.p2.mirrors to disable the usage of mirrors when downloading artifacts. The default is true.
+# eclipse.p2.reportDownloadStatistics to disable the reporting of download statistics during p2 operations
+
+-runproperties: \
+	osgi.console=,\
+	org.osgi.framework.bootdelegation='javax.*,org.xml.sax,org.xml.sax.helpers',\
+	osgi.console.enable.builtin=false,\
+	org.osgi.framework.system.packages.extra='javax.*,org.xml.sax,org.xml.sax.helpers',\
+	eclipse.p2.max.threads=16,\
+	launch.trace=false
+
+bundles.p2.director: \
+	bnd.identity;id='org.eclipse.core.jobs',\
+	bnd.identity;id='org.eclipse.ecf',\
+	bnd.identity;id='org.eclipse.ecf.filetransfer',\
+	bnd.identity;id='org.eclipse.ecf.identity',\
+	bnd.identity;id='org.eclipse.ecf.provider.filetransfer',\
+	bnd.identity;id='org.eclipse.ecf.provider.filetransfer.httpclient45',\
+	bnd.identity;id='org.eclipse.ecf.provider.filetransfer.httpclient45.win32',\
+	bnd.identity;id='org.eclipse.ecf.provider.filetransfer.ssl',\
+	bnd.identity;id='org.eclipse.ecf.ssl',\
+	bnd.identity;id='org.eclipse.equinox.app',\
+	bnd.identity;id='org.eclipse.equinox.common',\
+	bnd.identity;id='org.eclipse.equinox.frameworkadmin',\
+	bnd.identity;id='org.eclipse.equinox.frameworkadmin.equinox',\
+	bnd.identity;id='org.eclipse.equinox.p2.artifact.repository',\
+	bnd.identity;id='org.eclipse.equinox.p2.console',\
+	bnd.identity;id='org.eclipse.equinox.p2.core',\
+	bnd.identity;id='org.eclipse.equinox.p2.director',\
+	bnd.identity;id='org.eclipse.equinox.p2.director.app',\
+	bnd.identity;id='org.eclipse.equinox.p2.engine',\
+	bnd.identity;id='org.eclipse.equinox.p2.jarprocessor',\
+	bnd.identity;id='org.eclipse.equinox.p2.metadata',\
+	bnd.identity;id='org.eclipse.equinox.p2.metadata.repository',\
+	bnd.identity;id='org.eclipse.equinox.p2.operations',\
+	bnd.identity;id='org.eclipse.equinox.p2.transport.ecf',\
+	bnd.identity;id='org.eclipse.equinox.p2.touchpoint.eclipse',\
+	bnd.identity;id='org.eclipse.equinox.p2.touchpoint.natives',\
+	bnd.identity;id='org.eclipse.equinox.registry',\
+	bnd.identity;id='org.eclipse.osgi.services',\
+	bnd.identity;id='org.sat4j.core',\
+	bnd.identity;id='org.sat4j.pb',\
+
+-runblacklist: \
+	bnd.identity;id='osgi.annotation',\
+	bnd.identity;id='osgi.cmpn',\
+	bnd.identity;id='osgi.core',\
+	osgi.identity;filter:='(osgi.identity=org.osgi.*)'
+
+-runbundles+: \
+    org.apache.felix.scr;                startlevel=2,\
+    org.eclipse.equinox.common;          startlevel=2,\
+    org.eclipse.equinox.event;           startlevel=2,\
+    org.eclipse.core.runtime;            startlevel=3,\
+    org.eclipse.equinox.p2.*;            startlevel=4,\
+    *;                                   startlevel=5
+
+-augment: \
+    org.eclipse.equinox.p2.core; \
+        capability:='osgi.service;objectClass=org.eclipse.equinox.p2.core.IProvisioningAgentProvider'
+
+-runrequires: \
+	osgi.identity;filter:='(osgi.identity=org.apache.felix.gogo.shell)',\
+	osgi.identity;filter:='(osgi.identity=org.apache.felix.gogo.command)',\
+	\
+	bnd.identity;id='io.klib.app.p2.mirror';version:Version='0.1.0.202302211721',\
+	\
+	${bundles.p2.director}
+
+-runbundles: \
+	com.sun.jna;version='[4.5.1,4.5.2)',\
+	com.sun.jna.platform;version='[4.5.1,4.5.2)',\
+	io.klib.app.p2.mirror;version=snapshot,\
+	org.apache.commons.codec;version='[1.14.0,1.14.1)',\
+	org.apache.commons.logging;version='[1.2.0,1.2.1)',\
+	org.apache.felix.gogo.command;version='[1.1.0,1.1.1)',\
+	org.apache.felix.gogo.runtime;version='[1.1.2,1.1.3)',\
+	org.apache.felix.gogo.shell;version='[1.1.2,1.1.3)',\
+	org.apache.felix.scr;version='[2.1.24,2.1.25)',\
+	org.apache.httpcomponents.httpclient;version='[4.5.10,4.5.11)',\
+	org.apache.httpcomponents.httpclient.win;version='[4.5.10,4.5.11)',\
+	org.apache.httpcomponents.httpcore;version='[4.4.12,4.4.13)',\
+	org.eclipse.core.contenttype;version='[3.7.800,3.7.801)',\
+	org.eclipse.core.jobs;version='[3.10.1000,3.10.1001)',\
+	org.eclipse.core.runtime;version='[3.20.0,3.20.1)',\
+	org.eclipse.ecf;version='[3.9.101,3.9.102)',\
+	org.eclipse.ecf.filetransfer;version='[5.1.101,5.1.102)',\
+	org.eclipse.ecf.identity;version='[3.9.401,3.9.402)',\
+	org.eclipse.ecf.provider.filetransfer;version='[3.2.601,3.2.602)',\
+	org.eclipse.ecf.provider.filetransfer.httpclient45;version='[1.0.301,1.0.302)',\
+	org.eclipse.ecf.provider.filetransfer.httpclient45.win32;version='[1.0.300,1.0.301)',\
+	org.eclipse.ecf.provider.filetransfer.ssl;version='[1.0.200,1.0.201)',\
+	org.eclipse.ecf.ssl;version='[1.2.400,1.2.401)',\
+	org.eclipse.equinox.app;version='[1.5.0,1.5.1)',\
+	org.eclipse.equinox.common;version='[3.14.0,3.14.1)',\
+	org.eclipse.equinox.concurrent;version='[1.1.500,1.1.501)',\
+	org.eclipse.equinox.frameworkadmin;version='[2.1.400,2.1.401)',\
+	org.eclipse.equinox.frameworkadmin.equinox;version='[1.1.400,1.1.401)',\
+	org.eclipse.equinox.p2.artifact.repository;version='[1.3.500,1.3.501)',\
+	org.eclipse.equinox.p2.console;version='[1.1.400,1.1.401)',\
+	org.eclipse.equinox.p2.core;version='[2.6.300,2.6.301)',\
+	org.eclipse.equinox.p2.director;version='[2.4.700,2.4.701)',\
+	org.eclipse.equinox.p2.director.app;version='[1.1.600,1.1.601)',\
+	org.eclipse.equinox.p2.engine;version='[2.6.700,2.6.701)',\
+	org.eclipse.equinox.p2.garbagecollector;version='[1.1.400,1.1.401)',\
+	org.eclipse.equinox.p2.jarprocessor;version='[1.1.700,1.1.701)',\
+	org.eclipse.equinox.p2.metadata;version='[2.5.100,2.5.101)',\
+	org.eclipse.equinox.p2.metadata.repository;version='[1.3.400,1.3.401)',\
+	org.eclipse.equinox.p2.operations;version='[2.5.1000,2.5.1001)',\
+	org.eclipse.equinox.p2.publisher;version='[1.5.400,1.5.401)',\
+	org.eclipse.equinox.p2.publisher.eclipse;version='[1.3.700,1.3.701)',\
+	org.eclipse.equinox.p2.repository;version='[2.5.0,2.5.1)',\
+	org.eclipse.equinox.p2.repository.tools;version='[2.2.500,2.2.501)',\
+	org.eclipse.equinox.p2.touchpoint.eclipse;version='[2.2.700,2.2.701)',\
+	org.eclipse.equinox.p2.touchpoint.natives;version='[1.3.600,1.3.601)',\
+	org.eclipse.equinox.p2.transport.ecf;version='[1.3.0,1.3.1)',\
+	org.eclipse.equinox.preferences;version='[3.8.100,3.8.101)',\
+	org.eclipse.equinox.registry;version='[3.10.0,3.10.1)',\
+	org.eclipse.equinox.security;version='[1.3.500,1.3.501)',\
+	org.eclipse.equinox.simpleconfigurator;version='[1.3.600,1.3.601)',\
+	org.eclipse.equinox.simpleconfigurator.manipulator;version='[2.1.500,2.1.501)',\
+	org.eclipse.osgi.services;version='[3.9.0,3.9.1)',\
+	org.eclipse.osgi.util;version='[3.5.300,3.5.301)',\
+	org.sat4j.core;version='[2.3.5,2.3.6)',\
+	org.sat4j.pb;version='[2.3.5,2.3.6)',\
+	org.tukaani.xz;version='[1.8.0,1.8.1)',\
+	javax.mail;version='[1.4.3,1.4.4)',\
+	org.apache.servicemix.specs.activation-api-1.1;version='[2.9.0,2.9.1)'

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="Local" increment="1622010521706">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="Local" increment="1676899707261">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="http://www.opensource.org/licenses/eclipse-1.0.php"/>
@@ -17,8 +17,8 @@
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="23231" type="Long"/>
-      <attribute name="url" value="bndtools.runtime.applaunch.eclipse4/bndtools.runtime.applaunch.eclipse4-0.1.0.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="bndtools.runtime.applaunch.eclipse4/bndtools.runtime.applaunch.eclipse4-0.1.0.jar"/>
       <attribute name="osgi.content" value="93043970DD11B0E8E188B4433660A7744A418F697578785BE096BAF0C1320C15"/>
     </capability>
     <requirement namespace="osgi.wiring.package">

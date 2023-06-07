@@ -1,0 +1,74 @@
+-include: ${workspace}/cnf/shared/jdt.properties
+
+-buildpath: \
+    org.eclipse.osgi,\
+    org.eclipse.osgi.services,\
+	org.eclipse.core.contenttype,\
+	org.eclipse.core.jobs,\
+	org.eclipse.equinox.app,\
+	org.eclipse.equinox.common,\
+	org.eclipse.equinox.preferences,\
+	org.eclipse.equinox.registry,\
+	org.eclipse.core.runtime,\
+	org.eclipse.equinox.p2.artifact.repository,\
+	org.eclipse.equinox.p2.console,\
+	org.eclipse.equinox.p2.core,\
+	org.eclipse.equinox.p2.director,\
+	org.eclipse.equinox.p2.director.app,\
+	org.eclipse.equinox.p2.directorywatcher,\
+	org.eclipse.equinox.p2.discovery,\
+	org.eclipse.equinox.p2.engine,\
+	org.eclipse.equinox.p2.extensionlocation,\
+	org.eclipse.equinox.p2.garbagecollector,\
+	org.eclipse.equinox.p2.installer,\
+	org.eclipse.equinox.p2.jarprocessor,\
+	org.eclipse.equinox.p2.metadata,\
+	org.eclipse.equinox.p2.metadata.repository,\
+	org.eclipse.equinox.p2.operations,\
+	org.eclipse.equinox.p2.publisher,\
+	org.eclipse.equinox.p2.publisher.eclipse,\
+	org.eclipse.equinox.p2.reconciler.dropins,\
+	org.eclipse.equinox.p2.repository,\
+	org.eclipse.equinox.p2.repository.tools,\
+	org.eclipse.equinox.p2.touchpoint.eclipse,\
+	org.eclipse.equinox.p2.touchpoint.natives,\
+	org.eclipse.equinox.p2.transport.ecf,\
+	org.eclipse.equinox.p2.updatechecker,\
+	org.eclipse.equinox.p2.updatesite,\
+	org.tukaani.xz,\
+	org.eclipse.ant.core,\
+	org.apache.ant,\
+	ant.jar;version=file,\
+	repository-tools-ant.jar;version=file
+
+-includeresource: \
+    @ant.jar,\
+    @repository-tools-ant.jar
+
+-testpath: \
+	${junit},\
+	${mockito},\
+	${mockito-deps}
+
+Bundle-ActivationPolicy: lazy
+Bundle-Version: 0.1.0.${tstamp;"yyyymmdd-HHmmss"}
+
+-privatepackage: io.klib.app.p2.mirror
+-runrequires: bnd.identity;id='io.klib.app.p2.mirror';version:Version='0.1.0.202302211711'
+-runfw: org.eclipse.osgi;version='[3.16.100.v20201030-1916,3.16.100.v20201030-1916]'
+-runee: JavaSE-17
+-runbundles: \
+	io.klib.app.p2.mirror;version=snapshot,\
+	org.apache.felix.scr;version='[2.1.10,2.1.11)',\
+	org.osgi.util.function;version='[1.1.0,1.1.1)'
+
+Import-Package: \
+    !com.sun.*,\
+    !gnu.*,\
+	!sun.*,\
+	!weblogic*,\
+	!kaffe*,\
+	!org.apache*,\
+	!org.eclipse.equinox.internal.*,\
+	*
+	

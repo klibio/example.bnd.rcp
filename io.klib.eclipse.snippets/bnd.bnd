@@ -1,0 +1,20 @@
+javac.source:           17
+javac.target:           17
+javac.compliance:       17
+
+-buildpath: \
+	org.eclipse.osgi;version='3.16',\
+	org.eclipse.swt,\
+	org.eclipse.swt.win32.win32.x86_64,\
+	org.apache.felix.gogo.command,\
+	org.apache.felix.gogo.shell,\
+	osgi.annotation;version=latest,\
+	osgi.cmpn;version=latest,\
+	org.apache.felix.gogo.runtime;version=latest
+
+Bundle-Version: 0.1.0.${tstamp;"yyyymmdd-HHmmss"}
+
+-privatepackage: \
+	io.klib.eclipse.snippets,\
+	org.eclipse.swt.snippets,\
+	org.eclipse.swt.snippets_mod
