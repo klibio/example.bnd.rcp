@@ -1,3 +1,6 @@
+-include: \
+    ${build}/compile/java11.bnd
+
 -buildpath: \
 	org.eclipse.osgi;version=3.12,\
 	org.eclipse.equinox.app;version=1.3,\

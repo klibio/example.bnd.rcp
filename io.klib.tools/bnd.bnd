@@ -1,3 +1,4 @@
+-include: ${build}/compile/java11.bnd
 -sub: *.bnd
 
 -buildpath: \
@@ -10,5 +11,5 @@
     junit:junit;version=4.12,\
 	org.hamcrest:hamcrest-core;version=1.3
 
-javac.source: 11
-javac.target: 11
+-fixupmessages: \
+    "Exporting a package from system module 'jdk.jartool' is not allowed with --release."
