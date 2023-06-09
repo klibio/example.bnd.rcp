@@ -24,7 +24,8 @@ import org.osgi.service.component.annotations.Component;
 	property = { 
 		"osgi.command.scope=zEclipseSnippets",
 		"osgi.command.function=listSnippets", 
-		"osgi.command.function=launchSnippet" 
+		"osgi.command.function=launchSnippet", 
+		"osgi.command.function=launchSnippetExplorer" 
 	}, service = EclipseSnippetLauncher.class)
 //@formatter:on
 @ConsumerType
@@ -51,7 +52,20 @@ public class EclipseSnippetLauncher {
 		}
 	}
 
-	@Descriptor("Kill++ Eclipse Snippet")
+	@Descriptor("Launch Eclipse Snippet")
+	public void launchSnippetExplorer() {
+		String snippetClass = "org.eclipse.swt.snippets.SnippetExplorer";
+		System.out.println("executing SnippetExplorer");
+		try {
+			Class<?> clazz = Class.forName(snippetClass);
+			Method mainMethod = clazz.getDeclaredMethod("main", String[].class);
+			mainMethod.invoke(null, (Object) null);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Descriptor("Kill Eclipse Snippet")
 	public void killSnippet(String number) {
 		String snippetClass = "org.eclipse.swt.snippets.Snippet" + number;
 		System.out.println("executing EclipseSnippet " + snippetClass);
@@ -67,16 +81,27 @@ public class EclipseSnippetLauncher {
 
 	@Descriptor("Launch Eclipse Snippet")
 	public void listSnippets() {
-		String packageName = "org.eclipse.swt.snippets";
-		System.out.println("following Eclipse Snippets are available:");
 		Bundle bundle = FrameworkUtil.getBundle(EclipseSnippetLauncher.class);
 		BundleWiring bundleWiring = bundle.adapt(BundleWiring.class);
+
+		String packageName = "org.eclipse.swt.snippets";
+		System.out.println("following Eclipse Snippets are available:");
 		Collection<String> classes = bundleWiring.listResources(packageName.replace('.', '/'), "*.class",
 				BundleWiring.LISTRESOURCES_LOCAL);
 		for (String classname : classes) {
 			if (!classname.contains("$")) {
 				System.out.format("%5s - %s\n", classname.replaceFirst(".*Snippet(\\d+).*", "$1"),
 						readComment(classname.replaceFirst(".*/", "").replace(".class", "")));
+			}
+		}
+		packageName = "org.eclipse.swt.snippets_mod";
+		System.out.println("following modifiedEclipse Snippets are available:");
+		classes = bundleWiring.listResources(packageName.replace('.', '/'), "*.class",
+				BundleWiring.LISTRESOURCES_LOCAL);
+		for (String classname : classes) {
+			if (!classname.contains("$")) {
+				System.out.format("%5s - %s\n", classname.replaceFirst(".*Snippet(\\d+).*", "$1"),
+						readComment(classname.replaceFirst(".*/", "").replace(".class", "").replace("_mod", "")));
 			}
 		}
 	}
