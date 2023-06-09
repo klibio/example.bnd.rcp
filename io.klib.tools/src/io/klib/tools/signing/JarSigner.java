@@ -221,7 +221,7 @@ public class JarSigner {
 		boolean rv = false;
 		FileSystem fs;
 		try {
-			fs = FileSystems.newFileSystem(path, null);
+			fs = FileSystems.newFileSystem(path);
 			Path manifestFile = fs.getPath(META_INF, MANIFEST_MF);
 			if (Files.exists(manifestFile)) {
 				rv = true;

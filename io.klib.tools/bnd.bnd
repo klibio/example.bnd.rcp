@@ -1,15 +1,14 @@
--include: ${build}/compile/java11.bnd
+-include: ${build}/compile/java17.bnd
+-fixupmessages: \
+    "Exporting a package from system module 'jdk.jartool' is not allowed with --release.";is:=ignore
 -sub: *.bnd
 
 -buildpath: \
-	osgi.core;version=6.0,\
-	osgi.cmpn;version=6.0,\
-	osgi.annotation;version=6.0.1,\
-	jaxb-api
+	osgi.core;version='7.0',\
+	osgi.cmpn;version='7.0',\
+	osgi.annotation;version='7.0',\
+	jakarta.xml.bind-api;version='4.0'
 
 -testpath: \
     junit:junit;version=4.12,\
 	org.hamcrest:hamcrest-core;version=1.3
-
--fixupmessages: \
-    "Exporting a package from system module 'jdk.jartool' is not allowed with --release."

@@ -14,10 +14,6 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.concurrent.ConcurrentSkipListSet;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 
 import org.osgi.framework.BundleException;
 import org.osgi.framework.FrameworkUtil;
@@ -26,6 +22,10 @@ import org.osgi.service.component.annotations.Component;
 
 import io.klib.tools.ecl2bnd.model.bnd.BndFeature;
 import io.klib.tools.ecl2bnd.model.eclipse.Feature;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
 
 @Component
 public class EclipseRepoParser {

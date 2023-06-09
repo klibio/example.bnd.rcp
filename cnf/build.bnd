@@ -112,10 +112,10 @@ eclipse.simu.url     = "${eclipse.simu.baseurl}/${eclipse.name}/${eclipse.simu.v
 # Remote Eclipse repositories
 
 # 1. creation of the indices via this configurations and store inside cnf/fixedIndices
-#-plugin.10.eclipse.platform: \
-#    aQute.bnd.repository.p2.provider.P2Repository; \
-#        name  = ${eclipse.platform.name}; \
-#        url   = ${eclipse.platform.url}
+-plugin.10.eclipse.platform: \
+    aQute.bnd.repository.p2.provider.P2Repository; \
+       name  = ${eclipse.platform.name}; \
+        url   = ${eclipse.platform.url}
 
 #-plugin.11.eclipse.simu: \
 #    aQute.bnd.repository.p2.provider.P2Repository; \
@@ -125,11 +125,11 @@ eclipse.simu.url     = "${eclipse.simu.baseurl}/${eclipse.name}/${eclipse.simu.v
 # Reference the locally indexed eclipse repositories
 
 # 2. use the fixed indices saves the load time on new workspaces - https://bndtools.org/repositories.html
--plugin.20.eclipse.platform: \
-	aQute.bnd.repository.osgi.OSGiRepository;\
-		locations=$[fileuri;${.}]/fixedIndices/p2-Platform_R-4.18-202012021800_index.xml.gz;\
-		name=${eclipse.platform.name};\
-		max.stale=-1
+#-plugin.20.eclipse.platform: \
+#	aQute.bnd.repository.osgi.OSGiRepository;\
+#		locations=$[fileuri;${.}]/fixedIndices/p2-Platform_R-4.18-202012021800_index.xml.gz;\
+#		name=${eclipse.platform.name};\
+#		max.stale=-1
 
 #-plugin.21.eclipse.simu: \
 #	aQute.bnd.repository.osgi.OSGiRepository;\
