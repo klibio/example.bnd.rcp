@@ -71,7 +71,7 @@ public class OutputBndBuildFormat extends OutputContextDefault implements Output
 				featureExpression.append(String.format("%s%s: \\\n", FEATURE_PREFIX, featureID));
 			}
 
-			StringBuffer featureIncludesBndBuild = parseFeatureIncludeSection(f);
+			StringBuffer featureIncludesBndBuild = parseFeatureIncludeSection(f,versioned);
 			StringBuffer featurePluginsBndBuild = parseFeaturePlugins(f);
 
 			if (featureIncludesBndBuild.length() > 0) {

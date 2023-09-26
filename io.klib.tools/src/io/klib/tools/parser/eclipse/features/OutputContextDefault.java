@@ -13,14 +13,18 @@ public abstract class OutputContextDefault implements OutputStrategy {
 		featureExpression = new StringBuffer();
 	}
 
-	protected StringBuffer parseFeatureIncludeSection(Feature f) {
+	protected StringBuffer parseFeatureIncludeSection(Feature f, boolean versioned) {
 		StringBuffer featureIncludes = new StringBuffer();
 		List<Feature> includes = f.getIncludes();
 		if (includes != null) {
 			includes.stream().sorted(new EclipseFeatureComparator()).forEach(i -> {
 				String id = i.getId();
-				String version = i.getVersion();
-				featureIncludes.append(String.format("    ${%s%s_%s},\\\n", FEATURE_PREFIX, id, version));
+				if (versioned) {
+					String version = i.getVersion();
+					featureIncludes.append(String.format("    ${%s%s_%s},\\\n", FEATURE_PREFIX, id, version));
+				} else {
+					featureIncludes.append(String.format("    ${%s%s},\\\n", FEATURE_PREFIX, id));
+				}
 			});
 			// remove the trailing ",\\n"
 			featureIncludes.replace(featureIncludes.length() - 3, featureIncludes.length(), "");

@@ -76,7 +76,7 @@ public class OutputBndRequireFormat extends OutputContextDefault implements Outp
 				featureExpression.append(String.format("%s%s: \\\n", FEATURE_PREFIX, featureID));
 			}
 
-			StringBuffer featureIncludesBndRequire = parseFeatureIncludeSection(f);
+			StringBuffer featureIncludesBndRequire = parseFeatureIncludeSection(f,versioned);
 			StringBuffer featurePluginsBndRequire = parseFeaturePlugins(f, fragments);
 
 			if (featureIncludesBndRequire.length() > 0) {
