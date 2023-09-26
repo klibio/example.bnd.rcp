@@ -27,8 +27,11 @@ public class OutputBndBuildFormat extends OutputContextDefault implements Output
 	TreeMap<String, TreeSet<String>> fragments = new TreeMap<>();
 	TreeMap<String, Hashtable<String, String>> configs = new TreeMap<>();
 
-	public OutputBndBuildFormat() {
+	private boolean versioned;
+
+	public OutputBndBuildFormat(boolean versioned) {
 		super();
+		this.versioned = versioned;
 		config_WIN32_WIN32_X86_64.put("osgi.os", "win32");
 		config_WIN32_WIN32_X86_64.put("osgi.ws", "win32");
 		config_WIN32_WIN32_X86_64.put("osgi.arch", "x86_64");
@@ -59,8 +62,14 @@ public class OutputBndBuildFormat extends OutputContextDefault implements Output
 			String featureVersion = f.getVersion();
 
 			// bnd build
-			tocHeader.append(String.format("# ${%s%s_%s}\n", FEATURE_PREFIX, featureID, featureVersion));
-			featureExpression.append(String.format("%s%s_%s: \\\n", FEATURE_PREFIX, featureID, featureVersion));
+
+			if (versioned) {
+				tocHeader.append(String.format("# ${%s%s_%s}\n", FEATURE_PREFIX, featureID, featureVersion));
+				featureExpression.append(String.format("%s%s_%s: \\\n", FEATURE_PREFIX, featureID, featureVersion));
+			} else {
+				tocHeader.append(String.format("# ${%s%s}\n", FEATURE_PREFIX, featureID));
+				featureExpression.append(String.format("%s%s: \\\n", FEATURE_PREFIX, featureID));
+			}
 
 			StringBuffer featureIncludesBndBuild = parseFeatureIncludeSection(f);
 			StringBuffer featurePluginsBndBuild = parseFeaturePlugins(f);
@@ -82,13 +91,24 @@ public class OutputBndBuildFormat extends OutputContextDefault implements Output
 
 				TreeSet<String> platformBundles = entry.getValue();
 				if (!platformLabel.isEmpty() && !platformBundles.isEmpty()) {
-
-					String headerNote = String.format("# ${%s%s_%s_%s%s}\n", FEATURE_PREFIX, featureID, featureVersion,
-							PLATFORM_PREFIX, platformLabel);
+					String headerNote = "";
+					if (versioned) {
+						headerNote = String.format("# ${%s%s_%s_%s%s}\n", FEATURE_PREFIX, featureID, featureVersion,
+								PLATFORM_PREFIX, platformLabel);
+					} else {
+						headerNote = String.format("# ${%s%s_%s%s}\n", FEATURE_PREFIX, featureID, PLATFORM_PREFIX,
+								platformLabel);
+					}
 					tocHeader.append(headerNote);
 
-					String bndFeatureEntry = String.format("%s%s_%s_%s%s: \\\n", FEATURE_PREFIX, featureID,
-							featureVersion, PLATFORM_PREFIX, platformLabel);
+					String bndFeatureEntry = "";
+					if (versioned) {
+						bndFeatureEntry = String.format("%s%s_%s_%s%s: \\\n", FEATURE_PREFIX, featureID, featureVersion,
+								PLATFORM_PREFIX, platformLabel);
+					} else {
+						bndFeatureEntry = String.format("%s%s_%s%s: \\\n", FEATURE_PREFIX, featureID, PLATFORM_PREFIX,
+								platformLabel);
+					}
 					featureExpression.append(bndFeatureEntry);
 					platformBundles.stream().sorted().forEach(i -> featureExpression.append(i));
 

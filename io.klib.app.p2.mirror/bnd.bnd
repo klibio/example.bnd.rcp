@@ -69,6 +69,6 @@ Import-Package: \
 	!weblogic*,\
 	!kaffe*,\
 	!org.apache*,\
-	!org.eclipse.equinox.internal.*,\
+	!org.eclipse.equinox.internal.p2.jarprocessor.ant,\
 	*
 	

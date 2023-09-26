@@ -1,7 +1,8 @@
 -include: _parser.eclipse.features.bndrun
 
-featureDir = 'C:/cec/ENGINE_LIB_DIR/repo/download.eclipse.org/eclipse/updates/${eclipse.version}/${eclipse.platform.version}/features'
-
+#featureDir = 'C:/cec/ENGINE_LIB_DIR/repo/download.eclipse.org/eclipse/updates/${eclipse.version}/${eclipse.platform.version}/features'
+#featureDir = 'X:/IDEfix/klibio-example-bnd-rcp/git/example.bnd.rcp/io.klib.app.p2.mirror/repo/download.eclipse.org/releases/2023-06/202306141000/features'
+featureDir = 'X:/IDEfix/klibio-example-bnd-rcp/git/example.bnd.rcp/io.klib.app.p2.mirror/repo/download.eclipse.org/eclipse/updates/4.28/R-4.28-202306050440/features'
 -runprogramargs: ${featureDir}
 -runvm: -Ddebug=false
 

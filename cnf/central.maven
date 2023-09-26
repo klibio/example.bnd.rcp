@@ -18,3 +18,10 @@ jakarta.xml.bind:jakarta.xml.bind-api:4.0.0
   jakarta.activation:jakarta.activation-api:2.1.2
   com.sun.xml.bind:jaxb-core:4.0.2
   com.sun.xml.bind:jaxb-impl:4.0.2
+
+# webconsole
+commons-fileupload:commons-fileupload:1.5
+org.apache.felix:org.apache.felix.webconsole:4.8.10
+org.slf4j:slf4j-api:1.7.25
+org.slf4j:jcl-over-slf4j:1.7.25
+org.slf4j:slf4j-simple:1.7.25

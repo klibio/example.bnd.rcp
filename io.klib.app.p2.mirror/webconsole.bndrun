@@ -1,0 +1,33 @@
+-runfw: org.eclipse.osgi;version='[3.16,4]'
+-runee: JavaSE-17
+
+-runblacklist: \
+	bnd.identity;id='osgi.cmpn';version:Version='7.0.0',\
+	bnd.identity;id='osgi.annotation';version:Version='7.0.0',\
+	bnd.identity;id='osgi.core';version:Version='7.0.0',\
+    bnd.identity;id='org.apache.felix.scr';version='[2.1.10,2.1.11)',\
+    bnd.identity;id='slf4j.api';version='[1.7.10,1.7.11)',\
+    bnd.identity;id='slf4j.simple';version='[1.7.10,1.7.11)'
+
+-runproperties: org.osgi.service.http.port=8080
+
+-runrequires: \
+	bnd.identity;id='org.apache.felix.webconsole';version:Version='4.8.10',\
+	bnd.identity;id='slf4j.api';version:Version='1.7.25',\
+	bnd.identity;id='org.apache.felix.scr';version='[2.1.24,3)',\
+	bnd.identity;id='jcl.over.slf4j';version:Version='1.7.25',\
+	bnd.identity;id='slf4j.simple';version:Version='1.7.25'
+
+-runbundles: \
+	org.apache.commons.commons-fileupload;version='[1.5.0,1.5.1)',\
+	org.apache.commons.io;version='[2.6.0,2.6.1)',\
+	org.apache.felix.http.servlet-api;version='[1.1.2,1.1.3)',\
+	org.apache.felix.scr;version='[2.1.24,2.1.25)',\
+	org.apache.felix.webconsole;version='[4.8.10,4.8.11)',\
+	org.eclipse.osgi.util;version='[3.5.300,3.5.301)',\
+	org.osgi.compendium;version='[4.1.0,4.1.1)',\
+	slf4j.api;version='[1.7.25,1.7.26)',\
+	org.eclipse.osgi.services;version='[3.9.0,3.9.1)',\
+	jcl.over.slf4j;version='[1.7.25,1.7.26)',\
+	slf4j.simple;version='[1.7.25,1.7.26)',\
+	ch.qos.logback.core;version='[1.2.3,1.2.4)'

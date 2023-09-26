@@ -8,13 +8,18 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.equinox.internal.p2.metadata.InstallableUnit;
 import org.eclipse.equinox.p2.core.IProvisioningAgent;
 import org.eclipse.equinox.p2.core.IProvisioningAgentProvider;
 import org.eclipse.equinox.p2.internal.repository.tools.MirrorApplication;
 import org.eclipse.equinox.p2.internal.repository.tools.RepositoryDescriptor;
 import org.eclipse.equinox.p2.internal.repository.tools.SlicingOptions;
+import org.eclipse.equinox.p2.metadata.IInstallableUnit;
+import org.eclipse.equinox.p2.metadata.Version;
 import org.eclipse.equinox.p2.repository.artifact.IArtifactRepositoryManager;
 import org.eclipse.equinox.p2.repository.metadata.IMetadataRepositoryManager;
 import org.osgi.framework.BundleContext;
@@ -23,7 +28,6 @@ import org.osgi.service.component.annotations.Reference;
 
 @Component(immediate = true)
 public class P2Mirror {
-
 
 	@Reference
 	private IProvisioningAgentProvider agentProvider;
@@ -36,10 +40,10 @@ public class P2Mirror {
 
 	@SuppressWarnings("unused")
 	private static final String FEATURE_GROUP = ".feature.group";
-	
+
 	private static final String USER_DIR = System.getProperty("user.dir").replace("\\", "/");
 	private static final String LOCAL_ROOT_URI = USER_DIR + "/repo/";
-	
+
 //	private String url = "https://download.eclipse.org/nebula/releases/latest/";
 //	private String url = "https://download.eclipse.org/eclipse/updates/4.25/";
 	// only metadata repo - breaking current implementation
@@ -50,19 +54,29 @@ public class P2Mirror {
 //	private String url = "https://download.eclipse.org/nebula/releases/3.0.0/";
 //	private String url = "file:Z:/ENGINE_LIB_DIR/repo/download.eclipse.org/eclipse/updates/4.26/R-4.26-202211231800/";
 //	private String url = "jar:https://bndtools.jfrog.io/bndtools/libs-release-local/org/bndtools/org.bndtools.p2/6.4.0/org.bndtools.p2-6.4.0.jar!/";
-	
+
 //	private String url = "file:X:/_cec/_bldWork/babel-R0.20.0_2022-12/2022-12";
 //	private String url = "https://download.eclipse.org/tools/ajdt/423/dev/update/ajdt-e423-2.2.4.202304111532/";
 //	private String url = "https://download.eclipse.org/tools/ajdt/426/dev/update/ajdt-e426-2.2.4.202304111527/";
 //	private String url = "https://de-jcup.github.io/update-site-eclipse-bash-editor/update-site/";
 //	private String url = "https://download.eclipse.org/releases/2023-03/202303151000/";
-	private String url = "download.eclipse.org/technology/epp/packages/2023-03/202303091200/";
+//	private String url = "download.eclipse.org/technology/epp/packages/2023-03/202303091200/";
+
+//	private String url = "https://netceteragroup.github.io/quickrex/updatesite/";
+//	private String url = "https://devtools.his.de/tomcatplugin/updatesite/";
+
+	private String url = "https://download.eclipse.org/releases/2023-06/202306141000/";
+//	private String url = "https://download.eclipse.org/oomph/drops/release/1.29.0/";
+//	private String url = "https://groovy.jfrog.io/artifactory/plugins-release/e4.27/";
+//	private String url = "https://projectlombok.org/p2";
+//	private String url = "https://download.eclipse.org/eclipse/updates/4.28/R-4.28-202306050440/";
+//	private String url = "https://download.eclipse.org/releases/2022-12/202212071000/";
 
 	private String suffix = url;
 	private String localUri;
 
 	public void activate(BundleContext ctx) throws Exception {
-		System.out.println("started");
+		System.out.println("started " + System.currentTimeMillis());
 
 		agent = agentProvider.createAgent(new URI("file:/" + USER_DIR + "/p2"));
 		ctx.registerService(IProvisioningAgent.class, agent, null);
@@ -104,28 +118,45 @@ public class P2Mirror {
 		mirrorApplication.setVerbose(true);
 
 		SlicingOptions sliceOpts = new SlicingOptions();
-//		sliceOpts.latestVersionOnly(true);
-//		sliceOpts.considerStrictDependencyOnly(false);
-//		sliceOpts.followOnlyFilteredRequirements(false);
-//		sliceOpts.includeOptionalDependencies(false);
-//		sliceOpts.latestVersionOnly(false);
+		/*
+		 */
+		sliceOpts.latestVersionOnly(true);
+		sliceOpts.considerStrictDependencyOnly(false);
+		sliceOpts.followOnlyFilteredRequirements(false);
+		sliceOpts.includeOptionalDependencies(false);
+		sliceOpts.everythingGreedy(true);
 		mirrorApplication.setSlicingOptions(sliceOpts);
 
-		/* 
-		 * List<IInstallableUnit> ius = new ArrayList<IInstallableUnit>();
-		 * InstallableUnit iu = new InstallableUnit();
-		 * iu.setId("org.eclipse.nebula.widgets.paperclips.feature"+FEATURE_GROUP);
-		 * iu.setVersion(Version.create("0.0.0")); ius.add(iu);
-		 * 
-		 * iu = new InstallableUnit();
-		 * iu.setId("org.eclipse.nebula.paperclips.widgets");
-		 * iu.setVersion(Version.create("0.0.0")); ius.add(iu);
-		 * 
-		 * mirrorApplication.setSourceIUs(ius);
-		 */
+		List<IInstallableUnit> ius = new ArrayList<IInstallableUnit>();
+
+		InstallableUnit iu = new InstallableUnit();
+		iu.setId("org.eclipse.pde.spies" + FEATURE_GROUP);
+//		iu.setVersion(Version.create("0.0.0"));
+		ius.add(iu);
+
+		iu = new InstallableUnit();
+		iu.setId("org.eclipse.pde.spy.bundle");
+		iu.setVersion(Version.create("0.13.0.v20230429-1445"));
+		ius.add(iu);
+
+		String[] bundles = new String[] { "org.eclipse.pde.spy.bundle", "org.eclipse.pde.spy.context",
+				"org.eclipse.pde.spy.core", "org.eclipse.pde.spy.css", "org.eclipse.pde.spy.event",
+				"org.eclipse.pde.spy.model", "org.eclipse.pde.spy.preferences" };
+
+		for (String bundle : bundles) {
+			iu = new InstallableUnit();
+			iu.setId(bundle);
+//			iu.setVersion(Version.create("0.0.0"));
+			ius.add(iu);
+		}
+
+		mirrorApplication.setSourceIUs(ius);
+
 		mirrorApplication.run(new NullProgressMonitor());
-		
-		downloadMetadata();
+
+		if (ius.isEmpty()) {
+			downloadMetadata();
+		}
 
 		System.out.println("finished");
 	}

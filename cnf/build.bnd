@@ -76,6 +76,21 @@ Bundle-Copyright:       Copyright (c) Kirschners GmbH (2017, ${tstamp;yyyy}) and
 		pretty = true; \
 		local = ${build}/release
 
+#-plugin.10.webconsole = \
+#    aQute.bnd.repository.maven.pom.provider.BndPomRepository; \
+#        snapshotUrl=https://oss.sonatype.org/content/repositories/osgi/; \
+#        releaseUrl=https://repo.maven.apache.org/maven2/; \
+#        pom=${build}/deps-webconsole.xml; \
+#        name=webconsole
+
+# query='q=g:%22org.apache.felix%22'; \
+-plugin.query = \
+    aQute.bnd.repository.maven.pom.provider.BndPomRepository; \
+        releaseUrl=https://repo.maven.apache.org/maven2; \
+        query='q=a:%22org.apache.felix.webconsole%22'; \
+        name=Query; \
+        transitive=true
+
 -releaserepo: Release
 -baselinerepo: Release
 
