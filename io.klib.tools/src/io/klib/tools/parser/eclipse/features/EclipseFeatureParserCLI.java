@@ -21,8 +21,6 @@ public class EclipseFeatureParserCLI {
 	private static final String name = "io.klib.tools.parser.eclipse.features.EclipseFeatureFolderParser";
 	private final static String SEP = System.getProperty("file.separator");
 	private final static String resultDir = System.getProperty("user.dir") + SEP + "generated";
-	private final static String FILENAME_BNDBUILD = "bnd_runrequires_Eclipse_Platform.bndrun";
-	private final static String FILENAME_BNDREQUIRE = "bnd_buildpath_Eclipse_Platform.bndrun";
 
 	private String[] launcherArguments;
 	private String featureDir;
@@ -40,29 +38,21 @@ public class EclipseFeatureParserCLI {
 
 			String bndRequireString = "";
 			String bndBuildpathString = "";
+			boolean versioned = true;
 
-			if (launcherArguments.length == 1) {
-				featureDir = launcherArguments[0];
+			String[] splittedArgs = launcherArguments[0].split(" ");
+
+			if (splittedArgs.length == 4) {
+				featureDir = splittedArgs[0];
 				Path featurePath = Paths.get(featureDir);
 				File featureFile = featurePath.toFile();
 				if (!featureFile.exists() && featureFile.isDirectory() && featureFile.listFiles().length > 0) {
 					System.out.format("specified feature directory %s does not exists!", featureDir);
 					shutdownGraceful();
 				}
-				bndRequireString = Paths.get(resultDir, FILENAME_BNDBUILD).toString();
-				bndBuildpathString = Paths.get(resultDir, FILENAME_BNDREQUIRE).toString();
-			}
-
-			if (launcherArguments.length == 3) {
-				featureDir = launcherArguments[0];
-				Path featurePath = Paths.get(featureDir);
-				File featureFile = featurePath.toFile();
-				if (!featureFile.exists() && featureFile.isDirectory() && featureFile.listFiles().length > 0) {
-					System.out.format("specified feature directory %s does not exists!", featureDir);
-					shutdownGraceful();
-				}
-				bndRequireString = launcherArguments[1];
-				bndBuildpathString = launcherArguments[2];
+				bndRequireString = Path.of(resultDir,splittedArgs[1]).toString();
+				bndBuildpathString = Path.of(resultDir,splittedArgs[2]).toString();
+				versioned = Boolean.parseBoolean(splittedArgs[3]);
 			}
 
 			try {
@@ -76,6 +66,7 @@ public class EclipseFeatureParserCLI {
 				props.put("featureDirectory", featureDir);
 				props.put("bndBuildpathString", bndBuildpathString);
 				props.put("bndRequireString", bndRequireString);
+				props.put("versioned", versioned);
 				config.update(props);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

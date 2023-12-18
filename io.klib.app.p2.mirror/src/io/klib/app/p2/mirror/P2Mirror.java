@@ -8,7 +8,10 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -65,18 +68,34 @@ public class P2Mirror {
 //	private String url = "https://netceteragroup.github.io/quickrex/updatesite/";
 //	private String url = "https://devtools.his.de/tomcatplugin/updatesite/";
 
-	private String url = "https://download.eclipse.org/releases/2023-06/202306141000/";
+//	private String url = "https://download.eclipse.org/releases/2023-06/202306141000/";
+//	private String url = "https://download.eclipse.org/releases/2023-09/202309131000/";
 //	private String url = "https://download.eclipse.org/oomph/drops/release/1.29.0/";
 //	private String url = "https://groovy.jfrog.io/artifactory/plugins-release/e4.27/";
 //	private String url = "https://projectlombok.org/p2";
-//	private String url = "https://download.eclipse.org/eclipse/updates/4.28/R-4.28-202306050440/";
 //	private String url = "https://download.eclipse.org/releases/2022-12/202212071000/";
 
+//	private String url = "https://download.eclipse.org/eclipse/updates/4.28/categories/";
+//	private String url = "https://download.eclipse.org/eclipse/updates/4.28/R-4.28-202306050440/";
+//	private String url = "https://download.eclipse.org/releases/2023-06/202306141000/";
+//	private String url = "https://download.eclipse.org/technology/epp/packages/2023-06/";
+		
+//	private String url = "https://download.eclipse.org/eclipse/updates/4.29/categories/";
+//	private String url = "https://download.eclipse.org/eclipse/updates/4.29/R-4.29-202309031000/";
+//	private String url = "https://download.eclipse.org/releases/2023-09/202309131000";
+//	private String url = "https://download.eclipse.org/technology/epp/packages/2023-09/";
+
+//	private String url = "https://download.eclipse.org/oomph/drops/release/1.30.0/";
+//	private String url = "https://download.eclipse.org/oomph/drops/release/1.30.0/products/repository/";
+	private String url = "https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/release/4.30.0/";
+	
 	private String suffix = url;
 	private String localUri;
 
 	public void activate(BundleContext ctx) throws Exception {
-		System.out.println("started " + System.currentTimeMillis());
+
+		DateFormat df = new SimpleDateFormat("yyyyMMdd-HHmmss");
+		System.out.println("started " + df.format(System.currentTimeMillis()));
 
 		agent = agentProvider.createAgent(new URI("file:/" + USER_DIR + "/p2"));
 		ctx.registerService(IProvisioningAgent.class, agent, null);
@@ -117,21 +136,21 @@ public class P2Mirror {
 		mirrorApplication.setRaw(true);
 		mirrorApplication.setVerbose(true);
 
-		SlicingOptions sliceOpts = new SlicingOptions();
 		/*
-		 */
+		SlicingOptions sliceOpts = new SlicingOptions();
 		sliceOpts.latestVersionOnly(true);
 		sliceOpts.considerStrictDependencyOnly(false);
 		sliceOpts.followOnlyFilteredRequirements(false);
 		sliceOpts.includeOptionalDependencies(false);
 		sliceOpts.everythingGreedy(true);
 		mirrorApplication.setSlicingOptions(sliceOpts);
-
+		 */
 		List<IInstallableUnit> ius = new ArrayList<IInstallableUnit>();
+		/*
 
 		InstallableUnit iu = new InstallableUnit();
 		iu.setId("org.eclipse.pde.spies" + FEATURE_GROUP);
-//		iu.setVersion(Version.create("0.0.0"));
+		iu.setVersion(Version.create("0.0.0"));
 		ius.add(iu);
 
 		iu = new InstallableUnit();
@@ -151,7 +170,7 @@ public class P2Mirror {
 		}
 
 		mirrorApplication.setSourceIUs(ius);
-
+*/
 		mirrorApplication.run(new NullProgressMonitor());
 
 		if (ius.isEmpty()) {

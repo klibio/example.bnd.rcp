@@ -1,8 +1,11 @@
 -include: _parser.eclipse.features.bndrun
 
-featureDir = '/Users/peterkir/www/download.eclipse.org/eclipse/updates/${eclipse.version}/${eclipse.platform.version}/features'
+featureDir      = X:/IDEfix/klibio-example-bnd-rcp/git/example.bnd.rcp/io.klib.app.p2.mirror/repo/download.eclipse.org/eclipse/updates/4.28/R-4.28-202306050440/features
+bnd_runrequires = bnd_runrequires_eclPlatform_4.28_versioned.bndrun
+bnd_buildpath   = bnd_buildpath_eclPlatform_4.28_versioned.bndrun
 
--runprogramargs: ${featureDir}
+-runprogramargs: ${featureDir} ${bnd_runrequires} ${bnd_buildpath} true
+-runvm: -Ddebug=true
 
 -runbundles: \
 	com.sun.xml.bind.jaxb-core;version='[4.0.2,4.0.3)',\

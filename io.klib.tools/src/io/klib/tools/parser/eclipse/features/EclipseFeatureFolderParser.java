@@ -38,7 +38,7 @@ public class EclipseFeatureFolderParser {
 		String bndBuildpathString();
 
 		String bndRequireString();
-		
+
 		boolean versioned();
 	}
 
@@ -48,7 +48,6 @@ public class EclipseFeatureFolderParser {
 		System.out.format("\n# Launching Eclipse Feature Parser inside directory %s\n", config.featureDirectory());
 		System.out.format("  creating the bnd build requirement file %s\n", config.bndBuildpathString());
 		System.out.format("  creating the bnd run requirement file   %s\n\n\n", config.bndRequireString());
-		boolean versioned=false;
 
 		List<Feature> eclFeatures = new LinkedList<Feature>();
 
@@ -66,12 +65,12 @@ public class EclipseFeatureFolderParser {
 
 		OutputContext outputContext = new OutputContext();
 
-		outputContext.setStrategy(new OutputBndBuildFormat(versioned));
+		outputContext.setStrategy(new OutputBndBuildFormat(config.versioned()));
 		Path buildpathPath = Paths.get(config.bndBuildpathString());
 		buildpathPath.toFile().getParentFile().mkdirs();
 		outputContext.execute(eclFeatures, buildpathPath);
 
-		outputContext.setStrategy(new OutputBndRequireFormat());
+		outputContext.setStrategy(new OutputBndRequireFormat(config.versioned()));
 		Path bndRequirePath = Paths.get(config.bndRequireString());
 		bndRequirePath.toFile().getParentFile().mkdirs();
 		outputContext.execute(eclFeatures, bndRequirePath);
