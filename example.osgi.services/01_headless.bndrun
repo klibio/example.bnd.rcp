@@ -1,7 +1,7 @@
 # This run file contains all the cross-platform bundle and settings to run Bndtools.
 # Do not run this, use the platform-specific bndrun files (which "-include" this)
 
--runee: JavaSE-11
+-runee: JavaSE-21
 -runfw: org.eclipse.osgi;version='[3.16,4)'
 -runproperties: \
     launch.keep=false,\

@@ -1,10 +1,21 @@
 -include: \
 	ui_shared.bndrun,\
-	${workspace}/cnf/shared/macosx.cocoa.x86-64.bndrun
+	${workspace}/cnf/shared/macosx.cocoa.aarch64.bndrun
 
 -runfw: org.eclipse.osgi;version='[3.23.0.v20250228-0640,3.23.0.v20250228-0640]'
 -runee: JavaSE-21
 
+-runsystemcapabilities.macos: \
+	osgi.native;osgi.native.osname:List<String>="macosx";osgi.native.processor:List<String>="aarch64"
+
+-runproperties.macos: \
+	osgi.ws=cocoa,\
+	osgi.arch=aarch64,\
+	osgi.os=macosx
+
+-runblacklist.macos: \
+	osgi.identity;filter:='(osgi.identity=*linux*)',\
+	osgi.identity;filter:='(osgi.identity=*win32*)'
 -runbundles: \
 	bndtools.runtime.applaunch.eclipse4;version='[0.1.0,0.1.1)',\
 	example.rcp.ui;version=snapshot,\
@@ -14,4 +25,4 @@
 	org.eclipse.equinox.registry;version='[3.12.300,3.12.301)',\
 	org.eclipse.jface;version='[3.36.0,3.36.1)',\
 	org.eclipse.swt;version='[3.129.0,3.129.1)',\
-	org.eclipse.swt.cocoa.macosx.x86_64;version='[3.129.0,3.129.1)'
+	org.eclipse.swt.cocoa.macosx.aarch64;version='[3.129.0,3.129.1)'

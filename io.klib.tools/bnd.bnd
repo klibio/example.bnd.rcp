@@ -1,4 +1,3 @@
--include: ${build}/compile/java17.bnd
 -fixupmessages: \
     "Exporting a package from system module 'jdk.jartool' is not allowed with --release.";is:=ignore
 -sub: *.bnd

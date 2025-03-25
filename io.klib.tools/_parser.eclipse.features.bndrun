@@ -1,17 +1,15 @@
--runee: JavaSE-17
+-runee: JavaSE-21
 -runfw: org.eclipse.osgi;version='[3.16,4)'
 
 -runprovidedcapabilities: ${native_capability}
 -resolve.effective: active;skip:="osgi.service"
 
--runblacklist: bnd.identity;id='org.apache.felix.scr';version='[2.1.10,2.1.11)'
 -runrequires.default: \
-    osgi.identity;filter:='(&(osgi.identity=org.apache.felix.configadmin)(version>=1.9.8))',\
-    osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.runtime)(version>=1.1.0))',\
-    osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.shell)(version>=1.1.0))',\
-    osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.command)(version>=1.0.2))',\
-    osgi.identity;filter:='(&(osgi.identity=io.klib.tools.parser.eclipse.features)(version>=0.1.0.201904301154))',\
-    bnd.identity;id='com.sun.xml.bind.jaxb-impl';version:Version='4.0.2',\
-    bnd.identity;id='jakarta.xml.bind-api';version:Version='4.0.0',\
-    bnd.identity;id='org.glassfish.hk2.osgi-resource-locator';version:Version='2.5.0'
-
+    bnd.identity;id='org.apache.felix.configadmin',\
+    bnd.identity;id='org.apache.felix.gogo.runtime',\
+    bnd.identity;id='org.apache.felix.gogo.shell',\
+    bnd.identity;id='org.apache.felix.gogo.command',\
+    bnd.identity;id='io.klib.tools.parser.eclipse.features',\
+    bnd.identity;id='com.sun.xml.bind.jaxb-osgi',\
+    bnd.identity;id='jakarta.xml.bind-api',\
+    bnd.identity;id='org.glassfish.hk2.osgi-resource-locator'

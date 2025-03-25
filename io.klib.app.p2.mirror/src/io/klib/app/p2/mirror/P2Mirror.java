@@ -56,8 +56,17 @@ public class P2Mirror {
 //	private String url = "https://download.eclipse.org/tools/ajdt/426/dev/update/ajdt-e426-2.2.4.202304111527/";
 //	private String url = "https://de-jcup.github.io/update-site-eclipse-bash-editor/update-site/";
 //	private String url = "https://download.eclipse.org/releases/2023-03/202303151000/";
-	private String url = "download.eclipse.org/technology/epp/packages/2023-03/202303091200/";
+//	private String url = "download.eclipse.org/technology/epp/packages/2023-03/202303091200/";
 
+//	private String url = "https://download.eclipse.org/eclipse/updates/4.35/R-4.35-202502280140/";
+//	private String url = "https://download.eclipse.org/releases/2025-03/202503121000/";
+
+//	private String url = "https://download.eclipse.org/eclipse/updates/4.34/R-4.34-202411201800/";
+//	private String url = "https://download.eclipse.org/releases/2024-12/202412041000/";
+
+	private String url = "https://download.eclipse.org/eclipse/updates/4.33/R-4.33-202409030240/";
+//	private String url = "https://download.eclipse.org/releases/2024-09/202409111000/";
+	
 	private String suffix = url;
 	private String localUri;
 

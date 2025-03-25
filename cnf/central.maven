@@ -16,5 +16,4 @@ org.apache.felix:org.apache.felix.inventory:1.0.6
 org.glassfish.hk2:osgi-resource-locator:2.5.0-b42
 jakarta.xml.bind:jakarta.xml.bind-api:4.0.0
   jakarta.activation:jakarta.activation-api:2.1.2
-  com.sun.xml.bind:jaxb-core:4.0.2
-  com.sun.xml.bind:jaxb-impl:4.0.2
+  com.sun.xml.bind:jaxb-osgi:4.0.5

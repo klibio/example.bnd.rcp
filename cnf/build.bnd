@@ -4,9 +4,9 @@
 ## Java Compiler Options
 #java:                  java
 #javac:                 javac
-javac.source:           1.8
-javac.target:           1.8
-javac.compliance:       1.8
+javac.source:           21
+javac.target:           21
+javac.compliance:       21
 javac.debug:            on
 
 # Maven info. The maven artifactId defaults to Bundle-SymbolicName
@@ -94,10 +94,10 @@ mockito-deps: org.objenesis; version=2.6.0,\
   net.bytebuddy.byte-buddy-agent; version=1.7.9 
   
 # Eclipse Release repositories 
-eclipse.version          = 4.18
-eclipse.name             = 2020-12
-eclipse.platform.version = R-4.18-202012021800
-eclipse.simu.version     = 202012161000
+eclipse.version          = 4.35
+eclipse.name             = 2025-03
+eclipse.platform.version = R-4.35-202502280140
+eclipse.simu.version     = 202503121000
 
 eclipse.platform.baseurl = http://download.eclipse.org/eclipse/updates
 #eclipse.platform.baseurl = "${fileuri;${user.home}}www/download.eclipse.org/eclipse/updates"
@@ -115,7 +115,7 @@ eclipse.simu.url     = "${eclipse.simu.baseurl}/${eclipse.name}/${eclipse.simu.v
 -plugin.10.eclipse.platform: \
     aQute.bnd.repository.p2.provider.P2Repository; \
        name  = ${eclipse.platform.name}; \
-        url   = ${eclipse.platform.url}
+       url   = ${eclipse.platform.url}
 
 #-plugin.11.eclipse.simu: \
 #    aQute.bnd.repository.p2.provider.P2Repository; \

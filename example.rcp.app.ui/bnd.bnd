@@ -1,9 +1,10 @@
 -include: \
-    ${build}/compile/java11.bnd,\
     ${workspace}/cnf/fixedIndices/bnd_buildpath_Eclipse_Platform.bndrun
 
 -buildpath: \
-    ${fea_org.eclipse.rcp_4.18.0.v20201202-1800}
+	${fea_org.eclipse.rcp_4.35.0.v20250228-0640},\
+	jakarta.inject.jakarta.inject-api,\
+	jakarta.annotation-api
 
 -includeresource: ./root/
 

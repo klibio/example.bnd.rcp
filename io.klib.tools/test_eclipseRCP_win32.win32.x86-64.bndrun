@@ -2,7 +2,7 @@
     generated/bnd_runrequires_Eclipse_Platform.bndrun
 
 -runfw: org.eclipse.osgi;version='[3.16,4)'
--runee: JavaSE-11
+-runee: JavaSE-21
 
 -runvm.win32:
 
