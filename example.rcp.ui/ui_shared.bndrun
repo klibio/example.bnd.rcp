@@ -12,6 +12,6 @@
     order=sortbynameversion,\
     begin=-1
     
--runrequires: \
+-runrequires.shared: \
 	osgi.identity;filter:='(&(osgi.identity=bndtools.runtime.applaunch.eclipse4)(version>=0.1.0)(!(version>=1.0.0)))',\
 	osgi.identity;filter:='(&(osgi.identity=example.rcp.ui)(version>=0.1.0)(!(version>=1.0.0)))'
