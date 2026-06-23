@@ -9,4 +9,3 @@ Dockerfile*
 **/_rt/
 .metadata
 **/generated/
-cnf/cache/

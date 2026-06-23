@@ -1,0 +1,185 @@
+# SWTBot test launch for example.rcp.app.ui on Windows (win32.win32.x86-64)
+#
+# Based on: example.rcp.app.ui/app.ui_win32.win32.x86-64.bndrun
+#
+# HOW TO RUN from bndtools IDE:
+#   1. Open this file in bndtools.
+#   2. Click "Resolve" to resolve the SWTBot bundles from the "SWTBot P2" repository
+#      (registered in cnf/ext/swtbot.bnd) and populate -runbundles below.
+#   3. Right-click this file → Run As / Debug As → Bnd OSGi Test Launchers.
+#      The application starts with its full product configuration and the
+#      SWTBotJunit4ClassRunner executes SamplePartSWTBotTest in a background thread.
+#
+# HOW TO RUN from bnd CLI (Java 21 required):
+#   java -jar biz.aQute.bnd-7.3.0.jar runtests example.rcp.app.ui.swtbot.tests/swtbot_win32.win32.x86-64.bndrun
+#
+# NOTE: Use "bnd runtests", NOT "bnd test" or "bnd run".
+#   bnd test: only processes bnd.bnd files and project directories — it silently
+#             skips .bndrun files and exits 0 with no tests run.
+#   bnd run:  ignores -tester so biz.aQute.junit is never injected.
+#   bnd runtests: passes the .bndrun directly to runTest(), which creates a Project
+#             from the .bndrun file and calls ProjectTester.test() correctly.
+# Test-Cases must also be declared in this .bndrun file (not only in bnd.bnd)
+# because bnd runtests reads properties from this file directly.
+
+-include: \
+    ${workspace}/example.rcp.app.ui/app.ui_shared.bndrun,\
+    ${workspace}/cnf/shared/win32.win32.x86-64.bndrun
+
+# Use bnd's built-in JUnit tester to discover and run Test-Cases bundles.
+# biz.aQute.junit is injected by the ProjectTester infrastructure; it is NOT
+# listed in -runbundles so there is no version conflict with standalone org.junit.
+-tester: biz.aQute.junit
+
+# Test-Cases must be declared here (not only in bnd.bnd) because
+# "bnd runtests" creates a Project directly from this file and calls
+# getProperties().getProperty("Test-Cases") — if that returns null,
+# the test exits immediately with EXIT:0 and zero tests executed.
+Test-Cases: example.rcp.app.ui.swtbot.tests.SamplePartSWTBotTest
+
+# osgi.clean=true: force Equinox to discard any persisted bundle state from a
+#   previous run (stale state from the bndtools IDE run causes mis-wired singletons
+#   when new bundles like biz.aQute.junit are added with different bundle IDs).
+# launch.storage.dir: keep test state separate from the normal app run (_rt/cfg)
+#   so IDE and CLI runs do not pollute each other.
+# tester.separatethread=true: biz.aQute.junit starts its test runner on a background
+#   thread instead of registering a Runnable{main.thread=true} service, leaving the
+#   main thread free for the SWT event loop driven by bndtools.runtime.applaunch.eclipse4.
+#   Without this, biz.aQute.junit and the E4 app compete for the main thread.
+# tester.unresolved=false: skip the unresolved-bundle check that biz.aQute.junit runs
+#   before tests (it can exit early with BndSystem.exit if any bundle is INSTALLED).
+-runproperties.swtbot: \
+	osgi.clean=true,\
+	launch.storage.dir=_rt/swtbot_cfg,\
+	tester.separatethread=true,\
+	tester.unresolved=false
+
+# Win32-specific RCP feature requirement (same as the base bndrun)
+-runrequires.win32: \
+    ${fea_org.eclipse.e4.rcp_4.35.0.v20250228-0640_PLATFORM_win32.win32.x86-64}
+
+# Blacklist OSGi enroute compile-only bundles so the resolver is forced to use
+# the actual Eclipse Platform runtime bundles for OSGi service packages.
+-runblacklist.enroute: \
+    osgi.identity;filter:='(osgi.identity=osgi.cmpn)',\
+    osgi.identity;filter:='(osgi.identity=osgi.enterprise)',\
+    osgi.identity;filter:='(osgi.identity=osgi.annotation)'
+
+# SWTBot requirements - click "Resolve" in bndtools to add resolved versions to -runbundles.
+# Note: org.eclipse.swtbot.eclipse.finder is intentionally omitted — it pulls in
+# Eclipse IDE / p2 infrastructure which depends on Bouncy Castle multi-release JARs
+# whose bnd.synthetic EE constraints (e.g. !(version>=21.0.0)) cannot be satisfied
+# on JavaSE-21.  The basic SWTBot from swt.finder is sufficient for all interactions
+# used in SamplePartSWTBotTest.
+-runrequires.swtbot: \
+    osgi.identity;filter:='(osgi.identity=org.eclipse.swtbot.swt.finder)',\
+    osgi.identity;filter:='(osgi.identity=org.eclipse.swtbot.junit4_x)',\
+    osgi.identity;filter:='(&(osgi.identity=example.rcp.app.ui.swtbot.tests)(version>=0.1.0))'
+
+# All application bundles (copied from app.ui_win32.win32.x86-64.bndrun, already resolved).
+# After clicking "Resolve", bndtools will append the SWTBot bundles at the end.
+-runbundles: \
+	bndtools.runtime.applaunch.eclipse4;version='[0.1.0,0.1.1)',\
+	com.sun.jna;version='[5.16.0,5.16.1)',\
+	com.sun.jna.platform;version='[5.16.0,5.16.1)',\
+	example.rcp.app.ui;version=snapshot,\
+	example.rcp.app.ui.swtbot.tests;version=snapshot,\
+	jakarta.annotation-api;version='[1.3.5,1.3.6)',\
+	jakarta.annotation-api;version='[2.1.1,2.1.2)',\
+	jakarta.inject.jakarta.inject-api;version='[1.0.5,1.0.6)',\
+	jakarta.inject.jakarta.inject-api;version='[2.0.1,2.0.2)',\
+	org.apache.aries.spifly.dynamic.bundle;version='[1.3.7,1.3.8)',\
+	org.apache.batik.constants;version='[1.18.0,1.18.1)',\
+	org.apache.batik.css;version='[1.18.0,1.18.1)',\
+	org.apache.batik.i18n;version='[1.18.0,1.18.1)',\
+	org.apache.batik.util;version='[1.18.0,1.18.1)',\
+	org.apache.commons.commons-logging;version='[1.3.5,1.3.6)',\
+	org.apache.commons.io;version='[2.6.0,2.6.1)',\
+	org.apache.felix.gogo.command;version='[1.1.2,1.1.3)',\
+	org.apache.felix.gogo.runtime;version='[1.1.6,1.1.7)',\
+	org.apache.felix.gogo.shell;version='[1.1.4,1.1.5)',\
+	org.apache.felix.scr;version='[2.2.12,2.2.13)',\
+	org.apache.xmlgraphics;version='[2.10.0,2.10.1)',\
+	org.eclipse.core.commands;version='[3.12.300,3.12.301)',\
+	org.eclipse.core.contenttype;version='[3.9.600,3.9.601)',\
+	org.eclipse.core.databinding;version='[1.13.400,1.13.401)',\
+	org.eclipse.core.databinding.beans;version='[1.10.300,1.10.301)',\
+	org.eclipse.core.databinding.observable;version='[1.13.300,1.13.301)',\
+	org.eclipse.core.databinding.property;version='[1.10.300,1.10.301)',\
+	org.eclipse.core.expressions;version='[3.9.400,3.9.401)',\
+	org.eclipse.core.jobs;version='[3.15.500,3.15.501)',\
+	org.eclipse.core.runtime;version='[3.33.0,3.33.1)',\
+	org.eclipse.e4.core.commands;version='[1.1.500,1.1.501)',\
+	org.eclipse.e4.core.contexts;version='[1.13.100,1.13.101)',\
+	org.eclipse.e4.core.di;version='[1.9.500,1.9.501)',\
+	org.eclipse.e4.core.di.annotations;version='[1.8.400,1.8.401)',\
+	org.eclipse.e4.core.di.extensions;version='[0.18.300,0.18.301)',\
+	org.eclipse.e4.core.di.extensions.supplier;version='[0.17.700,0.17.701)',\
+	org.eclipse.e4.core.services;version='[2.5.100,2.5.101)',\
+	org.eclipse.e4.emf.xpath;version='[0.6.0,0.6.1)',\
+	org.eclipse.e4.ui.bindings;version='[0.14.500,0.14.501)',\
+	org.eclipse.e4.ui.css.core;version='[0.14.500,0.14.501)',\
+	org.eclipse.e4.ui.css.swt;version='[0.15.500,0.15.501)',\
+	org.eclipse.e4.ui.css.swt.theme;version='[0.14.500,0.14.501)',\
+	org.eclipse.e4.ui.di;version='[1.5.500,1.5.501)',\
+	org.eclipse.e4.ui.dialogs;version='[1.6.0,1.6.1)',\
+	org.eclipse.e4.ui.model.workbench;version='[2.4.500,2.4.501)',\
+	org.eclipse.e4.ui.progress;version='[0.4.700,0.4.701)',\
+	org.eclipse.e4.ui.services;version='[1.6.500,1.6.501)',\
+	org.eclipse.e4.ui.swt.win32;version='[1.2.300,1.2.301)',\
+	org.eclipse.e4.ui.widgets;version='[1.4.200,1.4.201)',\
+	org.eclipse.e4.ui.workbench;version='[1.17.0,1.17.1)',\
+	org.eclipse.e4.ui.workbench.addons.swt;version='[1.5.600,1.5.601)',\
+	org.eclipse.e4.ui.workbench.renderers.swt;version='[0.16.700,0.16.701)',\
+	org.eclipse.e4.ui.workbench.swt;version='[0.17.700,0.17.701)',\
+	org.eclipse.e4.ui.workbench3;version='[0.17.400,0.17.401)',\
+	org.eclipse.emf.common;version='[2.41.0,2.41.1)',\
+	org.eclipse.emf.ecore;version='[2.38.0,2.38.1)',\
+	org.eclipse.emf.ecore.change;version='[2.17.0,2.17.1)',\
+	org.eclipse.emf.ecore.xmi;version='[2.38.0,2.38.1)',\
+	org.eclipse.equinox.app;version='[1.7.300,1.7.301)',\
+	org.eclipse.equinox.bidi;version='[1.5.200,1.5.201)',\
+	org.eclipse.equinox.common;version='[3.20.0,3.20.1)',\
+	org.eclipse.equinox.console;version='[1.4.900,1.4.901)',\
+	org.eclipse.equinox.event;version='[1.7.200,1.7.201)',\
+	org.eclipse.equinox.preferences;version='[3.11.300,3.11.301)',\
+	org.eclipse.equinox.registry;version='[3.12.300,3.12.301)',\
+	org.eclipse.equinox.simpleconfigurator;version='[1.5.400,1.5.401)',\
+	org.eclipse.jface;version='[3.36.0,3.36.1)',\
+	org.eclipse.jface.databinding;version='[1.15.300,1.15.301)',\
+	org.eclipse.jface.notifications;version='[0.7.300,0.7.301)',\
+	org.eclipse.orbit.xml-apis-ext;version='[1.0.0,1.0.1)',\
+	org.eclipse.swt;version='[3.129.0,3.129.1)',\
+	org.eclipse.swt.win32.win32.x86_64;version='[3.129.0,3.129.1)',\
+	org.eclipse.swtbot.junit4_x;version='[4.3.0,4.3.1)',\
+	org.eclipse.swtbot.swt.finder;version='[4.3.0,4.3.1)',\
+	org.eclipse.urischeme;version='[1.3.500,1.3.501)',\
+	org.hamcrest;version='[2.2.0,2.2.1)',\
+	org.hamcrest.core;version='[2.2.0,2.2.1)',\
+	org.hamcrest.library;version='[2.2.0,2.2.1)',\
+	org.junit;version='[4.13.2,4.13.3)',\
+	org.objectweb.asm;version='[9.7.1,9.7.2)',\
+	org.objectweb.asm.commons;version='[9.7.1,9.7.2)',\
+	org.objectweb.asm.tree;version='[9.7.1,9.7.2)',\
+	org.objectweb.asm.tree.analysis;version='[9.7.1,9.7.2)',\
+	org.objectweb.asm.util;version='[9.7.1,9.7.2)',\
+	org.osgi.service.cm;version='[1.6.1,1.6.2)',\
+	org.osgi.service.component;version='[1.5.1,1.5.2)',\
+	org.osgi.service.device;version='[1.1.1,1.1.2)',\
+	org.osgi.service.event;version='[1.4.1,1.4.2)',\
+	org.osgi.service.metatype;version='[1.4.1,1.4.2)',\
+	org.osgi.service.prefs;version='[1.1.2,1.1.3)',\
+	org.osgi.service.provisioning;version='[1.2.0,1.2.1)',\
+	org.osgi.service.upnp;version='[1.2.1,1.2.2)',\
+	org.osgi.service.useradmin;version='[1.1.1,1.1.2)',\
+	org.osgi.service.wireadmin;version='[1.0.2,1.0.3)',\
+	org.osgi.util.function;version='[1.2.0,1.2.1)',\
+	org.osgi.util.measurement;version='[1.0.2,1.0.3)',\
+	org.osgi.util.position;version='[1.0.1,1.0.2)',\
+	org.osgi.util.promise;version='[1.3.0,1.3.1)',\
+	org.osgi.util.xml;version='[1.0.2,1.0.3)',\
+	slf4j.api;version='[2.0.16,2.0.17)',\
+	slf4j.simple;version='[2.0.16,2.0.17)'
+# biz.aQute.junit is intentionally NOT listed here.
+# The -tester: biz.aQute.junit directive above causes both bndtools IDE and
+# "bnd test" CLI to inject it automatically as the sole JUnit provider.

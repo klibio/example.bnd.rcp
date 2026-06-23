@@ -1,25 +1,50 @@
 # GRADLE BUILD CONTAINER for OSGi Java implementation
 #   build OSGi app with gradle and bndtools
-FROM gradle:6.9.0-jdk11 AS java-build
+FROM gradle:8.9-jdk21 AS java-build
+# Accept proxy build-args so Gradle can reach Maven Central behind corporate proxies
+ARG http_proxy
+ARG https_proxy
+ARG HTTP_PROXY
+ARG HTTPS_PROXY
 COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
 RUN ls -l /home/gradle/src/
+# Ensure bnd local-deployment directory exists (cnf/cache is copied from local workspace)
+RUN mkdir -p /home/gradle/src/cnf/local
+# Diagnostics: verify p2 cache was copied correctly
+RUN ls /home/gradle/src/cnf/cache/ && echo "---p2---" && ls /home/gradle/src/cnf/cache/p2-Platform_R-4.35-202502280140/ | head -5 && stat /home/gradle/src/cnf/cache/p2-Platform_R-4.35-202502280140/
 # calling gradle explicitly for all platform-independent and linux.gtk projects
-RUN gradle --no-daemon clean \
+# Write proxy into ~/.gradle/gradle.properties using systemProp.* — the official Gradle mechanism
+# that propagates to ALL JVMs including the single-use daemon forked by Gradle 8.x.
+# JAVA_TOOL_OPTIONS carries preferIPv4Stack for all JVM forks.
+RUN set -e; \
+    export JAVA_TOOL_OPTIONS="-Djava.net.preferIPv4Stack=true"; \
+    if [ -n "${http_proxy:-}" ]; then \
+      PH=$(echo "${http_proxy}" | sed 's|.*://||;s|.*@||;s|:.*||'); \
+      PP=$(echo "${http_proxy}" | sed 's|.*://||;s|.*@||;s|[^:]*:||;s|/.*||'); \
+      mkdir -p /home/gradle/.gradle; \
+      printf 'systemProp.http.proxyHost=%s\nsystemProp.http.proxyPort=%s\nsystemProp.https.proxyHost=%s\nsystemProp.https.proxyPort=%s\nsystemProp.http.nonProxyHosts=localhost\n' \
+        "${PH}" "${PP}" "${PH}" "${PP}" > /home/gradle/.gradle/gradle.properties; \
+    fi; \
+    gradle --no-daemon clean \
+    resolve.app.ui_linux.gtk.x86-64 \
+    resolve.12_equinoxapp_linux.gtk.x86-64 \
+    resolve.ui_linux.gtk.x86-64 \
     export.app.ui_linux.gtk.x86-64 \
     export.12_equinoxapp_linux.gtk.x86-64 \
     export.ui_linux.gtk.x86-64
 
 # GOLANG BUILD CONTAINER for easy-novnc
 #   build easy-novnc server
-FROM golang:1.14-buster AS easy-novnc-build
-WORKDIR /src
-RUN go mod init build && \
-    go get github.com/geek1011/easy-novnc@v1.1.0 && \
-    go build -o /bin/easy-novnc github.com/geek1011/easy-novnc
+FROM golang:1.23-bookworm AS easy-novnc-build
+ARG http_proxy
+ARG https_proxy
+ARG HTTP_PROXY
+ARG HTTPS_PROXY
+RUN GONOSUMCHECK=* GONOSUMDB=* GOBIN=/bin go install github.com/geek1011/easy-novnc@v1.1.0
 
 # APPLICATION RUNTIME container
-FROM debian:buster
+FROM debian:bookworm-slim
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -28,8 +53,12 @@ LABEL org.opencontainers.image.authors="dev@klib.io" \
       org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.vcs-url="https://github.com/klibio/example.bnd.rcp" \
       org.label-schema.vcs-ref=$VCS_REF
-# Workaround https://unix.stackexchange.com/questions/2544/how-to-work-around-release-file-expired-problem-on-a-local-mirror
-RUN echo "Acquire::Check-Valid-Until \"false\";\nAcquire::Check-Date \"false\";" | cat > /etc/apt/apt.conf.d/10no--check-valid-until
+# Accept proxy build-args so apt-get works behind corporate proxies;
+# values are empty-string when not supplied (e.g. in GitHub Actions)
+ARG http_proxy
+ARG https_proxy
+ARG HTTP_PROXY
+ARG HTTPS_PROXY
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends \
         openbox \
@@ -65,12 +94,8 @@ RUN groupadd --gid 1000 app && \
     mkdir -p /data
 VOLUME /data
 
-ARG JavaURL=https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.11%2B9/OpenJDK11U-jre_x64_linux_hotspot_11.0.11_9.tar.gz
-SHELL [ "/bin/bash", "-c"]
-RUN cd /data && \
-    wget -q -O - ${JavaURL} | tar -xvz && \
-    JavaURLdecoded=$(echo "$JavaURL" | sed "s/%2B/+/") \
-    extractJavaDir=`expr "${JavaURLdecoded}" : '.*/\(.*\)/.*'`-jre && mv ${extractJavaDir} jre
+# Eclipse Temurin 21 JRE — copied from official image, no download at build time
+COPY --from=eclipse-temurin:21-jre-jammy /opt/java/openjdk /data/jre
 
 COPY --from=java-build /home/gradle/src/example.rcp.app.ui/generated/distributions/executable /data
 COPY --from=java-build /home/gradle/src/example.rcp.ui/generated/distributions/executable/*.jar /data

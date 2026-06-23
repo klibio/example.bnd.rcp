@@ -99,12 +99,12 @@ eclipse.name             = 2025-03
 eclipse.platform.version = R-4.35-202502280140
 eclipse.simu.version     = 202503121000
 
-eclipse.platform.baseurl = http://download.eclipse.org/eclipse/updates
+eclipse.platform.baseurl = https://download.eclipse.org/eclipse/updates
 #eclipse.platform.baseurl = "${fileuri;${user.home}}www/download.eclipse.org/eclipse/updates"
 eclipse.platform.name    = Platform_${eclipse.platform.version}
 eclipse.platform.url     = "${eclipse.platform.baseurl}/${eclipse.version}/${eclipse.platform.version}"
 
-eclipse.simu.baseurl = http://download.eclipse.org/releases
+eclipse.simu.baseurl = https://download.eclipse.org/releases
 #eclipse.simu.baseurl = "${fileuri;${user.home}}www/download.eclipse.org/releases"
 eclipse.simu.name    = "SimuRel_${eclipse.name}_${eclipse.simu.version}"
 eclipse.simu.url     = "${eclipse.simu.baseurl}/${eclipse.name}/${eclipse.simu.version}"

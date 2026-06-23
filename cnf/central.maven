@@ -1,6 +1,11 @@
 # List repository contents using GAV coordinates
+
+# bnd junit tester — needed to activate biz.aQute.junit in OSGi test runs via bnd run
+biz.aQute.bnd:biz.aQute.junit:7.3.0
+
 ch.qos.logback:logback-core:1.2.3
 ch.qos.logback:logback-classic:1.2.3
+org.slf4j:log4j-over-slf4j:2.0.18
 
 org.apache.felix:org.apache.felix.http.jetty:3.4.8
 org.apache.felix:org.apache.felix.webconsole:4.3.8

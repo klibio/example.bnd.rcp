@@ -11,4 +11,5 @@
 
 -runblacklist.win32: \
 	osgi.identity;filter:='(osgi.identity=*macosx*)',\
-	osgi.identity;filter:='(osgi.identity=*linux*)'
+	osgi.identity;filter:='(osgi.identity=*linux*)',\
+	osgi.identity;filter:='(osgi.identity=org.eclipse.swt.win32.win32.aarch64)'

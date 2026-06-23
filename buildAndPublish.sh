@@ -13,9 +13,16 @@ DATE=$(date +'%Y.%m.%d-%H.%M.%S')
 IMAGE="klibio/example.bnd.rcp"
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 echo "# launching docker build for image $IMAGE at $DATE"
+# Pass corporate proxy settings as build-args when present in the environment;
+# no-ops (empty string) when running in GitHub Actions or without a proxy.
+PROXY_ARGS=""
+if [[ -n "${http_proxy:-}" ]]; then
+  PROXY_ARGS="--build-arg http_proxy=$http_proxy --build-arg HTTP_PROXY=$http_proxy --build-arg https_proxy=$http_proxy --build-arg HTTPS_PROXY=$http_proxy"
+fi
 docker build \
   --no-cache \
   --progress=plain \
+  $PROXY_ARGS \
   --build-arg BUILD_DATE=$DATE \
   --build-arg VCS_REF=$(git rev-list -1 HEAD) \
   -t "$IMAGE:$DATE" \
