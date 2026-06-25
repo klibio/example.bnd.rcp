@@ -78,7 +78,7 @@ java -jar biz.aQute.bnd-7.3.0.jar runtests \
 
 # Linux / macOS — substitute the matching .bndrun when available
 java -jar biz.aQute.bnd-7.3.0.jar runtests \
-  example.rcp.app.ui.swtbot.tests/swtbot_win32.win32.x86-64.bndrun
+  example.rcp.app.ui.swtbot.tests/swtbot_*.bndrun
 ```
 
 > **Note:** Use `bnd runtests`, not `bnd test` or `bnd run`.  

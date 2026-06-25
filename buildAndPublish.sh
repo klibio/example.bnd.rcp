@@ -1,13 +1,18 @@
 #!/bin/bash
 
-# env validation
-printf "\n# validate mandatory environment configuration variables\n\n"
-if [[ -z "$DOCKER_USERNAME" || -z "$DOCKER_TOKEN" ]]; 
-  then echo "  missing ENV var DOCKER_USER and DOCKER_TOKEN"; exit 1; 
-  else echo "  found mandatory env vars for DOCKER_USER=$DOCKER_USERNAME and DOCKER_TOKEN=<hidden>"; 
-fi
 # activate bash checks for unset vars, pipe fails
 set -eauo pipefail
+
+# DockerHub credentials are optional for PR builds. If missing, we still run build + PoP
+# and simply skip the publish step.
+printf "\n# validate optional DockerHub environment variables\n\n"
+SHOULD_PUSH=1
+if [[ -z "${DOCKER_USERNAME:-}" || -z "${DOCKER_TOKEN:-}" ]]; then
+  SHOULD_PUSH=0
+  echo "  DockerHub credentials not found - will run build + PoP only, skipping publish"
+else
+  echo "  found DockerHub credentials for DOCKER_USERNAME=$DOCKER_USERNAME and DOCKER_TOKEN=<hidden>"
+fi
 
 DATE=$(date +'%Y.%m.%d-%H.%M.%S')
 IMAGE="klibio/example.bnd.rcp"
@@ -66,18 +71,22 @@ if [ "$line" = "true" ]; then
   docker stop $POP_CONTAINER
   docker rm -f $POP_CONTAINER
 
-  echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  docker push "$IMAGE:$DATE"
-  echo "# successfully pushed $IMAGE:$DATE to DockerHub https://hub.docker.com/r/$IMAGE"
-  if [ "$BRANCH" = "main" ]; then
-    docker push "$IMAGE:latest"
-    echo "# successfully updated $IMAGE:latest image on DockerHub https://hub.docker.com/r/$IMAGE"
+  if [ "$SHOULD_PUSH" = "1" ]; then
+    echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    docker push "$IMAGE:$DATE"
+    echo "# successfully pushed $IMAGE:$DATE to DockerHub https://hub.docker.com/r/$IMAGE"
+    if [ "$BRANCH" = "main" ]; then
+      docker push "$IMAGE:latest"
+      echo "# successfully updated $IMAGE:latest image on DockerHub https://hub.docker.com/r/$IMAGE"
+    fi
+  else
+    echo "# skipping DockerHub publish (no credentials present)"
   fi
   exit 0
 fi
 
-docker stop test
-docker rm -f test
+docker stop $POP_CONTAINER || true
+docker rm -f $POP_CONTAINER || true
 
 echo "PoP failed - aborting build"
 exit 1
