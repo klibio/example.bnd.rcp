@@ -31,9 +31,6 @@ RUN set -e; \
         "${PH}" "${PP}" "${PH}" "${PP}" > /home/gradle/.gradle/gradle.properties; \
     fi; \
     gradle --no-daemon clean \
-    resolve.app.ui_linux.gtk.x86-64 \
-    resolve.12_equinoxapp_linux.gtk.x86-64 \
-    resolve.ui_linux.gtk.x86-64 \
     export.app.ui_linux.gtk.x86-64 \
     export.12_equinoxapp_linux.gtk.x86-64 \
     export.ui_linux.gtk.x86-64
