@@ -28,5 +28,5 @@ jobs:
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
         DOCKER_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-          GITHUB_SHA: ${{ github.sha }}
-          GITHUB_REF_NAME: ${{ github.ref_name }}
+        GITHUB_SHA: ${{ github.sha }}
+        GITHUB_REF_NAME: ${{ github.ref_name }}
