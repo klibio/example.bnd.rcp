@@ -9,10 +9,14 @@ ARG HTTPS_PROXY
 COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
 RUN ls -l /home/gradle/src/
-# Ensure bnd local-deployment directory exists (cnf/cache is copied from local workspace)
-RUN mkdir -p /home/gradle/src/cnf/local
-# Diagnostics: verify p2 cache was copied correctly
-RUN ls /home/gradle/src/cnf/cache/ && echo "---p2---" && ls /home/gradle/src/cnf/cache/p2-Platform_R-4.35-202502280140/ | head -5 && stat /home/gradle/src/cnf/cache/p2-Platform_R-4.35-202502280140/
+# Ensure bnd local directories exist in clean CI checkouts.
+RUN mkdir -p /home/gradle/src/cnf/local /home/gradle/src/cnf/cache
+# Optional diagnostics: local builds may have a pre-populated p2 cache, CI usually does not.
+RUN if [ -d /home/gradle/src/cnf/cache/p2-Platform_R-4.35-202502280140 ]; then \
+            ls /home/gradle/src/cnf/cache/ && echo "---p2---" && ls /home/gradle/src/cnf/cache/p2-Platform_R-4.35-202502280140/ | head -5 && stat /home/gradle/src/cnf/cache/p2-Platform_R-4.35-202502280140/; \
+        else \
+            echo "No pre-populated p2 cache found; Gradle will resolve dependencies online."; \
+        fi
 # calling gradle explicitly for all platform-independent and linux.gtk projects
 # Write proxy into ~/.gradle/gradle.properties using systemProp.* — the official Gradle mechanism
 # that propagates to ALL JVMs including the single-use daemon forked by Gradle 8.x.
