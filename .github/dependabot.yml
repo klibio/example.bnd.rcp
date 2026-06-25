@@ -1,0 +1,28 @@
+version: 2
+updates:
+  - package-ecosystem: gradle
+    directory: "/"
+    schedule:
+      interval: daily
+    cooldown:
+      semver-major-days: 28
+      semver-minor-days: 7
+      semver-patch-days: 3
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: daily
+    cooldown:
+      semver-major-days: 28
+      semver-minor-days: 7
+      semver-patch-days: 3
+
+  - package-ecosystem: docker
+    directory: "/"
+    schedule:
+      interval: daily
+    cooldown:
+      semver-major-days: 28
+      semver-minor-days: 7
+      semver-patch-days: 3
