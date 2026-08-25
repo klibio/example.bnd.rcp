@@ -11,8 +11,6 @@
 Bundle-SymbolicName: example.rcp.app.ui.swtbot.tests;singleton:=true
 Bundle-Version: 0.1.0.${tstamp;yyyyMMdd-HHmmss}
 
-Test-Cases: example.rcp.app.ui.swtbot.tests.SamplePartSWTBotTest
-
 Private-Package: example.rcp.app.ui.swtbot.tests
 
 # org.eclipse.core.runtime is a split package: both org.eclipse.core.runtime and

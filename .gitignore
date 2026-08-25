@@ -1,11 +1,13 @@
 # Eclipse Workspace metadata
 .metadata
 .classpath
+.settings/
 .project
 # Mac OS detritus
 .DS_Store
 
 .gradle/
+.gradle-local/
 cnf/cache/
 bin/
 bin_test/
