@@ -1,0 +1,4 @@
+# ignore all files in this directory, except for .gitignore itself
+# allows persisting of empy directories in git
+*
+!.gitignore

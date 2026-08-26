@@ -1,8 +1,9 @@
 # Eclipse Workspace metadata
 .metadata
-.classpath
-.settings/
 .project
+.classpath
+# Eclipse Buildship metadata
+**/.settings/
 # Mac OS detritus
 .DS_Store
 

@@ -14,6 +14,11 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.osgi.service.runnable.ApplicationLauncher;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
+import org.eclipse.swt.graphics.ImageLoader;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -184,7 +189,9 @@ public class SamplePartSWTBotTest {
         }, TIMEOUT_MS);
         SWTBotShell mainShell = bot.shell(MAIN_WINDOW_TITLE);
         mainShell.activate();
-        SWTUtils.captureScreenshot(SWTBotPreferences.SCREENSHOTS_DIR + File.separator + "01_main_window_open.png");
+        captureScreen("01_main_window_open_screen.png");
+        captureShell(mainShell, "01_main_window_open_shell.png");
+        captureSWT(mainShell, "01_main_window_open_swt.png");
 
         // ── Step 2: Verify the "Sample Part" tab is visible ───────────────────
         bot.cTabItem(SAMPLE_PART_TITLE).activate();
@@ -198,7 +205,9 @@ public class SamplePartSWTBotTest {
         assertEquals("Sample item 3", table.getTableItem(2).getText());
         assertEquals("Sample item 4", table.getTableItem(3).getText());
         assertEquals("Sample item 5", table.getTableItem(4).getText());
-        SWTUtils.captureScreenshot(SWTBotPreferences.SCREENSHOTS_DIR + File.separator + "02_table_verified.png");
+        captureScreen("02_table_verified_screen.png");
+        captureShell(mainShell, "02_table_verified_shell.png");
+        captureSWT(mainShell, "02_table_verified_swt.png");
 
         // ── Step 4: Invoke File → Quit and confirm ───────────────────────────
         // QuitHandler.execute() calls MessageDialog.openConfirm() which enters a
@@ -232,7 +241,9 @@ public class SamplePartSWTBotTest {
         }, "quit-dialog-watchdog");
         quitWatchdog.setDaemon(true);
         quitWatchdog.start();
-        SWTUtils.captureScreenshot(SWTBotPreferences.SCREENSHOTS_DIR + File.separator + "03_before_quit.png");
+        captureScreen("03_before_quit_screen.png");
+        captureShell(mainShell, "03_before_quit_shell.png");
+        captureSWT(mainShell, "03_before_quit_swt.png");
 
         bot.menu("File").menu("Quit").click();
         quitWatchdog.join(TIMEOUT_MS);
@@ -292,5 +303,88 @@ public class SamplePartSWTBotTest {
             }
         }
         return false;
+    }
+
+    /** Captures the full desktop/screen via SWTBot utility. */
+    private static void captureScreen(String fileName) {
+        SWTUtils.captureScreenshot(screenshotPath(fileName));
+    }
+
+    /** Captures shell client area by reading pixels from the shell widget. */
+    private static void captureShell(SWTBotShell shell, String fileName) {
+        if (shell == null || shell.widget == null || shell.widget.isDisposed()) {
+            return;
+        }
+        final Display display = Display.getDefault();
+        if (display == null || display.isDisposed()) {
+            return;
+        }
+        final Shell swtShell = shell.widget;
+        final String outputPath = screenshotPath(fileName);
+
+        display.syncExec(() -> {
+            if (display.isDisposed() || swtShell.isDisposed()) {
+                return;
+            }
+            Rectangle area = swtShell.getClientArea();
+            if (area.width <= 0 || area.height <= 0) {
+                return;
+            }
+
+            Image image = new Image(display, area.width, area.height);
+            GC gc = new GC(swtShell);
+            try {
+                gc.copyArea(image, 0, 0);
+                ImageLoader loader = new ImageLoader();
+                loader.data = new ImageData[] { image.getImageData() };
+                loader.save(outputPath, SWT.IMAGE_PNG);
+            } finally {
+                gc.dispose();
+                image.dispose();
+            }
+        });
+    }
+
+    /**
+     * Captures the shell rectangle directly from SWT Display pixels.
+     *
+     * This variant avoids SWTBot wrappers and uses SWT GC copyArea.
+     */
+    private static void captureSWT(SWTBotShell shell, String fileName) {
+        if (shell == null || shell.widget == null || shell.widget.isDisposed()) {
+            return;
+        }
+        final Display display = Display.getDefault();
+        if (display == null || display.isDisposed()) {
+            return;
+        }
+        final Shell swtShell = shell.widget;
+        final String outputPath = screenshotPath(fileName);
+
+        display.syncExec(() -> {
+            if (display.isDisposed() || swtShell.isDisposed()) {
+                return;
+            }
+            Rectangle bounds = swtShell.getBounds();
+            if (bounds.width <= 0 || bounds.height <= 0) {
+                return;
+            }
+
+            Image image = new Image(display, bounds.width, bounds.height);
+            GC gc = new GC(display);
+            try {
+                gc.copyArea(image, bounds.x, bounds.y);
+                ImageLoader loader = new ImageLoader();
+                loader.data = new ImageData[] { image.getImageData() };
+                loader.save(outputPath, SWT.IMAGE_PNG);
+            } finally {
+                gc.dispose();
+                image.dispose();
+            }
+        });
+    }
+
+    private static String screenshotPath(String fileName) {
+        return SWTBotPreferences.SCREENSHOTS_DIR + File.separator + fileName;
     }
 }

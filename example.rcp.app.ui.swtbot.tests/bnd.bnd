@@ -11,7 +11,15 @@
 Bundle-SymbolicName: example.rcp.app.ui.swtbot.tests;singleton:=true
 Bundle-Version: 0.1.0.${tstamp;yyyyMMdd-HHmmss}
 
-Private-Package: example.rcp.app.ui.swtbot.tests
+# Manifest header consumed by biz.aQute.junit automatic mode (Eclipse IDE
+# "Bnd OSGi Test Launcher (JUnit)" on a bndrun sets no tester.names, so the
+# tester discovers test bundles ONLY via this header).
+Test-Cases: ${classes;CONCRETE;ANNOTATED;org.junit.Test}
+
+# The Gradle testOSGi task would otherwise launch this bare project (no -runfw,
+# no runbundles) just because Test-Cases is set. Tests run via the bndrun:
+#   java -jar biz.aQute.bnd.jar runtests <this project>/swtbot_win32.win32.x86-64.bndrun
+-nojunitosgi: true
 
 # org.eclipse.core.runtime is a split package: both org.eclipse.core.runtime and
 # org.eclipse.equinox.common contribute classes to it (Platform vs IStatus/ILogListener).
