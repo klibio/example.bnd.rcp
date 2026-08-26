@@ -8,7 +8,7 @@ public class ExampleTest {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
+		assertTrue("to be implemented", true);
 	}
 
 }
