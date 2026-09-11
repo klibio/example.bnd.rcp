@@ -40,15 +40,20 @@ jobs:
 
       - name: Run all Gradle tests
         shell: bash
-        run: ./gradlew test --no-daemon
+        run: ./gradlew build --no-daemon
 
       - name: Run SWTBot UI tests
         shell: bash
         run: |
+          gradle_tasks=(
+            :example.rcp.app.ui:jar
+            :example.rcp.app.ui.swtbot.tests:jar
+            :example.rcp.app.ui.swtbot.tests:${{ matrix.swtbot_task }}
+          )
           if [[ "${{ runner.os }}" == "Linux" ]]; then
-            xvfb-run --auto-servernum ./gradlew :example.rcp.app.ui.swtbot.tests:${{ matrix.swtbot_task }} --no-daemon
+            xvfb-run --auto-servernum ./gradlew "${gradle_tasks[@]}" --no-daemon
           else
-            ./gradlew :example.rcp.app.ui.swtbot.tests:${{ matrix.swtbot_task }} --no-daemon
+            ./gradlew "${gradle_tasks[@]}" --no-daemon
           fi
 
       - name: Upload test results and screenshots
