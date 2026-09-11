@@ -3,17 +3,17 @@
     <menu id="root-menu" label="Openbox 3">
         <item label="Eclipse 4 RCP Application">
             <action name="Execute">
-                <execute>/data/jre/bin/java -jar /data/app.ui_linux.gtk.x86-64.jar</execute>
+                <execute>/data/run-app.sh /data/app.ui_linux.gtk.x86-64.jar</execute>
             </action>
         </item>
         <item label="Eclipse SWT Dialog">
             <action name="Execute">
-                <execute>/data/jre/bin/java -jar /data/ui_linux.gtk.x86-64.jar</execute>
+                <execute>/data/run-app.sh /data/ui_linux.gtk.x86-64.jar</execute>
             </action>
         </item>
         <item label="Eclipse Equinox App - Terminal">
             <action name="Execute">
-                <execute>/usr/bin/x-terminal-emulator -e /data/jre/bin/java -jar /data/12_equinoxapp_linux.gtk.x86-64.jar</execute>
+                <execute>/usr/bin/x-terminal-emulator -e /data/run-app.sh /data/12_equinoxapp_linux.gtk.x86-64.jar</execute>
             </action>
         </item>
         <item label="Terminal">
