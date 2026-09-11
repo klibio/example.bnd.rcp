@@ -63,7 +63,7 @@ Every bundle's `bnd.bnd` follows this structure:
 -include: ${workspace}/cnf/fixedIndices/bnd_buildpath_Eclipse_Platform.bndrun
 
 -buildpath: \
-    ${fea_org.eclipse.rcp_4.35.0.v20250228-0640},\
+    org.eclipse.e4.rcp;version='4.35.0.v20250228-0640';type=org.eclipse.update.feature,\
     <other deps>
 
 -includeresource: ./root/
@@ -76,6 +76,7 @@ Private-Package: \
 ```
 
 - Non-API packages go in `Private-Package`; only public API goes in `Export-Package`
+- Eclipse features are first-class buildpath entries. Reference them with their bundle identity, exact version, and `type=org.eclipse.update.feature`; bnd expands their member bundles.
 - Static resources (icons, CSS, model files) live in `root/` and are included via `-includeresource: ./root/`
 - Use `${project.name}` macro for `Bundle-SymbolicName` — never hard-code it
 

@@ -1,12 +1,9 @@
 -include: \
 	01_headless.bndrun,\
-	${workspace}/cnf/shared/linux.gtk.x86-64.bndrun,\
-    ${workspace}/cnf/fixedIndices/bnd_runrequires_Eclipse_Platform.bndrun
+	${workspace}/cnf/shared/linux.gtk.x86-64.bndrun
     
 -runrequires.linux: \
 	osgi.identity;filter:='(&(osgi.identity=bndtools.runtime.applaunch.eclipse4)(version>=0.1.0))',\
-	${fea_org.eclipse.e4.rcp_4.35.0.v20250228-0640},\
-	${fea_org.eclipse.e4.rcp_4.35.0.v20250228-0640_PLATFORM_linux.gtk.x86-64},\
 	bnd.identity;id='example.osgi.services.equinoxapp',\
 	bnd.identity;id='example.osgi.services.immediate'
 	

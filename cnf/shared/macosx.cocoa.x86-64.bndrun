@@ -1,6 +1,6 @@
 # This run file contains only the platform specific properties and settings to run Bndtools.
 -runvm.macos:
-	-XstartOnFirstThread,\
+	-XstartOnFirstThread \
 	-Dorg.eclipse.swt.internal.carbon.smallFonts
 	
 -runsystemcapabilities.macos: \

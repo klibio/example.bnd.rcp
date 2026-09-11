@@ -1,6 +1,0 @@
-Bundle-Version: 0.1.0.${tstamp;yyyyMMdd-HHmmss}
-
-Private-Package: \
-	io.klib.tools.ecl2bnd,\
-	io.klib.tools.ecl2bnd.model.bnd,\
-	io.klib.tools.ecl2bnd.model.eclipse
