@@ -1,6 +1,5 @@
 -include: \
-	01_headless.bndrun,\
-    ${workspace}/cnf/fixedIndices/bnd_runrequires_Eclipse_Platform.bndrun
+	01_headless.bndrun
 
 -resolve.effective: active
 

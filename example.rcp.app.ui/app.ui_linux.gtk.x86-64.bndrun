@@ -2,7 +2,4 @@
     app.ui_shared.bndrun,\
     ${workspace}/cnf/shared/linux.gtk.x86-64.bndrun
 
--runrequires.linux: \
-	${fea_org.eclipse.e4.rcp_4.35.0.v20250228-0640_PLATFORM_linux.gtk.x86-64}
-
 

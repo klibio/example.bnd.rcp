@@ -15,9 +15,6 @@ Test-Cases: example.rcp.app.ui.swtbot.tests.SamplePartSWTBotTest
 	tester.separatethread=true,\
 	tester.unresolved=false
 
--runrequires.linux: \
-    ${fea_org.eclipse.e4.rcp_4.35.0.v20250228-0640_PLATFORM_linux.gtk.x86-64}
-
 -runblacklist.enroute: \
     osgi.identity;filter:='(osgi.identity=osgi.cmpn)',\
     osgi.identity;filter:='(osgi.identity=osgi.enterprise)',\

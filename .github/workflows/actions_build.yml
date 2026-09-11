@@ -14,6 +14,58 @@ on:
      - 'main'
 
 jobs:
+  ci:
+    name: CI (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            swtbot_task: testrun.swtbot_linux.gtk.x86-64
+          - os: windows-latest
+            swtbot_task: testrun.swtbot_win32.win32.x86-64
+          - os: macos-latest
+            swtbot_task: testrun.swtbot_macosx.cocoa.aarch64
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Run all Gradle tests
+        shell: bash
+        run: ./gradlew build --no-daemon
+
+      - name: Run SWTBot UI tests
+        shell: bash
+        run: |
+          gradle_tasks=(
+            :example.rcp.app.ui:jar
+            :example.rcp.app.ui.swtbot.tests:jar
+            :example.rcp.app.ui.swtbot.tests:${{ matrix.swtbot_task }}
+          )
+          if [[ "${{ runner.os }}" == "Linux" ]]; then
+            xvfb-run --auto-servernum ./gradlew "${gradle_tasks[@]}" --no-daemon
+          else
+            ./gradlew "${gradle_tasks[@]}" --no-daemon
+          fi
+
+      - name: Upload test results and screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ runner.os }}
+          if-no-files-found: warn
+          path: |
+            **/reports/**
+            **/screenshots/**
+
   start:
     runs-on: ubuntu-latest
     steps:

@@ -1,12 +1,16 @@
--include: \
-    ${workspace}/cnf/fixedIndices/bnd_buildpath_Eclipse_Platform.bndrun
-
 -buildpath: \
-	${fea_org.eclipse.rcp_4.35.0.v20250228-0640},\
+	junit:junit,\
+	osgi.core;version=7.0.0,\
+	org.eclipse.core.runtime,\
+	org.eclipse.equinox.common,\
+	org.eclipse.osgi,\
+	org.eclipse.swt,\
+	org.eclipse.swt.win32.win32.x86_64,\
 	org.eclipse.swtbot.swt.finder,\
+	org.junit,\
 	org.eclipse.swtbot.junit4_x,\
-	${junit},\
-	slf4j.api
+	slf4j.api,\
+	org.hamcrest
 
 Bundle-SymbolicName: example.rcp.app.ui.swtbot.tests;singleton:=true
 Bundle-Version: 0.1.0.${tstamp;yyyyMMdd-HHmmss}

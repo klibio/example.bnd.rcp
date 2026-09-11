@@ -29,7 +29,7 @@ See the project [![Project](https://img.shields.io/badge/Project-Wiki-blueviolet
 |------|---------|-------|
 | Java JDK | 21 | Any distribution, e.g. [Eclipse Temurin](https://adoptium.net/). Must be on `PATH` or `JAVA_HOME` set. |
 | Gradle | wrapper | `./gradlew` / `gradlew.bat` included — no separate install required. |
-| bnd CLI | 7.3.0 | `biz.aQute.bnd-7.3.0.jar` is **committed to the workspace root** — no download needed. If you need to refresh it, download from [Maven Central](https://search.maven.org/artifact/biz.aQute.bnd/biz.aQute.bnd/7.3.0/jar) or [GitHub Releases](https://github.com/bndtools/bnd/releases/tag/7.3.0). |
+| bnd CLI | 7.3.0 | Needed for the SWTBot command below. The Gradle build resolves bnd automatically; download the standalone jar from [Maven Central](https://search.maven.org/artifact/biz.aQute.bnd/biz.aQute.bnd/7.3.0/jar) or [GitHub Releases](https://github.com/bndtools/bnd/releases/tag/7.3.0). |
 | Graphical display | — | Required for the SWTBot test suite (Windows desktop or X11 on Linux). |
 
 ## Build
@@ -52,20 +52,20 @@ See the project [![Project](https://img.shields.io/badge/Project-Wiki-blueviolet
 
 ## Run exported artifacts
 
-After the export Gradle task completes, launch the product directly:
+After the export Gradle task completes, launch the generated product directly:
 
 ```bash
 # Linux — Eclipse 4 RCP product
-./example.rcp.app.ui/_export/linux.gtk.x86-64/eclipse
+./example.rcp.app.ui/generated/distributions/executable/eclipse
 
 # Linux — Headless Equinox application
-./example.rcp.headless/_export/linux.gtk.x86-64/eclipse
+./example.rcp.headless/generated/distributions/executable/eclipse
 
 # Linux — SWT dialog application
-./example.rcp.ui/_export/linux.gtk.x86-64/eclipse
+./example.rcp.ui/generated/distributions/executable/eclipse
 ```
 
-On Windows, replace `eclipse` with `eclipse.exe` and the path token `linux.gtk.x86-64` with `win32.win32.x86-64`.
+On Windows, replace `eclipse` with `eclipse.exe`.
 
 ## Run the test suite (SWTBot UI tests)
 
@@ -73,7 +73,7 @@ The SWTBot test suite launches the full Eclipse 4 RCP application in-process and
 
 ```bash
 # Windows — from the workspace root
-java -jar biz.aQute.bnd-7.3.0.jar runtests \
+java -jar /path/to/biz.aQute.bnd-7.3.0.jar runtests \
   example.rcp.app.ui.swtbot.tests/swtbot_win32.win32.x86-64.bndrun
 
 # Linux / macOS — substitute the matching .bndrun when available
@@ -89,18 +89,18 @@ java -jar biz.aQute.bnd-7.3.0.jar runtests \
 
 | Path | Contents |
 |------|----------|
-| `reports/TEST-*.xml` | JUnit XML report (parsed by CI / IDEs) |
-| `reports/TEST-*.html` | Human-readable HTML summary |
-| `reports/summary.xml` | Run-level summary with duration |
+| `reports/TEST-*.xml` | JUnit XML report (generated and parsed by CI / IDEs) |
+| `reports/TEST-*.html` | Human-readable HTML summary (generated) |
+| `reports/summary.xml` | Run-level summary with duration (generated) |
 | `example.rcp.app.ui.swtbot.tests/screenshots/` | PNG screenshots captured at key test steps |
 
-Screenshot filenames:
+Screenshot filenames use these generated patterns:
 
-| File | Captured at |
-|------|-------------|
-| `01_main_window_open.png` | After the main application shell becomes active |
-| `02_table_verified.png` | After the Sample Part table row-count assertion passes |
-| `03_before_quit.png` | Immediately before the File → Quit sequence |
+| Pattern | Captured at |
+|---------|-------------|
+| `01_main_window_open_{screen,shell,swt}.png` | After the main application shell becomes active |
+| `02_table_verified_{screen,shell,swt}.png` | After the Sample Part table row-count assertion passes |
+| `03_before_quit_{screen,shell,swt}.png` | Immediately before the File → Quit sequence |
 
 Screenshots persist across `osgi.clean=true` restarts because they are written outside the bnd-managed `_rt/` directory (resolved from the bundle jar location: `<project>/screenshots/`).
 

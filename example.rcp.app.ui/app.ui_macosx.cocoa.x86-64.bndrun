@@ -2,9 +2,6 @@
     app.ui_shared.bndrun,\
 	${workspace}/cnf/shared/macosx.cocoa.x86-64.bndrun
 
--runrequires.win32: \
-	${fea_org.eclipse.e4.rcp_4.18.0.v20201202-1103_PLATFORM_macosx.cocoa.x86-64}
-
 -runbundles: \
 	bndtools.runtime.applaunch.eclipse4;version='[0.1.0,0.1.1)',\
 	com.ibm.icu;version='[67.1.0,67.1.1)',\

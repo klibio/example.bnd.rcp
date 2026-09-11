@@ -1,8 +1,8 @@
 # This run file contains only the platform specific properties and settings to run Bndtools.
 -runvm.macos: \
-  -XstartOnFirstThread, \
-  -Djava.awt.headless=true, \
-  -Dorg.eclipse.swt.internal.carbon.smallFonts
+	-XstartOnFirstThread, \
+	-Djava.awt.headless=true, \
+	-Dorg.eclipse.swt.internal.carbon.smallFonts
 
 -runsystemcapabilities.macos: \
 	osgi.native;osgi.native.osname:List<String>="macosx";osgi.native.processor:List<String>="aarch64"

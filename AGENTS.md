@@ -99,7 +99,7 @@ docker run -d -p 5800:5800 klibio/example.bnd.rcp
 -include: ${workspace}/cnf/fixedIndices/bnd_buildpath_Eclipse_Platform.bndrun
 
 -buildpath: \
-    ${fea_org.eclipse.rcp_4.35.0.v20250228-0640},\
+    org.eclipse.e4.rcp;version='4.35.0.v20250228-0640';type=org.eclipse.update.feature,\
     jakarta.inject.jakarta.inject-api,\
     jakarta.annotation-api
 
@@ -114,6 +114,7 @@ Private-Package: \
 
 **Rules**:
 - Always use `${project.name}` macro — never hard-code `Bundle-SymbolicName`
+- Eclipse features are first-class buildpath entries. Reference them with their bundle identity, exact version, and `type=org.eclipse.update.feature`; bnd expands their member bundles.
 - Non-API packages → `Private-Package`; only published API → `Export-Package`
 - Static resources (icons, CSS, model files) → `root/` directory, included via `-includeresource: ./root/`
 - Maven POM generation is automatic (`-pom: true` in `cnf/build.bnd`) — do not add manual POM files
