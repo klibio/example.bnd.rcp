@@ -82,17 +82,22 @@ RUN apt-get update -y && \
     apt-get install -y --no-install-recommends lxterminal wget openssh-client rsync ca-certificates xdg-utils htop tar xzip gzip bzip2 zip unzip && \
     rm -rf /var/lib/apt/lists
 
+RUN mkdir -p /var/lib/openbox
+
 COPY --from=easy-novnc-build /bin/easy-novnc /usr/local/bin/
 COPY menu.xml /etc/xdg/openbox/
+COPY menu.xml /var/lib/openbox/debian-menu.xml
 COPY supervisord.conf /etc/
 COPY pop/pop.sh /data/pop.sh
+COPY pop/run-app.sh /data/run-app.sh
 
-EXPOSE 8080
+EXPOSE 5800
 
 #add unix user and group with specific home dir
 RUN groupadd --gid 1000 app && \
     useradd --home-dir /data --shell /bin/bash --uid 1000 --gid 1000 app && \
-    mkdir -p /data
+    mkdir -p /data && \
+    chmod 755 /data/pop.sh /data/run-app.sh
 VOLUME /data
 
 # Eclipse Temurin 21 JRE — copied from official image, no download at build time

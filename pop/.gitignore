@@ -3,3 +3,4 @@
 # except this file
 !.gitignore
 !pop.sh
+!run-app.sh

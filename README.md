@@ -104,28 +104,58 @@ Screenshot filenames use these generated patterns:
 
 Screenshots persist across `osgi.clean=true` restarts because they are written outside the bnd-managed `_rt/` directory (resolved from the bundle jar location: `<project>/screenshots/`).
 
-# Try it out (local [Docker](https://www.docker.com/) installation required)
+# Try it out ([Docker](https://www.docker.com/) installation required)
 
-## Build the container image
+## Run the published Docker Hub image
+
+The latest image is published at [Docker Hub](https://hub.docker.com/r/klibio/example.bnd.rcp). Pull it and start the application:
+
+```bash
+# bash
+docker pull klibio/example.bnd.rcp:latest
+docker container run -d \
+  -p 5800:5800/tcp \
+  klibio/example.bnd.rcp:latest
+```
+```powershell
+# PowerShell
+docker pull klibio/example.bnd.rcp:latest
+docker container run -d `
+  -p 5800:5800/tcp `
+  klibio/example.bnd.rcp:latest
+```
+
+Branch builds are also published with a Docker-safe branch tag. For example, a build from branch `feature/docker-branch-tags` is available as `feature-docker-branch-tags`:
+
+```bash
+docker pull klibio/example.bnd.rcp:feature-docker-branch-tags
+docker container run -d \
+  -p 5800:5800/tcp \
+  klibio/example.bnd.rcp:feature-docker-branch-tags
+```
+
+Each branch tag is replaced by the newest successful build from that branch. Timestamp tags remain available for immutable builds.
+
+## Build the container image from source
 
 ```bash
 # Build from source (exports all three Linux application types internally)
 docker build -t klibio/example.bnd.rcp .
 ```
 
-## Launch the application container
+Launch the locally built image:
 
 ```bash
 # bash
 docker container run -d \
   -p 5800:5800/tcp \
-  klibio/example.bnd.rcp
+  klibio/example.bnd.rcp:latest
 ```
 ```powershell
 # PowerShell
 docker container run -d `
   -p 5800:5800/tcp `
-  klibio/example.bnd.rcp
+  klibio/example.bnd.rcp:latest
 ```
 
 ## Access the UI via web browser — http://localhost:5800

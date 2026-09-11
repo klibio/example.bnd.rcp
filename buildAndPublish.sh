@@ -17,6 +17,11 @@ fi
 DATE=$(date +'%Y.%m.%d-%H.%M.%S')
 IMAGE="klibio/example.bnd.rcp"
 BRANCH="${GITHUB_REF_NAME:-$(git rev-parse --abbrev-ref HEAD)}"
+BRANCH_TAG=$(printf '%s' "$BRANCH" | tr '[:upper:]' '[:lower:]' | sed -E 's#[^a-z0-9_.-]+#-#g; s#^[.-]+##; s#[.-]+$##' | cut -c1-128)
+if [[ -z "$BRANCH_TAG" ]]; then
+  echo "ERROR: branch name '$BRANCH' cannot be converted to a Docker tag" >&2
+  exit 2
+fi
 GIT_SHA="${GITHUB_SHA:-$(git rev-list -1 HEAD)}"
 echo "# launching docker build for image $IMAGE at $DATE"
 # Pass corporate proxy settings as build-args when present in the environment;
@@ -32,7 +37,7 @@ docker build \
   --build-arg BUILD_DATE=$DATE \
   --build-arg VCS_REF=$GIT_SHA \
   -t "$IMAGE:$DATE" \
-  -t "$IMAGE:latest" \
+  -t "$IMAGE:$BRANCH_TAG" \
   .
 
 POP_CONTAINER=popContainer
@@ -76,7 +81,10 @@ if [ "$line" = "true" ]; then
     echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
     docker push "$IMAGE:$DATE"
     echo "# successfully pushed $IMAGE:$DATE to DockerHub https://hub.docker.com/r/$IMAGE"
+    docker push "$IMAGE:$BRANCH_TAG"
+    echo "# successfully pushed $IMAGE:$BRANCH_TAG to DockerHub https://hub.docker.com/r/$IMAGE"
     if [ "$BRANCH" = "main" ]; then
+      docker tag "$IMAGE:$DATE" "$IMAGE:latest"
       docker push "$IMAGE:latest"
       echo "# successfully updated $IMAGE:latest image on DockerHub https://hub.docker.com/r/$IMAGE"
     fi
